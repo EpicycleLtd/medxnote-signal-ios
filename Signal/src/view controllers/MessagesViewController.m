@@ -204,10 +204,10 @@ typedef enum : NSUInteger {
     [self initializeTextView];
 
     [JSQMessagesCollectionViewCell registerMenuAction:@selector(delete:)];
-    SEL saveSelector = NSSelectorFromString(@"save:");
-    [JSQMessagesCollectionViewCell registerMenuAction:saveSelector];
-    [UIMenuController sharedMenuController].menuItems = @[ [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"EDIT_ITEM_SAVE_ACTION", @"Short name for edit menu item to save contents of media message.")
-                                                                                      action:saveSelector] ];
+//    SEL saveSelector = NSSelectorFromString(@"save:");
+//    [JSQMessagesCollectionViewCell registerMenuAction:saveSelector];
+//    [UIMenuController sharedMenuController].menuItems = @[ [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"EDIT_ITEM_SAVE_ACTION", @"Short name for edit menu item to save contents of media message.")
+//                                                                                      action:saveSelector] ];
 
     [self initializeCollectionViewLayout];
     [self registerCustomMessageNibs];
