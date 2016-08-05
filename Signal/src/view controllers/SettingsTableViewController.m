@@ -28,19 +28,19 @@
 #define kProfileCellHeight 87.0f
 #define kStandardCellHeight 44.0f
 
-#define kNumberOfSections 4
+#define kNumberOfSections 3
 
 #define kRegisteredNumberRow 0
 #define kPrivacyRow 0
 #define kNotificationRow 1
-#define kAdvancedRow 2
-#define kAboutRow 3
+#define kAdvancedRow 3
+#define kAboutRow 2
 #define kNetworkRow 0
 #define kUnregisterRow 0
 
 typedef enum {
     kRegisteredRows    = 1,
-    kGeneralRows       = 4,
+    kGeneralRows       = 3,
     kNetworkStatusRows = 1,
     kUnregisterRows    = 1,
 } kRowsForSection;

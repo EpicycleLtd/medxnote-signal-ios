@@ -80,7 +80,9 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    // Auxenta : Removing the Invite cell.
+    //return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -100,9 +102,10 @@
     switch (section) {
         case 0:
             return NSLocalizedString(@"SETTINGS_INFORMATION_HEADER", @"");
+        // Auxenta : Removing the Invite cell.
+        // case 1:
+        //    return NSLocalizedString(@"SETTINGS_INVITE_HEADER", @"");
         case 1:
-            return NSLocalizedString(@"SETTINGS_INVITE_HEADER", @"");
-        case 2:
             return NSLocalizedString(@"SETTINGS_HELP_HEADER", @"");
 
         default:
@@ -114,9 +117,10 @@
     switch (indexPath.section) {
         case 0:
             return self.versionCell;
+        // Auxenta : Removing the Invite cell.
+        //case 1:
+        //    return self.twitterInviteCell;
         case 1:
-            return self.twitterInviteCell;
-        case 2:
             return self.supportCell;
     }
 
@@ -127,11 +131,12 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     switch (indexPath.section) {
+        // Auxenta : Removing the Invite cell.
+        //case 1:
+        //    [self tappedInviteTwitter];
+        //    break;
         case 1:
-            [self tappedInviteTwitter];
-            break;
-        case 2:
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://support.whispersystems.org"]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://medxnote.com"]];
             break;
 
         default:

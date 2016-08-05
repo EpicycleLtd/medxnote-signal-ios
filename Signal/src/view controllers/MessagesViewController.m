@@ -50,6 +50,7 @@
 #import "TSMessagesManager+sendMessages.h"
 #import "UIFont+OWS.h"
 #import "UIUtil.h"
+#import "UIImage+normalizeImage.h"
 
 @import Photos;
 
@@ -258,6 +259,8 @@ typedef enum : NSUInteger {
     [self.inputToolbar.contentView.textView setFont:[UIFont ows_dynamicTypeBodyFont]];
 
     self.inputToolbar.contentView.leftBarButtonItem = self.attachButton;
+    self.inputToolbar.contentView.textView.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.inputToolbar.contentView.textView.spellCheckingType = UITextSpellCheckingTypeNo;
 
     UILabel *sendLabel = self.inputToolbar.contentView.rightBarButtonItem.titleLabel;
     // override superclass translations since we support more translations than upstream.
@@ -477,7 +480,9 @@ typedef enum : NSUInteger {
     // prevent draft from obscuring message history in case user wants to scroll back to refer to something
     // while composing a long message.
     self.inputToolbar.maximumHeight = 300;
-
+/*
+     @Auxenta - Removing call icon from the messages screen
+     @Date - 16/02/2016
     if ([self canCall]) {
         self.navigationItem.rightBarButtonItem =
             [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"btnPhone--white"]
@@ -486,7 +491,9 @@ typedef enum : NSUInteger {
                                             target:self
                                             action:@selector(callAction)];
         self.navigationItem.rightBarButtonItem.imageInsets = UIEdgeInsetsMake(0, -10, 0, 10);
-    } else if ([self.thread isGroupThread]) {
+    } else 
+*/    
+    if ([self.thread isGroupThread]) {
         self.navigationItem.rightBarButtonItem =
             [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"contact-options-action"]
                                                        imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]

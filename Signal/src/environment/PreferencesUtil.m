@@ -83,7 +83,7 @@
     if (preference) {
         return [preference boolValue];
     } else {
-        return NO;
+        return YES;
     }
 }
 
@@ -201,7 +201,7 @@
     if (preference) {
         return [preference unsignedIntegerValue];
     } else {
-        return NotificationNamePreview;
+        return NotificationNameNoPreview;
     }
 }
 

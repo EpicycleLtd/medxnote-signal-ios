@@ -46,9 +46,9 @@ static unsigned char DH3K_PRIME[] = {
                    environmentWithLogging:logging
                             andErrorNoter:errorNoter
                             andServerPort:31337
-                  andMasterServerHostName:@"master.whispersystems.org"
+                  andMasterServerHostName:@"global.textsecure.medx.im"
                       andDefaultRelayName:@"relay"
-             andRelayServerHostNameSuffix:@"whispersystems.org"
+             andRelayServerHostNameSuffix:@"textsecure.medx.im"
                            andCertificate:[Certificate certificateFromResourcePath:@"redphone" ofType:@"cer"]
         andSupportedKeyAgreementProtocols:[self supportedKeyAgreementProtocols]
                           andPhoneManager:[PhoneManager phoneManagerWithErrorHandler:errorNoter]
@@ -70,9 +70,9 @@ static unsigned char DH3K_PRIME[] = {
                    environmentWithLogging:logging
                             andErrorNoter:errorNoter
                             andServerPort:31337
-                  andMasterServerHostName:@"redphone-staging.whispersystems.org"
+                  andMasterServerHostName:@"global.textsecure.medx.im"
                       andDefaultRelayName:@"redphone-staging-relay"
-             andRelayServerHostNameSuffix:@"whispersystems.org"
+             andRelayServerHostNameSuffix:@"textsecure.medx.im"
                            andCertificate:[Certificate certificateFromResourcePath:@"redphone" ofType:@"cer"]
         andSupportedKeyAgreementProtocols:[self supportedKeyAgreementProtocols]
                           andPhoneManager:[PhoneManager phoneManagerWithErrorHandler:errorNoter]
@@ -95,9 +95,9 @@ static unsigned char DH3K_PRIME[] = {
                                  andErrorNoter:^(id error, id relatedInfo, bool causedTermination) {
                                  }
                                  andServerPort:31337
-                       andMasterServerHostName:@"master.whispersystems.org"
+                       andMasterServerHostName:@"global.textsecure.medx.im"
                            andDefaultRelayName:@"relay"
-                  andRelayServerHostNameSuffix:@"whispersystems.org"
+                  andRelayServerHostNameSuffix:@"textsecure.medx.im"
                                 andCertificate:[Certificate certificateFromResourcePath:@"redphone" ofType:@"cer"]
              andSupportedKeyAgreementProtocols:keyAgreementProtocols
                                andPhoneManager:nil

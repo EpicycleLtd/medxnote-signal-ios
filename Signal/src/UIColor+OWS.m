@@ -9,7 +9,8 @@
 + (UIColor *)ows_materialBlueColor
 {
     // blue: #2090EA
-    return [UIColor colorWithRed:32.f / 255.f green:144.f / 255.f blue:234.f / 255.f alpha:1.f];
+    // Auxenta : Changing the color to match medxnote theme.
+    return [UIColor colorWithRed:65.f / 255.f green:178.f / 255.f blue:76.f / 255.f alpha:1.f];
 }
 
 + (UIColor *)ows_blackColor

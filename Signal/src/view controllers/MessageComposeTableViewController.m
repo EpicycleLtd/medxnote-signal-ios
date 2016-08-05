@@ -105,7 +105,7 @@
     // suppose) as the controller must be a TableViewController to have access to the native pull to refresh
     // capabilities. That means we can't do a UIView in the storyboard
     _loadingBackgroundView        = [[UIView alloc] initWithFrame:self.tableView.frame];
-    UIImageView *loadingImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"uiEmpty"]];
+    UIImageView *loadingImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"medxnote-logo"]];
     [loadingImageView setBackgroundColor:[UIColor whiteColor]];
     [loadingImageView setContentMode:UIViewContentModeCenter];
     [loadingImageView setFrame:CGRectMake(self.tableView.frame.size.width / 2.0f - 115.0f / 2.0f, 100, 115, 110)];
@@ -128,7 +128,7 @@
     [_loadingBackgroundView addSubview:loadingLabel];
 
     _emptyBackgroundView        = [[UIView alloc] initWithFrame:self.tableView.frame];
-    UIImageView *emptyImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"uiEmptyContact"]];
+    UIImageView *emptyImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"medxnote-logo"]];
     [emptyImageView setBackgroundColor:[UIColor whiteColor]];
     [emptyImageView setContentMode:UIViewContentModeCenter];
     [emptyImageView setFrame:CGRectMake(self.tableView.frame.size.width / 2.0f - 115.0f / 2.0f, 100, 115, 110)];
@@ -316,7 +316,7 @@
                           [self.currentSearchTerm length] > 0 ? [NSArray arrayWithObject:self.currentSearchTerm] : nil;
                       picker.body = [NSLocalizedString(@"SMS_INVITE_BODY", @"")
                           stringByAppendingString:
-                              @" https://itunes.apple.com/us/app/signal-private-messenger/id874139669?mt=8"];
+                              @" https://itunes.apple.com/app/id947288276?mt=8"];
                       [self presentViewController:picker animated:YES completion:[UIUtil modalCompletionBlock]];
                   } else {
                       UIAlertView *notPermitted =

@@ -30,7 +30,7 @@
 
 
     self.notificationsSections = @[
-        NSLocalizedString(@"NOTIFICATIONS_SECTION_BACKGROUND", nil),
+//        NSLocalizedString(@"NOTIFICATIONS_SECTION_BACKGROUND", nil),
         NSLocalizedString(@"NOTIFICATIONS_SECTION_INAPP", nil)
     ];
 }
@@ -62,7 +62,8 @@
     }
 
     PropertyListPreferences *prefs = Environment.preferences;
-    if (indexPath.section == 0) {
+   // Medx-1 : removing notification preview type. Make it default to 'sender name only'
+/*    if (indexPath.section == 0) {
         NotificationType notifType = [prefs notificationPreviewType];
         NSString *detailString     = [prefs nameForNotificationPreviewType:notifType];
 
@@ -70,6 +71,7 @@
         [[cell detailTextLabel] setText:detailString];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     } else {
+*/
         BOOL soundEnabled = [prefs soundInForeground];
 
         [[cell textLabel] setText:NSLocalizedString(@"NOTIFICATIONS_SOUND", nil)];
@@ -81,7 +83,7 @@
             forControlEvents:UIControlEventValueChanged];
 
         cell.accessoryView = switchv;
-    }
+//    }
 
     return cell;
 }
@@ -91,9 +93,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NotificationSettingsOptionsViewController *vc =
+// Medx-1 : removing selecting background notification show options.
+/*    NotificationSettingsOptionsViewController *vc =
         [[NotificationSettingsOptionsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:vc animated:YES];
+*/
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
