@@ -859,7 +859,7 @@
 		B660F6991C29868000687D6E /* DecayingSampleEstimatorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecayingSampleEstimatorTest.m; sourceTree = "<group>"; };
 		B660F69A1C29868000687D6E /* EventWindowTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventWindowTest.m; sourceTree = "<group>"; };
 		B660F69C1C29868000687D6E /* PushManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushManagerTest.m; sourceTree = "<group>"; };
-		B660F69E1C29868000687D6E /* SignalTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SignalTests-Info.plist"; sourceTree = "<group>"; };
+		B660F69E1C29868000687D6E /* MedxnoteTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MedxnoteTests-Info.plist"; sourceTree = "<group>"; };
 		B660F69F1C29868000687D6E /* whisperFake.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = whisperFake.cer; sourceTree = "<group>"; };
 		B660F6A01C29868000687D6E /* TestUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestUtil.h; sourceTree = "<group>"; };
 		B660F6A11C29868000687D6E /* TestUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUtil.m; sourceTree = "<group>"; };
@@ -957,10 +957,10 @@
 		D221A08D169C9E5E00537ABF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D221A08F169C9E5E00537ABF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D221A091169C9E5E00537ABF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		D221A095169C9E5E00537ABF /* Signal-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Signal-Info.plist"; sourceTree = "<group>"; };
+		D221A095169C9E5E00537ABF /* Medxnote-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Medxnote-Info.plist"; sourceTree = "<group>"; };
 		D221A099169C9E5E00537ABF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D221A09B169C9E5E00537ABF /* Signal-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Signal-Prefix.pch"; sourceTree = "<group>"; };
-		D221A0AA169C9E5F00537ABF /* SignalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SignalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D221A0AA169C9E5F00537ABF /* MedxnoteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MedxnoteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D221A0E7169DFFC500537ABF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = ../../../../../../System/Library/Frameworks/AVFoundation.framework; sourceTree = "<group>"; };
 		D24B5BD4169F568C00681372 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = ../../../../../../System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<group>"; };
 		D2AEACDB16C426DA00C364C0 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -2002,7 +2002,7 @@
 		B660F69D1C29868000687D6E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B660F69E1C29868000687D6E /* SignalTests-Info.plist */,
+				B660F69E1C29868000687D6E /* MedxnoteTests-Info.plist */,
 				B660F69F1C29868000687D6E /* whisperFake.cer */,
 			);
 			path = "Supporting Files";
@@ -2080,7 +2080,7 @@
 			isa = PBXGroup;
 			children = (
 				D221A089169C9E5E00537ABF /* Medxnote.app */,
-				D221A0AA169C9E5F00537ABF /* SignalTests.xctest */,
+				D221A0AA169C9E5F00537ABF /* MedxnoteTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2141,7 +2141,7 @@
 				B6B6C3C419193F5B00C0B76B /* Translations */,
 				E18AB40618A05754001A532A /* AudioFiles */,
 				D221A099169C9E5E00537ABF /* main.m */,
-				D221A095169C9E5E00537ABF /* Signal-Info.plist */,
+				D221A095169C9E5E00537ABF /* Medxnote-Info.plist */,
 				D221A09B169C9E5E00537ABF /* Signal-Prefix.pch */,
 				B661C211198EE2EA00548CA1 /* iOSVersions.h */,
 			);
@@ -2328,9 +2328,9 @@
 			productReference = D221A089169C9E5E00537ABF /* Medxnote.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D221A0A9169C9E5F00537ABF /* SignalTests */ = {
+		D221A0A9169C9E5F00537ABF /* MedxnoteTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D221A0BF169C9E5F00537ABF /* Build configuration list for PBXNativeTarget "SignalTests" */;
+			buildConfigurationList = D221A0BF169C9E5F00537ABF /* Build configuration list for PBXNativeTarget "MedxnoteTests" */;
 			buildPhases = (
 				6565655F4068F9E5CDC5687F /* [CP] Check Pods Manifest.lock */,
 				D221A0A5169C9E5F00537ABF /* Sources */,
@@ -2344,9 +2344,9 @@
 			dependencies = (
 				B6AFCEBB19A93DA60098CFCB /* PBXTargetDependency */,
 			);
-			name = SignalTests;
+			name = MedxnoteTests;
 			productName = RedPhoneTests;
-			productReference = D221A0AA169C9E5F00537ABF /* SignalTests.xctest */;
+			productReference = D221A0AA169C9E5F00537ABF /* MedxnoteTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -2386,7 +2386,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D221A083169C9E5E00537ABF /* Build configuration list for PBXProject "Signal" */;
+			buildConfigurationList = D221A083169C9E5E00537ABF /* Build configuration list for PBXProject "Medxnote" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2447,7 +2447,7 @@
 			projectRoot = "";
 			targets = (
 				D221A088169C9E5E00537ABF /* medxnote */,
-				D221A0A9169C9E5F00537ABF /* SignalTests */,
+				D221A0A9169C9E5F00537ABF /* MedxnoteTests */,
 			);
 		};
 /* End PBXProject section */
@@ -3211,7 +3211,7 @@
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Signal/Signal-Prefix.pch";
+				GCC_PREFIX_HEADER = "Signal/Medxnote-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -3232,7 +3232,7 @@
 					"\"$(SRCROOT)/MMDrawerController\"",
 					"\"$(SRCROOT)/Libraries\"/**",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Signal/Signal-Info.plist";
+				INFOPLIST_FILE = "Signal/Medxnote-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -3267,7 +3267,7 @@
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Signal/Signal-Prefix.pch";
+				GCC_PREFIX_HEADER = "Signal/Medxnote-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					HAVE_CONFIG_H,
@@ -3288,7 +3288,7 @@
 					"\"$(SRCROOT)/MMDrawerController\"",
 					"\"$(SRCROOT)/Libraries\"/**",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Signal/Signal-Info.plist";
+				INFOPLIST_FILE = "Signal/Medxnote-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -3324,7 +3324,7 @@
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Signal/Signal-Prefix.pch";
+				GCC_PREFIX_HEADER = "Signal/Medxnote-Prefix.pch";
 				GCC_VERSION = "";
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = NO;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
@@ -3340,7 +3340,7 @@
 					"\"$(SRCROOT)/spandsp/spandsp/spandsp\"",
 					"\"$(SRCROOT)/Libraries\"/**",
 				);
-				INFOPLIST_FILE = "Signal/test/Supporting Files/SignalTests-Info.plist";
+				INFOPLIST_FILE = "Signal/test/Supporting Files/MedxnoteTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3352,7 +3352,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.whispersystems.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = SignalTests;
+				PRODUCT_NAME = MedxnoteTests;
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				VALID_ARCHS = "arm64 armv7s armv7 i386 x86_64";
@@ -3376,7 +3376,7 @@
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Signal/Signal-Prefix.pch";
+				GCC_PREFIX_HEADER = "Signal/Medxnote-Prefix.pch";
 				GCC_VERSION = "";
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = NO;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
@@ -3392,7 +3392,7 @@
 					"\"$(SRCROOT)/spandsp/spandsp/spandsp\"",
 					"\"$(SRCROOT)/Libraries\"/**",
 				);
-				INFOPLIST_FILE = "Signal/test/Supporting Files/SignalTests-Info.plist";
+				INFOPLIST_FILE = "Signal/test/Supporting Files/MedxnoteTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3404,7 +3404,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.whispersystems.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = SignalTests;
+				PRODUCT_NAME = MedxnoteTests;
 				PROVISIONING_PROFILE = "c15eac58-5aa7-4660-b874-b9f7ed3dab70";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				VALID_ARCHS = "arm64 armv7s armv7 i386 x86_64";
@@ -3414,7 +3414,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D221A083169C9E5E00537ABF /* Build configuration list for PBXProject "Signal" */ = {
+		D221A083169C9E5E00537ABF /* Build configuration list for PBXProject "Medxnote" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D221A0BA169C9E5F00537ABF /* Debug */,
@@ -3432,7 +3432,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "App Store Release";
 		};
-		D221A0BF169C9E5F00537ABF /* Build configuration list for PBXNativeTarget "SignalTests" */ = {
+		D221A0BF169C9E5F00537ABF /* Build configuration list for PBXNativeTarget "MedxnoteTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D221A0C0169C9E5F00537ABF /* Debug */,

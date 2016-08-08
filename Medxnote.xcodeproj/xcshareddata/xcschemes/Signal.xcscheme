@@ -17,7 +17,7 @@
                BlueprintIdentifier = "D221A088169C9E5E00537ABF"
                BuildableName = "Medxnote.app"
                BlueprintName = "medxnote"
-               ReferencedContainer = "container:Signal.xcodeproj">
+               ReferencedContainer = "container:Medxnote.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D221A0A9169C9E5F00537ABF"
                BuildableName = "SignalTests.xctest"
-               BlueprintName = "SignalTests"
-               ReferencedContainer = "container:Signal.xcodeproj">
+               BlueprintName = "MedxnoteTests"
+               ReferencedContainer = "container:Medxnote.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -45,7 +45,7 @@
             BlueprintIdentifier = "D221A088169C9E5E00537ABF"
             BuildableName = "Medxnote.app"
             BlueprintName = "medxnote"
-            ReferencedContainer = "container:Signal.xcodeproj">
+            ReferencedContainer = "container:Medxnote.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <EnvironmentVariables>
@@ -76,7 +76,7 @@
             BlueprintIdentifier = "D221A088169C9E5E00537ABF"
             BuildableName = "Medxnote.app"
             BlueprintName = "medxnote"
-            ReferencedContainer = "container:Signal.xcodeproj">
+            ReferencedContainer = "container:Medxnote.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,7 +95,7 @@
             BlueprintIdentifier = "D221A088169C9E5E00537ABF"
             BuildableName = "Medxnote.app"
             BlueprintName = "medxnote"
-            ReferencedContainer = "container:Signal.xcodeproj">
+            ReferencedContainer = "container:Medxnote.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
