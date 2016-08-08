@@ -1,5 +1,6 @@
 PODS:
   - 25519 (2.0.2)
+  - ABPadLockScreen (3.3.0)
   - AFNetworking (3.1.0):
     - AFNetworking/NSURLSession (= 3.1.0)
     - AFNetworking/Reachability (= 3.1.0)
@@ -113,6 +114,7 @@ PODS:
     - YapDatabase/SQLCipher/Core
 
 DEPENDENCIES:
+  - ABPadLockScreen (~> 3.3.0)
   - DJWActionSheet
   - FFCircularProgressView (~> 0.5)
   - JSQMessagesViewController
@@ -138,6 +140,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   '25519': dc4bad7e2dbcbf1efa121068a705a44cd98c80fc
+  ABPadLockScreen: 7172ae3562258008eb920f5085c23446958c1b39
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AxolotlKit: a33962f26943990e5d69d05b30470cea18caeed0
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
@@ -161,6 +164,6 @@ SPEC CHECKSUMS:
   UnionFind: c33be5adb12983981d6e827ea94fc7f9e370f52d
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
 
-PODFILE CHECKSUM: 6ed4c123b0279f1e073c9d659e325ba6e03e2222
+PODFILE CHECKSUM: 0e7fd98f2980997d38b862930bbc4cfdd2b6d606
 
 COCOAPODS: 1.0.1

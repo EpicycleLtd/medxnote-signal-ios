@@ -124,7 +124,6 @@
 		76EB063818170B33006006FC /* DictionaryUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EB04E918170B33006006FC /* DictionaryUtil.m */; };
 		76EB063A18170B33006006FC /* FunctionalUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EB04EB18170B33006006FC /* FunctionalUtil.m */; };
 		76EB063C18170B33006006FC /* NumberUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EB04ED18170B33006006FC /* NumberUtil.m */; };
-		76EB063E18170B33006006FC /* Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EB04EF18170B33006006FC /* Operation.m */; };
 		76EB064018170B33006006FC /* AnonymousTerminator.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EB04F418170B33006006FC /* AnonymousTerminator.m */; };
 		76EB064218170B33006006FC /* StringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EB04F618170B33006006FC /* StringUtil.m */; };
 		76EB064418170B33006006FC /* ThreadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EB04F818170B33006006FC /* ThreadManager.m */; };
@@ -164,6 +163,9 @@
 		B10C9B601A7049EC00ECA2BF /* pause_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B10C9B5C1A7049EC00ECA2BF /* pause_icon@2x.png */; };
 		B10C9B611A7049EC00ECA2BF /* play_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B10C9B5D1A7049EC00ECA2BF /* play_icon.png */; };
 		B10C9B621A7049EC00ECA2BF /* play_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B10C9B5E1A7049EC00ECA2BF /* play_icon@2x.png */; };
+		B1AD1CE81D57C5840005C9AA /* UIColor+HexValue.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AD1CE71D57C5840005C9AA /* UIColor+HexValue.m */; };
+		B1AD1CEA1D57C8350005C9AA /* MedxPasscodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AD1CE91D57C8350005C9AA /* MedxPasscodeManager.m */; };
+		B1AD1CEC1D57CFD60005C9AA /* Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EB04EF18170B33006006FC /* Operation.m */; };
 		B609597C1C2C0FC6004E8797 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = B609597B1C2C0FC6004E8797 /* iRate.m */; };
 		B60C16651988999D00E97A6C /* VersionMigrations.m in Sources */ = {isa = PBXBuildFile; fileRef = B60C16641988999D00E97A6C /* VersionMigrations.m */; };
 		B60EDE041A05A01700D73516 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B60EDE031A05A01700D73516 /* AudioToolbox.framework */; };
@@ -459,6 +461,7 @@
 		FCD274E21A5AFD8000202277 /* PrivacySettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD274E11A5AFD8000202277 /* PrivacySettingsTableViewController.m */; };
 		FCD274E81A5AFDC900202277 /* AdvancedSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD274E71A5AFDC900202277 /* AdvancedSettingsTableViewController.m */; };
 		FCD274EB1A5AFDDB00202277 /* AboutTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD274EA1A5AFDDB00202277 /* AboutTableViewController.m */; };
+		FCE2A493F73B50521E29B871 /* libPods-medxnote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4231D1094BF88D03A772816 /* libPods-medxnote.a */; };
 		FCFA64B41A24F3880007FB87 /* UIColor+OWS.m in Sources */ = {isa = PBXBuildFile; fileRef = FCFA64B31A24F3880007FB87 /* UIColor+OWS.m */; };
 		FCFA64B71A24F6730007FB87 /* UIFont+OWS.m in Sources */ = {isa = PBXBuildFile; fileRef = FCFA64B61A24F6730007FB87 /* UIFont+OWS.m */; };
 		FCFD256F1A151BCB00F4C644 /* NewGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCFD256E1A151BCB00F4C644 /* NewGroupViewController.m */; };
@@ -505,6 +508,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B9BD7120938EEB0E6EDC65D /* Pods-medxnote.app store release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-medxnote.app store release.xcconfig"; path = "Pods/Target Support Files/Pods-medxnote/Pods-medxnote.app store release.xcconfig"; sourceTree = "<group>"; };
 		4520D8D41D417D8E00123472 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		4526BD481CA61C8D00166BC8 /* OWSMessageEditing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSMessageEditing.h; sourceTree = "<group>"; };
 		453CC0361D08E1A60040EBA3 /* sn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sn; path = translations/sn.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -776,6 +780,12 @@
 		B10C9B5C1A7049EC00ECA2BF /* pause_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause_icon@2x.png"; sourceTree = "<group>"; };
 		B10C9B5D1A7049EC00ECA2BF /* play_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_icon.png; sourceTree = "<group>"; };
 		B10C9B5E1A7049EC00ECA2BF /* play_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_icon@2x.png"; sourceTree = "<group>"; };
+		B1AD1CE51D57C5410005C9AA /* UIColor+HexValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIColor+HexValue.h"; path = "Signal/src/UIColor+HexValue.h"; sourceTree = "<group>"; };
+		B1AD1CE71D57C5840005C9AA /* UIColor+HexValue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIColor+HexValue.m"; path = "Signal/src/UIColor+HexValue.m"; sourceTree = "<group>"; };
+		B1AD1CE91D57C8350005C9AA /* MedxPasscodeManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MedxPasscodeManager.m; path = Signal/src/phone/MedxPasscodeManager.m; sourceTree = "<group>"; };
+		B1AD1CEB1D57CC8D0005C9AA /* MedxPasscodeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MedxPasscodeManager.h; path = Signal/src/phone/MedxPasscodeManager.h; sourceTree = "<group>"; };
+		B4231D1094BF88D03A772816 /* libPods-medxnote.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-medxnote.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5AF97FF4DC1003BA90DC7E1 /* Pods-medxnote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-medxnote.debug.xcconfig"; path = "Pods/Target Support Files/Pods-medxnote/Pods-medxnote.debug.xcconfig"; sourceTree = "<group>"; };
 		B60341CD1AA5469800A01E42 /* ja_JP */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja_JP; path = translations/ja_JP.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B609597A1C2C0FC6004E8797 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iRate.h; path = Libraries/iRate/iRate.h; sourceTree = SOURCE_ROOT; };
 		B609597B1C2C0FC6004E8797 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iRate.m; path = Libraries/iRate/iRate.m; sourceTree = SOURCE_ROOT; };
@@ -1087,6 +1097,7 @@
 				D221A0E8169DFFC500537ABF /* AVFoundation.framework in Frameworks */,
 				D24B5BD5169F568C00681372 /* AudioToolbox.framework in Frameworks */,
 				0DD55B166906AF3368995978 /* libPods-Signal.a in Frameworks */,
+				FCE2A493F73B50521E29B871 /* libPods-medxnote.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1725,6 +1736,8 @@
 				DF728B4B438716EAF95CEC18 /* Pods-Signal.app store release.xcconfig */,
 				AD2AB1207E8888E4262D781B /* Pods-SignalTests.debug.xcconfig */,
 				E85DB184824BA9DC302EC8B3 /* Pods-SignalTests.app store release.xcconfig */,
+				B5AF97FF4DC1003BA90DC7E1 /* Pods-medxnote.debug.xcconfig */,
+				1B9BD7120938EEB0E6EDC65D /* Pods-medxnote.app store release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2050,6 +2063,10 @@
 		D221A07E169C9E5E00537ABF = {
 			isa = PBXGroup;
 			children = (
+				B1AD1CEB1D57CC8D0005C9AA /* MedxPasscodeManager.h */,
+				B1AD1CE91D57C8350005C9AA /* MedxPasscodeManager.m */,
+				B1AD1CE71D57C5840005C9AA /* UIColor+HexValue.m */,
+				B1AD1CE51D57C5410005C9AA /* UIColor+HexValue.h */,
 				D221A093169C9E5E00537ABF /* Signal */,
 				D221A08C169C9E5E00537ABF /* Frameworks */,
 				D221A08A169C9E5E00537ABF /* Products */,
@@ -2098,6 +2115,7 @@
 				D221A091169C9E5E00537ABF /* CoreGraphics.framework */,
 				80CD5E19DD23200E7926EEA7 /* libPods-Signal.a */,
 				A33D3C7EB4B17BDBD47F0FCC /* libPods-SignalTests.a */,
+				B4231D1094BF88D03A772816 /* libPods-medxnote.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2542,7 +2560,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Signal/Pods-Signal-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-medxnote/Pods-medxnote-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		59C9DBA462715B5C999FFB02 /* [CP] Embed Pods Frameworks */ = {
@@ -2557,7 +2575,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Signal/Pods-Signal-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-medxnote/Pods-medxnote-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6565655F4068F9E5CDC5687F /* [CP] Check Pods Manifest.lock */ = {
@@ -2612,7 +2630,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76EB063E18170B33006006FC /* Operation.m in Sources */,
+				B1AD1CEC1D57CFD60005C9AA /* Operation.m in Sources */,
+				B1AD1CEA1D57C8350005C9AA /* MedxPasscodeManager.m in Sources */,
+				B1AD1CE81D57C5840005C9AA /* UIColor+HexValue.m in Sources */,
 				B640BFA81C257843006038B3 /* RPAccountManager.m in Sources */,
 				A5509ECD1A69B1D600ABA4BC /* CountryCodeTableViewCell.m in Sources */,
 				76EB05F618170B33006006FC /* CallConnectUtil.m in Sources */,
@@ -3178,7 +3198,7 @@
 		};
 		D221A0BD169C9E5F00537ABF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE2DD605305BC6EFAD731723 /* Pods-Signal.debug.xcconfig */;
+			baseConfigurationReference = B5AF97FF4DC1003BA90DC7E1 /* Pods-medxnote.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -3234,7 +3254,7 @@
 		};
 		D221A0BE169C9E5F00537ABF /* App Store Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF728B4B438716EAF95CEC18 /* Pods-Signal.app store release.xcconfig */;
+			baseConfigurationReference = 1B9BD7120938EEB0E6EDC65D /* Pods-medxnote.app store release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
