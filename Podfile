@@ -11,7 +11,7 @@ target 'medxnote' do
     pod 'DJWActionSheet'
     pod 'JSQMessagesViewController'
     pod 'ABPadLockScreen', '~> 3.3.0'
-    target 'SignalTests' do
+    target 'MedxnoteTests' do
         inherit! :search_paths
     end
 end

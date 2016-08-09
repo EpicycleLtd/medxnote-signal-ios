@@ -23,7 +23,7 @@
 #import "TSUnregisterAccountRequest.h"
 #import "TSUpdateAttributesRequest.h"
 #import "TSVerifyCodeRequest.h"
-
+#import "TSMessageReadRequest.h"
 
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import <Foundation/Foundation.h>

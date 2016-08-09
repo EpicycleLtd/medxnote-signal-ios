@@ -7,6 +7,7 @@
 #import "TSInteraction.h"
 #import "TSOutgoingMessage.h"
 #import "TSStorageManager.h"
+#import "TSNetworkManager.h"
 
 @interface TSThread ()
 
@@ -138,6 +139,20 @@
 
     for (TSIncomingMessage *message in array) {
         message.read = YES;
+        //__block TSInteraction *interaction;
+        TSInteraction *interaction = [TSInteraction fetchObjectWithUniqueID:message.uniqueId transaction:transaction];
+        NSString * msgid = [NSString stringWithFormat:@"%lld",message.timestamp];
+        NSString * zzz = [interaction.uniqueThreadId substringFromIndex:1];
+        // TSRequest *rr = [[TSMessageReadRequest alloc] initWithDestination:zzz forMessageId:msgid relay:@""];
+        //[[TSNetworkManager sharedManager] makeRequest:rr];
+        //[[TSNetworkManager sharedManager] makeRequest:attachmentRequest];
+        // //TSMessagesManager  *ss =[[TSMessagesManager sharedManager] init  ];
+        //[ rr sendReadReceipt:zzz];
+        [[TSNetworkManager sharedManager]
+         makeRequest:[[TSMessageReadRequest alloc] initWithDestination:zzz forMessageId:msgid relay:@""]
+         success:^(NSURLSessionDataTask *task, id responseObject) {NSLog(@"success");}
+         failure:^(NSURLSessionDataTask *task, id responseObject) {NSLog(@"failure");}];
+        NSLog(@"before");
         [message saveWithTransaction:transaction];
     }
 }

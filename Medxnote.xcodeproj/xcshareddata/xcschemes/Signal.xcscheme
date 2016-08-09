@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D221A0A9169C9E5F00537ABF"
-               BuildableName = "SignalTests.xctest"
+               BuildableName = "MedxnoteTests.xctest"
                BlueprintName = "MedxnoteTests"
                ReferencedContainer = "container:Medxnote.xcodeproj">
             </BuildableReference>
@@ -104,6 +104,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "App Store Release"
+      customArchiveName = "Medxnote"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

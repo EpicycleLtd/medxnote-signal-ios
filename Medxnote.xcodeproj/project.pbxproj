@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0DD55B166906AF3368995978 /* libPods-Signal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80CD5E19DD23200E7926EEA7 /* libPods-Signal.a */; };
 		30209C98DABCE82064B4EAF5 /* libPods-SignalTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A33D3C7EB4B17BDBD47F0FCC /* libPods-SignalTests.a */; };
+		393E57A3F5203368232E76C4 /* libPods-MedxnoteTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8C2CBA54B477F1CBAA9C25 /* libPods-MedxnoteTests.a */; };
 		4520D8D51D417D8E00123472 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4520D8D41D417D8E00123472 /* Photos.framework */; };
 		453D28B31D32B87100D523F0 /* OWSErrorMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 453D28B01D32B87100D523F0 /* OWSErrorMessage.m */; };
 		453D28B41D32B87100D523F0 /* OWSInfoMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 453D28B21D32B87100D523F0 /* OWSInfoMessage.m */; };
@@ -751,6 +751,7 @@
 		A1C32D4F17A06537000A904E /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		A1FDCBEE16DAA6C300868894 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A33D3C7EB4B17BDBD47F0FCC /* libPods-SignalTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SignalTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A38E38D3D2C204A137971BA8 /* Pods-MedxnoteTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MedxnoteTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MedxnoteTests/Pods-MedxnoteTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A507A3AF1A6C60E300BEED0D /* InboxTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InboxTableViewCell.xib; path = "Signal/src/view controllers/InboxTableViewCell.xib"; sourceTree = SOURCE_ROOT; };
 		A547DD721A70A87800103EC7 /* DJWActionSheet+OWS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DJWActionSheet+OWS.m"; path = "util/DJWActionSheet+OWS.m"; sourceTree = "<group>"; };
 		A547DD731A70A87800103EC7 /* DJWActionSheet+OWS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DJWActionSheet+OWS.h"; path = "util/DJWActionSheet+OWS.h"; sourceTree = "<group>"; };
@@ -951,6 +952,7 @@
 		BFB074C419A5611000F2947C /* FutureUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FutureUtil.m; sourceTree = "<group>"; };
 		BFB074C519A5611000F2947C /* ObservableValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObservableValue.h; sourceTree = "<group>"; };
 		BFB074C619A5611000F2947C /* ObservableValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObservableValue.m; sourceTree = "<group>"; };
+		CC8C2CBA54B477F1CBAA9C25 /* libPods-MedxnoteTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MedxnoteTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2179CFB16BB0B3A0006F3AB /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		D2179CFD16BB0B480006F3AB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D221A089169C9E5E00537ABF /* Medxnote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Medxnote.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1026,6 +1028,7 @@
 		E1CD329418BCFF9900B1A496 /* SoundInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundInstance.h; sourceTree = "<group>"; };
 		E1CD329518BCFF9900B1A496 /* SoundInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundInstance.m; sourceTree = "<group>"; };
 		E85DB184824BA9DC302EC8B3 /* Pods-SignalTests.app store release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalTests.app store release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalTests/Pods-SignalTests.app store release.xcconfig"; sourceTree = "<group>"; };
+		F89897AE108574C2FA5CBDA9 /* Pods-MedxnoteTests.app store release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MedxnoteTests.app store release.xcconfig"; path = "Pods/Target Support Files/Pods-MedxnoteTests/Pods-MedxnoteTests.app store release.xcconfig"; sourceTree = "<group>"; };
 		FC3196281A067D8F0094C78E /* MessageComposeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageComposeTableViewController.h; sourceTree = "<group>"; };
 		FC3196291A067D8F0094C78E /* MessageComposeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageComposeTableViewController.m; sourceTree = "<group>"; };
 		FC31962B1A06A2190094C78E /* FingerprintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FingerprintViewController.h; sourceTree = "<group>"; };
@@ -1096,7 +1099,6 @@
 				D221A090169C9E5E00537ABF /* Foundation.framework in Frameworks */,
 				D221A0E8169DFFC500537ABF /* AVFoundation.framework in Frameworks */,
 				D24B5BD5169F568C00681372 /* AudioToolbox.framework in Frameworks */,
-				0DD55B166906AF3368995978 /* libPods-Signal.a in Frameworks */,
 				FCE2A493F73B50521E29B871 /* libPods-medxnote.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1121,6 +1123,7 @@
 				D221A0AD169C9E5F00537ABF /* UIKit.framework in Frameworks */,
 				D221A0AE169C9E5F00537ABF /* Foundation.framework in Frameworks */,
 				30209C98DABCE82064B4EAF5 /* libPods-SignalTests.a in Frameworks */,
+				393E57A3F5203368232E76C4 /* libPods-MedxnoteTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1738,6 +1741,8 @@
 				E85DB184824BA9DC302EC8B3 /* Pods-SignalTests.app store release.xcconfig */,
 				B5AF97FF4DC1003BA90DC7E1 /* Pods-medxnote.debug.xcconfig */,
 				1B9BD7120938EEB0E6EDC65D /* Pods-medxnote.app store release.xcconfig */,
+				A38E38D3D2C204A137971BA8 /* Pods-MedxnoteTests.debug.xcconfig */,
+				F89897AE108574C2FA5CBDA9 /* Pods-MedxnoteTests.app store release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2116,6 +2121,7 @@
 				80CD5E19DD23200E7926EEA7 /* libPods-Signal.a */,
 				A33D3C7EB4B17BDBD47F0FCC /* libPods-SignalTests.a */,
 				B4231D1094BF88D03A772816 /* libPods-medxnote.a */,
+				CC8C2CBA54B477F1CBAA9C25 /* libPods-MedxnoteTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2605,7 +2611,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SignalTests/Pods-SignalTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MedxnoteTests/Pods-MedxnoteTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F76686434770E2BBEBD9665A /* [CP] Copy Pods Resources */ = {
@@ -2620,7 +2626,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SignalTests/Pods-SignalTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MedxnoteTests/Pods-MedxnoteTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3299,7 +3305,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.medxnote.medxnote;
 				PRODUCT_NAME = Medxnote;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "78260d93-2b13-4105-8335-5fe4c1ab402f";
 				SDKROOT = iphoneos;
 				TEST_AFTER_BUILD = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s i386";
@@ -3309,7 +3315,7 @@
 		};
 		D221A0C0169C9E5F00537ABF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AD2AB1207E8888E4262D781B /* Pods-SignalTests.debug.xcconfig */;
+			baseConfigurationReference = A38E38D3D2C204A137971BA8 /* Pods-MedxnoteTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Signal.app/Signal";
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
@@ -3361,7 +3367,7 @@
 		};
 		D221A0C1169C9E5F00537ABF /* App Store Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E85DB184824BA9DC302EC8B3 /* Pods-SignalTests.app store release.xcconfig */;
+			baseConfigurationReference = F89897AE108574C2FA5CBDA9 /* Pods-MedxnoteTests.app store release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Signal.app/Signal";
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
