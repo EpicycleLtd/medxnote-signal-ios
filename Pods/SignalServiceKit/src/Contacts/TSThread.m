@@ -8,6 +8,10 @@
 #import "TSOutgoingMessage.h"
 #import "TSStorageManager.h"
 #import "TSNetworkManager.h"
+#import "TSGroupThread.h"
+#import "SignalRecipient.h"
+#import "ContactsUpdater.h"
+#import "TSAccountManager.h"
 
 @interface TSThread ()
 
@@ -136,25 +140,118 @@
                       NSString *collection, NSString *key, id object, id metadata, NSUInteger index, BOOL *stop) {
                     [array addObject:object];
                   }];
-
+    //NSLog([TSAccountManager localNumber]);
     for (TSIncomingMessage *message in array) {
         message.read = YES;
-        //__block TSInteraction *interaction;
-        TSInteraction *interaction = [TSInteraction fetchObjectWithUniqueID:message.uniqueId transaction:transaction];
+        
+        
+
+        
+        
+        
+        __block NSError *latestError;
         NSString * msgid = [NSString stringWithFormat:@"%lld",message.timestamp];
-        NSString * zzz = [interaction.uniqueThreadId substringFromIndex:1];
-        // TSRequest *rr = [[TSMessageReadRequest alloc] initWithDestination:zzz forMessageId:msgid relay:@""];
-        //[[TSNetworkManager sharedManager] makeRequest:rr];
-        //[[TSNetworkManager sharedManager] makeRequest:attachmentRequest];
-        // //TSMessagesManager  *ss =[[TSMessagesManager sharedManager] init  ];
-        //[ rr sendReadReceipt:zzz];
-        [[TSNetworkManager sharedManager]
-         makeRequest:[[TSMessageReadRequest alloc] initWithDestination:zzz forMessageId:msgid relay:@""]
-         success:^(NSURLSessionDataTask *task, id responseObject) {NSLog(@"success");}
-         failure:^(NSURLSessionDataTask *task, id responseObject) {NSLog(@"failure");}];
-        NSLog(@"before");
+        if (self.isGroupThread){
+            TSGroupThread *thread = (TSGroupThread *)self;
+            
+           // NSArray *groupRecipients     =  thread.groupModel.groupMemberIds;
+    
+            for ( NSString *member in thread.groupModel.groupMemberIds){
+                if (![[TSAccountManager localNumber] isEqualToString:member]) {
+                    [[TSNetworkManager sharedManager]
+                     makeRequest:[[TSMessageReadRequest alloc] initWithDestination:member forMessageId:msgid relay:@""]
+                     success:^(NSURLSessionDataTask *task, id responseObject) {NSLog(@"success");}
+                     failure:^(NSURLSessionDataTask *task, id responseObject) {NSLog(@"failure");}];
+                }
+            }
+        }else{
+            TSThread *thread = [TSThread self];
+            TSInteraction *interaction = [TSInteraction fetchObjectWithUniqueID:message.uniqueId transaction:transaction];
+            NSString * dest = [interaction.uniqueThreadId substringFromIndex:1];
+            [[TSNetworkManager sharedManager]
+             makeRequest:[[TSMessageReadRequest alloc] initWithDestination:dest forMessageId:msgid relay:@""]
+             success:^(NSURLSessionDataTask *task, id responseObject) {NSLog(@"success");}
+             failure:^(NSURLSessionDataTask *task, id responseObject) {NSLog(@"failure");}];
+        }
+       // TSGroupThread *thread = [TSThread fetchObjectWithUniqueID:self.uniqueId transaction:transaction];
+      //  for ( NSString *member in thread.groupModel.groupMemberIds){
+      //      NSLog(member);
+      //  }
+        /*
+        TSGroupThread *groupThread = (TSGroupThread *)thread;
+        NSMutableArray<SignalRecipient *> *recipients = [NSMutableArray array];
+        for (NSString *recipientId in groupThread.groupModel.groupMemberIds) {
+            __block SignalRecipient *recipient;
+            [self.dbConnection readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
+                recipient = [SignalRecipient recipientWithTextSecureIdentifier:recipientId withTransaction:transaction];
+            }];
+            
+            
+            if (!recipient) {
+                [[self contactUpdater] synchronousLookup:recipientId
+                                                 success:^(SignalRecipient *newRecipient) {
+                                                     [recipients addObject:newRecipient];
+                                                 }
+                                                 failure:^(NSError *error) {
+#warning Ignore sending message to him?
+                                                     latestError = error;
+                                                 }];
+            } else {
+                [recipients addObject:recipient];
+            }
+        }
+        */
+        //for (SignalRecipient *rec in recipients) {
+            // we don't need to send the message to ourselves, but otherwise we send
+            //if (![[rec uniqueId] isEqualToString:contactIdentifier]) {
+              //  [futures addObject:[self sendMessageFuture:message recipient:rec inThread:thread]];
+            //}
+    //        NSLog(rec);
+            
+ //       }
+
+
+   /*     if ([thread isKindOfClass:[TSGroupThread class]]) {
+            TSGroupThread *groupThread = (TSGroupThread *)thread;
+            [self getRecipients:groupThread.groupModel.groupMemberIds
+                        success:^(NSArray<SignalRecipient *> *recipients) {
+                            [self groupSend:recipients
+                                    Message:message
+                                   inThread:thread
+                                    success:successCompletionBlock
+                                    failure:failedCompletionBlock];
+                        }
+                        failure:^(NSError *error) {
+                            DDLogError(@"Failure to retreive group recipient.");
+                            [self saveMessage:message withState:TSOutgoingMessageStateUnsent];
+                        }];
+        } else {*/
+            //TSGroupThread.
+            //__block TSInteraction *interaction;
+        //    TSInteraction *interaction = [TSInteraction fetchObjectWithUniqueID:message.uniqueId transaction:transaction];
+          //  interaction.
+        
+            //NSString * zzz = [interaction.uniqueThreadId substringFromIndex:1];
+            // TSRequest *rr = [[TSMessageReadRequest alloc] initWithDestination:zzz forMessageId:msgid relay:@""];
+            //[[TSNetworkManager sharedManager] makeRequest:rr];
+            //[[TSNetworkManager sharedManager] makeRequest:attachmentRequest];
+            // //TSMessagesManager  *ss =[[TSMessagesManager sharedManager] init  ];
+            //[ rr sendReadReceipt:zzz];
+        
+           // NSLog(@"before");
+   //     }
+        
+        
+        
+        
+        
+        
         [message saveWithTransaction:transaction];
     }
+}
+
+- (ContactsUpdater *)contactUpdater {
+    return [ContactsUpdater sharedUpdater];
 }
 
 - (TSInteraction *) lastInteraction {
