@@ -204,10 +204,14 @@ typedef enum : NSUInteger {
     [self initializeTextView];
 
     [JSQMessagesCollectionViewCell registerMenuAction:@selector(delete:)];
+    SEL detailsSelector = NSSelectorFromString(@"details:");
+    [JSQMessagesCollectionViewCell registerMenuAction:@selector(details:)];
 //    SEL saveSelector = NSSelectorFromString(@"save:");
 //    [JSQMessagesCollectionViewCell registerMenuAction:saveSelector];
 //    [UIMenuController sharedMenuController].menuItems = @[ [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"EDIT_ITEM_SAVE_ACTION", @"Short name for edit menu item to save contents of media message.")
 //                                                                                      action:saveSelector] ];
+
+    [UIMenuController sharedMenuController].menuItems = @[ [[UIMenuItem alloc] initWithTitle:@"Info"  action:@selector(details:)] ];
 
     [self initializeCollectionViewLayout];
     [self registerCustomMessageNibs];
@@ -261,6 +265,7 @@ typedef enum : NSUInteger {
     self.inputToolbar.contentView.leftBarButtonItem = self.attachButton;
     self.inputToolbar.contentView.textView.autocorrectionType = UITextAutocorrectionTypeNo;
     self.inputToolbar.contentView.textView.spellCheckingType = UITextSpellCheckingTypeNo;
+    
 
     UILabel *sendLabel = self.inputToolbar.contentView.rightBarButtonItem.titleLabel;
     // override superclass translations since we support more translations than upstream.
@@ -827,6 +832,7 @@ typedef enum : NSUInteger {
         (JSQMessagesCollectionViewCell *)[super collectionView:self.collectionView cellForItemAtIndexPath:indexPath];
     if (!message.isMediaMessage) {
         cell.textView.textColor          = [UIColor ows_blackColor];
+        cell.textView.selectable = FALSE;
         cell.textView.linkTextAttributes = @{
             NSForegroundColorAttributeName : cell.textView.textColor,
             NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid)
@@ -843,6 +849,7 @@ typedef enum : NSUInteger {
         (JSQMessagesCollectionViewCell *)[super collectionView:self.collectionView cellForItemAtIndexPath:indexPath];
     if (!message.isMediaMessage) {
         cell.textView.textColor          = [UIColor whiteColor];
+        cell.textView.selectable = FALSE;
         cell.textView.linkTextAttributes = @{
             NSForegroundColorAttributeName : cell.textView.textColor,
             NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid)
@@ -964,6 +971,9 @@ typedef enum : NSUInteger {
         if(outgoingMessage.messageState == TSOutgoingMessageStateUnsent) {
             return YES;
         }
+        if((outgoingMessage.messageState == TSOutgoingMessageStateSent) || (outgoingMessage.messageState == TSOutgoingMessageStateDelivered)  || (outgoingMessage.messageState == TSOutgoingMessageStateRead) ) {
+            return YES;
+        }
     }
 
     if ([self.thread isKindOfClass:[TSGroupThread class]]) {
@@ -1018,12 +1028,31 @@ typedef enum : NSUInteger {
     if ([self shouldShowMessageStatusAtIndexPath:indexPath]) {
         if (msg.messageType == TSOutgoingMessageAdapter) {
             TSOutgoingMessage *outgoingMessage = (TSOutgoingMessage *)msg;
+            /*
+            TSInteraction *inter = (TSInteraction*)message;
+            TSMessage *omessage = (TSMessage *)inter;
+            NSMutableDictionary *dict = message.receipts;
+            for(NSString *key in dict){
+                NSLog(@"key=%@ value=%@", key, [omessage.receipts objectForKey:key]);
+            }
+            */
             if(outgoingMessage.messageState == TSOutgoingMessageStateUnsent) {
                 NSMutableAttributedString *attrStr =
                 [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"FAILED_SENDING_TEXT", nil)];
                 [attrStr appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
                 return attrStr;
             }
+            /*
+            if ([self.thread isKindOfClass:[TSGroupThread class]]) {
+                NSInteger *sentCount = 0;
+                NSInteger *deliveredCount = 0;
+                NSInteger *readCount = 0;
+                NSMutableDictionary *dict = outgoingMessage.receipts;
+                
+                
+            
+            }
+             */
         }
 
         if ([self.thread isKindOfClass:[TSGroupThread class]]) {
@@ -1033,6 +1062,28 @@ typedef enum : NSUInteger {
             if (!name) {
                 name = @"";
             }
+         
+            if (msg.messageType == TSOutgoingMessageAdapter) {
+                TSMessage *outgoingMessage = (TSMessage *)msg.interaction;
+                if (outgoingMessage.counters != nil) {
+                    NSInteger sentCount = [outgoingMessage.counters[@"sentCount"] intValue];
+                    NSInteger deliveredCount = [outgoingMessage.counters[@"deliveredCount"] intValue];
+                    NSInteger readCount = [outgoingMessage.counters[@"readCount"] intValue];
+                    NSInteger groupCount = [outgoingMessage.counters[@"groupMemberCount"] intValue] - 1;
+                   // [outgoingMessage.counters setObject:[NSNumber numberWithInt:newDeliveredCount] forKey:@"deliveredCount"];
+                    
+                    //NSString *status = [NSString stringWithFormat:@"%@", [NSString stringWithFormat:@"%i", (int)readCount] ;
+                    
+                    NSMutableString *status = [[NSMutableString alloc] initWithFormat:@"%d:%d %d:%d %d:%d", sentCount, groupCount,deliveredCount,groupCount,readCount,groupCount];
+                    
+                    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:status];
+                    return attrStr;
+
+                    
+                }
+                
+            }
+            
 
             NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:name];
             [attrStr appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
@@ -1040,11 +1091,33 @@ typedef enum : NSUInteger {
             return attrStr;
         } else {
             _lastDeliveredMessageIndexPath = indexPath;
-            NSMutableAttributedString *attrStr =
-                [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"DELIVERED_MESSAGE_TEXT", @"")];
-            [attrStr appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
+            NSString *attrStr = @"";
+            if (msg.messageType == TSOutgoingMessageAdapter) {
+                TSOutgoingMessage *outgoingMessage = (TSOutgoingMessage *)msg;
+                
+                switch (outgoingMessage.messageState) {
+                    case TSOutgoingMessageStateSent: {
+                         attrStr = @"Sent";
+                    } break;
+                    case TSOutgoingMessageStateDelivered: {
+                        attrStr  = @"Delivered";
+                    } break;
+                    case TSOutgoingMessageStateRead: {
+                        attrStr  = @"Read";
+                    } break;
+                    default: {
+                        attrStr = @"";
+                    } break;
+                        
+                }
+                
+            }
+            NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:attrStr];
+            return attrString;
+            //                [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"DELIVERED_MESSAGE_TEXT", @"")];
+            [attrString appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
 
-            return attrStr;
+            return attrString;
         }
     }
     return nil;

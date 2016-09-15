@@ -18,7 +18,10 @@ typedef NS_ENUM(NSInteger, TSGroupMetaMessage) {
 
 @property (nonatomic, readonly) NSMutableArray<NSString *> *attachmentIds;
 @property (nonatomic) NSString *body;
+@property (nonatomic) NSString *receipt;
+@property (nonatomic) NSMutableDictionary *receipts;
 @property (nonatomic) TSGroupMetaMessage groupMetaMessage;
+@property (nonatomic) NSMutableDictionary *counters;
 
 - (instancetype)initWithTimestamp:(uint64_t)timestamp
                          inThread:(TSThread *)thread

@@ -18,6 +18,7 @@
 #import <AxolotlKit/SessionCipher.h>
 #import <Mantle/Mantle.h>
 #import <TwistedOakCollapsingFutures/CollapsingFutures.h>
+#import "TextSecureKitEnv.h"
 
 #define RETRY_ATTEMPTS 3
 
@@ -194,6 +195,8 @@ dispatch_queue_t sendingQueue() {
           success:(successSendingCompletionBlock)successBlock
           failure:(failedSendingCompletionBlock)failureBlock
 {
+    NSInteger *newGroupMemberCount = [recipients count];
+    [message.counters setObject:[NSNumber numberWithInt:newGroupMemberCount] forKey:@"groupMemberCount"];
     [self saveGroupMessage:message inThread:thread];
     NSMutableArray<TOCFuture *> *futures = [NSMutableArray array];
 
@@ -251,6 +254,18 @@ dispatch_queue_t sendingQueue() {
                             [self.dbConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
                               [recipient saveWithTransaction:transaction];
                             }];
+                            NSDate *deliveryTime = [NSDate dateWithTimeIntervalSince1970:message.timestamp/1000];
+                            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                            [dateFormatter setDateFormat:@"HH:mm:ss dd/MM/YYYY"];
+                            NSString *deliveryTimeString = [dateFormatter stringFromDate: deliveryTime];
+                              NSString *senderName =
+                              [[TextSecureKitEnv sharedEnv].contactsManager nameStringForPhoneIdentifier:recipient.uniqueId];
+                            NSString *formatedTime = [NSString stringWithFormat: @"%@ \nSent: %@", senderName, deliveryTimeString];
+                              
+                            message.receipts[[NSString stringWithFormat:@"%@_%@_1", senderName, recipient.uniqueId ]] = formatedTime;
+                            NSInteger *newSentCount = [message.counters[@"sentCount"] intValue] + 1;
+                            [message.counters setObject:[NSNumber numberWithInt:newSentCount] forKey:@"sentCount"];
+                            //message.sentCount += 1;
                             [self handleMessageSent:message];
                             BLOCK_SAFE_RUN(successBlock);
                           }

@@ -112,6 +112,7 @@ PODS:
     - YapDatabase/SQLCipher/Core
   - YapDatabase/SQLCipher/Extensions/Views (2.9.1):
     - YapDatabase/SQLCipher/Core
+  - ZHPopupView (0.1.1)
 
 DEPENDENCIES:
   - ABPadLockScreen (~> 3.3.0)
@@ -123,6 +124,7 @@ DEPENDENCIES:
   - SCWaveformView (~> 1.0)
   - SignalServiceKit (from `https://github.com/WhisperSystems/SignalServiceKit.git`)
   - SocketRocket (from `https://github.com/facebook/SocketRocket.git`)
+  - ZHPopupView
 
 EXTERNAL SOURCES:
   SignalServiceKit:
@@ -163,7 +165,8 @@ SPEC CHECKSUMS:
   TwistedOakCollapsingFutures: f359b90f203e9ab13dfb92c9ff41842a7fe1cd0c
   UnionFind: c33be5adb12983981d6e827ea94fc7f9e370f52d
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
+  ZHPopupView: cb3bedde775803c2c51e3db05cdd07ac6efaaaeb
 
-PODFILE CHECKSUM: 0534f86d261ce37de17f071eed057bfe7e1d6e23
+PODFILE CHECKSUM: 4d1ad1cf4d6d6c20d7ef199c5c0737daea60c2ba
 
 COCOAPODS: 1.0.1

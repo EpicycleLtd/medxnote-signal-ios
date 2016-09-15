@@ -38,7 +38,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2.4.1.0</string>
+	<string>2.4.1.1</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LOGS_EMAIL</key>
@@ -95,8 +95,6 @@
 		<string>remote-notification</string>
 		<string>voip</string>
 	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>Launch Screen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

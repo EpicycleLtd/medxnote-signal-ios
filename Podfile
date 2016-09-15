@@ -10,6 +10,7 @@ target 'medxnote' do
     pod 'SCWaveformView',             '~> 1.0'
     pod 'DJWActionSheet'
     pod 'JSQMessagesViewController'
+    pod 'ZHPopupView'
     pod 'ABPadLockScreen', '~> 3.3.0'
     target 'MedxnoteTests' do
         inherit! :search_paths

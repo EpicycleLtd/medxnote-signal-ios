@@ -256,9 +256,29 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
         window.windowLevel            = CGFLOAT_MAX;
         window.backgroundColor        = UIColor.ows_materialBlueColor;
 
-        UIViewController *vc = [[UIStoryboard storyboardWithName:@"Launch Screen" bundle:nil] instantiateInitialViewController];
+//        UIViewController *vc = [[UIStoryboard storyboardWithName:@"Launch Screen" bundle:nil] instantiateInitialViewController];
 
+
+// There appears to be no more reliable way to get the launchscreen image from an asset bundle
+        NSDictionary *dict = @{
+            @"320x480" : @"LaunchImage-700",
+            @"320x568" : @"LaunchImage-700-568h",
+            @"375x667" : @"LaunchImage-800-667h",
+            @"414x736" : @"LaunchImage-800-Portrait-736h"
+        };
+
+        NSString *key = [NSString stringWithFormat:@"%dx%d",
+                                                   (int)[UIScreen mainScreen].bounds.size.width,
+                                                   (int)[UIScreen mainScreen].bounds.size.height];
+        UIImage *launchImage = [UIImage imageNamed:dict[key]];
+        UIImageView *imgView = [[UIImageView alloc] initWithImage:launchImage];
+        UIViewController *vc = [[UIViewController alloc] initWithNibName:nil bundle:nil];
+        vc.view.frame        = [[UIScreen mainScreen] bounds];
+        imgView.frame        = [[UIScreen mainScreen] bounds];
+        [vc.view addSubview:imgView];
+        [vc.view setBackgroundColor:[UIColor ows_blackColor]];
         window.rootViewController = vc;
+
         window;
     });
 }

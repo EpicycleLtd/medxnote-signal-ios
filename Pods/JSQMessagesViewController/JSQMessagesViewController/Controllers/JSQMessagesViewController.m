@@ -701,9 +701,10 @@ JSQMessagesKeyboardControllerDelegate>
 
 - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
 {
-    if (action == @selector(copy:) || action == @selector(delete:)) {
-        return YES;
-    }
+   // NSLog(@"inside can perform");
+   // if (action == @selector(copy:) || action == @selector(delete:)) {
+   //     return YES;
+   // }
 
     return NO;
 }
@@ -716,7 +717,6 @@ JSQMessagesKeyboardControllerDelegate>
     }
     else if (action == @selector(delete:)) {
         [collectionView.dataSource collectionView:collectionView didDeleteMessageAtIndexPath:indexPath];
-
         [collectionView deleteItemsAtIndexPaths:@[indexPath]];
         [collectionView.collectionViewLayout invalidateLayout];
     }
@@ -873,7 +873,8 @@ JSQMessagesKeyboardControllerDelegate>
     //  per comment above in 'shouldShowMenuForItemAtIndexPath:'
     //  re-enable 'selectable', thus re-enabling data detectors if present
     JSQMessagesCollectionViewCell *selectedCell = (JSQMessagesCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPathForMenu];
-    selectedCell.textView.selectable = YES;
+    //selectedCell.textView.selectable = YES;
+    selectedCell.textView.selectable = NO;
     self.selectedIndexPathForMenu = nil;
 }
 

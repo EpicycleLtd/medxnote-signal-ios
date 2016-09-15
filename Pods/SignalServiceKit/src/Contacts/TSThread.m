@@ -12,6 +12,7 @@
 #import "SignalRecipient.h"
 #import "ContactsUpdater.h"
 #import "TSAccountManager.h"
+#import "TextSecureKitEnv.h"
 
 @interface TSThread ()
 
@@ -150,8 +151,18 @@
         
         
         __block NSError *latestError;
-        NSString * msgid = [NSString stringWithFormat:@"%lld",message.timestamp];
+        TSThread *thread = [TSThread self];
+        NSString * dest = @"";
+        
         if (self.isGroupThread){
+            dest = message.authorId;
+            
+        } else {
+            TSInteraction *interaction = [TSInteraction fetchObjectWithUniqueID:message.uniqueId transaction:transaction];
+            dest = [interaction.uniqueThreadId substringFromIndex:1];
+        }
+        NSString * msgid = [NSString stringWithFormat:@"%lld",message.timestamp];
+ /*       if (self.isGroupThread){
             TSGroupThread *thread = (TSGroupThread *)self;
             
            // NSArray *groupRecipients     =  thread.groupModel.groupMemberIds;
@@ -165,14 +176,18 @@
                 }
             }
         }else{
-            TSThread *thread = [TSThread self];
-            TSInteraction *interaction = [TSInteraction fetchObjectWithUniqueID:message.uniqueId transaction:transaction];
-            NSString * dest = [interaction.uniqueThreadId substringFromIndex:1];
+  */
+        
+    
             [[TSNetworkManager sharedManager]
              makeRequest:[[TSMessageReadRequest alloc] initWithDestination:dest forMessageId:msgid relay:@""]
-             success:^(NSURLSessionDataTask *task, id responseObject) {NSLog(@"success");}
+             success:^(NSURLSessionDataTask *task, id responseObject) {
+                 
+                 NSLog(@"success");
+                 
+             }
              failure:^(NSURLSessionDataTask *task, id responseObject) {NSLog(@"failure");}];
-        }
+    //    }
        // TSGroupThread *thread = [TSThread fetchObjectWithUniqueID:self.uniqueId transaction:transaction];
       //  for ( NSString *member in thread.groupModel.groupMemberIds){
       //      NSLog(member);
@@ -243,7 +258,16 @@
         
         
         
+        NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+        NSDate *readTime = [NSDate dateWithTimeIntervalSince1970:timeStamp];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"HH:mm:ss dd/MM/YYYY"];
+        NSString *readTimeString = [dateFormatter stringFromDate: readTime];
+        NSString *senderName =
+              [[TextSecureKitEnv sharedEnv].contactsManager nameStringForPhoneIdentifier:dest];
+        NSString *formatedTime = [NSString stringWithFormat: @"Read: %@", readTimeString];
         
+        message.receipts[[NSString stringWithFormat:@"%@_%@_3", senderName, dest]] = formatedTime;
         
         
         [message saveWithTransaction:transaction];

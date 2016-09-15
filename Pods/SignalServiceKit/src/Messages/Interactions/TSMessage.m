@@ -45,7 +45,12 @@ static const NSUInteger OWSMessageSchemaVersion = 2;
 
     _body = body;
     _attachmentIds = [attachmentIds mutableCopy];
-
+    _receipts = [[NSMutableDictionary alloc] init];
+    _counters = [[NSMutableDictionary alloc]initWithCapacity:4];
+    [_counters setObject:[NSNumber numberWithInt:0] forKey:@"groupMemberCount"];
+    [_counters setObject:[NSNumber numberWithInt:0] forKey:@"sentCount"];
+    [_counters setObject:[NSNumber numberWithInt:0] forKey:@"deliveredCount"];
+    [_counters setObject:[NSNumber numberWithInt:0] forKey:@"readCount"];
     return self;
 }
 

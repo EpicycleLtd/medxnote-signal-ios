@@ -66,6 +66,10 @@
                 DDLogInfo(@"Received a delivery receipt");
                 [self handleDeliveryReceipt:messageSignal];
                 break;
+            case IncomingPushMessageSignalTypeRead:
+                DDLogInfo(@"Received a read receipt");
+                [self handleReadReceipt:messageSignal];
+                break;
             case IncomingPushMessageSignalTypeUnknown:
                 DDLogWarn(@"Received an unknown message type");
                 break;
@@ -83,7 +87,42 @@
       if ([interaction isKindOfClass:[TSOutgoingMessage class]]) {
           TSOutgoingMessage *outgoingMessage = (TSOutgoingMessage *)interaction;
           outgoingMessage.messageState       = TSOutgoingMessageStateDelivered;
+          
+          NSDate *deliveryTime = [NSDate dateWithTimeIntervalSince1970:signal.deliveryTimestamp/1000];
+          NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+          [dateFormatter setDateFormat:@"HH:mm:ss dd/MM/YYYY"];
+          NSString *deliveryTimeString = [dateFormatter stringFromDate: deliveryTime];
+          NSString *senderName =
+          [[TextSecureKitEnv sharedEnv].contactsManager nameStringForPhoneIdentifier:signal.source];
+          NSString *formatedTime = [NSString stringWithFormat: @"Delivered: %@", deliveryTimeString];
 
+          outgoingMessage.receipts[[NSString stringWithFormat:@"%@_%@_2", senderName, signal.source]] = formatedTime;
+          NSInteger *currentDeliveredCount = [outgoingMessage.counters[@"deliveredCount"] intValue];
+          NSInteger *newDeliveredCount = [outgoingMessage.counters[@"deliveredCount"] intValue] + 1;
+          [outgoingMessage.counters setObject:[NSNumber numberWithInt:newDeliveredCount] forKey:@"deliveredCount"];
+          [outgoingMessage saveWithTransaction:transaction];
+      }
+    }];
+}
+
+- (void)handleReadReceipt:(IncomingPushMessageSignal *)signal {
+    [self.dbConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
+      TSInteraction *interaction = [TSInteraction interactionForTimestamp:signal.timestamp withTransaction:transaction];
+      if ([interaction isKindOfClass:[TSOutgoingMessage class]]) {
+          TSOutgoingMessage *outgoingMessage = (TSOutgoingMessage *)interaction;
+          outgoingMessage.messageState       = TSOutgoingMessageStateRead;
+          
+          NSDate *deliveryTime = [NSDate dateWithTimeIntervalSince1970:signal.deliveryTimestamp/1000];
+          NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+          [dateFormatter setDateFormat:@"HH:mm:ss dd/MM/YYYY"];
+          NSString *deliveryTimeString = [dateFormatter stringFromDate: deliveryTime];
+          NSString *senderName =
+          [[TextSecureKitEnv sharedEnv].contactsManager nameStringForPhoneIdentifier:signal.source];
+          NSString *formatedTime = [NSString stringWithFormat: @"Read: %@", deliveryTimeString];
+
+          outgoingMessage.receipts[[NSString stringWithFormat:@"%@_%@_3", senderName, signal.source]] = formatedTime;
+          NSInteger *newReadCount = [outgoingMessage.counters[@"readCount"] intValue] + 1;
+          [outgoingMessage.counters setObject:[NSNumber numberWithInt:newReadCount] forKey:@"readCount"];
           [outgoingMessage saveWithTransaction:transaction];
       }
     }];
@@ -298,6 +337,25 @@
                                                                     authorId:message.source
                                                                  messageBody:body
                                                                attachmentIds:attachmentIds];
+              //timestamps
+              NSDate *sentTime = [NSDate dateWithTimeIntervalSince1970:message.timestamp/1000];
+              NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+              [dateFormatter setDateFormat:@"HH:mm:ss dd/MM/YYYY"];
+              NSString *sentTimeString = [dateFormatter stringFromDate: sentTime];
+              NSString *senderName =
+              [[TextSecureKitEnv sharedEnv].contactsManager nameStringForPhoneIdentifier:message.source];
+              NSString *formatedTime = [NSString stringWithFormat: @"%@ \nSent: %@", senderName, sentTimeString];
+              incomingMessage.receipts[[NSString stringWithFormat:@"%@_%@_1", senderName, message.source ]] = formatedTime;
+              
+              
+              NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+              NSDate *deliveredTime = [NSDate dateWithTimeIntervalSince1970:timeStamp];
+              NSString *deliveredTimeString = [dateFormatter stringFromDate: deliveredTime];
+              formatedTime = [NSString stringWithFormat: @"Delivered: %@", deliveredTimeString];
+              
+              incomingMessage.receipts[[NSString stringWithFormat:@"%@_%@_2", senderName, message.source]] = formatedTime;
+              
+              //
               [incomingMessage saveWithTransaction:transaction];
           }
 
@@ -311,6 +369,25 @@
                                                                 inThread:cThread
                                                              messageBody:body
                                                            attachmentIds:attachmentIds];
+          //timestamps
+          NSDate *sentTime = [NSDate dateWithTimeIntervalSince1970:message.timestamp/1000];
+          NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+          [dateFormatter setDateFormat:@"HH:mm:ss dd/MM/YYYY"];
+          NSString *sentTimeString = [dateFormatter stringFromDate: sentTime];
+          NSString *senderName =
+          [[TextSecureKitEnv sharedEnv].contactsManager nameStringForPhoneIdentifier:message.source];
+          NSString *formatedTime = [NSString stringWithFormat: @"%@ \nSent: %@", senderName, sentTimeString];
+          incomingMessage.receipts[[NSString stringWithFormat:@"%@_%@_1", senderName, message.source ]] = formatedTime;
+          
+          
+          NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+          NSDate *deliveredTime = [NSDate dateWithTimeIntervalSince1970:timeStamp];
+          NSString *deliveredTimeString = [dateFormatter stringFromDate: deliveredTime];
+          formatedTime = [NSString stringWithFormat: @"Delivered: %@", deliveredTimeString];
+          
+          incomingMessage.receipts[[NSString stringWithFormat:@"%@_%@_2", senderName, message.source]] = formatedTime;
+          
+          //
           thread = cThread;
       }
 

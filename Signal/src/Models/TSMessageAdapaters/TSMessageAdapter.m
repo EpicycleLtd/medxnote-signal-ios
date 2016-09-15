@@ -18,6 +18,7 @@
 #import "TSInfoMessage.h"
 #import "TSOutgoingMessage.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "ZHPopupView.h"
 
 
 @interface TSMessageAdapter ()
@@ -246,12 +247,17 @@
 
 - (BOOL)canPerformEditingAction:(SEL)action
 {
-
+/*
     // Deletes are always handled by TSMessageAdapter
-    if (action == @selector(delete:)) {
+    if (action == @selector(delete:) ) {
+        return YES;
+    }
+*/
+    if (action == @selector(details:) ) {
         return YES;
     }
 
+/*
     // Delegate other actions for media items
     if (self.isMediaMessage) {
         return [self.mediaItem canPerformEditingAction:action];
@@ -261,6 +267,7 @@
             return YES;
         }
     }
+*/
     return NO;
 }
 
@@ -272,6 +279,37 @@
         [self.interaction remove];
         return;
     }
+
+    if (action == @selector(details:)) {
+
+        NSString *receipts = @"";
+        
+
+        TSOutgoingMessage *outgoingMessage = (TSOutgoingMessage *)self.interaction;
+        NSArray *sortedKeys = [[outgoingMessage.receipts allKeys] sortedArrayUsingSelector: @selector(compare:)];
+        NSMutableArray *sortedValues = [NSMutableArray array];
+        for (NSString *key in sortedKeys){
+            [sortedValues addObject: [outgoingMessage.receipts objectForKey: key]];
+            receipts = [NSString stringWithFormat: @"%@\n%@", receipts,outgoingMessage.receipts[key]];
+
+        }
+
+        ZHPopupView *popupView = [ZHPopupView popupNomralAlertViewInView:nil
+                                                         backgroundStyle:ZHPopupViewBackgroundType_SimpleOpacity
+                                                                   title:@"Receipt details"
+                                                                 content:receipts
+                                                            buttonTitles:@[@"OK"]
+                                                     confirmBtnTextColor:nil otherBtnTextColor:nil
+                                                      buttonPressedBlock:^(NSInteger btnIdx) {
+                                                          
+                                                          
+                                                      }];
+        popupView.contentTextAlignment = NSTextAlignmentLeft;
+        popupView.contentTextFontSize = 10;
+        [popupView present];
+        return;
+    }
+
 
     // Delegate other actions for media items
     if (self.isMediaMessage) {

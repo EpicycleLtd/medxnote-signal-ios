@@ -27,6 +27,7 @@ static PBExtensionRegistry *extensionRegistry = nil;
 @property (strong) NSString *relay;
 @property UInt64 timestamp;
 @property (strong) NSData *message;
+@property UInt64 deliveryTimestamp;
 @end
 
 @implementation IncomingPushMessageSignal
@@ -72,6 +73,13 @@ static PBExtensionRegistry *extensionRegistry = nil;
 - (void)setHasMessage:(BOOL)value_ {
     hasMessage_ = !!value_;
 }
+- (BOOL)hasDeliveryTimestamp {
+    return !!hasDeliveryTimestamp_;
+}
+- (void)setHasDeliveryTimestamp:(BOOL)value_ {
+    hasDeliveryTimestamp_ = !!value_;
+}
+@synthesize deliveryTimestamp;
 @synthesize message;
 - (id)init {
     if ((self = [super init])) {
@@ -81,6 +89,7 @@ static PBExtensionRegistry *extensionRegistry = nil;
         self.relay        = @"";
         self.timestamp    = 0L;
         self.message      = [NSData data];
+        self.deliveryTimestamp    = 0L;
     }
     return self;
 }
@@ -118,6 +127,9 @@ static IncomingPushMessageSignal *defaultIncomingPushMessageSignalInstance = nil
     if (self.hasSourceDevice) {
         [output writeUInt32:7 value:self.sourceDevice];
     }
+    if (self.hasDeliveryTimestamp) {
+        [output writeUInt64:9 value:self.deliveryTimestamp];
+    }
     [self.unknownFields writeToCodedOutputStream:output];
 }
 - (SInt32)serializedSize {
@@ -144,6 +156,9 @@ static IncomingPushMessageSignal *defaultIncomingPushMessageSignalInstance = nil
     }
     if (self.hasSourceDevice) {
         size_ += computeUInt32Size(7, self.sourceDevice);
+    }
+    if (self.hasDeliveryTimestamp) {
+        size_ += computeUInt64Size(9, self.deliveryTimestamp);
     }
     size_ += self.unknownFields.serializedSize;
     memoizedSerializedSize = size_;
@@ -204,6 +219,9 @@ static IncomingPushMessageSignal *defaultIncomingPushMessageSignalInstance = nil
     if (self.hasSourceDevice) {
         [output appendFormat:@"%@%@: %@\n", indent, @"sourceDevice", [NSNumber numberWithInteger:self.sourceDevice]];
     }
+    if (self.hasDeliveryTimestamp) {
+        [output appendFormat:@"%@%@: %@\n", indent, @"deliveryTimestamp", [NSNumber numberWithLongLong:self.deliveryTimestamp]];
+    }
     [self.unknownFields writeDescriptionTo:output withIndent:indent];
 }
 - (BOOL)isEqual:(id)other {
@@ -219,6 +237,8 @@ static IncomingPushMessageSignal *defaultIncomingPushMessageSignalInstance = nil
            self.hasRelay == otherMessage.hasRelay && (!self.hasRelay || [self.relay isEqual:otherMessage.relay]) &&
            self.hasTimestamp == otherMessage.hasTimestamp &&
            (!self.hasTimestamp || self.timestamp == otherMessage.timestamp) &&
+           self.hasDeliveryTimestamp == otherMessage.hasDeliveryTimestamp &&
+           (!self.hasDeliveryTimestamp || self.deliveryTimestamp == otherMessage.deliveryTimestamp) &&
            self.hasMessage == otherMessage.hasMessage &&
            (!self.hasMessage || [self.message isEqual:otherMessage.message]) &&
            self.hasSourceDevice == otherMessage.hasSourceDevice &&
@@ -227,7 +247,7 @@ static IncomingPushMessageSignal *defaultIncomingPushMessageSignalInstance = nil
             (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
 }
 - (NSUInteger)hash {
-    __block NSUInteger hashCode = 7;
+    __block NSUInteger hashCode = 9;
     if (self.hasType) {
         hashCode = hashCode * 31 + self.type;
     }
@@ -239,6 +259,9 @@ static IncomingPushMessageSignal *defaultIncomingPushMessageSignalInstance = nil
     }
     if (self.hasTimestamp) {
         hashCode = hashCode * 31 + [[NSNumber numberWithLongLong:self.timestamp] hash];
+    }
+    if (self.hasDeliveryTimestamp) {
+        hashCode = hashCode * 31 + [[NSNumber numberWithLongLong:self.deliveryTimestamp] hash];
     }
     if (self.hasMessage) {
         hashCode = hashCode * 31 + [self.message hash];
@@ -259,6 +282,7 @@ BOOL IncomingPushMessageSignalTypeIsValidValue(IncomingPushMessageSignalType val
         case IncomingPushMessageSignalTypePrekeyBundle:
         case IncomingPushMessageSignalTypePlaintext:
         case IncomingPushMessageSignalTypeReceipt:
+        case IncomingPushMessageSignalTypeRead:
             return YES;
         default:
             return NO;
@@ -317,6 +341,9 @@ BOOL IncomingPushMessageSignalTypeIsValidValue(IncomingPushMessageSignalType val
     if (other.hasTimestamp) {
         [self setTimestamp:other.timestamp];
     }
+    if (other.hasDeliveryTimestamp) {
+        [self setDeliveryTimestamp:other.deliveryTimestamp];
+    }
     if (other.hasMessage) {
         [self setMessage:other.message];
     }
@@ -372,6 +399,10 @@ BOOL IncomingPushMessageSignalTypeIsValidValue(IncomingPushMessageSignalType val
             }
             case 56: {
                 [self setSourceDevice:[input readUInt32]];
+                break;
+            }
+            case 72: {
+                [self setDeliveryTimestamp:[input readUInt64]];
                 break;
             }
         }
@@ -455,6 +486,22 @@ BOOL IncomingPushMessageSignalTypeIsValidValue(IncomingPushMessageSignalType val
 - (IncomingPushMessageSignalBuilder *)clearTimestamp {
     result.hasTimestamp = NO;
     result.timestamp    = 0L;
+    return self;
+}
+- (BOOL)hasDeliveryTimestamp {
+    return result.hasDeliveryTimestamp;
+}
+- (UInt64)deliveryTimestamp {
+    return result.deliveryTimestamp;
+}
+- (IncomingPushMessageSignalBuilder *)setDeliveryTimestamp:(UInt64)value {
+    result.hasDeliveryTimestamp = YES;
+    result.deliveryTimestamp    = value;
+    return self;
+}
+- (IncomingPushMessageSignalBuilder *)clearDeliveryTimestamp {
+    result.hasDeliveryTimestamp = NO;
+    result.deliveryTimestamp    = 0L;
     return self;
 }
 - (BOOL)hasMessage {

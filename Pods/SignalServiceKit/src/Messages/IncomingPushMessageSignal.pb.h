@@ -31,6 +31,7 @@ typedef enum {
     IncomingPushMessageSignalTypePrekeyBundle = 3,
     IncomingPushMessageSignalTypePlaintext    = 4,
     IncomingPushMessageSignalTypeReceipt      = 5,
+    IncomingPushMessageSignalTypeRead         = 6,
 } IncomingPushMessageSignalType;
 
 BOOL IncomingPushMessageSignalTypeIsValidValue(IncomingPushMessageSignalType value);
@@ -65,12 +66,14 @@ BOOL PushMessageContentGroupContextTypeIsValidValue(PushMessageContentGroupConte
     BOOL hasMessage_ : 1;
     BOOL hasSourceDevice_ : 1;
     BOOL hasType_ : 1;
+    BOOL hasDeliveryTimestamp_ : 1;
     UInt64 timestamp;
     NSString *source;
     NSString *relay;
     NSData *message;
     UInt32 sourceDevice;
     IncomingPushMessageSignalType type;
+    UInt64 deliveryTimestamp;
 }
 - (BOOL)hasType;
 - (BOOL)hasSource;
@@ -78,12 +81,14 @@ BOOL PushMessageContentGroupContextTypeIsValidValue(PushMessageContentGroupConte
 - (BOOL)hasRelay;
 - (BOOL)hasTimestamp;
 - (BOOL)hasMessage;
+- (BOOL)hasDeliveryTimestamp;
 @property (readonly) IncomingPushMessageSignalType type;
 @property (readonly, strong) NSString *source;
 @property (readonly) UInt32 sourceDevice;
 @property (readonly, strong) NSString *relay;
 @property (readonly) UInt64 timestamp;
 @property (readonly, strong) NSData *message;
+@property (readonly) UInt64 deliveryTimestamp;
 
 + (IncomingPushMessageSignal *)defaultInstance;
 - (IncomingPushMessageSignal *)defaultInstance;
@@ -152,6 +157,12 @@ BOOL PushMessageContentGroupContextTypeIsValidValue(PushMessageContentGroupConte
 - (NSData *)message;
 - (IncomingPushMessageSignalBuilder *)setMessage:(NSData *)value;
 - (IncomingPushMessageSignalBuilder *)clearMessage;
+
+- (BOOL)hasDeliveryTimestamp;
+- (UInt64)deliveryTimestamp;
+- (IncomingPushMessageSignalBuilder *)setDeliveryTimestamp:(UInt64)value;
+- (IncomingPushMessageSignalBuilder *)clearDeliveryTimestamp;
+
 @end
 
 @interface PushMessageContent : PBGeneratedMessage {
