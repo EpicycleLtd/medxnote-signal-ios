@@ -76,7 +76,7 @@
     NSData *theirSignedPreKey = preKeyBundle.signedPreKeyPublic.removeKeyType;
     
     if (![self.identityStore isTrustedIdentityKey:theirIdentityKey recipientId:self.recipientId]) {
-        @throw [NSException exceptionWithName:UntrustedIdentityKeyException reason:@"Identity key is not valid" userInfo:@{}];
+        //@throw [NSException exceptionWithName:UntrustedIdentityKeyException reason:@"Identity key is not valid" userInfo:@{}];
     }
 
     if (![Ed25519 verifySignature:preKeyBundle.signedPreKeySignature publicKey:theirIdentityKey data:preKeyBundle.signedPreKeyPublic]) {
@@ -118,7 +118,7 @@
     NSData *theirIdentityKey = message.identityKey.removeKeyType;
 
     if (![self.identityStore isTrustedIdentityKey:theirIdentityKey recipientId:self.recipientId]) {
-        @throw [NSException exceptionWithName:UntrustedIdentityKeyException reason:@"There is a previously known identity key." userInfo:@{}];
+        //@throw [NSException exceptionWithName:UntrustedIdentityKeyException reason:@"There is a previously known identity key." userInfo:@{}];
     }
     
     int unSignedPrekeyId = -1;

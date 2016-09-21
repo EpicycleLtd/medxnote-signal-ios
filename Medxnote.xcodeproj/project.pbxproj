@@ -784,6 +784,7 @@
 		B10C9B5C1A7049EC00ECA2BF /* pause_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause_icon@2x.png"; sourceTree = "<group>"; };
 		B10C9B5D1A7049EC00ECA2BF /* play_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_icon.png; sourceTree = "<group>"; };
 		B10C9B5E1A7049EC00ECA2BF /* play_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_icon@2x.png"; sourceTree = "<group>"; };
+		B13403351D8F02D000570D5E /* Medxnote.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Medxnote.entitlements; sourceTree = "<group>"; };
 		B15A75F41D6E23FE000475A2 /* ic_done_all_white_18dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_done_all_white_18dp.png; sourceTree = "<group>"; };
 		B15A75F51D6E23FE000475A2 /* ic_done_read_white_18dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_done_read_white_18dp.png; sourceTree = "<group>"; };
 		B15A75F61D6E23FE000475A2 /* ic_done_white_18dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_done_white_18dp.png; sourceTree = "<group>"; };
@@ -2077,6 +2078,7 @@
 		D221A07E169C9E5E00537ABF = {
 			isa = PBXGroup;
 			children = (
+				B13403351D8F02D000570D5E /* Medxnote.entitlements */,
 				B1AD1CEB1D57CC8D0005C9AA /* MedxPasscodeManager.h */,
 				B1AD1CE91D57C8350005C9AA /* MedxPasscodeManager.m */,
 				B1AD1CE71D57C5840005C9AA /* UIColor+HexValue.m */,
@@ -2377,6 +2379,7 @@
 				TargetAttributes = {
 					D221A088169C9E5E00537ABF = {
 						DevelopmentTeam = FV53Q498MD;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.DataProtection = {
 								enabled = 1;
@@ -3221,9 +3224,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Medxnote.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: MEDXNOTE LIMITED (FV53Q498MD)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -3262,7 +3267,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.medxnote.medxnote;
 				PRODUCT_NAME = Medxnote;
-				PROVISIONING_PROFILE = "78260d93-2b13-4105-8335-5fe4c1ab402f";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_AFTER_BUILD = YES;
@@ -3278,9 +3284,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Medxnote.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: MEDXNOTE LIMITED (FV53Q498MD)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -3319,7 +3327,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.medxnote.medxnote;
 				PRODUCT_NAME = Medxnote;
-				PROVISIONING_PROFILE = "62e78314-326a-44f4-a288-52bbc60bb2dd";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TEST_AFTER_BUILD = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s i386";

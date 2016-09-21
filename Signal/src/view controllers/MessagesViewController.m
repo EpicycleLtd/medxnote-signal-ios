@@ -1028,31 +1028,12 @@ typedef enum : NSUInteger {
     if ([self shouldShowMessageStatusAtIndexPath:indexPath]) {
         if (msg.messageType == TSOutgoingMessageAdapter) {
             TSOutgoingMessage *outgoingMessage = (TSOutgoingMessage *)msg;
-            /*
-            TSInteraction *inter = (TSInteraction*)message;
-            TSMessage *omessage = (TSMessage *)inter;
-            NSMutableDictionary *dict = message.receipts;
-            for(NSString *key in dict){
-                NSLog(@"key=%@ value=%@", key, [omessage.receipts objectForKey:key]);
-            }
-            */
             if(outgoingMessage.messageState == TSOutgoingMessageStateUnsent) {
                 NSMutableAttributedString *attrStr =
                 [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"FAILED_SENDING_TEXT", nil)];
                 [attrStr appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
                 return attrStr;
             }
-            /*
-            if ([self.thread isKindOfClass:[TSGroupThread class]]) {
-                NSInteger *sentCount = 0;
-                NSInteger *deliveredCount = 0;
-                NSInteger *readCount = 0;
-                NSMutableDictionary *dict = outgoingMessage.receipts;
-                
-                
-            
-            }
-             */
         }
 
         if ([self.thread isKindOfClass:[TSGroupThread class]]) {
@@ -1141,7 +1122,8 @@ typedef enum : NSUInteger {
     TSMessageAdapter *messageItem =
         [collectionView.dataSource collectionView:collectionView messageDataForItemAtIndexPath:indexPath];
     TSInteraction *interaction = [self interactionAtIndexPath:indexPath];
-
+    
+    
     switch (messageItem.messageType) {
         case TSOutgoingMessageAdapter: {
             TSOutgoingMessage *outgoingMessage = (TSOutgoingMessage *)messageItem;
