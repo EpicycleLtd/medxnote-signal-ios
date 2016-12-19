@@ -263,8 +263,8 @@ typedef enum : NSUInteger {
     [self.inputToolbar.contentView.textView setFont:[UIFont ows_dynamicTypeBodyFont]];
 
     self.inputToolbar.contentView.leftBarButtonItem = self.attachButton;
-    self.inputToolbar.contentView.textView.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.inputToolbar.contentView.textView.spellCheckingType = UITextSpellCheckingTypeNo;
+//    self.inputToolbar.contentView.textView.autocorrectionType = UITextAutocorrectionTypeNo;
+//    self.inputToolbar.contentView.textView.spellCheckingType = UITextSpellCheckingTypeNo;
     
 
     UILabel *sendLabel = self.inputToolbar.contentView.rightBarButtonItem.titleLabel;
