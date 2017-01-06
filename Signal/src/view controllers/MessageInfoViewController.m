@@ -13,6 +13,8 @@
 @property NSDateFormatter *sourceDateFormatter;
 @property NSDateFormatter *dateFormatter;
 
+@property NSMutableArray<NSArray*> *displayReceipts;
+
 @end
 
 @implementation MessageInfoViewController
@@ -29,8 +31,22 @@
     self.sourceDateFormatter.dateFormat = @"HH:mm:ss dd/MM/yyyy";
     self.dateFormatter = [[NSDateFormatter alloc] init];
     self.dateFormatter.dateFormat = @"d MMM yyyy', 'HH:mm:ss' GMT'Z";
-    // 14:20:14 06/01/2017
-    // -> 6 Jan 2017, 14:20:14 GMT+00:00
+    
+    // split receipts by user
+    self.displayReceipts = [NSMutableArray new];
+    NSMutableArray *new = [NSMutableArray new];
+    for (NSString *string in self.receipts) {
+        if ([string containsString:@"\n"] && [self.receipts indexOfObject:string] > 0) {
+            [self.displayReceipts addObject:new.copy];
+            new = [NSMutableArray new];
+        }
+        [new addObject:string];
+        
+        // end of list
+        if ([self.receipts indexOfObject:string] == self.receipts.count-1) {
+            [self.displayReceipts addObject:new.copy];
+        }
+    }
 }
 
 - (void)dismiss {
@@ -39,13 +55,27 @@
 
 #pragma mark - UITableView
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.displayReceipts.count;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.receipts.count;
+    NSArray *sectionArray = self.displayReceipts[section];
+    return sectionArray.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSArray *sectionArray = self.displayReceipts[section];
+    NSString *string = sectionArray.firstObject;
+    return [string componentsSeparatedByString:@"\n"].firstObject;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell" forIndexPath:indexPath];;
-    NSString *value = self.receipts[indexPath.row];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell" forIndexPath:indexPath];
+    NSArray *sectionArray = self.displayReceipts[indexPath.section];
+    NSString *value = sectionArray[indexPath.row];
+    
+    //
     NSString *title = @"";
     NSString *dateString = @"";
     switch (indexPath.row) {
