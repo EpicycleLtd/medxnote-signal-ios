@@ -10,6 +10,8 @@
 
 @interface MessageInfoViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property NSDateFormatter *sourceDateFormatter;
+@property NSDateFormatter *dateFormatter;
 
 @end
 
@@ -22,7 +24,11 @@
     UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = dismissButton;
     
-    // TODO: date formatting
+    // date formatting
+    self.sourceDateFormatter = [[NSDateFormatter alloc] init];
+    self.sourceDateFormatter.dateFormat = @"HH:mm:ss dd/MM/yyyy";
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    self.dateFormatter.dateFormat = @"d MMM yyyy', 'HH:mm:ss' GMT'Z";
     // 14:20:14 06/01/2017
     // -> 6 Jan 2017, 14:20:14 GMT+00:00
 }
@@ -41,32 +47,33 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell" forIndexPath:indexPath];;
     NSString *value = self.receipts[indexPath.row];
     NSString *title = @"";
-    NSString *string = @"";
+    NSString *dateString = @"";
     switch (indexPath.row) {
         case 0: {
             // sent
             NSArray<NSString*> *strings = [value componentsSeparatedByString:@"\n"];
-            string = [strings.lastObject stringByReplacingOccurrencesOfString:@"Sent: " withString:@""];
+            dateString = [strings.lastObject stringByReplacingOccurrencesOfString:@"Sent: " withString:@""];
             title = NSLocalizedString(@"Sent", nil);
             break;
         }
         case 1: {
             // delivered
-            string = [value stringByReplacingOccurrencesOfString:@"Delivered: " withString:@""];
+            dateString = [value stringByReplacingOccurrencesOfString:@"Delivered: " withString:@""];
             title = NSLocalizedString(@"Received", nil);
             break;
         }
         case 2: {
             // read
-            string = [value stringByReplacingOccurrencesOfString:@"Read: " withString:@""];;
+            dateString = [value stringByReplacingOccurrencesOfString:@"Read: " withString:@""];
             title = NSLocalizedString(@"Read", nil);
             break;
         }
         default:
             break;
     }
+    NSDate *date = [self.sourceDateFormatter dateFromString:dateString];
     cell.textLabel.text = title.capitalizedString;
-    cell.detailTextLabel.text = string;
+    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
     return cell;
 }
 
