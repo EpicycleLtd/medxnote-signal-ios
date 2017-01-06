@@ -51,6 +51,7 @@
 #import "UIFont+OWS.h"
 #import "UIUtil.h"
 #import "UIImage+normalizeImage.h"
+#import "QRCodeViewController.h"
 
 @import Photos;
 
@@ -71,7 +72,7 @@ typedef enum : NSUInteger {
     kMediaTypeVideo,
 } kMediaTypes;
 
-@interface MessagesViewController () {
+@interface MessagesViewController () <QRCodeViewDelegate> {
     UIImage *tappedImage;
     BOOL isGroupConversation;
 
@@ -1970,6 +1971,12 @@ typedef enum : NSUInteger {
     }
 }
 
+#pragma mark QR Code
+
+- (void)didFinishScanningQRCodeWithString:(NSString *)string {
+    self.inputToolbar.contentView.textView.text = [self.inputToolbar.contentView.textView.text stringByAppendingString:string];
+}
+
 #pragma mark Accessory View
 
 - (void)didPressAccessoryButton:(UIButton *)sender {
@@ -1983,8 +1990,8 @@ typedef enum : NSUInteger {
         destructiveButtonTitle:nil
              otherButtonTitles:@[
                  NSLocalizedString(@"TAKE_MEDIA_BUTTON", @""),
-                 NSLocalizedString(@"CHOOSE_MEDIA_BUTTON", @"")
-             ] //,@"Record audio"]
+                 NSLocalizedString(@"CHOOSE_MEDIA_BUTTON", @""),
+                 @"Scan QR Code"]
                       tapBlock:^(DJWActionSheet *actionSheet, NSInteger tappedButtonIndex) {
                         if (tappedButtonIndex == actionSheet.cancelButtonIndex) {
                             DDLogVerbose(@"User Cancelled");
@@ -1999,6 +2006,9 @@ typedef enum : NSUInteger {
                                     [self chooseFromLibrary];
                                     break;
                                 case 2:
+                                    [self showQRCodeScanner];
+                                    break;
+                                case 3:
                                     [self recordAudio];
                                     break;
                                 default:
@@ -2006,6 +2016,13 @@ typedef enum : NSUInteger {
                             }
                         }
                       }];
+}
+
+- (void)showQRCodeScanner {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
+    QRCodeViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"QRCodeView"];
+    vc.delegate = self;
+    [self presentViewController:vc animated:true completion:nil];
 }
 
 - (void)markAllMessagesAsRead {
