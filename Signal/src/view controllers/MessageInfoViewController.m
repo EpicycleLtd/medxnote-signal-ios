@@ -21,6 +21,10 @@
     // setup dismiss button
     UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = dismissButton;
+    
+    // TODO: date formatting
+    // 14:20:14 06/01/2017
+    // -> 6 Jan 2017, 14:20:14 GMT+00:00
 }
 
 - (void)dismiss {
@@ -49,7 +53,7 @@
         case 1: {
             // delivered
             string = [value stringByReplacingOccurrencesOfString:@"Delivered: " withString:@""];
-            title = NSLocalizedString(@"Delivered", nil);
+            title = NSLocalizedString(@"Received", nil);
             break;
         }
         case 2: {
