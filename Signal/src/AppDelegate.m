@@ -27,7 +27,7 @@ static NSString *const kInitialViewControllerIdentifier = @"UserInitialViewContr
 static NSString *const kURLSchemeSGNLKey                = @"sgnl";
 static NSString *const kURLHostVerifyPrefix             = @"verify";
 
-@interface AppDelegate ()
+@interface AppDelegate () <ABPadLockScreenViewControllerDelegate>
 
 @property (nonatomic, retain) UIWindow *blankWindow;
 
@@ -303,6 +303,7 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
 
 - (void)presentPasscodeEntry {
     ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self complexPin:YES];
+    [lockScreen cancelButtonDisabled:true];
     [lockScreen setAllowedAttempts:3];
     
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
