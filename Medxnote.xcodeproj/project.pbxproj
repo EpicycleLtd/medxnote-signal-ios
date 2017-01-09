@@ -2379,7 +2379,7 @@
 				TargetAttributes = {
 					D221A088169C9E5E00537ABF = {
 						DevelopmentTeam = FV53Q498MD;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.DataProtection = {
 								enabled = 1;
@@ -3267,8 +3267,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.medxnote.medxnote;
 				PRODUCT_NAME = Medxnote;
-				PROVISIONING_PROFILE = "b74d2bd0-b225-4caf-ba0d-bc2cfad76cd1";
-				PROVISIONING_PROFILE_SPECIFIER = "Medxnote Dev Profile";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_AFTER_BUILD = YES;
@@ -3285,8 +3285,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Medxnote.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FV53Q498MD;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3327,8 +3327,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.medxnote.medxnote;
 				PRODUCT_NAME = Medxnote;
-				PROVISIONING_PROFILE = "7e32cc60-1d2a-4c04-be84-59ff74614963";
-				PROVISIONING_PROFILE_SPECIFIER = "Medxnote App Store Profile";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TEST_AFTER_BUILD = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s i386";
