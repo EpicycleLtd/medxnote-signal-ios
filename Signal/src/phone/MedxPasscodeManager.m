@@ -43,4 +43,18 @@
     }];
 }
 
++ (NSDate *)lastActivityTime {
+    return [[TSStorageManager sharedManager] objectForKey:@"MedxStorageLastActivityKey" inCollection:TSStorageUserAccountCollection];
+}
+
++ (void)storeLastActivityTime:(NSDate *)date {
+    YapDatabaseConnection *dbConn = [[TSStorageManager sharedManager] dbConnection];
+    
+    [dbConn readWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
+        [transaction setObject:date
+                        forKey:@"MedxStorageLastActivityKey"
+                  inCollection:TSStorageUserAccountCollection];
+    }];
+}
+
 @end

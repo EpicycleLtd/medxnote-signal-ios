@@ -20,4 +20,8 @@
 
 + (void)storeInactivityTimeout:(NSNumber *)timeout;
 
++ (NSDate *)lastActivityTime;
+
++ (void)storeLastActivityTime:(NSDate *)date;
+
 @end

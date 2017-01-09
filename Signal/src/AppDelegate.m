@@ -286,13 +286,17 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
 }
 
 - (void)protectScreen {
+    [MedxPasscodeManager storeLastActivityTime:[NSDate date]];
     if (Environment.preferences.screenSecurityIsEnabled) {
         self.blankWindow.hidden = NO;
     }
 }
 
 - (void)removeScreenProtection {
-    if ([MedxPasscodeManager isPasscodeEnabled]) {
+    // get time when user exited the app and present passcode prompt if needed
+    NSNumber *timeout = [MedxPasscodeManager inactivityTimeout];
+    BOOL shouldShowPasscode = [MedxPasscodeManager lastActivityTime].timeIntervalSinceNow < -timeout.intValue;
+    if ([MedxPasscodeManager isPasscodeEnabled] && shouldShowPasscode) {
         [self presentPasscodeEntry];
     }
     
