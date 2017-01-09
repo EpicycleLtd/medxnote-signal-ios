@@ -103,7 +103,7 @@
     }
     NSDate *date = [self.sourceDateFormatter dateFromString:dateString];
     cell.textLabel.text = title.capitalizedString;
-    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
+    cell.detailTextLabel.text = date.timeIntervalSince1970 == 0 ? @"-" : [self.dateFormatter stringFromDate:date];
     return cell;
 }
 
