@@ -19,6 +19,8 @@
 #import "UIColor+HexValue.h"
 #import "ABPadButton.h"
 #import "ABPinSelectionView.h"
+#import "ABPadLockScreenViewController.h"
+#import "MedxPasscodeManager.h"
 
 static NSString *const kStoryboardName                  = @"Storyboard";
 static NSString *const kInitialViewControllerIdentifier = @"UserInitialViewController";
@@ -290,9 +292,23 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
 }
 
 - (void)removeScreenProtection {
+    if ([MedxPasscodeManager isPasscodeEnabled]) {
+        [self presentPasscodeEntry];
+    }
+    
     if (Environment.preferences.screenSecurityIsEnabled) {
         self.blankWindow.hidden = YES;
     }
+}
+
+- (void)presentPasscodeEntry {
+    ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self complexPin:YES];
+    [lockScreen setAllowedAttempts:3];
+    
+    lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
+    lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:lockScreen animated:YES completion:nil];
 }
 
 - (void)setupAppearance {
@@ -382,6 +398,20 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
     }
 
     return NO;
+}
+
+#pragma mark - ABLockScreenDelegate Methods
+
+- (BOOL)padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController validatePin:(NSString*)pin; {
+    return [[MedxPasscodeManager passcode] isEqualToString:pin];
+}
+
+- (void)unlockWasSuccessfulForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController {
+    [padLockScreenViewController dismissViewControllerAnimated:true completion:nil];
+}
+
+- (void)unlockWasUnsuccessful:(NSString *)falsePin afterAttemptNumber:(NSInteger)attemptNumber padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController {
+    NSLog(@"Failed attempt number %ld with pin: %@", (long)attemptNumber, falsePin);
 }
 
 @end
