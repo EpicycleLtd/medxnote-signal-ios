@@ -17,6 +17,7 @@
 #import "ABPadLockScreenSetupViewController.h"
 #import "ABPadLockScreenViewController.h"
 #import "MedxPasscodeManager.h"
+#import "ActionSheetPicker.h"
 
 @interface PrivacySettingsTableViewController () <ABPadLockScreenSetupViewControllerDelegate, ABPadLockScreenViewControllerDelegate>
 
@@ -63,8 +64,8 @@
     
     // Display timeout
     self.timeoutCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TimeoutCell"];
-    self.timeoutCell.textLabel.text = NSLocalizedString(@"Passcode Timeout", @"Settings");
-    self.timeoutCell.detailTextLabel.text = @"0"; // TODO:
+    self.timeoutCell.textLabel.text = @"Passcode Timeout";
+    self.timeoutCell.detailTextLabel.text = [MedxPasscodeManager inactivityTimeout].stringValue;
     
     // Clear History Log Cell
     self.clearHistoryLogCell                = [[UITableViewCell alloc] init];
@@ -192,7 +193,7 @@
                     [self showPasscodeView];
                     break;
                 case 1:
-                    NSLog(@"SHOW TIMEOUT OPTIONS");
+                    [self showTimeoutOptions];
                     break;
                 default:
                     break;
@@ -248,6 +249,17 @@
         
         [self presentViewController:lockScreen animated:YES completion:nil];
     }
+}
+
+- (void)showTimeoutOptions {
+    [ActionSheetDatePicker showPickerWithTitle:@"Inactivity Timeout" datePickerMode:UIDatePickerModeCountDownTimer selectedDate:nil doneBlock:^(ActionSheetDatePicker *picker, id selectedDate, id origin) {
+        NSNumber *number = selectedDate;
+        NSLog(@"new timeout: %@", number);
+        self.timeoutCell.detailTextLabel.text = number.stringValue;
+        [MedxPasscodeManager storeInactivityTimeout:number];
+    } cancelBlock:^(ActionSheetDatePicker *picker) {
+        //
+    } origin:self.view];
 }
 
 #pragma mark - Toggle

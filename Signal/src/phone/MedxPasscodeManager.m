@@ -29,4 +29,18 @@
     }];
 }
 
++ (NSNumber *)inactivityTimeout {
+    return [[TSStorageManager sharedManager] objectForKey:@"MedxStorageTimeoutKey" inCollection:TSStorageUserAccountCollection];
+}
+
++ (void)storeInactivityTimeout:(NSNumber *)timeout {
+    YapDatabaseConnection *dbConn = [[TSStorageManager sharedManager] dbConnection];
+    
+    [dbConn readWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
+        [transaction setObject:timeout
+                        forKey:@"MedxStorageTimeoutKey"
+                  inCollection:TSStorageUserAccountCollection];
+    }];
+}
+
 @end

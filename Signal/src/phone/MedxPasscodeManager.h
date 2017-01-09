@@ -16,4 +16,8 @@
 
 + (void)storePasscode:(NSString *)passcode;
 
++ (NSNumber *)inactivityTimeout;
+
++ (void)storeInactivityTimeout:(NSNumber *)timeout;
+
 @end
