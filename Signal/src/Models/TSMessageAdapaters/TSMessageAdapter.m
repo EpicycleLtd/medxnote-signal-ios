@@ -19,6 +19,7 @@
 #import "TSOutgoingMessage.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "ZHPopupView.h"
+#import "MessageInfoViewController.h"
 
 
 @interface TSMessageAdapter ()
@@ -293,20 +294,24 @@
             receipts = [NSString stringWithFormat: @"%@\n%@", receipts,outgoingMessage.receipts[key]];
 
         }
-
-        ZHPopupView *popupView = [ZHPopupView popupNomralAlertViewInView:nil
-                                                         backgroundStyle:ZHPopupViewBackgroundType_SimpleOpacity
-                                                                   title:@"Receipt details"
-                                                                 content:receipts
-                                                            buttonTitles:@[@"OK"]
-                                                     confirmBtnTextColor:nil otherBtnTextColor:nil
-                                                      buttonPressedBlock:^(NSInteger btnIdx) {
-                                                          
-                                                          
-                                                      }];
-        popupView.contentTextAlignment = NSTextAlignmentLeft;
-        popupView.contentTextFontSize = 10;
-        [popupView present];
+        MessageInfoViewController *vc = [[UIStoryboard storyboardWithName:@"Storyboard" bundle:nil] instantiateViewControllerWithIdentifier:@"MessageInfoView"];
+        vc.receipts = sortedValues.copy;
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:nav animated:true completion:nil];
+        
+//        ZHPopupView *popupView = [ZHPopupView popupNomralAlertViewInView:nil
+//                                                         backgroundStyle:ZHPopupViewBackgroundType_SimpleOpacity
+//                                                                   title:@"Receipt details"
+//                                                                 content:receipts
+//                                                            buttonTitles:@[@"OK"]
+//                                                     confirmBtnTextColor:nil otherBtnTextColor:nil
+//                                                      buttonPressedBlock:^(NSInteger btnIdx) {
+//                                                          
+//                                                          
+//                                                      }];
+//        popupView.contentTextAlignment = NSTextAlignmentLeft;
+//        popupView.contentTextFontSize = 10;
+//        [popupView present];
         return;
     }
 
