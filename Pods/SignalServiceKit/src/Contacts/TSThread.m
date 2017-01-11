@@ -14,6 +14,8 @@
 #import "TSAccountManager.h"
 #import "TextSecureKitEnv.h"
 
+#define RETRY_ATTEMPTS 3
+
 @interface TSThread ()
 
 @property (nonatomic, retain) NSDate *creationDate;
@@ -135,21 +137,20 @@
 - (void)markAllAsReadWithTransaction:(YapDatabaseReadWriteTransaction *)transaction {
     YapDatabaseViewTransaction *viewTransaction = [transaction ext:TSUnreadDatabaseViewExtensionName];
     NSMutableArray *array                       = [NSMutableArray array];
-    [viewTransaction
-        enumerateRowsInGroup:self.uniqueId
-                  usingBlock:^(
-                      NSString *collection, NSString *key, id object, id metadata, NSUInteger index, BOOL *stop) {
-                    [array addObject:object];
-                  }];
+    [viewTransaction enumerateRowsInGroup:self.uniqueId
+                               usingBlock:^(
+                                            NSString *collection, NSString *key, id object, id metadata, NSUInteger index, BOOL *stop) {
+                                   [array addObject:object];
+                               }];
     //NSLog([TSAccountManager localNumber]);
+    
+    // queue
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
+    dispatch_queue_t serialQueue = dispatch_queue_create("com.medxnote.readqueue", DISPATCH_QUEUE_SERIAL);
+    
     for (TSIncomingMessage *message in array) {
         message.read = YES;
-        
-        
 
-        
-        
-        
         __block NSError *latestError;
         TSThread *thread = [TSThread self];
         NSString * dest = @"";
@@ -162,102 +163,20 @@
             dest = [interaction.uniqueThreadId substringFromIndex:1];
         }
         NSString * msgid = [NSString stringWithFormat:@"%lld",message.timestamp];
- /*       if (self.isGroupThread){
-            TSGroupThread *thread = (TSGroupThread *)self;
-            
-           // NSArray *groupRecipients     =  thread.groupModel.groupMemberIds;
-    
-            for ( NSString *member in thread.groupModel.groupMemberIds){
-                if (![[TSAccountManager localNumber] isEqualToString:member]) {
-                    [[TSNetworkManager sharedManager]
-                     makeRequest:[[TSMessageReadRequest alloc] initWithDestination:member forMessageId:msgid relay:@""]
-                     success:^(NSURLSessionDataTask *task, id responseObject) {NSLog(@"success");}
-                     failure:^(NSURLSessionDataTask *task, id responseObject) {NSLog(@"failure");}];
-                }
-            }
-        }else{
-  */
         
-    
-            [[TSNetworkManager sharedManager]
-             makeRequest:[[TSMessageReadRequest alloc] initWithDestination:dest forMessageId:msgid relay:@""]
-             success:^(NSURLSessionDataTask *task, id responseObject) {
-                 
-                 NSLog(@"success");
-                 
-             }
-             failure:^(NSURLSessionDataTask *task, id responseObject) {NSLog(@"failure");}];
-    //    }
-       // TSGroupThread *thread = [TSThread fetchObjectWithUniqueID:self.uniqueId transaction:transaction];
-      //  for ( NSString *member in thread.groupModel.groupMemberIds){
-      //      NSLog(member);
-      //  }
-        /*
-        TSGroupThread *groupThread = (TSGroupThread *)thread;
-        NSMutableArray<SignalRecipient *> *recipients = [NSMutableArray array];
-        for (NSString *recipientId in groupThread.groupModel.groupMemberIds) {
-            __block SignalRecipient *recipient;
-            [self.dbConnection readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
-                recipient = [SignalRecipient recipientWithTextSecureIdentifier:recipientId withTransaction:transaction];
+        dispatch_async(serialQueue, ^{
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            TSMessageReadRequest *request = [[TSMessageReadRequest alloc] initWithDestination:dest forMessageId:msgid relay:@""];
+            [self sendReadReceiptRequest:request withAttempts:RETRY_ATTEMPTS success:^(NSURLSessionDataTask *task, id responseObject) {
+                NSLog(@"READ success");
+                dispatch_semaphore_signal(semaphore);
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                NSLog(@"READ failure: %@", error.localizedDescription);
+                dispatch_semaphore_signal(semaphore);
             }];
-            
-            
-            if (!recipient) {
-                [[self contactUpdater] synchronousLookup:recipientId
-                                                 success:^(SignalRecipient *newRecipient) {
-                                                     [recipients addObject:newRecipient];
-                                                 }
-                                                 failure:^(NSError *error) {
-#warning Ignore sending message to him?
-                                                     latestError = error;
-                                                 }];
-            } else {
-                [recipients addObject:recipient];
-            }
-        }
-        */
-        //for (SignalRecipient *rec in recipients) {
-            // we don't need to send the message to ourselves, but otherwise we send
-            //if (![[rec uniqueId] isEqualToString:contactIdentifier]) {
-              //  [futures addObject:[self sendMessageFuture:message recipient:rec inThread:thread]];
-            //}
-    //        NSLog(rec);
-            
- //       }
-
-
-   /*     if ([thread isKindOfClass:[TSGroupThread class]]) {
-            TSGroupThread *groupThread = (TSGroupThread *)thread;
-            [self getRecipients:groupThread.groupModel.groupMemberIds
-                        success:^(NSArray<SignalRecipient *> *recipients) {
-                            [self groupSend:recipients
-                                    Message:message
-                                   inThread:thread
-                                    success:successCompletionBlock
-                                    failure:failedCompletionBlock];
-                        }
-                        failure:^(NSError *error) {
-                            DDLogError(@"Failure to retreive group recipient.");
-                            [self saveMessage:message withState:TSOutgoingMessageStateUnsent];
-                        }];
-        } else {*/
-            //TSGroupThread.
-            //__block TSInteraction *interaction;
-        //    TSInteraction *interaction = [TSInteraction fetchObjectWithUniqueID:message.uniqueId transaction:transaction];
-          //  interaction.
+        });
         
-            //NSString * zzz = [interaction.uniqueThreadId substringFromIndex:1];
-            // TSRequest *rr = [[TSMessageReadRequest alloc] initWithDestination:zzz forMessageId:msgid relay:@""];
-            //[[TSNetworkManager sharedManager] makeRequest:rr];
-            //[[TSNetworkManager sharedManager] makeRequest:attachmentRequest];
-            // //TSMessagesManager  *ss =[[TSMessagesManager sharedManager] init  ];
-            //[ rr sendReadReceipt:zzz];
-        
-           // NSLog(@"before");
-   //     }
-        
-        
-        
+        // save locally
         NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
         NSDate *readTime = [NSDate dateWithTimeIntervalSince1970:timeStamp];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -268,10 +187,23 @@
         NSString *formatedTime = [NSString stringWithFormat: @"Read: %@", readTimeString];
         
         message.receipts[[NSString stringWithFormat:@"%@_%@_3", senderName, dest]] = formatedTime;
-        
-        
         [message saveWithTransaction:transaction];
     }
+}
+
+- (void)sendReadReceiptRequest:(TSMessageReadRequest*)request withAttempts:(int)remainingAttempts success:(void (^)(NSURLSessionDataTask *task, id responseObject))success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
+    if (remainingAttempts == 0) { return; }
+    remainingAttempts -= 1;
+    NSLog(@"Started READ request");
+    [[TSNetworkManager sharedManager] makeRequest:request
+                                          success:success
+                                          failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                              if (remainingAttempts > 0) {
+                                                  [self sendReadReceiptRequest:request withAttempts:remainingAttempts success:success failure:failure];
+                                              } else {
+                                                  failure(task, error);
+                                              }
+                                          }];
 }
 
 - (ContactsUpdater *)contactUpdater {
