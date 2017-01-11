@@ -432,4 +432,8 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
     NSLog(@"Failed attempt number %ld with pin: %@", (long)attemptNumber, falsePin);
 }
 
+- (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController {
+    // should never happen as cancel is disabled
+}
+
 @end

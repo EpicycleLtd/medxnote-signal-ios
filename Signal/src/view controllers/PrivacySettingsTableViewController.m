@@ -65,7 +65,7 @@
     // Display timeout
     self.timeoutCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TimeoutCell"];
     self.timeoutCell.textLabel.text = @"Passcode Timeout";
-    self.timeoutCell.detailTextLabel.text = [MedxPasscodeManager inactivityTimeout].stringValue;
+    self.timeoutCell.detailTextLabel.text = [MedxPasscodeManager inactivityTimeoutInMinutes].stringValue;
     
     // Clear History Log Cell
     self.clearHistoryLogCell                = [[UITableViewCell alloc] init];
@@ -252,14 +252,26 @@
 }
 
 - (void)showTimeoutOptions {
-    [ActionSheetDatePicker showPickerWithTitle:@"Inactivity Timeout" datePickerMode:UIDatePickerModeCountDownTimer selectedDate:nil doneBlock:^(ActionSheetDatePicker *picker, id selectedDate, id origin) {
+    ActionSheetDatePicker *datePicker = [[ActionSheetDatePicker alloc] initWithTitle:@"Inactivity Timeout" datePickerMode:UIDatePickerModeCountDownTimer selectedDate:nil doneBlock:^(ActionSheetDatePicker *picker, id selectedDate, id origin) {
         NSNumber *number = selectedDate;
         NSLog(@"new timeout: %@", number);
-        self.timeoutCell.detailTextLabel.text = number.stringValue;
         [MedxPasscodeManager storeInactivityTimeout:number];
+        self.timeoutCell.detailTextLabel.text = [MedxPasscodeManager inactivityTimeoutInMinutes].stringValue;
     } cancelBlock:^(ActionSheetDatePicker *picker) {
         //
     } origin:self.view];
+
+    // done button
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:nil action:nil];
+    [doneButton setTintColor:[UIColor blackColor]];
+    [datePicker setDoneButton:doneButton];
+    
+    // cancel button
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
+    [cancelButton setTintColor:[UIColor blackColor]];
+    [datePicker setCancelButton:cancelButton];
+    
+    [datePicker showActionSheetPicker];
 }
 
 #pragma mark - Toggle

@@ -33,6 +33,11 @@
     return [[TSStorageManager sharedManager] objectForKey:@"MedxStorageTimeoutKey" inCollection:TSStorageUserAccountCollection];
 }
 
++ (NSNumber *)inactivityTimeoutInMinutes {
+    NSNumber *timeout = [MedxPasscodeManager inactivityTimeout];
+    return @(timeout.integerValue / 60);
+}
+
 + (void)storeInactivityTimeout:(NSNumber *)timeout {
     YapDatabaseConnection *dbConn = [[TSStorageManager sharedManager] dbConnection];
     

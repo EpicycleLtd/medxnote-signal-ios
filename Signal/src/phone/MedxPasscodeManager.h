@@ -18,6 +18,8 @@
 
 + (NSNumber *)inactivityTimeout;
 
++ (NSNumber *)inactivityTimeoutInMinutes;
+
 + (void)storeInactivityTimeout:(NSNumber *)timeout;
 
 + (NSDate *)lastActivityTime;
