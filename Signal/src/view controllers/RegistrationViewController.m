@@ -89,12 +89,19 @@ static NSString *const kCodeSentSegue = @"codeSent";
           [_spinnerView stopAnimating];
         }
         failure:^(NSError *error) {
-          if (error.code == 400) {
-              SignalAlertView(NSLocalizedString(@"REGISTRATION_ERROR", nil),
-                              NSLocalizedString(@"REGISTRATION_NON_VALID_NUMBER", ));
-          } else {
-              SignalAlertView(error.localizedDescription, error.localizedRecoverySuggestion);
-          }
+            switch (error.code) {
+                case 400:
+                    SignalAlertView(NSLocalizedString(@"REGISTRATION_ERROR", nil),
+                                    NSLocalizedString(@"REGISTRATION_NON_VALID_NUMBER", ));
+                    break;
+                case 403:
+                    SignalAlertView(NSLocalizedString(@"REGISTRATION_ERROR", nil),
+                                    @"Your number is not allowed access the Medxnote service. Please contact your hospital’s Medxnote administrator or niall.rafferty@medxnote.com for sales enquiries."); // FIXME: localize
+                    break;
+                default:
+                    SignalAlertView(error.localizedDescription, error.localizedRecoverySuggestion);
+                    break;
+            }
 
           [_sendCodeButton setEnabled:YES];
           [_spinnerView stopAnimating];
