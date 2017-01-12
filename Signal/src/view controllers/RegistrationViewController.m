@@ -96,7 +96,7 @@ static NSString *const kCodeSentSegue = @"codeSent";
                     break;
                 case 403:
                     SignalAlertView(NSLocalizedString(@"REGISTRATION_ERROR", nil),
-                                    @"Entered number is not whitelisted for use."); // FIXME: localize
+                                    @"Your number is not allowed access the Medxnote service. Please contact your hospital’s Medxnote administrator or niall.rafferty@medxnote.com for sales enquiries."); // FIXME: localize
                     break;
                 default:
                     SignalAlertView(error.localizedDescription, error.localizedRecoverySuggestion);
