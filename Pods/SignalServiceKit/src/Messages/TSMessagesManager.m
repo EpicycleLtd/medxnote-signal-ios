@@ -207,7 +207,7 @@
     IncomingPushMessageSignal *message = self.currentMessage;
     uint64_t timeStamp = message.timestamp;
     [self.dbConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
-        TSIncomingMessage *incomingMessage;
+        TSInfoMessage *infoMessage;
         TSThread *thread;
         TSContactThread *cThread = [TSContactThread getOrCreateThreadWithContactId:message.source
                                                                        transaction:transaction
@@ -216,17 +216,17 @@
         NSString *senderName =
         [[TextSecureKitEnv sharedEnv].contactsManager nameStringForPhoneIdentifier:message.source];
         NSString *body = [NSString stringWithFormat:@"%@ has reinstalled app or updated the security keys", senderName];
-        incomingMessage = [[TSIncomingMessage alloc] initWithTimestamp:timeStamp
-                                                              inThread:cThread
-                                                           messageBody:body
-                                                         attachmentIds:@[]];
+        
+        // only TSInfoMessageTypeGroupUpdate supports custom message string
+        infoMessage = [[TSInfoMessage alloc] initWithTimestamp:timeStamp inThread:cThread messageType:TSInfoMessageTypeGroupUpdate customMessage:body];
+
         //timestamps
         NSDate *sentTime = [NSDate dateWithTimeIntervalSince1970:message.timestamp/1000];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"HH:mm:ss dd/MM/YYYY"];
         NSString *sentTimeString = [dateFormatter stringFromDate: sentTime];
         NSString *formatedTime = [NSString stringWithFormat: @"%@ \nSent: %@", senderName, sentTimeString];
-        incomingMessage.receipts[[NSString stringWithFormat:@"%@_%@_1", senderName, message.source ]] = formatedTime;
+        infoMessage.receipts[[NSString stringWithFormat:@"%@_%@_1", senderName, message.source ]] = formatedTime;
         
         
         NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
@@ -234,28 +234,13 @@
         NSString *deliveredTimeString = [dateFormatter stringFromDate: deliveredTime];
         formatedTime = [NSString stringWithFormat: @"Delivered: %@", deliveredTimeString];
         
-        incomingMessage.receipts[[NSString stringWithFormat:@"%@_%@_2", senderName, message.source]] = formatedTime;
+        infoMessage.receipts[[NSString stringWithFormat:@"%@_%@_2", senderName, message.source]] = formatedTime;
         
-        //
         thread = cThread;
         
-        if (thread && incomingMessage) {
-            [incomingMessage saveWithTransaction:transaction];
+        if (thread && infoMessage) {
+            [infoMessage saveWithTransaction:transaction];
         }
-        
-//        if (completionBlock) {
-//            completionBlock(incomingMessage.uniqueId);
-//        }
-        
-        // no need to notify for this
-//        NSString *name = [thread name];
-//        
-//        if (incomingMessage && thread) {
-//            [[TextSecureKitEnv sharedEnv]
-//             .notificationsManager notifyUserForIncomingMessage:incomingMessage
-//             from:name
-//             inThread:thread];
-//        }
     }];
 
 }
