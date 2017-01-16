@@ -20,6 +20,8 @@
 
 @interface TSMessagesManager ()
 
+@property IncomingPushMessageSignal *currentMessage;
+
 @end
 
 @implementation TSMessagesManager
@@ -38,6 +40,7 @@
 
     if (self) {
         _dbConnection = [TSStorageManager sharedManager].newDatabaseConnection;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addKeychangeEventToMessage:) name:@"KeychangeDidOccur" object:nil];
     }
 
     return self;
@@ -142,6 +145,7 @@
             }];
             return;
         }
+        self.currentMessage = secureMessage;
 
         PushMessageContent *content;
 
@@ -172,7 +176,8 @@
         TSStorageManager *storageManager = [TSStorageManager sharedManager];
         NSString *recipientId            = preKeyMessage.source;
         int deviceId                     = (int)preKeyMessage.sourceDevice;
-
+        self.currentMessage = preKeyMessage;
+        
         PushMessageContent *content;
 
         @try {
@@ -195,6 +200,64 @@
 
         [self handleIncomingMessage:preKeyMessage withPushContent:content];
     }
+}
+
+- (void)addKeychangeEventToMessage:(NSNotification *)notification {
+    NSLog(@"Keychange occured");
+    IncomingPushMessageSignal *message = self.currentMessage;
+    uint64_t timeStamp = message.timestamp;
+    [self.dbConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
+        TSIncomingMessage *incomingMessage;
+        TSThread *thread;
+        TSContactThread *cThread = [TSContactThread getOrCreateThreadWithContactId:message.source
+                                                                       transaction:transaction
+                                                                        pushSignal:message];
+        
+        NSString *senderName =
+        [[TextSecureKitEnv sharedEnv].contactsManager nameStringForPhoneIdentifier:message.source];
+        NSString *body = [NSString stringWithFormat:@"%@ has reinstalled app or updated the security keys", senderName];
+        incomingMessage = [[TSIncomingMessage alloc] initWithTimestamp:timeStamp
+                                                              inThread:cThread
+                                                           messageBody:body
+                                                         attachmentIds:@[]];
+        //timestamps
+        NSDate *sentTime = [NSDate dateWithTimeIntervalSince1970:message.timestamp/1000];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"HH:mm:ss dd/MM/YYYY"];
+        NSString *sentTimeString = [dateFormatter stringFromDate: sentTime];
+        NSString *formatedTime = [NSString stringWithFormat: @"%@ \nSent: %@", senderName, sentTimeString];
+        incomingMessage.receipts[[NSString stringWithFormat:@"%@_%@_1", senderName, message.source ]] = formatedTime;
+        
+        
+        NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+        NSDate *deliveredTime = [NSDate dateWithTimeIntervalSince1970:timeStamp];
+        NSString *deliveredTimeString = [dateFormatter stringFromDate: deliveredTime];
+        formatedTime = [NSString stringWithFormat: @"Delivered: %@", deliveredTimeString];
+        
+        incomingMessage.receipts[[NSString stringWithFormat:@"%@_%@_2", senderName, message.source]] = formatedTime;
+        
+        //
+        thread = cThread;
+        
+        if (thread && incomingMessage) {
+            [incomingMessage saveWithTransaction:transaction];
+        }
+        
+//        if (completionBlock) {
+//            completionBlock(incomingMessage.uniqueId);
+//        }
+        
+        // no need to notify for this
+//        NSString *name = [thread name];
+//        
+//        if (incomingMessage && thread) {
+//            [[TextSecureKitEnv sharedEnv]
+//             .notificationsManager notifyUserForIncomingMessage:incomingMessage
+//             from:name
+//             inThread:thread];
+//        }
+    }];
+
 }
 
 - (void)handleIncomingMessage:(IncomingPushMessageSignal *)incomingMessage withPushContent:(PushMessageContent *)content
