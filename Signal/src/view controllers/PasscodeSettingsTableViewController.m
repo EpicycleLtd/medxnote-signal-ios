@@ -12,12 +12,21 @@
 #import "MedxPasscodeManager.h"
 #import "ActionSheetPicker.h"
 
+typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
+    PasscodeSettingsActionNone,
+    PasscodeSettingsActionEnablePasscode,
+    PasscodeSettingsActionDisablePasscode,
+    PasscodeSettingsActionChangePasscode
+};
+
 @interface PasscodeSettingsTableViewController () <ABPadLockScreenSetupViewControllerDelegate, ABPadLockScreenViewControllerDelegate>
 
 @property (nonatomic, strong) UITableViewCell *enablePasscodeCell;
 @property (nonatomic, strong) UISwitch *enablePasscodeSwitch;
 @property (nonatomic, strong) UITableViewCell *timeoutCell;
 @property (nonatomic, strong) UITableViewCell *clearHistoryLogCell;
+
+@property PasscodeSettingsAction action;
 
 @end
 
@@ -26,8 +35,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.action = PasscodeSettingsActionNone;
     [self.navigationController.navigationBar setTranslucent:NO];
-    
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
@@ -64,20 +73,18 @@
     self.clearHistoryLogCell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
 }
 
-
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 3;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0:
             return self.enablePasscodeCell;
         case 1:
-            self.clearHistoryLogCell.textLabel.text = [MedxPasscodeManager isPasscodeEnabled] ? @"Change passcode" : @"Setup a passcode";
+            [self refreshPasscodeCell];
             return self.clearHistoryLogCell;
         case 2:
             return self.timeoutCell;
@@ -90,6 +97,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     switch (indexPath.row) {
         case 1:
+            self.action = PasscodeSettingsActionChangePasscode;
             [self showPasscodeView];
             break;
         case 2:
@@ -100,28 +108,27 @@
     }
 }
 
+- (void)refreshPasscodeCell {
+    self.clearHistoryLogCell.textLabel.text = [MedxPasscodeManager isPasscodeEnabled] ? @"Change passcode" : @"Setup a passcode";
+}
+
 #pragma mark - Actions
 
 - (void)didToggleSwitch:(UISwitch *)sender {
     [sender setOn:!sender.isOn];
     if ([MedxPasscodeManager isPasscodeEnabled]) {
-        // TODO: ask for passcode to turn off
+        self.action = PasscodeSettingsActionDisablePasscode;
+        [self showPasscodeView];
     } else {
-        // TODO: start passcode creation process if no passcode exists
+        self.action = PasscodeSettingsActionEnablePasscode;
+        [self showPasscodeCreationScreen];
     }
 }
 
 - (void)showPasscodeView {
     if (![MedxPasscodeManager isPasscodeEnabled]) {
-        ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self complexPin:YES subtitleLabelText:@"Please enter new passcode"];
-        lockScreen.tapSoundEnabled = YES;
-        lockScreen.errorVibrateEnabled = YES;
-        
-        lockScreen.modalPresentationStyle = UIModalPresentationPopover;
-        lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        
-        [self presentViewController:lockScreen animated:NO completion:nil];
-        
+        self.action = PasscodeSettingsActionEnablePasscode;
+        [self showPasscodeCreationScreen];
     } else {
         ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self complexPin:YES];
         [lockScreen setAllowedAttempts:3];
@@ -161,6 +168,9 @@
 - (void)pinSet:(NSString *)pin padLockScreenSetupViewController:(ABPadLockScreenSetupViewController *)padLockScreenViewController {
     [self dismissViewControllerAnimated:YES completion:nil];
     [MedxPasscodeManager storePasscode:pin];
+    [self.enablePasscodeSwitch setOn:true animated:true];
+    [self refreshPasscodeCell];
+    self.action = PasscodeSettingsActionNone;
 }
 
 - (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController {
@@ -179,20 +189,36 @@
 
 - (void)unlockWasSuccessfulForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController {
     [self dismissViewControllerAnimated:NO completion:^{
-        ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self complexPin:YES subtitleLabelText:@"Please enter new passcode"];
-        lockScreen.tapSoundEnabled = YES;
-        lockScreen.errorVibrateEnabled = YES;
-        
-        lockScreen.modalPresentationStyle = UIModalPresentationPopover;
-        lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        
-        [self presentViewController:lockScreen animated:NO completion:nil];
+        switch (self.action) {
+            case PasscodeSettingsActionDisablePasscode:
+                [self.enablePasscodeSwitch setOn:false animated:true];
+                [MedxPasscodeManager storePasscode:nil];
+                [self refreshPasscodeCell];
+                break;
+            case PasscodeSettingsActionChangePasscode:
+                [self showPasscodeCreationScreen];
+                break;
+            default:
+                break;
+        }
+        self.action = PasscodeSettingsActionNone;
     }];
 }
 
 - (void)unlockWasUnsuccessful:(NSString *)falsePin afterAttemptNumber:(NSInteger)attemptNumber padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController
 {
     NSLog(@"Failed attempt number %ld with pin: %@", (long)attemptNumber, falsePin);
+}
+
+- (void)showPasscodeCreationScreen {
+    ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self complexPin:YES subtitleLabelText:@"Please enter new passcode"];
+    lockScreen.tapSoundEnabled = YES;
+    lockScreen.errorVibrateEnabled = YES;
+    
+    lockScreen.modalPresentationStyle = UIModalPresentationPopover;
+    lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
+    [self presentViewController:lockScreen animated:NO completion:nil];
 }
 
 @end
