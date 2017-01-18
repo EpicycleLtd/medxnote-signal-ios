@@ -115,7 +115,9 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
 
 - (void)refreshTimeoutCell {
     if ([MedxPasscodeManager isPasscodeEnabled]) {
-        self.timeoutCell.detailTextLabel.text = [MedxPasscodeManager inactivityTimeoutInMinutes].stringValue;
+        NSString *suffix = [MedxPasscodeManager inactivityTimeoutInMinutes].integerValue == 1 ? @"minute" : @"minutes";
+        NSString *minutes = [MedxPasscodeManager inactivityTimeoutInMinutes].stringValue;
+        self.timeoutCell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", minutes, suffix];
     } else {
         self.timeoutCell.detailTextLabel.text = @"Disabled";
     }
@@ -154,7 +156,7 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
         NSNumber *number = selectedDate;
         NSLog(@"new timeout: %@", number);
         [MedxPasscodeManager storeInactivityTimeout:number];
-        self.timeoutCell.detailTextLabel.text = [MedxPasscodeManager inactivityTimeoutInMinutes].stringValue;
+        [self refreshTimeoutCell];
     } cancelBlock:^(ActionSheetDatePicker *picker) {
         //
     } origin:self.view];
