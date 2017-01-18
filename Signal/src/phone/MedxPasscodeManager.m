@@ -29,4 +29,37 @@
     }];
 }
 
++ (NSNumber *)inactivityTimeout {
+    return [[TSStorageManager sharedManager] objectForKey:@"MedxStorageTimeoutKey" inCollection:TSStorageUserAccountCollection];
+}
+
++ (NSNumber *)inactivityTimeoutInMinutes {
+    NSNumber *timeout = [MedxPasscodeManager inactivityTimeout];
+    return @(timeout.integerValue / 60);
+}
+
++ (void)storeInactivityTimeout:(NSNumber *)timeout {
+    YapDatabaseConnection *dbConn = [[TSStorageManager sharedManager] dbConnection];
+    
+    [dbConn readWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
+        [transaction setObject:timeout
+                        forKey:@"MedxStorageTimeoutKey"
+                  inCollection:TSStorageUserAccountCollection];
+    }];
+}
+
++ (NSDate *)lastActivityTime {
+    return [[TSStorageManager sharedManager] objectForKey:@"MedxStorageLastActivityKey" inCollection:TSStorageUserAccountCollection];
+}
+
++ (void)storeLastActivityTime:(NSDate *)date {
+    YapDatabaseConnection *dbConn = [[TSStorageManager sharedManager] dbConnection];
+    
+    [dbConn readWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
+        [transaction setObject:date
+                        forKey:@"MedxStorageLastActivityKey"
+                  inCollection:TSStorageUserAccountCollection];
+    }];
+}
+
 @end

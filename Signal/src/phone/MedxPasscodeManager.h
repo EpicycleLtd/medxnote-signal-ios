@@ -16,4 +16,14 @@
 
 + (void)storePasscode:(NSString *)passcode;
 
++ (NSNumber *)inactivityTimeout;
+
++ (NSNumber *)inactivityTimeoutInMinutes;
+
++ (void)storeInactivityTimeout:(NSNumber *)timeout;
+
++ (NSDate *)lastActivityTime;
+
++ (void)storeLastActivityTime:(NSDate *)date;
+
 @end

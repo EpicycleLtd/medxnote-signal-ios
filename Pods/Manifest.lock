@@ -1,6 +1,7 @@
 PODS:
   - 25519 (2.0.2)
   - ABPadLockScreen (3.3.0)
+  - ActionSheetPicker-3.0 (2.2.0)
   - AFNetworking (3.1.0):
     - AFNetworking/NSURLSession (= 3.1.0)
     - AFNetworking/Reachability (= 3.1.0)
@@ -116,6 +117,7 @@ PODS:
 
 DEPENDENCIES:
   - ABPadLockScreen (~> 3.3.0)
+  - ActionSheetPicker-3.0
   - DJWActionSheet
   - FFCircularProgressView (~> 0.5)
   - JSQMessagesViewController
@@ -143,6 +145,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   '25519': dc4bad7e2dbcbf1efa121068a705a44cd98c80fc
   ABPadLockScreen: 7172ae3562258008eb920f5085c23446958c1b39
+  ActionSheetPicker-3.0: d11a4c12c6aaf704b8a3f56d179198c99f3e41e6
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AxolotlKit: a33962f26943990e5d69d05b30470cea18caeed0
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
@@ -167,6 +170,6 @@ SPEC CHECKSUMS:
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
   ZHPopupView: cb3bedde775803c2c51e3db05cdd07ac6efaaaeb
 
-PODFILE CHECKSUM: 4d1ad1cf4d6d6c20d7ef199c5c0737daea60c2ba
+PODFILE CHECKSUM: 1968f4970f1f9d36dfadfea9a6557b3a73c0c1ca
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.1

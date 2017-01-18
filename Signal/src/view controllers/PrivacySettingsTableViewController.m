@@ -17,11 +17,13 @@
 #import "ABPadLockScreenSetupViewController.h"
 #import "ABPadLockScreenViewController.h"
 #import "MedxPasscodeManager.h"
+#import "ActionSheetPicker.h"
 
 @interface PrivacySettingsTableViewController () <ABPadLockScreenSetupViewControllerDelegate, ABPadLockScreenViewControllerDelegate>
 
 @property (nonatomic, strong) UITableViewCell *enableScreenSecurityCell;
 @property (nonatomic, strong) UITableViewCell *clearHistoryLogCell;
+@property (nonatomic, strong) UITableViewCell *timeoutCell;
 @property (nonatomic, strong) UITableViewCell *fingerprintCell;
 @property (nonatomic, strong) UITableViewCell *shareFingerprintCell;
 
@@ -59,7 +61,12 @@
 
     self.enableScreenSecurityCell.accessoryView          = self.enableScreenSecuritySwitch;
     self.enableScreenSecurityCell.userInteractionEnabled = YES;
-
+    
+    // Display timeout
+    self.timeoutCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TimeoutCell"];
+    self.timeoutCell.textLabel.text = @"Passcode Timeout";
+    self.timeoutCell.detailTextLabel.text = [MedxPasscodeManager inactivityTimeoutInMinutes].stringValue;
+    
     // Clear History Log Cell
     self.clearHistoryLogCell                = [[UITableViewCell alloc] init];
     //self.clearHistoryLogCell.textLabel.text = NSLocalizedString(@"SETTINGS_CLEAR_HISTORY", @"");
@@ -106,7 +113,7 @@
         case 0:
             return 1;
         case 1:
-            return 1;
+            return 2;
         case 2:
             return 1;
         default:
@@ -129,8 +136,11 @@
             return self.enableScreenSecurityCell;
         case 1:
         {
-            self.clearHistoryLogCell.textLabel.text = [MedxPasscodeManager isPasscodeEnabled] ? @"Change passcode" : @"Setup a passcode";
-            return self.clearHistoryLogCell;
+            if (indexPath.row == 0) {
+                self.clearHistoryLogCell.textLabel.text = [MedxPasscodeManager isPasscodeEnabled] ? @"Change passcode" : @"Setup a passcode";
+                return self.clearHistoryLogCell;
+            }
+            return self.timeoutCell;
         }
         case 2:
             switch (indexPath.row) {
@@ -178,28 +188,16 @@
                                 }
                               }];
             */
-            if (![MedxPasscodeManager isPasscodeEnabled]) {
-                
-                ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self complexPin:YES subtitleLabelText:@"Please enter new passcode"];
-                lockScreen.tapSoundEnabled = YES;
-                lockScreen.errorVibrateEnabled = YES;
-                
-                lockScreen.modalPresentationStyle = UIModalPresentationPopover;
-                lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-                
-                [self presentViewController:lockScreen animated:NO completion:nil];
-                
-            } else {
-                
-                ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self complexPin:YES];
-                [lockScreen setAllowedAttempts:3];
-                
-                lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
-                lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-                
-                [self presentViewController:lockScreen animated:YES completion:nil];
+            switch (indexPath.row) {
+                case 0:
+                    [self showPasscodeView];
+                    break;
+                case 1:
+                    [self showTimeoutOptions];
+                    break;
+                default:
+                    break;
             }
-            break;
         }
 
         case 2:
@@ -231,6 +229,51 @@
     }
 }
 
+- (void)showPasscodeView {
+    if (![MedxPasscodeManager isPasscodeEnabled]) {
+        ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self complexPin:YES subtitleLabelText:@"Please enter new passcode"];
+        lockScreen.tapSoundEnabled = YES;
+        lockScreen.errorVibrateEnabled = YES;
+        
+        lockScreen.modalPresentationStyle = UIModalPresentationPopover;
+        lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        
+        [self presentViewController:lockScreen animated:NO completion:nil];
+        
+    } else {
+        ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self complexPin:YES];
+        [lockScreen setAllowedAttempts:3];
+        
+        lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
+        lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        
+        [self presentViewController:lockScreen animated:YES completion:nil];
+    }
+}
+
+- (void)showTimeoutOptions {
+    ActionSheetDatePicker *datePicker = [[ActionSheetDatePicker alloc] initWithTitle:@"Inactivity Timeout" datePickerMode:UIDatePickerModeCountDownTimer selectedDate:nil doneBlock:^(ActionSheetDatePicker *picker, id selectedDate, id origin) {
+        NSNumber *number = selectedDate;
+        NSLog(@"new timeout: %@", number);
+        [MedxPasscodeManager storeInactivityTimeout:number];
+        self.timeoutCell.detailTextLabel.text = [MedxPasscodeManager inactivityTimeoutInMinutes].stringValue;
+    } cancelBlock:^(ActionSheetDatePicker *picker) {
+        //
+    } origin:self.view];
+
+    // done button
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:nil action:nil];
+    [doneButton setTintColor:[UIColor blackColor]];
+    [datePicker setDoneButton:doneButton];
+    
+    // cancel button
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
+    [cancelButton setTintColor:[UIColor blackColor]];
+    [datePicker setCancelButton:cancelButton];
+    
+    [datePicker showActionSheetPicker];
+}
+
 #pragma mark - Toggle
 
 - (void)didToggleSwitch:(UISwitch *)sender {
@@ -245,7 +288,6 @@
     self.copiedTimer = nil;
 }
 
-#pragma mark -
 #pragma mark - ABPadLockScreenSetupViewControllerDelegate Methods
 - (void)pinSet:(NSString *)pin padLockScreenSetupViewController:(ABPadLockScreenSetupViewController *)padLockScreenViewController
 {
