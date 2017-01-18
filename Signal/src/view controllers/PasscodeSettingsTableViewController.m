@@ -65,11 +65,10 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
     // Display timeout
     self.timeoutCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TimeoutCell"];
     self.timeoutCell.textLabel.text = @"Passcode Timeout";
-    self.timeoutCell.detailTextLabel.text = [MedxPasscodeManager inactivityTimeoutInMinutes].stringValue;
+    [self refreshTimeoutCell];
     
     // Clear History Log Cell
     self.clearHistoryLogCell                = [[UITableViewCell alloc] init];
-    //self.clearHistoryLogCell.textLabel.text = NSLocalizedString(@"SETTINGS_CLEAR_HISTORY", @"");
     self.clearHistoryLogCell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
 }
 
@@ -101,7 +100,9 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
             [self showPasscodeView];
             break;
         case 2:
-            [self showTimeoutOptions];
+            if ([MedxPasscodeManager isPasscodeEnabled]) {
+                [self showTimeoutOptions];
+            }
             break;
         default:
             break;
@@ -110,6 +111,14 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
 
 - (void)refreshPasscodeCell {
     self.clearHistoryLogCell.textLabel.text = [MedxPasscodeManager isPasscodeEnabled] ? @"Change passcode" : @"Setup a passcode";
+}
+
+- (void)refreshTimeoutCell {
+    if ([MedxPasscodeManager isPasscodeEnabled]) {
+        self.timeoutCell.detailTextLabel.text = [MedxPasscodeManager inactivityTimeoutInMinutes].stringValue;
+    } else {
+        self.timeoutCell.detailTextLabel.text = @"Disabled";
+    }
 }
 
 #pragma mark - Actions
@@ -149,6 +158,8 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
     } cancelBlock:^(ActionSheetDatePicker *picker) {
         //
     } origin:self.view];
+    // preselect currently selected time
+    datePicker.countDownDuration = [MedxPasscodeManager inactivityTimeout].integerValue;
     
     // done button
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:nil action:nil];
@@ -170,6 +181,7 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
     [MedxPasscodeManager storePasscode:pin];
     [self.enablePasscodeSwitch setOn:true animated:true];
     [self refreshPasscodeCell];
+    [self refreshTimeoutCell];
     self.action = PasscodeSettingsActionNone;
 }
 
@@ -194,6 +206,7 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
                 [self.enablePasscodeSwitch setOn:false animated:true];
                 [MedxPasscodeManager storePasscode:nil];
                 [self refreshPasscodeCell];
+                [self refreshTimeoutCell];
                 break;
             case PasscodeSettingsActionChangePasscode:
                 [self showPasscodeCreationScreen];
