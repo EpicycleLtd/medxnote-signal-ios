@@ -97,7 +97,7 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
     switch (indexPath.row) {
         case 1:
             self.action = PasscodeSettingsActionChangePasscode;
-            [self showPasscodeView];
+            [self showPasscodeViewWithAlert:true];
             break;
         case 2:
             if ([MedxPasscodeManager isPasscodeEnabled]) {
@@ -129,25 +129,29 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
     [sender setOn:!sender.isOn];
     if ([MedxPasscodeManager isPasscodeEnabled]) {
         self.action = PasscodeSettingsActionDisablePasscode;
-        [self showPasscodeView];
+        [self showPasscodeViewWithAlert:false];
     } else {
         self.action = PasscodeSettingsActionEnablePasscode;
         [self showPasscodeCreationScreen];
     }
 }
 
-- (void)showPasscodeView {
+- (void)showPasscodeViewWithAlert:(BOOL)showAlert {
     if (![MedxPasscodeManager isPasscodeEnabled]) {
         self.action = PasscodeSettingsActionEnablePasscode;
         [self showPasscodeCreationScreen];
     } else {
         ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self complexPin:YES];
-        [lockScreen setAllowedAttempts:3];
+        [lockScreen setAllowedAttempts:20];
         
         lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
         lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         
-        [self presentViewController:lockScreen animated:YES completion:nil];
+        [self presentViewController:lockScreen animated:YES completion:^{
+            if (showAlert) {
+                [self showPasscodeAlertOnVC:lockScreen];
+            }
+        }];
     }
 }
 
@@ -174,6 +178,13 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
     [datePicker setCancelButton:cancelButton];
     
     [datePicker showActionSheetPicker];
+}
+
+- (void)showPasscodeAlertOnVC:(UIViewController*)vc {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"If you forget your PIN or enter it incorrectly 20 times, you will have to delete and reinstall the Medxnote app to restore access to the service" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:okAction];
+    [vc presentViewController:alertController animated:true completion:nil];
 }
 
 #pragma mark - ABPadLockScreenSetupViewControllerDelegate Methods
@@ -233,7 +244,9 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
     lockScreen.modalPresentationStyle = UIModalPresentationPopover;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
-    [self presentViewController:lockScreen animated:NO completion:nil];
+    [self presentViewController:lockScreen animated:NO completion:^{
+        [self showPasscodeAlertOnVC:lockScreen];
+    }];
 }
 
 @end
