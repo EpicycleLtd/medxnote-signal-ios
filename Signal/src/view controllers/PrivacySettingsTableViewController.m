@@ -242,7 +242,7 @@
         
     } else {
         ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self complexPin:YES];
-        [lockScreen setAllowedAttempts:3];
+        [lockScreen setAllowedAttempts:20];
         
         lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
         lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;

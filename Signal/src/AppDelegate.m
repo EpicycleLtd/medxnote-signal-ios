@@ -308,7 +308,7 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
     }
     ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self complexPin:YES];
     [lockScreen cancelButtonDisabled:true];
-    [lockScreen setAllowedAttempts:3];
+    [lockScreen setAllowedAttempts:20];
     
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
@@ -430,6 +430,12 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
 
 - (void)unlockWasUnsuccessful:(NSString *)falsePin afterAttemptNumber:(NSInteger)attemptNumber padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController {
     NSLog(@"Failed attempt number %ld with pin: %@", (long)attemptNumber, falsePin);
+    if (attemptNumber == 19) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"If you enter your PIN incorrectly again, the app will lock and will have to be deleted and reinstalled to restore access to the service" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:okAction];
+        [padLockScreenViewController presentViewController:alertController animated:true completion:nil];
+    }
 }
 
 - (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController {
