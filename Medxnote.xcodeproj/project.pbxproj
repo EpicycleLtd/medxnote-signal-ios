@@ -149,6 +149,7 @@
 		A56977921A351BC400173BF2 /* PresentIdentityQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A569778F1A351BC400173BF2 /* PresentIdentityQRCodeViewController.m */; };
 		A5D0699B1A50E9CB004CB540 /* ShowGroupMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D069991A50E9CB004CB540 /* ShowGroupMembersViewController.m */; };
 		A5E9D4BB1A65FAD800E4481C /* TSVideoAttachmentAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E9D4B91A65FAD800E4481C /* TSVideoAttachmentAdapter.m */; };
+		AB7FA5D41E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7FA5D31E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.m */; };
 		ABEC8DAE1E1FCDDA00394904 /* MessageInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABEC8DAD1E1FCDDA00394904 /* MessageInfoViewController.m */; };
 		ABEC8DC21E262E4300394904 /* BaseWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = ABEC8DC11E262E4300394904 /* BaseWindow.m */; };
 		AD41D7B51A6F6F0600241130 /* play_button.png in Resources */ = {isa = PBXBuildFile; fileRef = AD41D7B31A6F6F0600241130 /* play_button.png */; };
@@ -771,6 +772,8 @@
 		A5D0699A1A50E9CB004CB540 /* ShowGroupMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowGroupMembersViewController.h; sourceTree = "<group>"; };
 		A5E9D4B91A65FAD800E4481C /* TSVideoAttachmentAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSVideoAttachmentAdapter.m; sourceTree = "<group>"; };
 		A5E9D4BA1A65FAD800E4481C /* TSVideoAttachmentAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSVideoAttachmentAdapter.h; sourceTree = "<group>"; };
+		AB7FA5D21E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasscodeSettingsTableViewController.h; sourceTree = "<group>"; };
+		AB7FA5D31E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasscodeSettingsTableViewController.m; sourceTree = "<group>"; };
 		ABEC8DAC1E1FCDDA00394904 /* MessageInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageInfoViewController.h; sourceTree = "<group>"; };
 		ABEC8DAD1E1FCDDA00394904 /* MessageInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageInfoViewController.m; sourceTree = "<group>"; };
 		ABEC8DC01E262E4300394904 /* BaseWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseWindow.h; sourceTree = "<group>"; };
@@ -2260,6 +2263,8 @@
 				FC31962F1A0814130094C78E /* SettingsTableViewController.m */,
 				FCD274E01A5AFD8000202277 /* PrivacySettingsTableViewController.h */,
 				FCD274E11A5AFD8000202277 /* PrivacySettingsTableViewController.m */,
+				AB7FA5D21E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.h */,
+				AB7FA5D31E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.m */,
 				FCD274E61A5AFDC900202277 /* AdvancedSettingsTableViewController.h */,
 				FCD274E71A5AFDC900202277 /* AdvancedSettingsTableViewController.m */,
 				B66B9F701AEA6D1100E2E609 /* NotificationSettingsViewController.h */,
@@ -2755,6 +2760,7 @@
 				FCAC965119FF0A6E0046DFC5 /* MessagesViewController.m in Sources */,
 				453D28BA1D332DB100D523F0 /* OWSMessagesBubblesSizeCalculator.m in Sources */,
 				B68EF9BB1C0B1EBD009C3DCD /* FLAnimatedImageView.m in Sources */,
+				AB7FA5D41E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.m in Sources */,
 				A5E9D4BB1A65FAD800E4481C /* TSVideoAttachmentAdapter.m in Sources */,
 				E197B61118BBEC1A00F073E5 /* AudioProcessor.m in Sources */,
 				FCAC964019FEF99A0046DFC5 /* InboxTableViewCell.m in Sources */,

@@ -20,6 +20,11 @@
 }
 
 + (void)storePasscode:(NSString *)passcode {
+    if ([[MedxPasscodeManager inactivityTimeoutInMinutes] isEqualToNumber:@(0)]) {
+        // set default value
+        NSLog(@"No timeout setting stored, setting default value");
+        [self storeInactivityTimeout:@(300)];
+    }
     YapDatabaseConnection *dbConn = [[TSStorageManager sharedManager] dbConnection];
     
     [dbConn readWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
