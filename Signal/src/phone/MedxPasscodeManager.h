@@ -10,6 +10,10 @@
 
 @interface MedxPasscodeManager : NSObject
 
++ (BOOL)isLockoutEnabled;
+
++ (void)setLockoutEnabled;
+
 + (BOOL)isPasscodeEnabled;
 
 + (NSString *)passcode;

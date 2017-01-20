@@ -101,6 +101,17 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
     }
 
     [self prepareScreenshotProtection];
+    
+    if ([MedxPasscodeManager isLockoutEnabled]) {
+        // stop loading app as user is locked out
+        self.blankWindow.hidden = NO;
+        NSLog(@"app is locked out");
+        
+        // show alert about lockout
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"The app has been disabled due to too many invalid passcode attempts. Please delete and reinstall the app to regain access" preferredStyle:UIAlertControllerStyleAlert];
+        [self.blankWindow.rootViewController presentViewController:alertController animated:true completion:nil];
+        return YES;
+    }
 
     if ([TSAccountManager isRegistered]) {
         if (application.applicationState == UIApplicationStateInactive) {
@@ -295,7 +306,9 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
     if ([MedxPasscodeManager isPasscodeEnabled] && shouldShowPasscode) {
         [self presentPasscodeEntry];
     }
-    
+    if ([MedxPasscodeManager isLockoutEnabled]) {
+        return;
+    }
     if (Environment.preferences.screenSecurityIsEnabled) {
         self.blankWindow.hidden = YES;
     }
@@ -435,6 +448,9 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [alertController addAction:okAction];
         [padLockScreenViewController presentViewController:alertController animated:true completion:nil];
+    } else if (attemptNumber == 20) {
+        // lockout
+        [MedxPasscodeManager setLockoutEnabled];
     }
 }
 

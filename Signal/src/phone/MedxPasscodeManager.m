@@ -11,6 +11,22 @@
 
 @implementation MedxPasscodeManager
 
++ (BOOL)isLockoutEnabled {
+    return [[TSStorageManager sharedManager] boolForKey:@"MedxLockoutFlag" inCollection:TSStorageUserAccountCollection];
+}
+
++ (void)setLockoutEnabled {
+    NSLog(@"lockout enabled!");
+    YapDatabaseConnection *dbConn = [[TSStorageManager sharedManager] dbConnection];
+    
+    [dbConn readWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
+        [transaction setObject:@true
+                        forKey:@"MedxLockoutFlag"
+                  inCollection:TSStorageUserAccountCollection];
+    }];
+
+}
+
 + (BOOL)isPasscodeEnabled {
     return [[self passcode] length] > 0;
 }
