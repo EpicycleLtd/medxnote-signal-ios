@@ -149,6 +149,7 @@
 		A56977921A351BC400173BF2 /* PresentIdentityQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A569778F1A351BC400173BF2 /* PresentIdentityQRCodeViewController.m */; };
 		A5D0699B1A50E9CB004CB540 /* ShowGroupMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D069991A50E9CB004CB540 /* ShowGroupMembersViewController.m */; };
 		A5E9D4BB1A65FAD800E4481C /* TSVideoAttachmentAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E9D4B91A65FAD800E4481C /* TSVideoAttachmentAdapter.m */; };
+		AB7FA5D41E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7FA5D31E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.m */; };
 		ABEC8DAE1E1FCDDA00394904 /* MessageInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABEC8DAD1E1FCDDA00394904 /* MessageInfoViewController.m */; };
 		ABEC8DB51E1FF94C00394904 /* QRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABEC8DB41E1FF94C00394904 /* QRCodeViewController.m */; };
 		AD41D7B51A6F6F0600241130 /* play_button.png in Resources */ = {isa = PBXBuildFile; fileRef = AD41D7B31A6F6F0600241130 /* play_button.png */; };
@@ -771,6 +772,8 @@
 		A5D0699A1A50E9CB004CB540 /* ShowGroupMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowGroupMembersViewController.h; sourceTree = "<group>"; };
 		A5E9D4B91A65FAD800E4481C /* TSVideoAttachmentAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSVideoAttachmentAdapter.m; sourceTree = "<group>"; };
 		A5E9D4BA1A65FAD800E4481C /* TSVideoAttachmentAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSVideoAttachmentAdapter.h; sourceTree = "<group>"; };
+		AB7FA5D21E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasscodeSettingsTableViewController.h; sourceTree = "<group>"; };
+		AB7FA5D31E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasscodeSettingsTableViewController.m; sourceTree = "<group>"; };
 		ABEC8DAC1E1FCDDA00394904 /* MessageInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageInfoViewController.h; sourceTree = "<group>"; };
 		ABEC8DAD1E1FCDDA00394904 /* MessageInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageInfoViewController.m; sourceTree = "<group>"; };
 		ABEC8DB31E1FF94C00394904 /* QRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeViewController.h; sourceTree = "<group>"; };
@@ -1730,6 +1733,8 @@
 				FCB11D891A1284BB002F93FB /* SettingsTableViewCell.m */,
 				76EB052E18170B33006006FC /* ContactTableViewCell.h */,
 				76EB052F18170B33006006FC /* ContactTableViewCell.m */,
+				ABEC8DC01E262E4300394904 /* BaseWindow.h */,
+				ABEC8DC11E262E4300394904 /* BaseWindow.m */,
 				76EB053818170B33006006FC /* xibs */,
 			);
 			name = Views;
@@ -2258,6 +2263,8 @@
 				FC31962F1A0814130094C78E /* SettingsTableViewController.m */,
 				FCD274E01A5AFD8000202277 /* PrivacySettingsTableViewController.h */,
 				FCD274E11A5AFD8000202277 /* PrivacySettingsTableViewController.m */,
+				AB7FA5D21E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.h */,
+				AB7FA5D31E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.m */,
 				FCD274E61A5AFDC900202277 /* AdvancedSettingsTableViewController.h */,
 				FCD274E71A5AFDC900202277 /* AdvancedSettingsTableViewController.m */,
 				B66B9F701AEA6D1100E2E609 /* NotificationSettingsViewController.h */,
@@ -2389,7 +2396,7 @@
 				TargetAttributes = {
 					D221A088169C9E5E00537ABF = {
 						DevelopmentTeam = FV53Q498MD;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.DataProtection = {
 								enabled = 1;
@@ -2576,7 +2583,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		3465F381B1856CC06933B3A8 /* [CP] Copy Pods Resources */ = {
@@ -2621,7 +2628,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		B4E9B04E862FB64FC9A8F79B /* [CP] Embed Pods Frameworks */ = {
@@ -2755,6 +2762,7 @@
 				FCAC965119FF0A6E0046DFC5 /* MessagesViewController.m in Sources */,
 				453D28BA1D332DB100D523F0 /* OWSMessagesBubblesSizeCalculator.m in Sources */,
 				B68EF9BB1C0B1EBD009C3DCD /* FLAnimatedImageView.m in Sources */,
+				AB7FA5D41E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.m in Sources */,
 				A5E9D4BB1A65FAD800E4481C /* TSVideoAttachmentAdapter.m in Sources */,
 				E197B61118BBEC1A00F073E5 /* AudioProcessor.m in Sources */,
 				FCAC964019FEF99A0046DFC5 /* InboxTableViewCell.m in Sources */,
@@ -2797,6 +2805,7 @@
 				76EB05DC18170B33006006FC /* StreamPair.m in Sources */,
 				76EB064618170B33006006FC /* TimeUtil.m in Sources */,
 				70BAFD5D190584BE00FA5E0B /* NotificationTracker.m in Sources */,
+				ABEC8DC21E262E4300394904 /* BaseWindow.m in Sources */,
 				76EB05A418170B33006006FC /* PacketHandler.m in Sources */,
 				E197B62118BBF12700F073E5 /* AppAudioManager.m in Sources */,
 				FC4FA0261A1B9DC600DA100A /* SignalsNavigationController.m in Sources */,
@@ -3279,8 +3288,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.medxnote.medxnote;
 				PRODUCT_NAME = Medxnote;
-				PROVISIONING_PROFILE = "69cb71e3-db2d-479f-986e-fdbbe2c3ac13";
-				PROVISIONING_PROFILE_SPECIFIER = "Medxnote Development Team";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_AFTER_BUILD = YES;
@@ -3297,8 +3306,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Medxnote.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FV53Q498MD;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3339,8 +3348,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.medxnote.medxnote;
 				PRODUCT_NAME = Medxnote;
-				PROVISIONING_PROFILE = "7e32cc60-1d2a-4c04-be84-59ff74614963";
-				PROVISIONING_PROFILE_SPECIFIER = "Medxnote App Store Profile";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TEST_AFTER_BUILD = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s i386";

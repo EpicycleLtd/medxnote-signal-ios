@@ -14,14 +14,15 @@
 #import "PreferencesUtil.h"
 #import "TSFingerprintGenerator.h"
 #import "UIUtil.h"
-#import "ABPadLockScreenSetupViewController.h"
-#import "ABPadLockScreenViewController.h"
 #import "MedxPasscodeManager.h"
+#import "ActionSheetPicker.h"
+#import "PasscodeSettingsTableViewController.h"
 
-@interface PrivacySettingsTableViewController () <ABPadLockScreenSetupViewControllerDelegate, ABPadLockScreenViewControllerDelegate>
+@interface PrivacySettingsTableViewController ()
 
 @property (nonatomic, strong) UITableViewCell *enableScreenSecurityCell;
 @property (nonatomic, strong) UITableViewCell *clearHistoryLogCell;
+@property (nonatomic, strong) UITableViewCell *passcodeCell;
 @property (nonatomic, strong) UITableViewCell *fingerprintCell;
 @property (nonatomic, strong) UITableViewCell *shareFingerprintCell;
 
@@ -59,11 +60,11 @@
 
     self.enableScreenSecurityCell.accessoryView          = self.enableScreenSecuritySwitch;
     self.enableScreenSecurityCell.userInteractionEnabled = YES;
-
-    // Clear History Log Cell
-    self.clearHistoryLogCell                = [[UITableViewCell alloc] init];
-    //self.clearHistoryLogCell.textLabel.text = NSLocalizedString(@"SETTINGS_CLEAR_HISTORY", @"");
-    self.clearHistoryLogCell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
+    
+    // Display timeout
+    self.passcodeCell = [[UITableViewCell alloc] init];
+    self.passcodeCell.textLabel.text = @"Passcode Settings";
+    self.passcodeCell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
 
     // Fingerprint Cell
     self.fingerprintCell =
@@ -128,10 +129,7 @@
         case 0:
             return self.enableScreenSecurityCell;
         case 1:
-        {
-            self.clearHistoryLogCell.textLabel.text = [MedxPasscodeManager isPasscodeEnabled] ? @"Change passcode" : @"Setup a passcode";
-            return self.clearHistoryLogCell;
-        }
+            return self.passcodeCell;
         case 2:
             switch (indexPath.row) {
                 case 0:
@@ -178,27 +176,10 @@
                                 }
                               }];
             */
-            if (![MedxPasscodeManager isPasscodeEnabled]) {
-                
-                ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self complexPin:YES subtitleLabelText:@"Please enter new passcode"];
-                lockScreen.tapSoundEnabled = YES;
-                lockScreen.errorVibrateEnabled = YES;
-                
-                lockScreen.modalPresentationStyle = UIModalPresentationPopover;
-                lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-                
-                [self presentViewController:lockScreen animated:NO completion:nil];
-                
-            } else {
-                
-                ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self complexPin:YES];
-                [lockScreen setAllowedAttempts:3];
-                
-                lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
-                lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-                
-                [self presentViewController:lockScreen animated:YES completion:nil];
-            }
+            PasscodeSettingsTableViewController *vc = [[PasscodeSettingsTableViewController alloc] init];
+            NSAssert(self.navigationController != nil, @"Navigation controller must not be nil");
+            NSAssert(vc != nil, @"Passcode Settings View Controller must not be nil");
+            [self.navigationController pushViewController:vc animated:YES];
             break;
         }
 
@@ -243,51 +224,6 @@
     self.fingerprintCell.detailTextLabel.text = NSLocalizedString(@"SETTINGS_FINGERPRINT_COPY", nil);
     [self.copiedTimer invalidate];
     self.copiedTimer = nil;
-}
-
-#pragma mark -
-#pragma mark - ABPadLockScreenSetupViewControllerDelegate Methods
-- (void)pinSet:(NSString *)pin padLockScreenSetupViewController:(ABPadLockScreenSetupViewController *)padLockScreenViewController
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [MedxPasscodeManager storePasscode:pin];
-}
-
-- (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)unlockWasCancelledForSetupViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-#pragma mark -
-#pragma mark - ABLockScreenDelegate Methods
-
-- (BOOL)padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController validatePin:(NSString*)pin;
-{
-    return [[MedxPasscodeManager passcode] isEqualToString:pin];
-}
-
-- (void)unlockWasSuccessfulForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController
-{
-    [self dismissViewControllerAnimated:NO completion:^{
-        ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self complexPin:YES subtitleLabelText:@"Please enter new passcode"];
-        lockScreen.tapSoundEnabled = YES;
-        lockScreen.errorVibrateEnabled = YES;
-        
-        lockScreen.modalPresentationStyle = UIModalPresentationPopover;
-        lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        
-        [self presentViewController:lockScreen animated:NO completion:nil];
-    }];
-}
-
-- (void)unlockWasUnsuccessful:(NSString *)falsePin afterAttemptNumber:(NSInteger)attemptNumber padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController
-{
-    NSLog(@"Failed attempt number %ld with pin: %@", (long)attemptNumber, falsePin);
 }
 
 @end

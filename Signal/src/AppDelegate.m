@@ -19,13 +19,16 @@
 #import "UIColor+HexValue.h"
 #import "ABPadButton.h"
 #import "ABPinSelectionView.h"
+#import "ABPadLockScreenViewController.h"
+#import "MedxPasscodeManager.h"
+#import "BaseWindow.h"
 
 static NSString *const kStoryboardName                  = @"Storyboard";
 static NSString *const kInitialViewControllerIdentifier = @"UserInitialViewController";
 static NSString *const kURLSchemeSGNLKey                = @"sgnl";
 static NSString *const kURLHostVerifyPrefix             = @"verify";
 
-@interface AppDelegate ()
+@interface AppDelegate () <ABPadLockScreenViewControllerDelegate>
 
 @property (nonatomic, retain) UIWindow *blankWindow;
 
@@ -82,7 +85,7 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
     UIViewController *viewController =
         [storyboard instantiateViewControllerWithIdentifier:kInitialViewControllerIdentifier];
 
-    self.window                    = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window                    = [[BaseWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = viewController;
 
     [self.window makeKeyAndVisible];
@@ -98,6 +101,17 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
     }
 
     [self prepareScreenshotProtection];
+    
+    if ([MedxPasscodeManager isLockoutEnabled]) {
+        // stop loading app as user is locked out
+        self.blankWindow.hidden = NO;
+        NSLog(@"app is locked out");
+        
+        // show alert about lockout
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"The app has been disabled due to too many invalid passcode attempts. Please delete and reinstall the app to regain access" preferredStyle:UIAlertControllerStyleAlert];
+        [self.blankWindow.rootViewController presentViewController:alertController animated:true completion:nil];
+        return YES;
+    }
 
     if ([TSAccountManager isRegistered]) {
         if (application.applicationState == UIApplicationStateInactive) {
@@ -114,21 +128,16 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
 
     [AppStoreRating setupRatingLibrary];
     
-    /** Pin code appearance */
+    // setup activity timeout
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"ActivityTimeoutExceeded" object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        [self presentPasscodeEntry];
+    }];
     
-        UIColor *medxGreen = [UIColor colorWithRed:65.f/255.f green:178.f/255.f blue:76.f/255.f alpha:1.f];
-        [[ABPadLockScreenView appearance] setBackgroundColor:medxGreen];
-    
-        UIColor* color = [UIColor colorWithRed:229.0f/255.0f green:180.0f/255.0f blue:46.0f/255.0f alpha:1.0f];
-    
-        [[ABPadLockScreenView appearance] setLabelColor:[UIColor whiteColor]];
-        [[ABPadButton appearance] setBackgroundColor:[UIColor clearColor]];
-        [[ABPadButton appearance] setBorderColor:[UIColor whiteColor]];
-        [[ABPadButton appearance] setSelectedColor:[UIColor whiteColor]];
-    
-        [[ABPinSelectionView appearance] setSelectedColor:color];
-
     return YES;
+}
+
+- (void)resetActivityTimer {
+    
 }
 
 - (void)setupTSKitEnv {
@@ -284,15 +293,40 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
 }
 
 - (void)protectScreen {
+    [MedxPasscodeManager storeLastActivityTime:[NSDate date]];
     if (Environment.preferences.screenSecurityIsEnabled) {
         self.blankWindow.hidden = NO;
     }
 }
 
 - (void)removeScreenProtection {
+    // get time when user exited the app and present passcode prompt if needed
+    NSNumber *timeout = [MedxPasscodeManager inactivityTimeout];
+    BOOL shouldShowPasscode = [MedxPasscodeManager lastActivityTime].timeIntervalSinceNow < -timeout.intValue;
+    if ([MedxPasscodeManager isPasscodeEnabled] && shouldShowPasscode) {
+        [self presentPasscodeEntry];
+    }
+    if ([MedxPasscodeManager isLockoutEnabled]) {
+        return;
+    }
     if (Environment.preferences.screenSecurityIsEnabled) {
         self.blankWindow.hidden = YES;
     }
+}
+
+- (void)presentPasscodeEntry {
+    if ([[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController isKindOfClass:[ABPadLockScreenViewController class]]) {
+        // no need to present again
+        return;
+    }
+    ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self complexPin:YES];
+    [lockScreen cancelButtonDisabled:true];
+    [lockScreen setAllowedAttempts:20];
+    
+    lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
+    lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:lockScreen animated:YES completion:nil];
 }
 
 - (void)setupAppearance {
@@ -317,6 +351,19 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
     [[UISwitch appearance] setOnTintColor:[UIColor ows_materialBlueColor]];
 
     [[UINavigationBar appearance] setTitleTextAttributes:navbarTitleTextAttributes];
+    
+    /** Pin code appearance */
+    UIColor *medxGreen = [UIColor colorWithRed:65.f/255.f green:178.f/255.f blue:76.f/255.f alpha:1.f];
+    [[ABPadLockScreenView appearance] setBackgroundColor:medxGreen];
+    
+    UIColor* color = [UIColor colorWithRed:229.0f/255.0f green:180.0f/255.0f blue:46.0f/255.0f alpha:1.0f];
+    
+    [[ABPadLockScreenView appearance] setLabelColor:[UIColor whiteColor]];
+    [[ABPadButton appearance] setBackgroundColor:[UIColor clearColor]];
+    [[ABPadButton appearance] setBorderColor:[UIColor whiteColor]];
+    [[ABPadButton appearance] setSelectedColor:[UIColor whiteColor]];
+    
+    [[ABPinSelectionView appearance] setSelectedColor:color];
 }
 
 #pragma mark Push Notifications Delegate Methods
@@ -382,6 +429,33 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
     }
 
     return NO;
+}
+
+#pragma mark - ABLockScreenDelegate Methods
+
+- (BOOL)padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController validatePin:(NSString*)pin; {
+    return [[MedxPasscodeManager passcode] isEqualToString:pin];
+}
+
+- (void)unlockWasSuccessfulForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController {
+    [padLockScreenViewController dismissViewControllerAnimated:true completion:nil];
+}
+
+- (void)unlockWasUnsuccessful:(NSString *)falsePin afterAttemptNumber:(NSInteger)attemptNumber padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController {
+    NSLog(@"Failed attempt number %ld with pin: %@", (long)attemptNumber, falsePin);
+    if (attemptNumber == 19) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"If you enter your PIN incorrectly again, the app will lock and will have to be deleted and reinstalled to restore access to the service" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:okAction];
+        [padLockScreenViewController presentViewController:alertController animated:true completion:nil];
+    } else if (attemptNumber == 20) {
+        // lockout
+        [MedxPasscodeManager setLockoutEnabled];
+    }
+}
+
+- (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController {
+    // should never happen as cancel is disabled
 }
 
 @end

@@ -10,10 +10,24 @@
 
 @interface MedxPasscodeManager : NSObject
 
++ (BOOL)isLockoutEnabled;
+
++ (void)setLockoutEnabled;
+
 + (BOOL)isPasscodeEnabled;
 
 + (NSString *)passcode;
 
 + (void)storePasscode:(NSString *)passcode;
+
++ (NSNumber *)inactivityTimeout;
+
++ (NSNumber *)inactivityTimeoutInMinutes;
+
++ (void)storeInactivityTimeout:(NSNumber *)timeout;
+
++ (NSDate *)lastActivityTime;
+
++ (void)storeLastActivityTime:(NSDate *)date;
 
 @end
