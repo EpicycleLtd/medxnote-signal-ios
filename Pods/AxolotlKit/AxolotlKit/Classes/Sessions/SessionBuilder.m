@@ -76,6 +76,7 @@
     NSData *theirSignedPreKey = preKeyBundle.signedPreKeyPublic.removeKeyType;
     
     if (![self.identityStore isTrustedIdentityKey:theirIdentityKey recipientId:self.recipientId]) {
+        NSLog(@"EXCEPTION: Identity key is not valid.");
         //@throw [NSException exceptionWithName:UntrustedIdentityKeyException reason:@"Identity key is not valid" userInfo:@{}];
     }
 
@@ -118,6 +119,8 @@
     NSData *theirIdentityKey = message.identityKey.removeKeyType;
 
     if (![self.identityStore isTrustedIdentityKey:theirIdentityKey recipientId:self.recipientId]) {
+        NSLog(@"EXCEPTION: There is a previously known identity key.");
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"KeychangeDidOccur" object:nil userInfo:@{@"message":message}];
         //@throw [NSException exceptionWithName:UntrustedIdentityKeyException reason:@"There is a previously known identity key." userInfo:@{}];
     }
     
