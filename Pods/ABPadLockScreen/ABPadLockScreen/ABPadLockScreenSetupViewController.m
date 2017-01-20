@@ -102,7 +102,7 @@
 - (void)startPinConfirmation
 {
     if (self.currentPin.length < 4) {
-        [lockScreenView updateDetailLabelWithString:@"Pincode must be a minimum of 4 numbers" animated:true completion:nil];
+        [lockScreenView updateDetailLabelWithString:@"Pincode must be a minimum of 4 digits" animated:true completion:nil];
         self.currentPin = @"";
         [lockScreenView resetAnimated:true];
         return;
