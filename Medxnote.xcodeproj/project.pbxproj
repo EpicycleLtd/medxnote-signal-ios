@@ -149,6 +149,7 @@
 		A56977921A351BC400173BF2 /* PresentIdentityQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A569778F1A351BC400173BF2 /* PresentIdentityQRCodeViewController.m */; };
 		A5D0699B1A50E9CB004CB540 /* ShowGroupMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D069991A50E9CB004CB540 /* ShowGroupMembersViewController.m */; };
 		A5E9D4BB1A65FAD800E4481C /* TSVideoAttachmentAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E9D4B91A65FAD800E4481C /* TSVideoAttachmentAdapter.m */; };
+		AB58893C1E35FDA900471666 /* BaseWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AB58893B1E35FDA900471666 /* BaseWindow.m */; };
 		AB7FA5D41E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7FA5D31E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.m */; };
 		ABEC8DAE1E1FCDDA00394904 /* MessageInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABEC8DAD1E1FCDDA00394904 /* MessageInfoViewController.m */; };
 		ABEC8DB51E1FF94C00394904 /* QRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABEC8DB41E1FF94C00394904 /* QRCodeViewController.m */; };
@@ -772,6 +773,8 @@
 		A5D0699A1A50E9CB004CB540 /* ShowGroupMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowGroupMembersViewController.h; sourceTree = "<group>"; };
 		A5E9D4B91A65FAD800E4481C /* TSVideoAttachmentAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSVideoAttachmentAdapter.m; sourceTree = "<group>"; };
 		A5E9D4BA1A65FAD800E4481C /* TSVideoAttachmentAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSVideoAttachmentAdapter.h; sourceTree = "<group>"; };
+		AB58893A1E35FDA900471666 /* BaseWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseWindow.h; sourceTree = "<group>"; };
+		AB58893B1E35FDA900471666 /* BaseWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseWindow.m; sourceTree = "<group>"; };
 		AB7FA5D21E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasscodeSettingsTableViewController.h; sourceTree = "<group>"; };
 		AB7FA5D31E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasscodeSettingsTableViewController.m; sourceTree = "<group>"; };
 		ABEC8DAC1E1FCDDA00394904 /* MessageInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageInfoViewController.h; sourceTree = "<group>"; };
@@ -1719,6 +1722,8 @@
 		76EB052B18170B33006006FC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AB58893A1E35FDA900471666 /* BaseWindow.h */,
+				AB58893B1E35FDA900471666 /* BaseWindow.m */,
 				45C681C11D305C9E0050903A /* OWSDisplayedMessageCollectionViewCell.h */,
 				45C681C21D305C9E0050903A /* OWSDisplayedMessageCollectionViewCell.m */,
 				45C681C31D305C9E0050903A /* OWSDisplayedMessageCollectionViewCell.xib */,
@@ -1733,8 +1738,6 @@
 				FCB11D891A1284BB002F93FB /* SettingsTableViewCell.m */,
 				76EB052E18170B33006006FC /* ContactTableViewCell.h */,
 				76EB052F18170B33006006FC /* ContactTableViewCell.m */,
-				ABEC8DC01E262E4300394904 /* BaseWindow.h */,
-				ABEC8DC11E262E4300394904 /* BaseWindow.m */,
 				76EB053818170B33006006FC /* xibs */,
 			);
 			name = Views;
@@ -2805,7 +2808,6 @@
 				76EB05DC18170B33006006FC /* StreamPair.m in Sources */,
 				76EB064618170B33006006FC /* TimeUtil.m in Sources */,
 				70BAFD5D190584BE00FA5E0B /* NotificationTracker.m in Sources */,
-				ABEC8DC21E262E4300394904 /* BaseWindow.m in Sources */,
 				76EB05A418170B33006006FC /* PacketHandler.m in Sources */,
 				E197B62118BBF12700F073E5 /* AppAudioManager.m in Sources */,
 				FC4FA0261A1B9DC600DA100A /* SignalsNavigationController.m in Sources */,
@@ -2833,6 +2835,7 @@
 				76EB057218170B33006006FC /* RecentCall.m in Sources */,
 				B97CBFA818860EA3008E0DE9 /* CountryCodeViewController.m in Sources */,
 				B6B1013C196D213F007E3930 /* SignalKeyingStorage.m in Sources */,
+				AB58893C1E35FDA900471666 /* BaseWindow.m in Sources */,
 				76EB059218170B33006006FC /* UnrecognizedRequestFailure.m in Sources */,
 				76EB05F818170B33006006FC /* CallConnectUtil_Initiator.m in Sources */,
 				B62F5E101C2980B4000D370C /* NSData+ows_StripToken.m in Sources */,
