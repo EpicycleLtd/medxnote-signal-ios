@@ -16,4 +16,6 @@
 
 @interface MessageComposeTableViewController : UITableViewController
 
+@property id forwardedData;
+
 @end

@@ -205,14 +205,14 @@ typedef enum : NSUInteger {
     [self initializeTextView];
 
     [JSQMessagesCollectionViewCell registerMenuAction:@selector(delete:)];
-    SEL detailsSelector = NSSelectorFromString(@"details:");
     [JSQMessagesCollectionViewCell registerMenuAction:@selector(details:)];
+    [JSQMessagesCollectionViewCell registerMenuAction:@selector(forward:)];
 //    SEL saveSelector = NSSelectorFromString(@"save:");
 //    [JSQMessagesCollectionViewCell registerMenuAction:saveSelector];
 //    [UIMenuController sharedMenuController].menuItems = @[ [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"EDIT_ITEM_SAVE_ACTION", @"Short name for edit menu item to save contents of media message.")
 //                                                                                      action:saveSelector] ];
 
-    [UIMenuController sharedMenuController].menuItems = @[ [[UIMenuItem alloc] initWithTitle:@"Info"  action:@selector(details:)] ];
+    [UIMenuController sharedMenuController].menuItems = @[ [[UIMenuItem alloc] initWithTitle:@"Info" action:@selector(details:)], [[UIMenuItem alloc] initWithTitle:@"Forward" action:@selector(forward:)] ];
 
     [self initializeCollectionViewLayout];
     [self registerCustomMessageNibs];
@@ -1520,6 +1520,25 @@ typedef enum : NSUInteger {
         [self.uiDatabaseConnection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
           [vc configWithThread:(TSGroupThread *)self.thread];
         }];
+    }
+}
+
+#pragma mark - Forwarding
+
+- (void)handleForwardedData:(id)data {
+    if ([data isKindOfClass:[UIImage class]]) {
+        NSLog(@"sending forwarded image attachment");
+        // cannot reuse existing method as it depends on view controller dismissal to send attachment
+        TSOutgoingMessage *message = [[TSOutgoingMessage alloc] initWithTimestamp:[NSDate ows_millisecondTimeStamp]
+                                                                         inThread:self.thread
+                                                                      messageBody:nil
+                                                                    attachmentIds:[NSMutableArray new]];
+        [[TSMessagesManager sharedManager] sendAttachment:[self qualityAdjustedAttachmentForImage:(UIImage*)data]
+                                              contentType:@"image/jpeg"
+                                                inMessage:message
+                                                   thread:self.thread
+                                                  success:nil
+                                                  failure:nil];
     }
 }
 

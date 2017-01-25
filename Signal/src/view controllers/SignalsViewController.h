@@ -22,7 +22,9 @@
 @property (nonatomic, retain) CallState *latestCall;
 
 - (void)presentThread:(TSThread *)thread keyboardOnViewAppearing:(BOOL)keyboardOnViewAppearing;
+- (void)presentThread:(TSThread *)thread keyboardOnViewAppearing:(BOOL)keyboardOnViewAppearing withData:(id)data;
 - (NSNumber *)updateInboxCountLabel;
 - (void)composeNew;
+- (void)forwardImage:(UIImage*)image;
 
 @end
