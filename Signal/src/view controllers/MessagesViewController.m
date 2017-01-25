@@ -2065,20 +2065,27 @@ typedef enum : NSUInteger {
 {
     [self.navController hideDropDown:self];
 
-    TSGroupThread *gThread     = (TSGroupThread *)_thread;
-    TSOutgoingMessage *message = [[TSOutgoingMessage alloc] initWithTimestamp:[NSDate ows_millisecondTimeStamp]
-                                                                     inThread:gThread
-                                                                  messageBody:@""
-                                                                attachmentIds:[NSMutableArray new]];
-    message.groupMetaMessage = TSGroupMessageQuit;
-    [[TSMessagesManager sharedManager] sendMessage:message inThread:gThread success:nil failure:nil];
-    [self.editingDatabaseConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
-      NSMutableArray *newGroupMemberIds = [NSMutableArray arrayWithArray:gThread.groupModel.groupMemberIds];
-      [newGroupMemberIds removeObject:[TSAccountManager localNumber]];
-      gThread.groupModel.groupMemberIds = newGroupMemberIds;
-      [gThread saveWithTransaction:transaction];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Leave Group" message:@"Are you sure you want to leave this group?  If you wish to return, a current group member will have to add you." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:noAction];
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        TSGroupThread *gThread     = (TSGroupThread *)_thread;
+        TSOutgoingMessage *message = [[TSOutgoingMessage alloc] initWithTimestamp:[NSDate ows_millisecondTimeStamp]
+                                                                         inThread:gThread
+                                                                      messageBody:@""
+                                                                    attachmentIds:[NSMutableArray new]];
+        message.groupMetaMessage = TSGroupMessageQuit;
+        [[TSMessagesManager sharedManager] sendMessage:message inThread:gThread success:nil failure:nil];
+        [self.editingDatabaseConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
+            NSMutableArray *newGroupMemberIds = [NSMutableArray arrayWithArray:gThread.groupModel.groupMemberIds];
+            [newGroupMemberIds removeObject:[TSAccountManager localNumber]];
+            gThread.groupModel.groupMemberIds = newGroupMemberIds;
+            [gThread saveWithTransaction:transaction];
+        }];
+        [self hideInputIfNeeded];
     }];
-    [self hideInputIfNeeded];
+    [alertController addAction:yesAction];
+    [self presentViewController:alertController animated:true completion:nil];
 }
 
 - (void)updateGroupModelTo:(TSGroupModel *)newGroupModel
