@@ -80,7 +80,8 @@
 
 - (BOOL)canPerformEditingAction:(SEL)action
 {
-    return (action == @selector(copy:) || action == NSSelectorFromString(@"save:"));
+    return (action == @selector(forward:));
+//    return (action == @selector(copy:) || action == NSSelectorFromString(@"save:"));
 }
 
 - (void)performEditingAction:(SEL)action
@@ -99,6 +100,10 @@
         return;
     } else if (action == NSSelectorFromString(@"save:")) {
         UIImageWriteToSavedPhotosAlbum(self.image, nil, nil, nil);
+        return;
+    } else if (action == @selector(forward:)) {
+        NSLog(@"FORWARD IMAGE ATTACHMENT");
+        // TODO: add forwarding
         return;
     }
 
