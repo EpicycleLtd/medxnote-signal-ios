@@ -41,7 +41,7 @@
     dispatch_queue_t dispatchQueue;
     dispatchQueue = dispatch_queue_create("myQueue", NULL);
     [captureMetadataOutput setMetadataObjectsDelegate:self queue:dispatchQueue];
-    [captureMetadataOutput setMetadataObjectTypes:[NSArray arrayWithObject:AVMetadataObjectTypeQRCode]];
+    [captureMetadataOutput setMetadataObjectTypes:@[AVMetadataObjectTypeQRCode, AVMetadataObjectTypeCode128Code]];
     
     _videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
     [_videoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
@@ -59,7 +59,7 @@
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
     if (metadataObjects != nil && [metadataObjects count] > 0) {
         AVMetadataMachineReadableCodeObject *metadataObj = [metadataObjects objectAtIndex:0];
-        if ([[metadataObj type] isEqualToString:AVMetadataObjectTypeQRCode]) {
+        if ([metadataObj.type isEqualToString:AVMetadataObjectTypeQRCode] || [metadataObj.type isEqualToString:AVMetadataObjectTypeCode128Code]) {
             [self stopReading];
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"Got data %@", metadataObj.stringValue);
