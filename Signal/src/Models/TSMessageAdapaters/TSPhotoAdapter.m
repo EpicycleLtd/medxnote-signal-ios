@@ -4,6 +4,8 @@
 #import "TSPhotoAdapter.h"
 #import "TSAttachmentStream.h"
 #import "UIDevice+TSHardwareVersion.h"
+#import "Environment.h"
+#import "SignalsViewController.h"
 #import <JSQMessagesViewController/JSQMessagesMediaViewBubbleImageMasker.h>
 
 @interface TSPhotoAdapter ()
@@ -102,8 +104,7 @@
         UIImageWriteToSavedPhotosAlbum(self.image, nil, nil, nil);
         return;
     } else if (action == @selector(forward:)) {
-        NSLog(@"FORWARD IMAGE ATTACHMENT");
-        // TODO: add forwarding
+        [[Environment getCurrent].signalsViewController forwardImage:self.image];
         return;
     }
 
