@@ -28,6 +28,7 @@
 @property (nonatomic, strong) AVAudioRecorder *audioRecorder;
 
 - (void)configureForThread:(TSThread *)thread keyboardOnViewAppearing:(BOOL)keyboardAppearing;
+- (void)handleForwardedData:(id)data;
 - (void)popKeyBoard;
 
 #pragma mark 3D Touch Methods

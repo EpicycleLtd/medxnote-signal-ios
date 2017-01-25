@@ -181,19 +181,18 @@ static Environment *environment = nil;
                 return;
             }
         }
-        [self messageIdentifier:((TSContactThread *)thread).contactIdentifier withCompose:YES];
+        [self messageIdentifier:((TSContactThread *)thread).contactIdentifier withCompose:YES withData:nil];
     }
 }
 
-+ (void)messageIdentifier:(NSString *)identifier withCompose:(BOOL)compose {
++ (void)messageIdentifier:(NSString *)identifier withCompose:(BOOL)compose withData:(id)forwardedData {
     Environment *env          = [self getCurrent];
     SignalsViewController *vc = env.signalsViewController;
 
     [[TSStorageManager sharedManager]
             .dbConnection asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
       TSThread *thread = [TSContactThread getOrCreateThreadWithContactId:identifier transaction:transaction];
-      [vc presentThread:thread keyboardOnViewAppearing:YES];
-
+      [vc presentThread:thread keyboardOnViewAppearing:YES withData:forwardedData];
     }];
 }
 

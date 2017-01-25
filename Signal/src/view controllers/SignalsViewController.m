@@ -21,6 +21,7 @@
 #import "TSMessagesManager+sendMessages.h"
 #import "TSStorageManager.h"
 #import "VersionMigrations.h"
+#import "MessageComposeTableViewController.h"
 
 #import <YapDatabase/YapDatabaseViewChange.h>
 #import "YapDatabaseViewConnection.h"
@@ -116,13 +117,21 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
 }
 
 - (void)composeNew {
+    [self composeNewWithSender:nil];
+}
+
+- (void)forwardImage:(UIImage*)image {
+    [self composeNewWithSender:image];
+}
+
+- (void)composeNewWithSender:(id)sender {
     if (self.presentedViewController) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
-
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
-
-    [self performSegueWithIdentifier:@"composeNew" sender:self];
+    
+    [self performSegueWithIdentifier:@"composeNew" sender:sender];
 }
 
 - (void)swappedSegmentedControl {
@@ -321,19 +330,23 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-
 - (void)presentThread:(TSThread *)thread keyboardOnViewAppearing:(BOOL)keyboardOnViewAppearing {
+    [self presentThread:thread keyboardOnViewAppearing:keyboardOnViewAppearing withData:nil];
+}
+
+- (void)presentThread:(TSThread *)thread keyboardOnViewAppearing:(BOOL)keyboardOnViewAppearing withData:(id)data {
     dispatch_async(dispatch_get_main_queue(), ^{
-      MessagesViewController *mvc = [[UIStoryboard storyboardWithName:@"Storyboard" bundle:NULL]
-                instantiateViewControllerWithIdentifier:@"MessagesViewController"];
-
-      if (self.presentedViewController) {
-          [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
-      }
-      [self.navigationController popToRootViewControllerAnimated:YES];
-
-      [mvc configureForThread:thread keyboardOnViewAppearing:keyboardOnViewAppearing];
-      [self.navigationController pushViewController:mvc animated:YES];
+        MessagesViewController *mvc = [[UIStoryboard storyboardWithName:@"Storyboard" bundle:NULL]
+                                       instantiateViewControllerWithIdentifier:@"MessagesViewController"];
+        
+        if (self.presentedViewController) {
+            [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+        }
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        
+        [mvc configureForThread:thread keyboardOnViewAppearing:keyboardOnViewAppearing];
+        [mvc handleForwardedData:data];
+        [self.navigationController pushViewController:mvc animated:YES];
     });
 }
 
@@ -344,6 +357,14 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
         InCallViewController *vc = [segue destinationViewController];
         [vc configureWithLatestCall:_latestCall];
         _latestCall = nil;
+    }
+    if ([segue.identifier isEqualToString:@"composeNew"]) {
+        UINavigationController *nav = segue.destinationViewController;
+        MessageComposeTableViewController *vc = nav.viewControllers.firstObject;
+        // don't pass buttons
+        if (![sender isKindOfClass:[UIBarButtonItem class]]) {
+            vc.forwardedData = sender;
+        }
     }
 }
 

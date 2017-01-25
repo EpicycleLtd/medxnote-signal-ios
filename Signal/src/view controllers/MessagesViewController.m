@@ -1523,6 +1523,25 @@ typedef enum : NSUInteger {
     }
 }
 
+#pragma mark - Forwarding
+
+- (void)handleForwardedData:(id)data {
+    if ([data isKindOfClass:[UIImage class]]) {
+        NSLog(@"sending forwarded image attachment");
+        // cannot reuse existing method as it depends on view controller dismissal to send attachment
+        TSOutgoingMessage *message = [[TSOutgoingMessage alloc] initWithTimestamp:[NSDate ows_millisecondTimeStamp]
+                                                                         inThread:self.thread
+                                                                      messageBody:nil
+                                                                    attachmentIds:[NSMutableArray new]];
+        [[TSMessagesManager sharedManager] sendAttachment:[self qualityAdjustedAttachmentForImage:(UIImage*)data]
+                                              contentType:@"image/jpeg"
+                                                inMessage:message
+                                                   thread:self.thread
+                                                  success:nil
+                                                  failure:nil];
+    }
+}
+
 
 #pragma mark - UIImagePickerController
 

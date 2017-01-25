@@ -48,7 +48,11 @@
 
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self createLoadingAndBackgroundViews];
-    self.title = NSLocalizedString(@"MESSAGE_COMPOSEVIEW_TITLE", @"");
+    if (self.forwardedData != nil) {
+        self.title = @"Forward Message";
+    } else {
+        self.title = NSLocalizedString(@"MESSAGE_COMPOSEVIEW_TITLE", @"");
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -427,7 +431,7 @@
 
     [self dismissViewControllerAnimated:YES
                              completion:^() {
-                               [Environment messageIdentifier:identifier withCompose:YES];
+                               [Environment messageIdentifier:identifier withCompose:YES withData:self.forwardedData];
                              }];
 }
 
