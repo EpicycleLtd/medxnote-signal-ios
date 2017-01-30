@@ -1994,6 +1994,7 @@ typedef enum : NSUInteger {
 
 - (void)didFinishScanningQRCodeWithString:(NSString *)string {
     self.inputToolbar.contentView.textView.text = [self.inputToolbar.contentView.textView.text stringByAppendingString:string];
+    self.inputToolbar.contentView.rightBarButtonItem.enabled = true;
 }
 
 #pragma mark Accessory View
