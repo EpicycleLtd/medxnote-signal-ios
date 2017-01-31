@@ -261,13 +261,12 @@
     // Delegate other actions for media items
     if (self.isMediaMessage) {
         return [self.mediaItem canPerformEditingAction:action];
-    } 
-//    else {
-//        // Text message - no media attachment
-//        if (action == @selector(copy:)) {
-//            return YES;
-//        }
-//    }
+    }  else {
+        // Text message - no media attachment
+        if (action == @selector(copy:)) {
+            return YES;
+        }
+    }
 
     return NO;
 }
