@@ -1559,6 +1559,7 @@ typedef enum : NSUInteger {
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     picker.mediaTypes = @[ (__bridge NSString *)kUTTypeImage, (__bridge NSString *)kUTTypeMovie ];
     picker.allowsEditing = NO;
+    picker.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     picker.delegate = self;
     [self presentViewController:picker animated:YES completion:[UIUtil modalCompletionBlock]];
 }
