@@ -833,11 +833,13 @@ typedef enum : NSUInteger {
         (JSQMessagesCollectionViewCell *)[super collectionView:self.collectionView cellForItemAtIndexPath:indexPath];
     if (!message.isMediaMessage) {
         cell.textView.textColor          = [UIColor ows_blackColor];
-        cell.textView.selectable = FALSE;
+        // no way to disable text selection and have data detectors enabled, should be solved in JSQMessagesViewController 8.0
+        //cell.textView.selectable = FALSE;
         cell.textView.linkTextAttributes = @{
             NSForegroundColorAttributeName : cell.textView.textColor,
             NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid)
         };
+        cell.textView.dataDetectorTypes = UIDataDetectorTypeLink;
     }
 
     return cell;
@@ -850,11 +852,13 @@ typedef enum : NSUInteger {
         (JSQMessagesCollectionViewCell *)[super collectionView:self.collectionView cellForItemAtIndexPath:indexPath];
     if (!message.isMediaMessage) {
         cell.textView.textColor          = [UIColor whiteColor];
-        cell.textView.selectable = FALSE;
+        // no way to disable text selection and have data detectors enabled, should be solved in JSQMessagesViewController 8.0
+        //cell.textView.selectable = FALSE;
         cell.textView.linkTextAttributes = @{
             NSForegroundColorAttributeName : cell.textView.textColor,
             NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid)
         };
+        cell.textView.dataDetectorTypes = UIDataDetectorTypeLink;
     }
 
     return cell;
