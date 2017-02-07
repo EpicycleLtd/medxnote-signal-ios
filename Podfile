@@ -13,6 +13,7 @@ target 'medxnote' do
     pod 'ZHPopupView'
     pod 'ABPadLockScreen', '~> 3.3.0'
     pod 'ActionSheetPicker-3.0'
+    pod 'Reachability'
     target 'MedxnoteTests' do
         inherit! :search_paths
     end

@@ -123,6 +123,7 @@ DEPENDENCIES:
   - JSQMessagesViewController
   - OpenSSL (~> 1.0.208)
   - PastelogKit (~> 1.3)
+  - Reachability
   - SCWaveformView (~> 1.0)
   - SignalServiceKit (from `https://github.com/WhisperSystems/SignalServiceKit.git`)
   - SocketRocket (from `https://github.com/facebook/SocketRocket.git`)
@@ -170,6 +171,6 @@ SPEC CHECKSUMS:
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
   ZHPopupView: cb3bedde775803c2c51e3db05cdd07ac6efaaaeb
 
-PODFILE CHECKSUM: 1968f4970f1f9d36dfadfea9a6557b3a73c0c1ca
+PODFILE CHECKSUM: 787557dbdcd20d3ed3bf9809fc0938cd604853d8
 
 COCOAPODS: 1.1.1

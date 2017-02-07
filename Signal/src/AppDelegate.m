@@ -22,6 +22,7 @@
 #import "ABPadLockScreenViewController.h"
 #import "MedxPasscodeManager.h"
 #import "BaseWindow.h"
+#import <Reachability/Reachability.h>
 
 static NSString *const kStoryboardName                  = @"Storyboard";
 static NSString *const kInitialViewControllerIdentifier = @"UserInitialViewController";
@@ -133,17 +134,35 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
         [self presentPasscodeEntry];
     }];
     
-    return YES;
-}
-
-- (void)resetActivityTimer {
+    // setup reachability
+    [self setupReachability];
     
+    return YES;
 }
 
 - (void)setupTSKitEnv {
     [TextSecureKitEnv sharedEnv].contactsManager = [Environment getCurrent].contactsManager;
     [[TSStorageManager sharedManager] setupDatabase];
     [TextSecureKitEnv sharedEnv].notificationsManager = [[NotificationsManager alloc] init];
+}
+
+- (void)setupReachability {
+    // Allocate a reachability object
+    Reachability* reach = [Reachability reachabilityWithHostname:@"www.google.com"];
+    
+    // Set the blocks
+    reach.reachableBlock = ^(Reachability *reach) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"REACHABLE");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"InternetNowReachable" object:nil];
+        });
+    };
+    
+    reach.unreachableBlock = ^(Reachability *reach) {
+        NSLog(@"UNREACHABLE");
+    };
+    
+    [reach startNotifier];
 }
 
 - (void)application:(UIApplication *)application
