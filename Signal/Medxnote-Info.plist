@@ -38,7 +38,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2.4.9.0</string>
+	<string>2.4.9.1</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LOGS_EMAIL</key>
@@ -74,7 +74,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Medxnote uses your camera so you can securely share photos taken within the app.  Photos taken in the app are not added to your camera roll for privacy reasons.</string>
 	<key>NSContactsUsageDescription</key>
-	<string>Medxnote uses your contacts to find users you know. We do not store your contacts on the server.</string>
+	<string>Medxnote uses your contacts to find users you know. Information from the contacts on your device will be cryptographically hashed and transmitted to the server in order to determine which of your contacts are registered. We do not store your contacts on the server. http://www.medxnote.com/privacy/</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Medxnote needs access to your microphone to make and receive phone calls.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
