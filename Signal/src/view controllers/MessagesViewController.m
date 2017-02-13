@@ -52,6 +52,7 @@
 #import "UIUtil.h"
 #import "UIImage+normalizeImage.h"
 #import "QRCodeViewController.h"
+#import "OWSContactsSearcher.h"
 
 @import Photos;
 
@@ -856,10 +857,34 @@ typedef enum : NSUInteger {
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
     if ([URL.scheme isEqualToString:@"tel"]) {
-        // TODO: handle phone URL, open new conversation with given number
+        [self handlePhoneLinkForURL:URL];
         return false;
     }
     return true;
+}
+
+- (void)handlePhoneLinkForURL:(NSURL *)URL {
+    NSString *path = [URL.absoluteString stringByReplacingOccurrencesOfString:@"tel:" withString:@""];;
+    NSArray <Contact *> *contacts = [[[Environment getCurrent] contactsManager] signalContacts];
+    
+    OWSContactsSearcher *contactsSearcher = [[OWSContactsSearcher alloc] initWithContacts: contacts];
+    NSArray <Contact *> *results = [contactsSearcher filterWithString:path];
+
+    if (results.count == 0) {
+        // retry search with formatted number
+        path = [PhoneNumber tryParsePhoneNumberFromUserSpecifiedText:path].toE164;
+        results = [contactsSearcher filterWithString:path];
+    }
+
+    // handle results
+    if (results.count > 0) {
+        // TODO: check if result is not current conversation
+        Contact *firstContact = results.firstObject;
+        NSString *identifier = firstContact.textSecureIdentifiers.firstObject;
+        [Environment messageIdentifier:identifier withCompose:YES withData:nil];
+    } else {
+        SignalAlertView(@"Not Found", @"No Medxnote recipient has been found in your contact list with that phone number.");
+    }
 }
 
 #pragma mark - Loading message cells
