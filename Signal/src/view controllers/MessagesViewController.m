@@ -72,7 +72,7 @@ typedef enum : NSUInteger {
     kMediaTypeVideo,
 } kMediaTypes;
 
-@interface MessagesViewController () <QRCodeViewDelegate> {
+@interface MessagesViewController () <QRCodeViewDelegate, UITextViewDelegate> {
     UIImage *tappedImage;
     BOOL isGroupConversation;
 
@@ -852,6 +852,16 @@ typedef enum : NSUInteger {
     return cell;
 }
 
+#pragma mark - Data Detector/UITextView delegate
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
+    if ([URL.scheme isEqualToString:@"tel"]) {
+        // TODO: handle phone URL, open new conversation with given number
+        return false;
+    }
+    return true;
+}
+
 #pragma mark - Loading message cells
 
 - (JSQMessagesCollectionViewCell *)loadIncomingMessageCellForMessage:(id<JSQMessageData>)message
@@ -867,7 +877,8 @@ typedef enum : NSUInteger {
             NSForegroundColorAttributeName : cell.textView.textColor,
             NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid)
         };
-        cell.textView.dataDetectorTypes = UIDataDetectorTypeLink;
+        cell.textView.dataDetectorTypes = UIDataDetectorTypeLink | UIDataDetectorTypePhoneNumber;
+        cell.textView.delegate = self;
     }
 
     return cell;
@@ -886,7 +897,8 @@ typedef enum : NSUInteger {
             NSForegroundColorAttributeName : cell.textView.textColor,
             NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid)
         };
-        cell.textView.dataDetectorTypes = UIDataDetectorTypeLink;
+        cell.textView.dataDetectorTypes = UIDataDetectorTypeLink | UIDataDetectorTypePhoneNumber;
+        cell.textView.delegate = self;
     }
 
     return cell;
