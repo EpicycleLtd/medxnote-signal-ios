@@ -335,6 +335,7 @@ typedef enum : NSUInteger {
     [super viewDidAppear:animated];
     [self dismissKeyBoard];
     [self startReadTimer];
+    [self sendUnsentMessages];
 
     [self initializeTitleLabelGestureRecognizer];
 
