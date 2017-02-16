@@ -75,7 +75,7 @@ typedef enum : NSUInteger {
     kMediaTypeVideo,
 } kMediaTypes;
 
-@interface MessagesViewController () <QRCodeViewDelegate, UITextViewDelegate> {
+@interface MessagesViewController () <QRCodeViewDelegate, UITextViewDelegate, CNContactViewControllerDelegate> {
     UIImage *tappedImage;
     BOOL isGroupConversation;
 
@@ -110,6 +110,7 @@ typedef enum : NSUInteger {
 @property (nonatomic) BOOL peek;
 
 @property NSCache *messageAdapterCache;
+@property CNContactStore *contactsStore;
 
 @end
 
@@ -224,6 +225,8 @@ typedef enum : NSUInteger {
     self.senderDisplayName = ME_MESSAGE_IDENTIFIER;
 
     [self initializeToolbars];
+    
+    self.contactsStore = [CNContactStore new];
 }
 
 - (void)registerCustomMessageNibs
@@ -909,25 +912,37 @@ typedef enum : NSUInteger {
 }
 
 - (void)showAddContactWithNumber:(NSString*)phoneNumber {
-    [[CNContactStore new] requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
+    [self.contactsStore requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if (granted) {
             CNMutableContact *contact = [[CNMutableContact alloc] init];
             CNLabeledValue *value = [[CNLabeledValue alloc] initWithLabel:CNLabelHome value:[CNPhoneNumber phoneNumberWithStringValue:phoneNumber]];
             contact.phoneNumbers = @[value];
             
             CNContactViewController *vc = [CNContactViewController viewControllerForUnknownContact:contact];
-            vc.contactStore = [CNContactStore new];
+            vc.contactStore = self.contactsStore;
             vc.allowsActions = false;
-//            vc.delegate = self;
+            vc.allowsEditing = true;
+            vc.delegate = self;
+            
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-            nav.navigationBar.barTintColor = [UIColor ows_materialBlueColor];
-            [self presentViewController:nav animated:true completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:nav animated:true completion:nil];
+            });
         } else {
             NSLog(@"Contact Store access not granted %@", error.localizedDescription);
         }
     }];
 }
 
+#pragma mark - CNContactViewControllerDelegate
+
+- (void)contactViewController:(CNContactViewController *)viewController didCompleteWithContact:(CNContact *)contact {
+    [viewController dismissViewControllerAnimated:true completion:nil];
+}
+
+- (BOOL)contactViewController:(CNContactViewController *)viewController shouldPerformDefaultActionForContactProperty:(nonnull CNContactProperty *)property {
+    return true;
+}
 #pragma mark - Loading message cells
 
 - (JSQMessagesCollectionViewCell *)loadIncomingMessageCellForMessage:(id<JSQMessageData>)message
