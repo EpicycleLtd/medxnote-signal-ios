@@ -926,12 +926,17 @@ typedef enum : NSUInteger {
             
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
             dispatch_async(dispatch_get_main_queue(), ^{
+                vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(dismissContactsPicker)];
                 [self presentViewController:nav animated:true completion:nil];
             });
         } else {
             NSLog(@"Contact Store access not granted %@", error.localizedDescription);
         }
     }];
+}
+
+- (void)dismissContactsPicker {
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 #pragma mark - CNContactViewControllerDelegate
