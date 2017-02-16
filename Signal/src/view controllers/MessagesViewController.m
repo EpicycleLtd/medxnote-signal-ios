@@ -53,6 +53,8 @@
 #import "UIImage+normalizeImage.h"
 #import "QRCodeViewController.h"
 #import "OWSContactsSearcher.h"
+#import <Contacts/Contacts.h>
+#import <ContactsUI/ContactsUI.h>
 
 @import Photos;
 
@@ -864,7 +866,8 @@ typedef enum : NSUInteger {
 }
 
 - (void)handlePhoneLinkForURL:(NSURL *)URL {
-    NSString *path = [URL.absoluteString stringByReplacingOccurrencesOfString:@"tel:" withString:@""];;
+    NSString *path = [URL.absoluteString stringByReplacingOccurrencesOfString:@"tel:" withString:@""];
+    NSString *origPath = path.copy;
     NSArray <Contact *> *contacts = [[[Environment getCurrent] contactsManager] signalContacts];
     
     OWSContactsSearcher *contactsSearcher = [[OWSContactsSearcher alloc] initWithContacts: contacts];
@@ -883,8 +886,46 @@ typedef enum : NSUInteger {
         NSString *identifier = firstContact.textSecureIdentifiers.firstObject;
         [Environment messageIdentifier:identifier withCompose:YES withData:nil];
     } else {
-        SignalAlertView(@"Not Found", @"No Medxnote recipient has been found in your contact list with that phone number.");
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                       message:@"No Medxnote recipient has been found in your contact list with that phone number"
+                                                                preferredStyle:UIAlertControllerStyleActionSheet];
+        alert.view.tintColor = [UIColor ows_materialBlueColor];
+        UIAlertAction *addAction = [UIAlertAction actionWithTitle:@"Add to contacts" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self showAddContactWithNumber:origPath];
+        }];
+        [alert addAction:addAction];
+        
+        UIAlertAction *copyAction = [UIAlertAction actionWithTitle:@"Copy to clipboard" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            pasteboard.string = origPath;
+        }];
+        [alert addAction:copyAction];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancelAction];
+        
+        [self presentViewController:alert animated:true completion:nil];
     }
+}
+
+- (void)showAddContactWithNumber:(NSString*)phoneNumber {
+    [[CNContactStore new] requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (granted) {
+            CNMutableContact *contact = [[CNMutableContact alloc] init];
+            CNLabeledValue *value = [[CNLabeledValue alloc] initWithLabel:CNLabelHome value:[CNPhoneNumber phoneNumberWithStringValue:phoneNumber]];
+            contact.phoneNumbers = @[value];
+            
+            CNContactViewController *vc = [CNContactViewController viewControllerForUnknownContact:contact];
+            vc.contactStore = [CNContactStore new];
+            vc.allowsActions = false;
+//            vc.delegate = self;
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            nav.navigationBar.barTintColor = [UIColor ows_materialBlueColor];
+            [self presentViewController:nav animated:true completion:nil];
+        } else {
+            NSLog(@"Contact Store access not granted %@", error.localizedDescription);
+        }
+    }];
 }
 
 #pragma mark - Loading message cells
