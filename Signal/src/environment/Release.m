@@ -46,7 +46,7 @@ static unsigned char DH3K_PRIME[] = {
                    environmentWithLogging:logging
                             andErrorNoter:errorNoter
                             andServerPort:31337
-                  andMasterServerHostName:@"global.textsecure.medx.im"
+                  andMasterServerHostName:@"global2.textsecure.medx.im"
                       andDefaultRelayName:@"relay"
              andRelayServerHostNameSuffix:@"textsecure.medx.im"
                            andCertificate:[Certificate certificateFromResourcePath:@"redphone" ofType:@"cer"]
@@ -70,7 +70,7 @@ static unsigned char DH3K_PRIME[] = {
                    environmentWithLogging:logging
                             andErrorNoter:errorNoter
                             andServerPort:31337
-                  andMasterServerHostName:@"global.textsecure.medx.im"
+                  andMasterServerHostName:@"global2.textsecure.medx.im"
                       andDefaultRelayName:@"redphone-staging-relay"
              andRelayServerHostNameSuffix:@"textsecure.medx.im"
                            andCertificate:[Certificate certificateFromResourcePath:@"redphone" ofType:@"cer"]
@@ -95,7 +95,7 @@ static unsigned char DH3K_PRIME[] = {
                                  andErrorNoter:^(id error, id relatedInfo, bool causedTermination) {
                                  }
                                  andServerPort:31337
-                       andMasterServerHostName:@"global.textsecure.medx.im"
+                       andMasterServerHostName:@"global2.textsecure.medx.im"
                            andDefaultRelayName:@"relay"
                   andRelayServerHostNameSuffix:@"textsecure.medx.im"
                                 andCertificate:[Certificate certificateFromResourcePath:@"redphone" ofType:@"cer"]
