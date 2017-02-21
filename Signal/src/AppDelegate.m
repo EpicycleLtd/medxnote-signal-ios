@@ -23,6 +23,7 @@
 #import "MedxPasscodeManager.h"
 #import "BaseWindow.h"
 #import <Reachability/Reachability.h>
+#import "SignalsNavigationController.h"
 
 static NSString *const kStoryboardName                  = @"Storyboard";
 static NSString *const kInitialViewControllerIdentifier = @"UserInitialViewController";
@@ -350,14 +351,14 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
 
 - (void)setupAppearance {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor ows_materialBlueColor]];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[SignalsNavigationController class]]] setBarTintColor:[UIColor ows_materialBlueColor]];
+    [[UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[SignalsNavigationController class]]] setTintColor:[UIColor whiteColor]];
 
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor ows_materialBlueColor]];
 
 
     [[UIToolbar appearance] setTintColor:[UIColor ows_materialBlueColor]];
-    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[SignalsNavigationController class]]] setTintColor:[UIColor whiteColor]];
 
     NSShadow *shadow = [NSShadow new];
     [shadow setShadowColor:[UIColor clearColor]];
@@ -369,7 +370,7 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
 
     [[UISwitch appearance] setOnTintColor:[UIColor ows_materialBlueColor]];
 
-    [[UINavigationBar appearance] setTitleTextAttributes:navbarTitleTextAttributes];
+    [[UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[SignalsNavigationController class]]] setTitleTextAttributes:navbarTitleTextAttributes];
     
     /** Pin code appearance */
     UIColor *medxGreen = [UIColor colorWithRed:65.f/255.f green:178.f/255.f blue:76.f/255.f alpha:1.f];
