@@ -26,6 +26,8 @@
 #import <YapDatabase/YapDatabaseViewChange.h>
 #import "YapDatabaseViewConnection.h"
 
+@import AudioToolbox;
+
 #define CELL_HEIGHT 72.0f
 #define HEADER_HEIGHT 44.0f
 
@@ -315,6 +317,7 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
     if (![badgeNumber isEqualToNumber:@0]) {
         NSString *badgeValue = [badgeNumber stringValue];
         unreadString         = [unreadString stringByAppendingFormat:@" (%@)", badgeValue];
+        AudioServicesPlaySystemSound(1315);
     }
 
     [_segmentedControl setTitle:unreadString forSegmentAtIndex:0];
