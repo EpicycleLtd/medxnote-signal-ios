@@ -52,6 +52,9 @@
 #import "UIUtil.h"
 #import "UIImage+normalizeImage.h"
 #import "QRCodeViewController.h"
+#import "OWSContactsSearcher.h"
+#import <Contacts/Contacts.h>
+#import <ContactsUI/ContactsUI.h>
 
 @import Photos;
 
@@ -72,7 +75,7 @@ typedef enum : NSUInteger {
     kMediaTypeVideo,
 } kMediaTypes;
 
-@interface MessagesViewController () <QRCodeViewDelegate> {
+@interface MessagesViewController () <QRCodeViewDelegate, UITextViewDelegate, CNContactViewControllerDelegate> {
     UIImage *tappedImage;
     BOOL isGroupConversation;
 
@@ -107,6 +110,7 @@ typedef enum : NSUInteger {
 @property (nonatomic) BOOL peek;
 
 @property NSCache *messageAdapterCache;
+@property CNContactStore *contactsStore;
 
 @end
 
@@ -221,6 +225,8 @@ typedef enum : NSUInteger {
     self.senderDisplayName = ME_MESSAGE_IDENTIFIER;
 
     [self initializeToolbars];
+    
+    self.contactsStore = [CNContactStore new];
 }
 
 - (void)registerCustomMessageNibs
@@ -853,6 +859,96 @@ typedef enum : NSUInteger {
     return cell;
 }
 
+#pragma mark - Data Detector/UITextView delegate
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
+    if ([URL.scheme isEqualToString:@"tel"]) {
+        [self handlePhoneLinkForURL:URL];
+        return false;
+    }
+    return true;
+}
+
+- (void)handlePhoneLinkForURL:(NSURL *)URL {
+    NSString *path = [URL.absoluteString stringByReplacingOccurrencesOfString:@"tel:" withString:@""];
+    NSString *origPath = path.copy;
+    NSArray <Contact *> *contacts = [[[Environment getCurrent] contactsManager] signalContacts];
+    
+    OWSContactsSearcher *contactsSearcher = [[OWSContactsSearcher alloc] initWithContacts: contacts];
+    NSArray <Contact *> *results = [contactsSearcher filterWithString:path];
+
+    if (results.count == 0) {
+        // retry search with formatted number
+        path = [PhoneNumber tryParsePhoneNumberFromUserSpecifiedText:path].toE164;
+        results = [contactsSearcher filterWithString:path];
+    }
+
+    // handle results
+    if (results.count > 0) {
+        // TODO: check if result is not current conversation
+        Contact *firstContact = results.firstObject;
+        NSString *identifier = firstContact.textSecureIdentifiers.firstObject;
+        [Environment messageIdentifier:identifier withCompose:YES withData:nil];
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                       message:@"No Medxnote recipient has been found in your contact list with that phone number"
+                                                                preferredStyle:UIAlertControllerStyleActionSheet];
+        alert.view.tintColor = [UIColor ows_materialBlueColor];
+        UIAlertAction *addAction = [UIAlertAction actionWithTitle:@"Add to contacts" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self showAddContactWithNumber:origPath];
+        }];
+        [alert addAction:addAction];
+        
+        UIAlertAction *copyAction = [UIAlertAction actionWithTitle:@"Copy to clipboard" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            pasteboard.string = origPath;
+        }];
+        [alert addAction:copyAction];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancelAction];
+        
+        [self presentViewController:alert animated:true completion:nil];
+    }
+}
+
+- (void)showAddContactWithNumber:(NSString*)phoneNumber {
+    [self.contactsStore requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (granted) {
+            CNMutableContact *contact = [[CNMutableContact alloc] init];
+            CNLabeledValue *value = [[CNLabeledValue alloc] initWithLabel:CNLabelHome value:[CNPhoneNumber phoneNumberWithStringValue:phoneNumber]];
+            contact.phoneNumbers = @[value];
+            
+            CNContactViewController *vc = [CNContactViewController viewControllerForUnknownContact:contact];
+            vc.contactStore = self.contactsStore;
+            vc.allowsActions = false;
+            vc.allowsEditing = true;
+            vc.delegate = self;
+            
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(dismissContactsPicker)];
+                [self presentViewController:nav animated:true completion:nil];
+            });
+        } else {
+            NSLog(@"Contact Store access not granted %@", error.localizedDescription);
+        }
+    }];
+}
+
+- (void)dismissContactsPicker {
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
+#pragma mark - CNContactViewControllerDelegate
+
+- (void)contactViewController:(CNContactViewController *)viewController didCompleteWithContact:(CNContact *)contact {
+    [viewController dismissViewControllerAnimated:true completion:nil];
+}
+
+- (BOOL)contactViewController:(CNContactViewController *)viewController shouldPerformDefaultActionForContactProperty:(nonnull CNContactProperty *)property {
+    return true;
+}
 #pragma mark - Loading message cells
 
 - (JSQMessagesCollectionViewCell *)loadIncomingMessageCellForMessage:(id<JSQMessageData>)message
@@ -868,7 +964,8 @@ typedef enum : NSUInteger {
             NSForegroundColorAttributeName : cell.textView.textColor,
             NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid)
         };
-        cell.textView.dataDetectorTypes = UIDataDetectorTypeLink;
+        cell.textView.dataDetectorTypes = UIDataDetectorTypeLink | UIDataDetectorTypePhoneNumber;
+        cell.textView.delegate = self;
     }
 
     return cell;
@@ -887,7 +984,8 @@ typedef enum : NSUInteger {
             NSForegroundColorAttributeName : cell.textView.textColor,
             NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid)
         };
-        cell.textView.dataDetectorTypes = UIDataDetectorTypeLink;
+        cell.textView.dataDetectorTypes = UIDataDetectorTypeLink | UIDataDetectorTypePhoneNumber;
+        cell.textView.delegate = self;
     }
 
     return cell;
