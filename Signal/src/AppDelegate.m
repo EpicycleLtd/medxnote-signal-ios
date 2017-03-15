@@ -104,6 +104,10 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
 
     [self prepareScreenshotProtection];
     
+    if ([MedxPasscodeManager isPasscodeEnabled]) {
+        [self removeScreenProtection];
+    }
+    
     if ([MedxPasscodeManager isLockoutEnabled]) {
         // stop loading app as user is locked out
         self.blankWindow.hidden = NO;
@@ -239,7 +243,9 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       if ([TSAccountManager isRegistered]) {
           dispatch_sync(dispatch_get_main_queue(), ^{
-            [self protectScreen];
+              if (![[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController isKindOfClass:[ABPadLockScreenViewController class]]) {
+                  [self protectScreen];
+              }
             [[[Environment getCurrent] signalsViewController] updateInboxCountLabel];
           });
           [TSSocketManager resignActivity];
