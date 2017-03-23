@@ -22,6 +22,7 @@
 
 
 @property (nonatomic, readonly) TSThread *thread;
+@property (nonatomic) NSUInteger unreadMessages;
 @property (nonatomic, retain) APNavigationController *navController;
 @property (nonatomic, strong) MPMoviePlayerController *videoPlayer;
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;

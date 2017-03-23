@@ -347,7 +347,8 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
             [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
         }
         [self.navigationController popToRootViewControllerAnimated:YES];
-        
+        NSInteger unreadCount = [[TSMessagesManager sharedManager] unreadMessagesInThread:thread];
+        mvc.unreadMessages = unreadCount;
         [mvc configureForThread:thread keyboardOnViewAppearing:keyboardOnViewAppearing];
         [mvc handleForwardedData:data];
         [self.navigationController pushViewController:mvc animated:YES];

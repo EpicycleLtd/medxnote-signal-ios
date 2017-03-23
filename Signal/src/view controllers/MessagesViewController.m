@@ -83,6 +83,8 @@ typedef enum : NSUInteger {
     UIImageView *_unreadBackground;
     UILabel *_unreadLabel;
     NSUInteger _unreadCount;
+    
+    NSUInteger unreadPoint;
 }
 
 @property (nonatomic, readwrite) TSThread *thread;
@@ -826,6 +828,14 @@ typedef enum : NSUInteger {
 - (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    // check if unread cell should be displayed
+    if (unreadPoint > 0 && indexPath.row == (NSInteger)unreadPoint) {
+        TSMessageAdapter *message = [self messageAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row-1 inSection:indexPath.section]];
+        // TODO: change cell to show correct info
+        OWSInfoMessage *infoMessage = [[OWSInfoMessage alloc] initWithInfoType:OWSInfoMessageTypeSessionDidEnd senderId:message.senderId senderDisplayName:message.senderDisplayName date:message.date];
+        JSQMessagesCollectionViewCell *cell = [self loadInfoMessageCellForMessage:infoMessage atIndexPath:indexPath];
+        return cell;
+    }
     TSMessageAdapter *message = [self messageAtIndexPath:indexPath];
     NSParameterAssert(message != nil);
 
@@ -2033,7 +2043,8 @@ typedef enum : NSUInteger {
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     NSInteger numberOfMessages = (NSInteger)[self.messageMappings numberOfItemsInSection:(NSUInteger)section];
-    return numberOfMessages;
+    BOOL hasUnreadMessages = _unreadMessages > 0;
+    return numberOfMessages+(hasUnreadMessages ? 1 : 0);
 }
 
 - (TSInteraction *)interactionAtIndexPath:(NSIndexPath *)indexPath {
@@ -2046,14 +2057,23 @@ typedef enum : NSUInteger {
       NSUInteger row                    = (NSUInteger)indexPath.row;
       NSUInteger section                = (NSUInteger)indexPath.section;
       NSUInteger numberOfItemsInSection = [self.messageMappings numberOfItemsInSection:section];
-
-      NSAssert(row < numberOfItemsInSection,
-               @"Cannot fetch message because row %d is >= numberOfItemsInSection %d",
-               (int)row,
-               (int)numberOfItemsInSection);
-
-      message = [viewTransaction objectAtRow:row inSection:section withMappings:self.messageMappings];
-      NSParameterAssert(message != nil);
+        
+        // find unread point
+        if (_unreadMessages > 0 && row == numberOfItemsInSection-_unreadMessages) {
+            unreadPoint = row;
+        }
+        
+        // offset index paths after unread point so correct data is returned for asked index path
+        if (unreadPoint > 0 && row >= unreadPoint) {
+            row--;
+        }
+        NSAssert(row < numberOfItemsInSection,
+                 @"Cannot fetch message because row %d is >= numberOfItemsInSection %d",
+                 (int)row,
+                 (int)numberOfItemsInSection);
+        
+        message = [viewTransaction objectAtRow:row inSection:section withMappings:self.messageMappings];
+        NSParameterAssert(message != nil);
     }];
 
     return message;
@@ -2062,7 +2082,7 @@ typedef enum : NSUInteger {
 // FIXME DANGER this method doesn't always return TSMessageAdapters - it can also return JSQCall!
 - (TSMessageAdapter *)messageAtIndexPath:(NSIndexPath *)indexPath {
     TSInteraction *interaction = [self interactionAtIndexPath:indexPath];
-
+    
     TSMessageAdapter *messageAdapter = [self.messageAdapterCache objectForKey:interaction.uniqueId];
 
     if (messageAdapter == nil) {
