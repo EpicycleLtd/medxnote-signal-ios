@@ -9,6 +9,7 @@ static const CGFloat OWSDisplayedMessageCellHeight = 70.0f;
 
 @interface OWSDisplayedMessageCollectionViewCell : JSQMessagesCollectionViewCell
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerImageViewHeight;
 @property (weak, nonatomic, readonly) JSQMessagesLabel *cellLabel;
 @property (weak, nonatomic, readonly) UIImageView *headerImageView;
 @property (strong, nonatomic, readonly) UIView *textContainer;

@@ -54,6 +54,7 @@
     [super prepareForReuse];
 
     self.cellLabel.text = nil;
+    self.headerImageViewHeight.constant = 35;
 }
 
 // This subclass does not have a messageBubbleContainerView, so superclass

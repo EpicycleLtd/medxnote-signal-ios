@@ -832,9 +832,7 @@ typedef enum : NSUInteger {
 {
     // check if unread cell should be displayed
     if (unreadPoint > 0 && indexPath.row == (NSInteger)unreadPoint) {
-        TSMessageAdapter *message = [self messageAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row-1 inSection:indexPath.section]];
-        OWSInfoMessage *infoMessage = [[OWSInfoMessage alloc] initWithInfoType:OWSInfoMessageTypeSessionDidEnd senderId:message.senderId senderDisplayName:message.senderDisplayName date:message.date];
-        JSQMessagesCollectionViewCell *cell = [self loadUnreadMessageCellForMessage:infoMessage atIndexPath:indexPath];
+        JSQMessagesCollectionViewCell *cell = [self loadUnreadMessageCellAtIndexPath:indexPath];
         return cell;
     }
     TSMessageAdapter *message = [self messageAtIndexPath:indexPath];
@@ -1035,6 +1033,7 @@ typedef enum : NSUInteger {
                                                                                                         forIndexPath:indexPath];
     messageCell.layer.shouldRasterize = YES;
     messageCell.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    messageCell.textContainer.backgroundColor = [UIColor clearColor];
     messageCell.cellTopLabel.attributedText = [self.collectionView.dataSource collectionView:self.collectionView attributedTextForCellTopLabelAtIndexPath:indexPath];
 
     return messageCell;
@@ -1052,14 +1051,16 @@ typedef enum : NSUInteger {
     return infoCell;
 }
 
-- (OWSDisplayedMessageCollectionViewCell *)loadUnreadMessageCellForMessage:(OWSInfoMessage *)infoMessage
-                                                             atIndexPath:(NSIndexPath *)indexPath
+- (OWSDisplayedMessageCollectionViewCell *)loadUnreadMessageCellAtIndexPath:(NSIndexPath *)indexPath
 {
     OWSDisplayedMessageCollectionViewCell *infoCell = [self loadDisplayedMessageCollectionViewCellForIndexPath:indexPath];
-    infoCell.cellTopLabel.text = nil;
-    infoCell.cellLabel.text = [NSString stringWithFormat:@"%d UNREAD MESSAGES", abs(_unreadMessages)];
+    //infoCell.cellTopLabel.text = ;
+    NSString *string = _unreadMessages == 1 ? @"UNREAD MESSAGE" : @"UNREAD MESSAGES";
+    infoCell.cellLabel.text = [NSString stringWithFormat:@"%ld %@", _unreadMessages, string];
+    infoCell.headerImageViewHeight.constant = 0;
     infoCell.cellLabel.textColor = [UIColor darkGrayColor];
-    infoCell.textContainer.layer.borderColor = infoCell.textContainer.layer.borderColor = [[UIColor ows_infoMessageBorderColor] CGColor];
+    infoCell.textContainer.layer.borderColor = [UIColor clearColor].CGColor;
+    infoCell.textContainer.backgroundColor = [UIColor colorWithWhite:222.0/255.0f alpha:1.0f];
     infoCell.headerImageView.image = nil;
     
     return infoCell;
@@ -2007,7 +2008,7 @@ typedef enum : NSUInteger {
             [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:unreadPoint inSection:0]]];
         }
       for (YapDatabaseViewRowChange *rowChange in messageRowChanges) {
-          NSIndexPath *indexPath = (unreadPoint > 0 && rowChange.indexPath.row >= unreadPoint) ? [NSIndexPath indexPathForItem:rowChange.indexPath.item+1 inSection:rowChange.indexPath.section] : rowChange.indexPath;
+          NSIndexPath *indexPath = [self adjustedIndexPath:rowChange.indexPath];
           switch (rowChange.type) {
               case YapDatabaseViewChangeDelete: {
                   [self.collectionView deleteItemsAtIndexPaths:@[ indexPath ]];
@@ -2060,6 +2061,10 @@ typedef enum : NSUInteger {
               [self scrollToBottomAnimated:YES];
           }
         }];
+}
+
+- (NSIndexPath*)adjustedIndexPath:(NSIndexPath*)indexPath {
+    return (unreadPoint > 0 && indexPath.row >= unreadPoint) ? [NSIndexPath indexPathForItem:indexPath.item+1 inSection:indexPath.section] : indexPath;
 }
 
 #pragma mark - UICollectionView DataSource
