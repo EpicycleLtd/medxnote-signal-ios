@@ -85,6 +85,7 @@ typedef enum : NSUInteger {
     NSUInteger _unreadCount;
     
     NSUInteger unreadPoint;
+    BOOL shouldClearUnread;
 }
 
 @property (nonatomic, readwrite) TSThread *thread;
@@ -355,6 +356,7 @@ typedef enum : NSUInteger {
     if (_composeOnOpen) {
         [self popKeyBoard];
     }
+    shouldClearUnread = true;
 }
 
 - (void)updateBackButtonAsync {
@@ -831,9 +833,8 @@ typedef enum : NSUInteger {
     // check if unread cell should be displayed
     if (unreadPoint > 0 && indexPath.row == (NSInteger)unreadPoint) {
         TSMessageAdapter *message = [self messageAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row-1 inSection:indexPath.section]];
-        // TODO: change cell to show correct info
         OWSInfoMessage *infoMessage = [[OWSInfoMessage alloc] initWithInfoType:OWSInfoMessageTypeSessionDidEnd senderId:message.senderId senderDisplayName:message.senderDisplayName date:message.date];
-        JSQMessagesCollectionViewCell *cell = [self loadInfoMessageCellForMessage:infoMessage atIndexPath:indexPath];
+        JSQMessagesCollectionViewCell *cell = [self loadUnreadMessageCellForMessage:infoMessage atIndexPath:indexPath];
         return cell;
     }
     TSMessageAdapter *message = [self messageAtIndexPath:indexPath];
@@ -1048,6 +1049,19 @@ typedef enum : NSUInteger {
     infoCell.textContainer.layer.borderColor = infoCell.textContainer.layer.borderColor = [[UIColor ows_infoMessageBorderColor] CGColor];
     infoCell.headerImageView.image = [UIImage imageNamed:@"warning_white"];
 
+    return infoCell;
+}
+
+- (OWSDisplayedMessageCollectionViewCell *)loadUnreadMessageCellForMessage:(OWSInfoMessage *)infoMessage
+                                                             atIndexPath:(NSIndexPath *)indexPath
+{
+    OWSDisplayedMessageCollectionViewCell *infoCell = [self loadDisplayedMessageCollectionViewCellForIndexPath:indexPath];
+    infoCell.cellTopLabel.text = nil;
+    infoCell.cellLabel.text = [NSString stringWithFormat:@"%d UNREAD MESSAGES", abs(_unreadMessages)];
+    infoCell.cellLabel.textColor = [UIColor darkGrayColor];
+    infoCell.textContainer.layer.borderColor = infoCell.textContainer.layer.borderColor = [[UIColor ows_infoMessageBorderColor] CGColor];
+    infoCell.headerImageView.image = nil;
+    
     return infoCell;
 }
 
@@ -1987,12 +2001,16 @@ typedef enum : NSUInteger {
     if ([sectionChanges count] == 0 & [messageRowChanges count] == 0) {
         return;
     }
-
+    
     [self.collectionView performBatchUpdates:^{
+        if (unreadPoint > 0 && shouldClearUnread) {
+            [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:unreadPoint inSection:0]]];
+        }
       for (YapDatabaseViewRowChange *rowChange in messageRowChanges) {
+          NSIndexPath *indexPath = (unreadPoint > 0 && rowChange.indexPath.row >= unreadPoint) ? [NSIndexPath indexPathForItem:rowChange.indexPath.item+1 inSection:rowChange.indexPath.section] : rowChange.indexPath;
           switch (rowChange.type) {
               case YapDatabaseViewChangeDelete: {
-                  [self.collectionView deleteItemsAtIndexPaths:@[ rowChange.indexPath ]];
+                  [self.collectionView deleteItemsAtIndexPaths:@[ indexPath ]];
 
                   YapCollectionKey *collectionKey = rowChange.collectionKey;
                   if (collectionKey.key) {
@@ -2006,7 +2024,7 @@ typedef enum : NSUInteger {
                   break;
               }
               case YapDatabaseViewChangeMove: {
-                  [self.collectionView deleteItemsAtIndexPaths:@[ rowChange.indexPath ]];
+                  [self.collectionView deleteItemsAtIndexPaths:@[ indexPath ]];
                   [self.collectionView insertItemsAtIndexPaths:@[ rowChange.newIndexPath ]];
                   break;
               }
@@ -2015,7 +2033,7 @@ typedef enum : NSUInteger {
                   if (collectionKey.key) {
                       [self.messageAdapterCache removeObjectForKey:collectionKey.key];
                   }
-                  NSMutableArray *rowsToUpdate = [@[ rowChange.indexPath ] mutableCopy];
+                  NSMutableArray *rowsToUpdate = [@[ indexPath ] mutableCopy];
 
                   if (_lastDeliveredMessageIndexPath) {
                       [rowsToUpdate addObject:_lastDeliveredMessageIndexPath];
@@ -2026,6 +2044,11 @@ typedef enum : NSUInteger {
               }
           }
       }
+        if (shouldClearUnread) {
+            self.unreadMessages = 0;
+            unreadPoint = 0;
+            shouldClearUnread = false;
+        }
     }
         completion:^(BOOL success) {
           if (!success) {
@@ -2059,7 +2082,7 @@ typedef enum : NSUInteger {
       NSUInteger numberOfItemsInSection = [self.messageMappings numberOfItemsInSection:section];
         
         // find unread point
-        if (_unreadMessages > 0 && row == numberOfItemsInSection-_unreadMessages) {
+        if (unreadPoint == 0 && _unreadMessages > 0 && row == numberOfItemsInSection-_unreadMessages) {
             unreadPoint = row;
         }
         
