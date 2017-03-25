@@ -21,5 +21,6 @@
 + (UIColor *)ows_errorMessageBorderColor;
 + (UIColor *)ows_infoMessageBorderColor;
 + (UIColor *)backgroundColorForContact:(NSString *)contactIdentifier;
++ (NSArray <UIColor *> *)groupParticipantColors;
 
 @end

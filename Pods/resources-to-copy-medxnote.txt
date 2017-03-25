@@ -1,0 +1,1 @@
+/Users/jannemecek/Projects/medxnote-signal-ios/Pods/JSQMessagesViewController/JSQMessagesViewController/Assets/JSQMessagesAssets.bundle
