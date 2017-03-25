@@ -112,6 +112,8 @@ typedef enum : NSUInteger {
 @property NSCache *messageAdapterCache;
 @property CNContactStore *contactsStore;
 
+@property NSMutableArray *groupColors;
+
 @end
 
 @interface UINavigationItem () {
@@ -227,6 +229,19 @@ typedef enum : NSUInteger {
     [self initializeToolbars];
     
     self.contactsStore = [CNContactStore new];
+    
+    self.groupColors = @[
+                         [UIColor colorWithRed:255/255.0f green:249/255.0f blue:196/255.0f alpha:1.0],
+                         [UIColor colorWithRed:220/255.0f green:237/255.0f blue:200/255.0f alpha:1.0],
+                         [UIColor colorWithRed:179/255.0f green:229/255.0f blue:252/255.0f alpha:1.0],
+                         [UIColor colorWithRed:197/255.0f green:202/255.0f blue:233/255.0f alpha:1.0],
+                         [UIColor colorWithRed:178/255.0f green:223/255.0f blue:219/255.0f alpha:1.0],
+                         [UIColor colorWithRed:215/255.0f green:204/255.0f blue:200/255.0f alpha:1.0],
+                         [UIColor colorWithRed:255/255.0f green:224/255.0f blue:178/255.0f alpha:1.0],
+                         [UIColor colorWithRed:207/255.0f green:216/255.0f blue:220/255.0f alpha:1.0],
+                         [UIColor colorWithRed:255/255.0f green:190/255.0f blue:231/255.0f alpha:1.0],
+                         [UIColor colorWithRed:255/255.0f green:205/255.0f blue:210/255.0f alpha:1.0],
+                         ].mutableCopy;
 }
 
 - (void)registerCustomMessageNibs
@@ -812,8 +827,22 @@ typedef enum : NSUInteger {
                 return self.outgoingBubbleImageData;
         }
     }
-
+    
+    // group chat coloring
+    if (self.thread.isGroupThread && [message isKindOfClass:[TSIncomingMessage class]]) {
+        TSIncomingMessage *incomingMessage = (TSIncomingMessage *)message;
+        JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
+        UIColor *color = [self colorForGroupParticipant:incomingMessage.authorId];
+        return [bubbleFactory incomingMessagesBubbleImageWithColor:color];
+    }
+    
     return self.incomingBubbleImageData;
+}
+
+- (UIColor *)colorForGroupParticipant:(NSString *)senderId {
+    TSGroupThread *groupThread = (TSGroupThread *)self.thread;
+    NSUInteger index = [groupThread.groupModel.groupMemberIds indexOfObject:senderId];
+    return _groupColors[index % _groupColors.count];
 }
 
 - (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView
