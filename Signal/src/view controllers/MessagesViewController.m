@@ -2058,7 +2058,11 @@ typedef enum : NSUInteger {
               [self.collectionView reloadData];
           }
           if (scrollToBottom) {
-              [self scrollToBottomAnimated:YES];
+              if (unreadPoint > 0) {
+                  [self scrollToIndexPath:[NSIndexPath indexPathForItem:unreadPoint inSection:0] animated:true];
+              } else {
+                  [self scrollToBottomAnimated:YES];
+              }
           }
         }];
 }
