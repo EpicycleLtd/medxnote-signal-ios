@@ -105,16 +105,19 @@ static NSString *const kUnwindToMessagesViewSegue = @"UnwindToMessagesViewSegue"
     NSIndexPath *relativeIndexPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
 
     if (indexPath.row > 0 && [self.groupContacts isContactAtIndexPath:relativeIndexPath]) {
-        ABPersonViewController *view = [[ABPersonViewController alloc] init];
-
         Contact *contact                = [self.groupContacts contactForIndexPath:relativeIndexPath];
-        ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(NULL, nil);
-        view.displayedPerson =
-            ABAddressBookGetPersonWithRecordID(addressBookRef, contact.recordID); // Assume person is already defined.
-        view.allowsActions = NO;
-        view.allowsEditing = YES;
-
-        [self.navigationController pushViewController:view animated:YES];
+        NSString *identifier = contact.textSecureIdentifiers.firstObject;
+        [Environment messageIdentifier:identifier withCompose:YES withData:nil];
+        
+        // Signal usually displays AB contact info here, we've changed so this creates a new message
+//        ABPersonViewController *view = [[ABPersonViewController alloc] init];
+//        ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(NULL, nil);
+//        view.displayedPerson =
+//            ABAddressBookGetPersonWithRecordID(addressBookRef, contact.recordID); // Assume person is already defined.
+//        view.allowsActions = NO;
+//        view.allowsEditing = YES;
+//
+//        [self.navigationController pushViewController:view animated:YES];
     } else {
         ABUnknownPersonViewController *view = [[ABUnknownPersonViewController alloc] init];
 

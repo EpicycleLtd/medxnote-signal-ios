@@ -958,6 +958,15 @@ typedef enum : NSUInteger {
 - (BOOL)contactViewController:(CNContactViewController *)viewController shouldPerformDefaultActionForContactProperty:(nonnull CNContactProperty *)property {
     return true;
 }
+
+- (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapCellAtIndexPath:(NSIndexPath *)indexPath touchLocation:(CGPoint)touchLocation {
+    if (![self.thread isKindOfClass:[TSGroupThread class]]) { return; }
+    TSMessageAdapter *message = [self messageAtIndexPath:indexPath];
+    if (message.messageType == TSIncomingMessageAdapter && touchLocation.x <= 100) {
+        [Environment messageIdentifier:message.senderId withCompose:YES withData:nil];
+    }
+}
+
 #pragma mark - Loading message cells
 
 - (JSQMessagesCollectionViewCell *)loadIncomingMessageCellForMessage:(id<JSQMessageData>)message
