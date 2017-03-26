@@ -816,8 +816,23 @@ typedef enum : NSUInteger {
                 return self.outgoingBubbleImageData;
         }
     }
-
+    
+    // group chat coloring
+    if (self.thread.isGroupThread && [message isKindOfClass:[TSIncomingMessage class]]) {
+        TSIncomingMessage *incomingMessage = (TSIncomingMessage *)message;
+        JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
+        UIColor *color = [self colorForGroupParticipant:incomingMessage.authorId];
+        return [bubbleFactory incomingMessagesBubbleImageWithColor:color];
+    }
+    
     return self.incomingBubbleImageData;
+}
+
+- (UIColor *)colorForGroupParticipant:(NSString *)senderId {
+    TSGroupThread *groupThread = (TSGroupThread *)self.thread;
+    NSUInteger index = [groupThread.groupModel.groupMemberIds indexOfObject:senderId];
+    NSArray *colors = [UIColor groupParticipantColors];
+    return colors[index % colors.count];
 }
 
 - (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView
