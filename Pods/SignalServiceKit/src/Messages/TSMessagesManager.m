@@ -62,9 +62,9 @@
             case IncomingPushMessageSignalTypeKeyExchange:
                 DDLogWarn(@"Received Key Exchange Message, not supported");
                 break;
-            case IncomingPushMessageSignalTypePlaintext:
-                DDLogWarn(@"Received a plaintext message");
-                break;
+//            case IncomingPushMessageSignalTypePlaintext:
+//                DDLogWarn(@"Received a plaintext message");
+//                break;
             case IncomingPushMessageSignalTypeReceipt:
                 DDLogInfo(@"Received a delivery receipt");
                 [self handleDeliveryReceipt:messageSignal];

@@ -4,1658 +4,2066 @@
 // @@protoc_insertion_point(imports)
 
 @implementation IncomingPushMessageSignalRoot
-static PBExtensionRegistry *extensionRegistry = nil;
-+ (PBExtensionRegistry *)extensionRegistry {
-    return extensionRegistry;
+static PBExtensionRegistry* extensionRegistry = nil;
++ (PBExtensionRegistry*) extensionRegistry {
+  return extensionRegistry;
 }
 
-+ (void)initialize {
-    if (self == [IncomingPushMessageSignalRoot class]) {
-        PBMutableExtensionRegistry *registry = [PBMutableExtensionRegistry registry];
-        [self registerAllExtensions:registry];
-        extensionRegistry = registry;
-    }
++ (void) initialize {
+  if (self == [IncomingPushMessageSignalRoot class]) {
+    PBMutableExtensionRegistry* registry = [PBMutableExtensionRegistry registry];
+    [self registerAllExtensions:registry];
+    extensionRegistry = registry;
+  }
 }
-+ (void)registerAllExtensions:(PBMutableExtensionRegistry *)registry {
++ (void) registerAllExtensions:(PBMutableExtensionRegistry*) registry {
 }
 @end
 
 @interface IncomingPushMessageSignal ()
 @property IncomingPushMessageSignalType type;
-@property (strong) NSString *source;
+@property (strong) NSString* source;
 @property UInt32 sourceDevice;
-@property (strong) NSString *relay;
+@property (strong) NSString* relay;
 @property UInt64 timestamp;
-@property (strong) NSData *message;
+@property (strong) NSData* message;
 @property UInt64 deliveryTimestamp;
 @end
 
 @implementation IncomingPushMessageSignal
 
-- (BOOL)hasType {
-    return !!hasType_;
+- (BOOL) hasType {
+  return !!hasType_;
 }
-- (void)setHasType:(BOOL)value_ {
-    hasType_ = !!value_;
+- (void) setHasType:(BOOL) _value_ {
+  hasType_ = !!_value_;
 }
 @synthesize type;
-- (BOOL)hasSource {
-    return !!hasSource_;
+- (BOOL) hasSource {
+  return !!hasSource_;
 }
-- (void)setHasSource:(BOOL)value_ {
-    hasSource_ = !!value_;
+- (void) setHasSource:(BOOL) _value_ {
+  hasSource_ = !!_value_;
 }
 @synthesize source;
-- (BOOL)hasSourceDevice {
-    return !!hasSourceDevice_;
+- (BOOL) hasSourceDevice {
+  return !!hasSourceDevice_;
 }
-- (void)setHasSourceDevice:(BOOL)value_ {
-    hasSourceDevice_ = !!value_;
+- (void) setHasSourceDevice:(BOOL) _value_ {
+  hasSourceDevice_ = !!_value_;
 }
 @synthesize sourceDevice;
-- (BOOL)hasRelay {
-    return !!hasRelay_;
+- (BOOL) hasRelay {
+  return !!hasRelay_;
 }
-- (void)setHasRelay:(BOOL)value_ {
-    hasRelay_ = !!value_;
+- (void) setHasRelay:(BOOL) _value_ {
+  hasRelay_ = !!_value_;
 }
 @synthesize relay;
-- (BOOL)hasTimestamp {
-    return !!hasTimestamp_;
+- (BOOL) hasTimestamp {
+  return !!hasTimestamp_;
 }
-- (void)setHasTimestamp:(BOOL)value_ {
-    hasTimestamp_ = !!value_;
+- (void) setHasTimestamp:(BOOL) _value_ {
+  hasTimestamp_ = !!_value_;
 }
 @synthesize timestamp;
-- (BOOL)hasMessage {
-    return !!hasMessage_;
+- (BOOL) hasMessage {
+  return !!hasMessage_;
 }
-- (void)setHasMessage:(BOOL)value_ {
-    hasMessage_ = !!value_;
+- (void) setHasMessage:(BOOL) _value_ {
+  hasMessage_ = !!_value_;
 }
-- (BOOL)hasDeliveryTimestamp {
-    return !!hasDeliveryTimestamp_;
+@synthesize message;
+- (BOOL) hasDeliveryTimestamp {
+  return !!hasDeliveryTimestamp_;
 }
-- (void)setHasDeliveryTimestamp:(BOOL)value_ {
-    hasDeliveryTimestamp_ = !!value_;
+- (void) setHasDeliveryTimestamp:(BOOL) _value_ {
+  hasDeliveryTimestamp_ = !!_value_;
 }
 @synthesize deliveryTimestamp;
-@synthesize message;
-- (id)init {
-    if ((self = [super init])) {
-        self.type         = IncomingPushMessageSignalTypeUnknown;
-        self.source       = @"";
-        self.sourceDevice = 0;
-        self.relay        = @"";
-        self.timestamp    = 0L;
-        self.message      = [NSData data];
-        self.deliveryTimestamp    = 0L;
-    }
-    return self;
+- (instancetype) init {
+  if ((self = [super init])) {
+    self.type = IncomingPushMessageSignalTypeUnknown;
+    self.source = @"";
+    self.sourceDevice = 0;
+    self.relay = @"";
+    self.timestamp = 0L;
+    self.message = [NSData data];
+    self.deliveryTimestamp = 0L;
+  }
+  return self;
 }
-static IncomingPushMessageSignal *defaultIncomingPushMessageSignalInstance = nil;
-+ (void)initialize {
-    if (self == [IncomingPushMessageSignal class]) {
-        defaultIncomingPushMessageSignalInstance = [[IncomingPushMessageSignal alloc] init];
-    }
+static IncomingPushMessageSignal* defaultIncomingPushMessageSignalInstance = nil;
++ (void) initialize {
+  if (self == [IncomingPushMessageSignal class]) {
+    defaultIncomingPushMessageSignalInstance = [[IncomingPushMessageSignal alloc] init];
+  }
 }
-+ (IncomingPushMessageSignal *)defaultInstance {
-    return defaultIncomingPushMessageSignalInstance;
++ (instancetype) defaultInstance {
+  return defaultIncomingPushMessageSignalInstance;
 }
-- (IncomingPushMessageSignal *)defaultInstance {
-    return defaultIncomingPushMessageSignalInstance;
+- (instancetype) defaultInstance {
+  return defaultIncomingPushMessageSignalInstance;
 }
-- (BOOL)isInitialized {
-    return YES;
+- (BOOL) isInitialized {
+  return YES;
 }
-- (void)writeToCodedOutputStream:(PBCodedOutputStream *)output {
-    if (self.hasType) {
-        [output writeEnum:1 value:self.type];
-    }
-    if (self.hasSource) {
-        [output writeString:2 value:self.source];
-    }
-    if (self.hasRelay) {
-        [output writeString:3 value:self.relay];
-    }
-    if (self.hasTimestamp) {
-        [output writeUInt64:5 value:self.timestamp];
-    }
-    if (self.hasMessage) {
-        [output writeData:6 value:self.message];
-    }
-    if (self.hasSourceDevice) {
-        [output writeUInt32:7 value:self.sourceDevice];
-    }
-    if (self.hasDeliveryTimestamp) {
-        [output writeUInt64:9 value:self.deliveryTimestamp];
-    }
-    [self.unknownFields writeToCodedOutputStream:output];
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output {
+  if (self.hasType) {
+    [output writeEnum:1 value:self.type];
+  }
+  if (self.hasSource) {
+    [output writeString:2 value:self.source];
+  }
+  if (self.hasRelay) {
+    [output writeString:3 value:self.relay];
+  }
+  if (self.hasTimestamp) {
+    [output writeUInt64:5 value:self.timestamp];
+  }
+  if (self.hasMessage) {
+    [output writeData:6 value:self.message];
+  }
+  if (self.hasSourceDevice) {
+    [output writeUInt32:7 value:self.sourceDevice];
+  }
+  if (self.hasDeliveryTimestamp) {
+    [output writeUInt64:9 value:self.deliveryTimestamp];
+  }
+  [self.unknownFields writeToCodedOutputStream:output];
 }
-- (SInt32)serializedSize {
-    __block SInt32 size_ = memoizedSerializedSize;
-    if (size_ != -1) {
-        return size_;
-    }
-
-    size_ = 0;
-    if (self.hasType) {
-        size_ += computeEnumSize(1, self.type);
-    }
-    if (self.hasSource) {
-        size_ += computeStringSize(2, self.source);
-    }
-    if (self.hasRelay) {
-        size_ += computeStringSize(3, self.relay);
-    }
-    if (self.hasTimestamp) {
-        size_ += computeUInt64Size(5, self.timestamp);
-    }
-    if (self.hasMessage) {
-        size_ += computeDataSize(6, self.message);
-    }
-    if (self.hasSourceDevice) {
-        size_ += computeUInt32Size(7, self.sourceDevice);
-    }
-    if (self.hasDeliveryTimestamp) {
-        size_ += computeUInt64Size(9, self.deliveryTimestamp);
-    }
-    size_ += self.unknownFields.serializedSize;
-    memoizedSerializedSize = size_;
+- (SInt32) serializedSize {
+  __block SInt32 size_ = memoizedSerializedSize;
+  if (size_ != -1) {
     return size_;
+  }
+
+  size_ = 0;
+  if (self.hasType) {
+    size_ += computeEnumSize(1, self.type);
+  }
+  if (self.hasSource) {
+    size_ += computeStringSize(2, self.source);
+  }
+  if (self.hasRelay) {
+    size_ += computeStringSize(3, self.relay);
+  }
+  if (self.hasTimestamp) {
+    size_ += computeUInt64Size(5, self.timestamp);
+  }
+  if (self.hasMessage) {
+    size_ += computeDataSize(6, self.message);
+  }
+  if (self.hasSourceDevice) {
+    size_ += computeUInt32Size(7, self.sourceDevice);
+  }
+  if (self.hasDeliveryTimestamp) {
+    size_ += computeUInt64Size(9, self.deliveryTimestamp);
+  }
+  size_ += self.unknownFields.serializedSize;
+  memoizedSerializedSize = size_;
+  return size_;
 }
-+ (IncomingPushMessageSignal *)parseFromData:(NSData *)data {
-    return (IncomingPushMessageSignal *)[[[IncomingPushMessageSignal builder] mergeFromData:data] build];
++ (IncomingPushMessageSignal*) parseFromData:(NSData*) data {
+  return (IncomingPushMessageSignal*)[[[IncomingPushMessageSignal builder] mergeFromData:data] build];
 }
-+ (IncomingPushMessageSignal *)parseFromData:(NSData *)data extensionRegistry:(PBExtensionRegistry *)extensionRegistry {
-    return (IncomingPushMessageSignal *)[
-        [[IncomingPushMessageSignal builder] mergeFromData:data extensionRegistry:extensionRegistry] build];
++ (IncomingPushMessageSignal*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (IncomingPushMessageSignal*)[[[IncomingPushMessageSignal builder] mergeFromData:data extensionRegistry:extensionRegistry] build];
 }
-+ (IncomingPushMessageSignal *)parseFromInputStream:(NSInputStream *)input {
-    return (IncomingPushMessageSignal *)[[[IncomingPushMessageSignal builder] mergeFromInputStream:input] build];
++ (IncomingPushMessageSignal*) parseFromInputStream:(NSInputStream*) input {
+  return (IncomingPushMessageSignal*)[[[IncomingPushMessageSignal builder] mergeFromInputStream:input] build];
 }
-+ (IncomingPushMessageSignal *)parseFromInputStream:(NSInputStream *)input
-                                  extensionRegistry:(PBExtensionRegistry *)extensionRegistry {
-    return (IncomingPushMessageSignal *)[
-        [[IncomingPushMessageSignal builder] mergeFromInputStream:input extensionRegistry:extensionRegistry] build];
++ (IncomingPushMessageSignal*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (IncomingPushMessageSignal*)[[[IncomingPushMessageSignal builder] mergeFromInputStream:input extensionRegistry:extensionRegistry] build];
 }
-+ (IncomingPushMessageSignal *)parseFromCodedInputStream:(PBCodedInputStream *)input {
-    return (IncomingPushMessageSignal *)[[[IncomingPushMessageSignal builder] mergeFromCodedInputStream:input] build];
++ (IncomingPushMessageSignal*) parseFromCodedInputStream:(PBCodedInputStream*) input {
+  return (IncomingPushMessageSignal*)[[[IncomingPushMessageSignal builder] mergeFromCodedInputStream:input] build];
 }
-+ (IncomingPushMessageSignal *)parseFromCodedInputStream:(PBCodedInputStream *)input
-                                       extensionRegistry:(PBExtensionRegistry *)extensionRegistry {
-    return (IncomingPushMessageSignal *)[
-        [[IncomingPushMessageSignal builder] mergeFromCodedInputStream:input extensionRegistry:extensionRegistry]
-        build];
++ (IncomingPushMessageSignal*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (IncomingPushMessageSignal*)[[[IncomingPushMessageSignal builder] mergeFromCodedInputStream:input extensionRegistry:extensionRegistry] build];
 }
-+ (IncomingPushMessageSignalBuilder *)builder {
-    return [[IncomingPushMessageSignalBuilder alloc] init];
++ (IncomingPushMessageSignalBuilder*) builder {
+  return [[IncomingPushMessageSignalBuilder alloc] init];
 }
-+ (IncomingPushMessageSignalBuilder *)builderWithPrototype:(IncomingPushMessageSignal *)prototype {
-    return [[IncomingPushMessageSignal builder] mergeFrom:prototype];
++ (IncomingPushMessageSignalBuilder*) builderWithPrototype:(IncomingPushMessageSignal*) prototype {
+  return [[IncomingPushMessageSignal builder] mergeFrom:prototype];
 }
-- (IncomingPushMessageSignalBuilder *)builder {
-    return [IncomingPushMessageSignal builder];
+- (IncomingPushMessageSignalBuilder*) builder {
+  return [IncomingPushMessageSignal builder];
 }
-- (IncomingPushMessageSignalBuilder *)toBuilder {
-    return [IncomingPushMessageSignal builderWithPrototype:self];
+- (IncomingPushMessageSignalBuilder*) toBuilder {
+  return [IncomingPushMessageSignal builderWithPrototype:self];
 }
-- (void)writeDescriptionTo:(NSMutableString *)output withIndent:(NSString *)indent {
-    if (self.hasType) {
-        [output appendFormat:@"%@%@: %d\n", indent, @"type", self.type];
-    }
-    if (self.hasSource) {
-        [output appendFormat:@"%@%@: %@\n", indent, @"source", self.source];
-    }
-    if (self.hasRelay) {
-        [output appendFormat:@"%@%@: %@\n", indent, @"relay", self.relay];
-    }
-    if (self.hasTimestamp) {
-        [output appendFormat:@"%@%@: %@\n", indent, @"timestamp", [NSNumber numberWithLongLong:self.timestamp]];
-    }
-    if (self.hasMessage) {
-        [output appendFormat:@"%@%@: %@\n", indent, @"message", self.message];
-    }
-    if (self.hasSourceDevice) {
-        [output appendFormat:@"%@%@: %@\n", indent, @"sourceDevice", [NSNumber numberWithInteger:self.sourceDevice]];
-    }
-    if (self.hasDeliveryTimestamp) {
-        [output appendFormat:@"%@%@: %@\n", indent, @"deliveryTimestamp", [NSNumber numberWithLongLong:self.deliveryTimestamp]];
-    }
-    [self.unknownFields writeDescriptionTo:output withIndent:indent];
+- (void) writeDescriptionTo:(NSMutableString*) output withIndent:(NSString*) indent {
+  if (self.hasType) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"type", NSStringFromIncomingPushMessageSignalType(self.type)];
+  }
+  if (self.hasSource) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"source", self.source];
+  }
+  if (self.hasRelay) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"relay", self.relay];
+  }
+  if (self.hasTimestamp) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"timestamp", [NSNumber numberWithLongLong:self.timestamp]];
+  }
+  if (self.hasMessage) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"message", self.message];
+  }
+  if (self.hasSourceDevice) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"sourceDevice", [NSNumber numberWithInteger:self.sourceDevice]];
+  }
+  if (self.hasDeliveryTimestamp) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"deliveryTimestamp", [NSNumber numberWithLongLong:self.deliveryTimestamp]];
+  }
+  [self.unknownFields writeDescriptionTo:output withIndent:indent];
 }
-- (BOOL)isEqual:(id)other {
-    if (other == self) {
-        return YES;
-    }
-    if (![other isKindOfClass:[IncomingPushMessageSignal class]]) {
-        return NO;
-    }
-    IncomingPushMessageSignal *otherMessage = other;
-    return self.hasType == otherMessage.hasType && (!self.hasType || self.type == otherMessage.type) &&
-           self.hasSource == otherMessage.hasSource && (!self.hasSource || [self.source isEqual:otherMessage.source]) &&
-           self.hasRelay == otherMessage.hasRelay && (!self.hasRelay || [self.relay isEqual:otherMessage.relay]) &&
-           self.hasTimestamp == otherMessage.hasTimestamp &&
-           (!self.hasTimestamp || self.timestamp == otherMessage.timestamp) &&
-           self.hasDeliveryTimestamp == otherMessage.hasDeliveryTimestamp &&
-           (!self.hasDeliveryTimestamp || self.deliveryTimestamp == otherMessage.deliveryTimestamp) &&
-           self.hasMessage == otherMessage.hasMessage &&
-           (!self.hasMessage || [self.message isEqual:otherMessage.message]) &&
-           self.hasSourceDevice == otherMessage.hasSourceDevice &&
-           (!self.hasSourceDevice || self.sourceDevice == otherMessage.sourceDevice) &&
-           (self.unknownFields == otherMessage.unknownFields ||
-            (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
+- (void) storeInDictionary:(NSMutableDictionary *)dictionary {
+  if (self.hasType) {
+    [dictionary setObject: @(self.type) forKey: @"type"];
+  }
+  if (self.hasSource) {
+    [dictionary setObject: self.source forKey: @"source"];
+  }
+  if (self.hasRelay) {
+    [dictionary setObject: self.relay forKey: @"relay"];
+  }
+  if (self.hasTimestamp) {
+    [dictionary setObject: [NSNumber numberWithLongLong:self.timestamp] forKey: @"timestamp"];
+  }
+  if (self.hasMessage) {
+    [dictionary setObject: self.message forKey: @"message"];
+  }
+  if (self.hasSourceDevice) {
+    [dictionary setObject: [NSNumber numberWithInteger:self.sourceDevice] forKey: @"sourceDevice"];
+  }
+  if (self.hasDeliveryTimestamp) {
+    [dictionary setObject: [NSNumber numberWithLongLong:self.deliveryTimestamp] forKey: @"deliveryTimestamp"];
+  }
+  [self.unknownFields storeInDictionary:dictionary];
 }
-- (NSUInteger)hash {
-    __block NSUInteger hashCode = 9;
-    if (self.hasType) {
-        hashCode = hashCode * 31 + self.type;
-    }
-    if (self.hasSource) {
-        hashCode = hashCode * 31 + [self.source hash];
-    }
-    if (self.hasRelay) {
-        hashCode = hashCode * 31 + [self.relay hash];
-    }
-    if (self.hasTimestamp) {
-        hashCode = hashCode * 31 + [[NSNumber numberWithLongLong:self.timestamp] hash];
-    }
-    if (self.hasDeliveryTimestamp) {
-        hashCode = hashCode * 31 + [[NSNumber numberWithLongLong:self.deliveryTimestamp] hash];
-    }
-    if (self.hasMessage) {
-        hashCode = hashCode * 31 + [self.message hash];
-    }
-    if (self.hasSourceDevice) {
-        hashCode = hashCode * 31 + [[NSNumber numberWithInteger:self.sourceDevice] hash];
-    }
-    hashCode = hashCode * 31 + [self.unknownFields hash];
-    return hashCode;
+- (BOOL) isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (![other isKindOfClass:[IncomingPushMessageSignal class]]) {
+    return NO;
+  }
+  IncomingPushMessageSignal *otherMessage = other;
+  return
+      self.hasType == otherMessage.hasType &&
+      (!self.hasType || self.type == otherMessage.type) &&
+      self.hasSource == otherMessage.hasSource &&
+      (!self.hasSource || [self.source isEqual:otherMessage.source]) &&
+      self.hasRelay == otherMessage.hasRelay &&
+      (!self.hasRelay || [self.relay isEqual:otherMessage.relay]) &&
+      self.hasTimestamp == otherMessage.hasTimestamp &&
+      (!self.hasTimestamp || self.timestamp == otherMessage.timestamp) &&
+      self.hasMessage == otherMessage.hasMessage &&
+      (!self.hasMessage || [self.message isEqual:otherMessage.message]) &&
+      self.hasSourceDevice == otherMessage.hasSourceDevice &&
+      (!self.hasSourceDevice || self.sourceDevice == otherMessage.sourceDevice) &&
+      self.hasDeliveryTimestamp == otherMessage.hasDeliveryTimestamp &&
+      (!self.hasDeliveryTimestamp || self.deliveryTimestamp == otherMessage.deliveryTimestamp) &&
+      (self.unknownFields == otherMessage.unknownFields || (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
+}
+- (NSUInteger) hash {
+  __block NSUInteger hashCode = 7;
+  if (self.hasType) {
+    hashCode = hashCode * 31 + self.type;
+  }
+  if (self.hasSource) {
+    hashCode = hashCode * 31 + [self.source hash];
+  }
+  if (self.hasRelay) {
+    hashCode = hashCode * 31 + [self.relay hash];
+  }
+  if (self.hasTimestamp) {
+    hashCode = hashCode * 31 + [[NSNumber numberWithLongLong:self.timestamp] hash];
+  }
+  if (self.hasMessage) {
+    hashCode = hashCode * 31 + [self.message hash];
+  }
+  if (self.hasSourceDevice) {
+    hashCode = hashCode * 31 + [[NSNumber numberWithInteger:self.sourceDevice] hash];
+  }
+  if (self.hasDeliveryTimestamp) {
+    hashCode = hashCode * 31 + [[NSNumber numberWithLongLong:self.deliveryTimestamp] hash];
+  }
+  hashCode = hashCode * 31 + [self.unknownFields hash];
+  return hashCode;
 }
 @end
 
 BOOL IncomingPushMessageSignalTypeIsValidValue(IncomingPushMessageSignalType value) {
-    switch (value) {
-        case IncomingPushMessageSignalTypeUnknown:
-        case IncomingPushMessageSignalTypeCiphertext:
-        case IncomingPushMessageSignalTypeKeyExchange:
-        case IncomingPushMessageSignalTypePrekeyBundle:
-        case IncomingPushMessageSignalTypePlaintext:
-        case IncomingPushMessageSignalTypeReceipt:
-        case IncomingPushMessageSignalTypeRead:
-            return YES;
-        default:
-            return NO;
-    }
+  switch (value) {
+    case IncomingPushMessageSignalTypeUnknown:
+    case IncomingPushMessageSignalTypeCiphertext:
+    case IncomingPushMessageSignalTypeKeyExchange:
+    case IncomingPushMessageSignalTypePrekeyBundle:
+    case IncomingPushMessageSignalTypeReceipt:
+    case IncomingPushMessageSignalTypeRead:
+      return YES;
+    default:
+      return NO;
+  }
 }
-@interface IncomingPushMessageSignalBuilder ()
-@property (strong) IncomingPushMessageSignal *result;
+NSString *NSStringFromIncomingPushMessageSignalType(IncomingPushMessageSignalType value) {
+  switch (value) {
+    case IncomingPushMessageSignalTypeUnknown:
+      return @"IncomingPushMessageSignalTypeUnknown";
+    case IncomingPushMessageSignalTypeCiphertext:
+      return @"IncomingPushMessageSignalTypeCiphertext";
+    case IncomingPushMessageSignalTypeKeyExchange:
+      return @"IncomingPushMessageSignalTypeKeyExchange";
+    case IncomingPushMessageSignalTypePrekeyBundle:
+      return @"IncomingPushMessageSignalTypePrekeyBundle";
+    case IncomingPushMessageSignalTypeReceipt:
+      return @"IncomingPushMessageSignalTypeReceipt";
+    case IncomingPushMessageSignalTypeRead:
+      return @"IncomingPushMessageSignalTypeRead";
+    default:
+      return nil;
+  }
+}
+
+@interface IncomingPushMessageSignalBuilder()
+@property (strong) IncomingPushMessageSignal* resultIncomingPushMessageSignal;
 @end
 
 @implementation IncomingPushMessageSignalBuilder
-@synthesize result;
-- (id)init {
-    if ((self = [super init])) {
-        self.result = [[IncomingPushMessageSignal alloc] init];
-    }
+@synthesize resultIncomingPushMessageSignal;
+- (instancetype) init {
+  if ((self = [super init])) {
+    self.resultIncomingPushMessageSignal = [[IncomingPushMessageSignal alloc] init];
+  }
+  return self;
+}
+- (PBGeneratedMessage*) internalGetResult {
+  return resultIncomingPushMessageSignal;
+}
+- (IncomingPushMessageSignalBuilder*) clear {
+  self.resultIncomingPushMessageSignal = [[IncomingPushMessageSignal alloc] init];
+  return self;
+}
+- (IncomingPushMessageSignalBuilder*) clone {
+  return [IncomingPushMessageSignal builderWithPrototype:resultIncomingPushMessageSignal];
+}
+- (IncomingPushMessageSignal*) defaultInstance {
+  return [IncomingPushMessageSignal defaultInstance];
+}
+- (IncomingPushMessageSignal*) build {
+  [self checkInitialized];
+  return [self buildPartial];
+}
+- (IncomingPushMessageSignal*) buildPartial {
+  IncomingPushMessageSignal* returnMe = resultIncomingPushMessageSignal;
+  self.resultIncomingPushMessageSignal = nil;
+  return returnMe;
+}
+- (IncomingPushMessageSignalBuilder*) mergeFrom:(IncomingPushMessageSignal*) other {
+  if (other == [IncomingPushMessageSignal defaultInstance]) {
     return self;
+  }
+  if (other.hasType) {
+    [self setType:other.type];
+  }
+  if (other.hasSource) {
+    [self setSource:other.source];
+  }
+  if (other.hasSourceDevice) {
+    [self setSourceDevice:other.sourceDevice];
+  }
+  if (other.hasRelay) {
+    [self setRelay:other.relay];
+  }
+  if (other.hasTimestamp) {
+    [self setTimestamp:other.timestamp];
+  }
+  if (other.hasMessage) {
+    [self setMessage:other.message];
+  }
+  if (other.hasDeliveryTimestamp) {
+    [self setDeliveryTimestamp:other.deliveryTimestamp];
+  }
+  [self mergeUnknownFields:other.unknownFields];
+  return self;
 }
-- (PBGeneratedMessage *)internalGetResult {
-    return result;
+- (IncomingPushMessageSignalBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input {
+  return [self mergeFromCodedInputStream:input extensionRegistry:[PBExtensionRegistry emptyRegistry]];
 }
-- (IncomingPushMessageSignalBuilder *)clear {
-    self.result = [[IncomingPushMessageSignal alloc] init];
-    return self;
-}
-- (IncomingPushMessageSignalBuilder *)clone {
-    return [IncomingPushMessageSignal builderWithPrototype:result];
-}
-- (IncomingPushMessageSignal *)defaultInstance {
-    return [IncomingPushMessageSignal defaultInstance];
-}
-- (IncomingPushMessageSignal *)build {
-    [self checkInitialized];
-    return [self buildPartial];
-}
-- (IncomingPushMessageSignal *)buildPartial {
-    IncomingPushMessageSignal *returnMe = result;
-    self.result                         = nil;
-    return returnMe;
-}
-- (IncomingPushMessageSignalBuilder *)mergeFrom:(IncomingPushMessageSignal *)other {
-    if (other == [IncomingPushMessageSignal defaultInstance]) {
+- (IncomingPushMessageSignalBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  PBUnknownFieldSetBuilder* unknownFields = [PBUnknownFieldSet builderWithUnknownFields:self.unknownFields];
+  while (YES) {
+    SInt32 tag = [input readTag];
+    switch (tag) {
+      case 0:
+        [self setUnknownFields:[unknownFields build]];
         return self;
-    }
-    if (other.hasType) {
-        [self setType:other.type];
-    }
-    if (other.hasSource) {
-        [self setSource:other.source];
-    }
-    if (other.hasSourceDevice) {
-        [self setSourceDevice:other.sourceDevice];
-    }
-    if (other.hasRelay) {
-        [self setRelay:other.relay];
-    }
-    if (other.hasTimestamp) {
-        [self setTimestamp:other.timestamp];
-    }
-    if (other.hasDeliveryTimestamp) {
-        [self setDeliveryTimestamp:other.deliveryTimestamp];
-    }
-    if (other.hasMessage) {
-        [self setMessage:other.message];
-    }
-    [self mergeUnknownFields:other.unknownFields];
-    return self;
-}
-- (IncomingPushMessageSignalBuilder *)mergeFromCodedInputStream:(PBCodedInputStream *)input {
-    return [self mergeFromCodedInputStream:input extensionRegistry:[PBExtensionRegistry emptyRegistry]];
-}
-- (IncomingPushMessageSignalBuilder *)mergeFromCodedInputStream:(PBCodedInputStream *)input
-                                              extensionRegistry:(PBExtensionRegistry *)extensionRegistry {
-    PBUnknownFieldSetBuilder *unknownFields = [PBUnknownFieldSet builderWithUnknownFields:self.unknownFields];
-    while (YES) {
-        SInt32 tag = [input readTag];
-        switch (tag) {
-            case 0:
-                [self setUnknownFields:[unknownFields build]];
-                return self;
-            default: {
-                if (![self parseUnknownField:input
-                               unknownFields:unknownFields
-                           extensionRegistry:extensionRegistry
-                                         tag:tag]) {
-                    [self setUnknownFields:[unknownFields build]];
-                    return self;
-                }
-                break;
-            }
-            case 8: {
-                IncomingPushMessageSignalType value = (IncomingPushMessageSignalType)[input readEnum];
-                if (IncomingPushMessageSignalTypeIsValidValue(value)) {
-                    [self setType:value];
-                } else {
-                    [unknownFields mergeVarintField:1 value:value];
-                }
-                break;
-            }
-            case 18: {
-                [self setSource:[input readString]];
-                break;
-            }
-            case 26: {
-                [self setRelay:[input readString]];
-                break;
-            }
-            case 40: {
-                [self setTimestamp:[input readUInt64]];
-                break;
-            }
-            case 50: {
-                [self setMessage:[input readData]];
-                break;
-            }
-            case 56: {
-                [self setSourceDevice:[input readUInt32]];
-                break;
-            }
-            case 72: {
-                [self setDeliveryTimestamp:[input readUInt64]];
-                break;
-            }
+      default: {
+        if (![self parseUnknownField:input unknownFields:unknownFields extensionRegistry:extensionRegistry tag:tag]) {
+          [self setUnknownFields:[unknownFields build]];
+          return self;
         }
+        break;
+      }
+      case 8: {
+        IncomingPushMessageSignalType value = (IncomingPushMessageSignalType)[input readEnum];
+        if (IncomingPushMessageSignalTypeIsValidValue(value)) {
+          [self setType:value];
+        } else {
+          [unknownFields mergeVarintField:1 value:value];
+        }
+        break;
+      }
+      case 18: {
+        [self setSource:[input readString]];
+        break;
+      }
+      case 26: {
+        [self setRelay:[input readString]];
+        break;
+      }
+      case 40: {
+        [self setTimestamp:[input readUInt64]];
+        break;
+      }
+      case 50: {
+        [self setMessage:[input readData]];
+        break;
+      }
+      case 56: {
+        [self setSourceDevice:[input readUInt32]];
+        break;
+      }
+      case 72: {
+        [self setDeliveryTimestamp:[input readUInt64]];
+        break;
+      }
     }
+  }
 }
-- (BOOL)hasType {
-    return result.hasType;
+- (BOOL) hasType {
+  return resultIncomingPushMessageSignal.hasType;
 }
-- (IncomingPushMessageSignalType)type {
-    return result.type;
+- (IncomingPushMessageSignalType) type {
+  return resultIncomingPushMessageSignal.type;
 }
-- (IncomingPushMessageSignalBuilder *)setType:(IncomingPushMessageSignalType)value {
-    result.hasType = YES;
-    result.type    = value;
-    return self;
+- (IncomingPushMessageSignalBuilder*) setType:(IncomingPushMessageSignalType) value {
+  resultIncomingPushMessageSignal.hasType = YES;
+  resultIncomingPushMessageSignal.type = value;
+  return self;
 }
-- (IncomingPushMessageSignalBuilder *)clearType {
-    result.hasType = NO;
-    result.type    = IncomingPushMessageSignalTypeUnknown;
-    return self;
+- (IncomingPushMessageSignalBuilder*) clearType {
+  resultIncomingPushMessageSignal.hasType = NO;
+  resultIncomingPushMessageSignal.type = IncomingPushMessageSignalTypeUnknown;
+  return self;
 }
-- (BOOL)hasSource {
-    return result.hasSource;
+- (BOOL) hasSource {
+  return resultIncomingPushMessageSignal.hasSource;
 }
-- (NSString *)source {
-    return result.source;
+- (NSString*) source {
+  return resultIncomingPushMessageSignal.source;
 }
-- (IncomingPushMessageSignalBuilder *)setSource:(NSString *)value {
-    result.hasSource = YES;
-    result.source    = value;
-    return self;
+- (IncomingPushMessageSignalBuilder*) setSource:(NSString*) value {
+  resultIncomingPushMessageSignal.hasSource = YES;
+  resultIncomingPushMessageSignal.source = value;
+  return self;
 }
-- (IncomingPushMessageSignalBuilder *)clearSource {
-    result.hasSource = NO;
-    result.source    = @"";
-    return self;
+- (IncomingPushMessageSignalBuilder*) clearSource {
+  resultIncomingPushMessageSignal.hasSource = NO;
+  resultIncomingPushMessageSignal.source = @"";
+  return self;
 }
-- (BOOL)hasSourceDevice {
-    return result.hasSourceDevice;
+- (BOOL) hasSourceDevice {
+  return resultIncomingPushMessageSignal.hasSourceDevice;
 }
-- (UInt32)sourceDevice {
-    return result.sourceDevice;
+- (UInt32) sourceDevice {
+  return resultIncomingPushMessageSignal.sourceDevice;
 }
-- (IncomingPushMessageSignalBuilder *)setSourceDevice:(UInt32)value {
-    result.hasSourceDevice = YES;
-    result.sourceDevice    = value;
-    return self;
+- (IncomingPushMessageSignalBuilder*) setSourceDevice:(UInt32) value {
+  resultIncomingPushMessageSignal.hasSourceDevice = YES;
+  resultIncomingPushMessageSignal.sourceDevice = value;
+  return self;
 }
-- (IncomingPushMessageSignalBuilder *)clearSourceDevice {
-    result.hasSourceDevice = NO;
-    result.sourceDevice    = 0;
-    return self;
+- (IncomingPushMessageSignalBuilder*) clearSourceDevice {
+  resultIncomingPushMessageSignal.hasSourceDevice = NO;
+  resultIncomingPushMessageSignal.sourceDevice = 0;
+  return self;
 }
-- (BOOL)hasRelay {
-    return result.hasRelay;
+- (BOOL) hasRelay {
+  return resultIncomingPushMessageSignal.hasRelay;
 }
-- (NSString *)relay {
-    return result.relay;
+- (NSString*) relay {
+  return resultIncomingPushMessageSignal.relay;
 }
-- (IncomingPushMessageSignalBuilder *)setRelay:(NSString *)value {
-    result.hasRelay = YES;
-    result.relay    = value;
-    return self;
+- (IncomingPushMessageSignalBuilder*) setRelay:(NSString*) value {
+  resultIncomingPushMessageSignal.hasRelay = YES;
+  resultIncomingPushMessageSignal.relay = value;
+  return self;
 }
-- (IncomingPushMessageSignalBuilder *)clearRelay {
-    result.hasRelay = NO;
-    result.relay    = @"";
-    return self;
+- (IncomingPushMessageSignalBuilder*) clearRelay {
+  resultIncomingPushMessageSignal.hasRelay = NO;
+  resultIncomingPushMessageSignal.relay = @"";
+  return self;
 }
-- (BOOL)hasTimestamp {
-    return result.hasTimestamp;
+- (BOOL) hasTimestamp {
+  return resultIncomingPushMessageSignal.hasTimestamp;
 }
-- (UInt64)timestamp {
-    return result.timestamp;
+- (UInt64) timestamp {
+  return resultIncomingPushMessageSignal.timestamp;
 }
-- (IncomingPushMessageSignalBuilder *)setTimestamp:(UInt64)value {
-    result.hasTimestamp = YES;
-    result.timestamp    = value;
-    return self;
+- (IncomingPushMessageSignalBuilder*) setTimestamp:(UInt64) value {
+  resultIncomingPushMessageSignal.hasTimestamp = YES;
+  resultIncomingPushMessageSignal.timestamp = value;
+  return self;
 }
-- (IncomingPushMessageSignalBuilder *)clearTimestamp {
-    result.hasTimestamp = NO;
-    result.timestamp    = 0L;
-    return self;
+- (IncomingPushMessageSignalBuilder*) clearTimestamp {
+  resultIncomingPushMessageSignal.hasTimestamp = NO;
+  resultIncomingPushMessageSignal.timestamp = 0L;
+  return self;
 }
-- (BOOL)hasDeliveryTimestamp {
-    return result.hasDeliveryTimestamp;
+- (BOOL) hasMessage {
+  return resultIncomingPushMessageSignal.hasMessage;
 }
-- (UInt64)deliveryTimestamp {
-    return result.deliveryTimestamp;
+- (NSData*) message {
+  return resultIncomingPushMessageSignal.message;
 }
-- (IncomingPushMessageSignalBuilder *)setDeliveryTimestamp:(UInt64)value {
-    result.hasDeliveryTimestamp = YES;
-    result.deliveryTimestamp    = value;
-    return self;
+- (IncomingPushMessageSignalBuilder*) setMessage:(NSData*) value {
+  resultIncomingPushMessageSignal.hasMessage = YES;
+  resultIncomingPushMessageSignal.message = value;
+  return self;
 }
-- (IncomingPushMessageSignalBuilder *)clearDeliveryTimestamp {
-    result.hasDeliveryTimestamp = NO;
-    result.deliveryTimestamp    = 0L;
-    return self;
+- (IncomingPushMessageSignalBuilder*) clearMessage {
+  resultIncomingPushMessageSignal.hasMessage = NO;
+  resultIncomingPushMessageSignal.message = [NSData data];
+  return self;
 }
-- (BOOL)hasMessage {
-    return result.hasMessage;
+- (BOOL) hasDeliveryTimestamp {
+  return resultIncomingPushMessageSignal.hasDeliveryTimestamp;
 }
-- (NSData *)message {
-    return result.message;
+- (UInt64) deliveryTimestamp {
+  return resultIncomingPushMessageSignal.deliveryTimestamp;
 }
-- (IncomingPushMessageSignalBuilder *)setMessage:(NSData *)value {
-    result.hasMessage = YES;
-    result.message    = value;
-    return self;
+- (IncomingPushMessageSignalBuilder*) setDeliveryTimestamp:(UInt64) value {
+  resultIncomingPushMessageSignal.hasDeliveryTimestamp = YES;
+  resultIncomingPushMessageSignal.deliveryTimestamp = value;
+  return self;
 }
-- (IncomingPushMessageSignalBuilder *)clearMessage {
-    result.hasMessage = NO;
-    result.message    = [NSData data];
-    return self;
+- (IncomingPushMessageSignalBuilder*) clearDeliveryTimestamp {
+  resultIncomingPushMessageSignal.hasDeliveryTimestamp = NO;
+  resultIncomingPushMessageSignal.deliveryTimestamp = 0L;
+  return self;
 }
 @end
 
 @interface PushMessageContent ()
-@property (strong) NSString *body;
-@property (strong) NSMutableArray *attachmentsArray;
-@property (strong) PushMessageContentGroupContext *group;
+@property (strong) NSString* body;
+@property (strong) NSMutableArray<PushMessageContentAttachmentPointer*> * attachmentsArray;
+@property (strong) PushMessageContentGroupContext* group;
 @property UInt32 flags;
+@property (strong) PredefinedAnswers* pa;
 @end
 
 @implementation PushMessageContent
 
-- (BOOL)hasBody {
-    return !!hasBody_;
+- (BOOL) hasBody {
+  return !!hasBody_;
 }
-- (void)setHasBody:(BOOL)value_ {
-    hasBody_ = !!value_;
+- (void) setHasBody:(BOOL) _value_ {
+  hasBody_ = !!_value_;
 }
 @synthesize body;
 @synthesize attachmentsArray;
 @dynamic attachments;
-- (BOOL)hasGroup {
-    return !!hasGroup_;
+- (BOOL) hasGroup {
+  return !!hasGroup_;
 }
-- (void)setHasGroup:(BOOL)value_ {
-    hasGroup_ = !!value_;
+- (void) setHasGroup:(BOOL) _value_ {
+  hasGroup_ = !!_value_;
 }
 @synthesize group;
-- (BOOL)hasFlags {
-    return !!hasFlags_;
+- (BOOL) hasFlags {
+  return !!hasFlags_;
 }
-- (void)setHasFlags:(BOOL)value_ {
-    hasFlags_ = !!value_;
+- (void) setHasFlags:(BOOL) _value_ {
+  hasFlags_ = !!_value_;
 }
 @synthesize flags;
-- (id)init {
-    if ((self = [super init])) {
-        self.body  = @"";
-        self.group = [PushMessageContentGroupContext defaultInstance];
-        self.flags = 0;
-    }
-    return self;
+- (BOOL) hasPa {
+  return !!hasPa_;
 }
-static PushMessageContent *defaultPushMessageContentInstance = nil;
-+ (void)initialize {
-    if (self == [PushMessageContent class]) {
-        defaultPushMessageContentInstance = [[PushMessageContent alloc] init];
-    }
+- (void) setHasPa:(BOOL) _value_ {
+  hasPa_ = !!_value_;
 }
-+ (PushMessageContent *)defaultInstance {
-    return defaultPushMessageContentInstance;
+@synthesize pa;
+- (instancetype) init {
+  if ((self = [super init])) {
+    self.body = @"";
+    self.group = [PushMessageContentGroupContext defaultInstance];
+    self.flags = 0;
+    self.pa = [PredefinedAnswers defaultInstance];
+  }
+  return self;
 }
-- (PushMessageContent *)defaultInstance {
-    return defaultPushMessageContentInstance;
+static PushMessageContent* defaultPushMessageContentInstance = nil;
++ (void) initialize {
+  if (self == [PushMessageContent class]) {
+    defaultPushMessageContentInstance = [[PushMessageContent alloc] init];
+  }
 }
-- (NSArray *)attachments {
-    return attachmentsArray;
++ (instancetype) defaultInstance {
+  return defaultPushMessageContentInstance;
 }
-- (PushMessageContentAttachmentPointer *)attachmentsAtIndex:(NSUInteger)index {
-    return [attachmentsArray objectAtIndex:index];
+- (instancetype) defaultInstance {
+  return defaultPushMessageContentInstance;
 }
-- (BOOL)isInitialized {
-    return YES;
+- (NSArray<PushMessageContentAttachmentPointer*> *)attachments {
+  return attachmentsArray;
 }
-- (void)writeToCodedOutputStream:(PBCodedOutputStream *)output {
-    if (self.hasBody) {
-        [output writeString:1 value:self.body];
-    }
-    [self.attachmentsArray
-        enumerateObjectsUsingBlock:^(PushMessageContentAttachmentPointer *element, NSUInteger idx, BOOL *stop) {
-          [output writeMessage:2 value:element];
-        }];
-    if (self.hasGroup) {
-        [output writeMessage:3 value:self.group];
-    }
-    if (self.hasFlags) {
-        [output writeUInt32:4 value:self.flags];
-    }
-    [self.unknownFields writeToCodedOutputStream:output];
+- (PushMessageContentAttachmentPointer*)attachmentsAtIndex:(NSUInteger)index {
+  return [attachmentsArray objectAtIndex:index];
 }
-- (SInt32)serializedSize {
-    __block SInt32 size_ = memoizedSerializedSize;
-    if (size_ != -1) {
-        return size_;
-    }
-
-    size_ = 0;
-    if (self.hasBody) {
-        size_ += computeStringSize(1, self.body);
-    }
-    [self.attachmentsArray
-        enumerateObjectsUsingBlock:^(PushMessageContentAttachmentPointer *element, NSUInteger idx, BOOL *stop) {
-          size_ += computeMessageSize(2, element);
-        }];
-    if (self.hasGroup) {
-        size_ += computeMessageSize(3, self.group);
-    }
-    if (self.hasFlags) {
-        size_ += computeUInt32Size(4, self.flags);
-    }
-    size_ += self.unknownFields.serializedSize;
-    memoizedSerializedSize = size_;
+- (BOOL) isInitialized {
+  return YES;
+}
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output {
+  if (self.hasBody) {
+    [output writeString:1 value:self.body];
+  }
+  [self.attachmentsArray enumerateObjectsUsingBlock:^(PushMessageContentAttachmentPointer *element, NSUInteger idx, BOOL *stop) {
+    [output writeMessage:2 value:element];
+  }];
+  if (self.hasGroup) {
+    [output writeMessage:3 value:self.group];
+  }
+  if (self.hasFlags) {
+    [output writeUInt32:4 value:self.flags];
+  }
+  if (self.hasPa) {
+    [output writeMessage:20 value:self.pa];
+  }
+  [self.unknownFields writeToCodedOutputStream:output];
+}
+- (SInt32) serializedSize {
+  __block SInt32 size_ = memoizedSerializedSize;
+  if (size_ != -1) {
     return size_;
+  }
+
+  size_ = 0;
+  if (self.hasBody) {
+    size_ += computeStringSize(1, self.body);
+  }
+  [self.attachmentsArray enumerateObjectsUsingBlock:^(PushMessageContentAttachmentPointer *element, NSUInteger idx, BOOL *stop) {
+    size_ += computeMessageSize(2, element);
+  }];
+  if (self.hasGroup) {
+    size_ += computeMessageSize(3, self.group);
+  }
+  if (self.hasFlags) {
+    size_ += computeUInt32Size(4, self.flags);
+  }
+  if (self.hasPa) {
+    size_ += computeMessageSize(20, self.pa);
+  }
+  size_ += self.unknownFields.serializedSize;
+  memoizedSerializedSize = size_;
+  return size_;
 }
-+ (PushMessageContent *)parseFromData:(NSData *)data {
-    return (PushMessageContent *)[[[PushMessageContent builder] mergeFromData:data] build];
++ (PushMessageContent*) parseFromData:(NSData*) data {
+  return (PushMessageContent*)[[[PushMessageContent builder] mergeFromData:data] build];
 }
-+ (PushMessageContent *)parseFromData:(NSData *)data extensionRegistry:(PBExtensionRegistry *)extensionRegistry {
-    return (PushMessageContent *)[[[PushMessageContent builder] mergeFromData:data extensionRegistry:extensionRegistry]
-        build];
++ (PushMessageContent*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (PushMessageContent*)[[[PushMessageContent builder] mergeFromData:data extensionRegistry:extensionRegistry] build];
 }
-+ (PushMessageContent *)parseFromInputStream:(NSInputStream *)input {
-    return (PushMessageContent *)[[[PushMessageContent builder] mergeFromInputStream:input] build];
++ (PushMessageContent*) parseFromInputStream:(NSInputStream*) input {
+  return (PushMessageContent*)[[[PushMessageContent builder] mergeFromInputStream:input] build];
 }
-+ (PushMessageContent *)parseFromInputStream:(NSInputStream *)input
-                           extensionRegistry:(PBExtensionRegistry *)extensionRegistry {
-    return (PushMessageContent *)[
-        [[PushMessageContent builder] mergeFromInputStream:input extensionRegistry:extensionRegistry] build];
++ (PushMessageContent*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (PushMessageContent*)[[[PushMessageContent builder] mergeFromInputStream:input extensionRegistry:extensionRegistry] build];
 }
-+ (PushMessageContent *)parseFromCodedInputStream:(PBCodedInputStream *)input {
-    return (PushMessageContent *)[[[PushMessageContent builder] mergeFromCodedInputStream:input] build];
++ (PushMessageContent*) parseFromCodedInputStream:(PBCodedInputStream*) input {
+  return (PushMessageContent*)[[[PushMessageContent builder] mergeFromCodedInputStream:input] build];
 }
-+ (PushMessageContent *)parseFromCodedInputStream:(PBCodedInputStream *)input
-                                extensionRegistry:(PBExtensionRegistry *)extensionRegistry {
-    return (PushMessageContent *)[
-        [[PushMessageContent builder] mergeFromCodedInputStream:input extensionRegistry:extensionRegistry] build];
++ (PushMessageContent*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (PushMessageContent*)[[[PushMessageContent builder] mergeFromCodedInputStream:input extensionRegistry:extensionRegistry] build];
 }
-+ (PushMessageContentBuilder *)builder {
-    return [[PushMessageContentBuilder alloc] init];
++ (PushMessageContentBuilder*) builder {
+  return [[PushMessageContentBuilder alloc] init];
 }
-+ (PushMessageContentBuilder *)builderWithPrototype:(PushMessageContent *)prototype {
-    return [[PushMessageContent builder] mergeFrom:prototype];
++ (PushMessageContentBuilder*) builderWithPrototype:(PushMessageContent*) prototype {
+  return [[PushMessageContent builder] mergeFrom:prototype];
 }
-- (PushMessageContentBuilder *)builder {
-    return [PushMessageContent builder];
+- (PushMessageContentBuilder*) builder {
+  return [PushMessageContent builder];
 }
-- (PushMessageContentBuilder *)toBuilder {
-    return [PushMessageContent builderWithPrototype:self];
+- (PushMessageContentBuilder*) toBuilder {
+  return [PushMessageContent builderWithPrototype:self];
 }
-- (void)writeDescriptionTo:(NSMutableString *)output withIndent:(NSString *)indent {
-    if (self.hasBody) {
-        [output appendFormat:@"%@%@: %@\n", indent, @"body", self.body];
-    }
-    [self.attachmentsArray
-        enumerateObjectsUsingBlock:^(PushMessageContentAttachmentPointer *element, NSUInteger idx, BOOL *stop) {
-          [output appendFormat:@"%@%@ {\n", indent, @"attachments"];
-          [element writeDescriptionTo:output withIndent:[NSString stringWithFormat:@"%@  ", indent]];
-          [output appendFormat:@"%@}\n", indent];
-        }];
-    if (self.hasGroup) {
-        [output appendFormat:@"%@%@ {\n", indent, @"group"];
-        [self.group writeDescriptionTo:output withIndent:[NSString stringWithFormat:@"%@  ", indent]];
-        [output appendFormat:@"%@}\n", indent];
-    }
-    if (self.hasFlags) {
-        [output appendFormat:@"%@%@: %@\n", indent, @"flags", [NSNumber numberWithInteger:self.flags]];
-    }
-    [self.unknownFields writeDescriptionTo:output withIndent:indent];
+- (void) writeDescriptionTo:(NSMutableString*) output withIndent:(NSString*) indent {
+  if (self.hasBody) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"body", self.body];
+  }
+  [self.attachmentsArray enumerateObjectsUsingBlock:^(PushMessageContentAttachmentPointer *element, NSUInteger idx, BOOL *stop) {
+    [output appendFormat:@"%@%@ {\n", indent, @"attachments"];
+    [element writeDescriptionTo:output
+                     withIndent:[NSString stringWithFormat:@"%@  ", indent]];
+    [output appendFormat:@"%@}\n", indent];
+  }];
+  if (self.hasGroup) {
+    [output appendFormat:@"%@%@ {\n", indent, @"group"];
+    [self.group writeDescriptionTo:output
+                         withIndent:[NSString stringWithFormat:@"%@  ", indent]];
+    [output appendFormat:@"%@}\n", indent];
+  }
+  if (self.hasFlags) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"flags", [NSNumber numberWithInteger:self.flags]];
+  }
+  if (self.hasPa) {
+    [output appendFormat:@"%@%@ {\n", indent, @"pa"];
+    [self.pa writeDescriptionTo:output
+                         withIndent:[NSString stringWithFormat:@"%@  ", indent]];
+    [output appendFormat:@"%@}\n", indent];
+  }
+  [self.unknownFields writeDescriptionTo:output withIndent:indent];
 }
-- (BOOL)isEqual:(id)other {
-    if (other == self) {
-        return YES;
-    }
-    if (![other isKindOfClass:[PushMessageContent class]]) {
-        return NO;
-    }
-    PushMessageContent *otherMessage = other;
-    return self.hasBody == otherMessage.hasBody && (!self.hasBody || [self.body isEqual:otherMessage.body]) &&
-           [self.attachmentsArray isEqualToArray:otherMessage.attachmentsArray] &&
-           self.hasGroup == otherMessage.hasGroup && (!self.hasGroup || [self.group isEqual:otherMessage.group]) &&
-           self.hasFlags == otherMessage.hasFlags && (!self.hasFlags || self.flags == otherMessage.flags) &&
-           (self.unknownFields == otherMessage.unknownFields ||
-            (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
+- (void) storeInDictionary:(NSMutableDictionary *)dictionary {
+  if (self.hasBody) {
+    [dictionary setObject: self.body forKey: @"body"];
+  }
+  for (PushMessageContentAttachmentPointer* element in self.attachmentsArray) {
+    NSMutableDictionary *elementDictionary = [NSMutableDictionary dictionary];
+    [element storeInDictionary:elementDictionary];
+    [dictionary setObject:[NSDictionary dictionaryWithDictionary:elementDictionary] forKey:@"attachments"];
+  }
+  if (self.hasGroup) {
+   NSMutableDictionary *messageDictionary = [NSMutableDictionary dictionary]; 
+   [self.group storeInDictionary:messageDictionary];
+   [dictionary setObject:[NSDictionary dictionaryWithDictionary:messageDictionary] forKey:@"group"];
+  }
+  if (self.hasFlags) {
+    [dictionary setObject: [NSNumber numberWithInteger:self.flags] forKey: @"flags"];
+  }
+  if (self.hasPa) {
+   NSMutableDictionary *messageDictionary = [NSMutableDictionary dictionary]; 
+   [self.pa storeInDictionary:messageDictionary];
+   [dictionary setObject:[NSDictionary dictionaryWithDictionary:messageDictionary] forKey:@"pa"];
+  }
+  [self.unknownFields storeInDictionary:dictionary];
 }
-- (NSUInteger)hash {
-    __block NSUInteger hashCode = 7;
-    if (self.hasBody) {
-        hashCode = hashCode * 31 + [self.body hash];
-    }
-    [self.attachmentsArray
-        enumerateObjectsUsingBlock:^(PushMessageContentAttachmentPointer *element, NSUInteger idx, BOOL *stop) {
-          hashCode = hashCode * 31 + [element hash];
-        }];
-    if (self.hasGroup) {
-        hashCode = hashCode * 31 + [self.group hash];
-    }
-    if (self.hasFlags) {
-        hashCode = hashCode * 31 + [[NSNumber numberWithInteger:self.flags] hash];
-    }
-    hashCode = hashCode * 31 + [self.unknownFields hash];
-    return hashCode;
+- (BOOL) isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (![other isKindOfClass:[PushMessageContent class]]) {
+    return NO;
+  }
+  PushMessageContent *otherMessage = other;
+  return
+      self.hasBody == otherMessage.hasBody &&
+      (!self.hasBody || [self.body isEqual:otherMessage.body]) &&
+      [self.attachmentsArray isEqualToArray:otherMessage.attachmentsArray] &&
+      self.hasGroup == otherMessage.hasGroup &&
+      (!self.hasGroup || [self.group isEqual:otherMessage.group]) &&
+      self.hasFlags == otherMessage.hasFlags &&
+      (!self.hasFlags || self.flags == otherMessage.flags) &&
+      self.hasPa == otherMessage.hasPa &&
+      (!self.hasPa || [self.pa isEqual:otherMessage.pa]) &&
+      (self.unknownFields == otherMessage.unknownFields || (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
+}
+- (NSUInteger) hash {
+  __block NSUInteger hashCode = 7;
+  if (self.hasBody) {
+    hashCode = hashCode * 31 + [self.body hash];
+  }
+  [self.attachmentsArray enumerateObjectsUsingBlock:^(PushMessageContentAttachmentPointer *element, NSUInteger idx, BOOL *stop) {
+    hashCode = hashCode * 31 + [element hash];
+  }];
+  if (self.hasGroup) {
+    hashCode = hashCode * 31 + [self.group hash];
+  }
+  if (self.hasFlags) {
+    hashCode = hashCode * 31 + [[NSNumber numberWithInteger:self.flags] hash];
+  }
+  if (self.hasPa) {
+    hashCode = hashCode * 31 + [self.pa hash];
+  }
+  hashCode = hashCode * 31 + [self.unknownFields hash];
+  return hashCode;
 }
 @end
 
 BOOL PushMessageContentFlagsIsValidValue(PushMessageContentFlags value) {
-    switch (value) {
-        case PushMessageContentFlagsEndSession:
-            return YES;
-        default:
-            return NO;
-    }
+  switch (value) {
+    case PushMessageContentFlagsEndSession:
+      return YES;
+    default:
+      return NO;
+  }
 }
+NSString *NSStringFromPushMessageContentFlags(PushMessageContentFlags value) {
+  switch (value) {
+    case PushMessageContentFlagsEndSession:
+      return @"PushMessageContentFlagsEndSession";
+    default:
+      return nil;
+  }
+}
+
 @interface PushMessageContentAttachmentPointer ()
 @property UInt64 id;
-@property (strong) NSString *contentType;
-@property (strong) NSData *key;
+@property (strong) NSString* contentType;
+@property (strong) NSData* key;
 @end
 
 @implementation PushMessageContentAttachmentPointer
 
-- (BOOL)hasId {
-    return !!hasId_;
+- (BOOL) hasId {
+  return !!hasId_;
 }
-- (void)setHasId:(BOOL)value_ {
-    hasId_ = !!value_;
+- (void) setHasId:(BOOL) _value_ {
+  hasId_ = !!_value_;
 }
 @synthesize id;
-- (BOOL)hasContentType {
-    return !!hasContentType_;
+- (BOOL) hasContentType {
+  return !!hasContentType_;
 }
-- (void)setHasContentType:(BOOL)value_ {
-    hasContentType_ = !!value_;
+- (void) setHasContentType:(BOOL) _value_ {
+  hasContentType_ = !!_value_;
 }
 @synthesize contentType;
-- (BOOL)hasKey {
-    return !!hasKey_;
+- (BOOL) hasKey {
+  return !!hasKey_;
 }
-- (void)setHasKey:(BOOL)value_ {
-    hasKey_ = !!value_;
+- (void) setHasKey:(BOOL) _value_ {
+  hasKey_ = !!_value_;
 }
 @synthesize key;
-- (id)init {
-    if ((self = [super init])) {
-        self.id          = 0L;
-        self.contentType = @"";
-        self.key         = [NSData data];
-    }
-    return self;
+- (instancetype) init {
+  if ((self = [super init])) {
+    self.id = 0L;
+    self.contentType = @"";
+    self.key = [NSData data];
+  }
+  return self;
 }
-static PushMessageContentAttachmentPointer *defaultPushMessageContentAttachmentPointerInstance = nil;
-+ (void)initialize {
-    if (self == [PushMessageContentAttachmentPointer class]) {
-        defaultPushMessageContentAttachmentPointerInstance = [[PushMessageContentAttachmentPointer alloc] init];
-    }
+static PushMessageContentAttachmentPointer* defaultPushMessageContentAttachmentPointerInstance = nil;
++ (void) initialize {
+  if (self == [PushMessageContentAttachmentPointer class]) {
+    defaultPushMessageContentAttachmentPointerInstance = [[PushMessageContentAttachmentPointer alloc] init];
+  }
 }
-+ (PushMessageContentAttachmentPointer *)defaultInstance {
-    return defaultPushMessageContentAttachmentPointerInstance;
++ (instancetype) defaultInstance {
+  return defaultPushMessageContentAttachmentPointerInstance;
 }
-- (PushMessageContentAttachmentPointer *)defaultInstance {
-    return defaultPushMessageContentAttachmentPointerInstance;
+- (instancetype) defaultInstance {
+  return defaultPushMessageContentAttachmentPointerInstance;
 }
-- (BOOL)isInitialized {
-    return YES;
+- (BOOL) isInitialized {
+  return YES;
 }
-- (void)writeToCodedOutputStream:(PBCodedOutputStream *)output {
-    if (self.hasId) {
-        [output writeFixed64:1 value:self.id];
-    }
-    if (self.hasContentType) {
-        [output writeString:2 value:self.contentType];
-    }
-    if (self.hasKey) {
-        [output writeData:3 value:self.key];
-    }
-    [self.unknownFields writeToCodedOutputStream:output];
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output {
+  if (self.hasId) {
+    [output writeFixed64:1 value:self.id];
+  }
+  if (self.hasContentType) {
+    [output writeString:2 value:self.contentType];
+  }
+  if (self.hasKey) {
+    [output writeData:3 value:self.key];
+  }
+  [self.unknownFields writeToCodedOutputStream:output];
 }
-- (SInt32)serializedSize {
-    __block SInt32 size_ = memoizedSerializedSize;
-    if (size_ != -1) {
-        return size_;
-    }
-
-    size_ = 0;
-    if (self.hasId) {
-        size_ += computeFixed64Size(1, self.id);
-    }
-    if (self.hasContentType) {
-        size_ += computeStringSize(2, self.contentType);
-    }
-    if (self.hasKey) {
-        size_ += computeDataSize(3, self.key);
-    }
-    size_ += self.unknownFields.serializedSize;
-    memoizedSerializedSize = size_;
+- (SInt32) serializedSize {
+  __block SInt32 size_ = memoizedSerializedSize;
+  if (size_ != -1) {
     return size_;
+  }
+
+  size_ = 0;
+  if (self.hasId) {
+    size_ += computeFixed64Size(1, self.id);
+  }
+  if (self.hasContentType) {
+    size_ += computeStringSize(2, self.contentType);
+  }
+  if (self.hasKey) {
+    size_ += computeDataSize(3, self.key);
+  }
+  size_ += self.unknownFields.serializedSize;
+  memoizedSerializedSize = size_;
+  return size_;
 }
-+ (PushMessageContentAttachmentPointer *)parseFromData:(NSData *)data {
-    return (PushMessageContentAttachmentPointer *)[[[PushMessageContentAttachmentPointer builder] mergeFromData:data]
-        build];
++ (PushMessageContentAttachmentPointer*) parseFromData:(NSData*) data {
+  return (PushMessageContentAttachmentPointer*)[[[PushMessageContentAttachmentPointer builder] mergeFromData:data] build];
 }
-+ (PushMessageContentAttachmentPointer *)parseFromData:(NSData *)data
-                                     extensionRegistry:(PBExtensionRegistry *)extensionRegistry {
-    return (PushMessageContentAttachmentPointer *)[
-        [[PushMessageContentAttachmentPointer builder] mergeFromData:data extensionRegistry:extensionRegistry] build];
++ (PushMessageContentAttachmentPointer*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (PushMessageContentAttachmentPointer*)[[[PushMessageContentAttachmentPointer builder] mergeFromData:data extensionRegistry:extensionRegistry] build];
 }
-+ (PushMessageContentAttachmentPointer *)parseFromInputStream:(NSInputStream *)input {
-    return (PushMessageContentAttachmentPointer *)[
-        [[PushMessageContentAttachmentPointer builder] mergeFromInputStream:input] build];
++ (PushMessageContentAttachmentPointer*) parseFromInputStream:(NSInputStream*) input {
+  return (PushMessageContentAttachmentPointer*)[[[PushMessageContentAttachmentPointer builder] mergeFromInputStream:input] build];
 }
-+ (PushMessageContentAttachmentPointer *)parseFromInputStream:(NSInputStream *)input
-                                            extensionRegistry:(PBExtensionRegistry *)extensionRegistry {
-    return (PushMessageContentAttachmentPointer *)[
-        [[PushMessageContentAttachmentPointer builder] mergeFromInputStream:input extensionRegistry:extensionRegistry]
-        build];
++ (PushMessageContentAttachmentPointer*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (PushMessageContentAttachmentPointer*)[[[PushMessageContentAttachmentPointer builder] mergeFromInputStream:input extensionRegistry:extensionRegistry] build];
 }
-+ (PushMessageContentAttachmentPointer *)parseFromCodedInputStream:(PBCodedInputStream *)input {
-    return (PushMessageContentAttachmentPointer *)[
-        [[PushMessageContentAttachmentPointer builder] mergeFromCodedInputStream:input] build];
++ (PushMessageContentAttachmentPointer*) parseFromCodedInputStream:(PBCodedInputStream*) input {
+  return (PushMessageContentAttachmentPointer*)[[[PushMessageContentAttachmentPointer builder] mergeFromCodedInputStream:input] build];
 }
-+ (PushMessageContentAttachmentPointer *)parseFromCodedInputStream:(PBCodedInputStream *)input
-                                                 extensionRegistry:(PBExtensionRegistry *)extensionRegistry {
-    return (PushMessageContentAttachmentPointer *)[[[PushMessageContentAttachmentPointer builder]
-        mergeFromCodedInputStream:input
-                extensionRegistry:extensionRegistry] build];
++ (PushMessageContentAttachmentPointer*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (PushMessageContentAttachmentPointer*)[[[PushMessageContentAttachmentPointer builder] mergeFromCodedInputStream:input extensionRegistry:extensionRegistry] build];
 }
-+ (PushMessageContentAttachmentPointerBuilder *)builder {
-    return [[PushMessageContentAttachmentPointerBuilder alloc] init];
++ (PushMessageContentAttachmentPointerBuilder*) builder {
+  return [[PushMessageContentAttachmentPointerBuilder alloc] init];
 }
-+ (PushMessageContentAttachmentPointerBuilder *)builderWithPrototype:(PushMessageContentAttachmentPointer *)prototype {
-    return [[PushMessageContentAttachmentPointer builder] mergeFrom:prototype];
++ (PushMessageContentAttachmentPointerBuilder*) builderWithPrototype:(PushMessageContentAttachmentPointer*) prototype {
+  return [[PushMessageContentAttachmentPointer builder] mergeFrom:prototype];
 }
-- (PushMessageContentAttachmentPointerBuilder *)builder {
-    return [PushMessageContentAttachmentPointer builder];
+- (PushMessageContentAttachmentPointerBuilder*) builder {
+  return [PushMessageContentAttachmentPointer builder];
 }
-- (PushMessageContentAttachmentPointerBuilder *)toBuilder {
-    return [PushMessageContentAttachmentPointer builderWithPrototype:self];
+- (PushMessageContentAttachmentPointerBuilder*) toBuilder {
+  return [PushMessageContentAttachmentPointer builderWithPrototype:self];
 }
-- (void)writeDescriptionTo:(NSMutableString *)output withIndent:(NSString *)indent {
-    if (self.hasId) {
-        [output appendFormat:@"%@%@: %@\n", indent, @"id", [NSNumber numberWithLongLong:self.id]];
-    }
-    if (self.hasContentType) {
-        [output appendFormat:@"%@%@: %@\n", indent, @"contentType", self.contentType];
-    }
-    if (self.hasKey) {
-        [output appendFormat:@"%@%@: %@\n", indent, @"key", self.key];
-    }
-    [self.unknownFields writeDescriptionTo:output withIndent:indent];
+- (void) writeDescriptionTo:(NSMutableString*) output withIndent:(NSString*) indent {
+  if (self.hasId) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"id", [NSNumber numberWithLongLong:self.id]];
+  }
+  if (self.hasContentType) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"contentType", self.contentType];
+  }
+  if (self.hasKey) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"key", self.key];
+  }
+  [self.unknownFields writeDescriptionTo:output withIndent:indent];
 }
-- (BOOL)isEqual:(id)other {
-    if (other == self) {
-        return YES;
-    }
-    if (![other isKindOfClass:[PushMessageContentAttachmentPointer class]]) {
-        return NO;
-    }
-    PushMessageContentAttachmentPointer *otherMessage = other;
-    return self.hasId == otherMessage.hasId && (!self.hasId || self.id == otherMessage.id) &&
-           self.hasContentType == otherMessage.hasContentType &&
-           (!self.hasContentType || [self.contentType isEqual:otherMessage.contentType]) &&
-           self.hasKey == otherMessage.hasKey && (!self.hasKey || [self.key isEqual:otherMessage.key]) &&
-           (self.unknownFields == otherMessage.unknownFields ||
-            (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
+- (void) storeInDictionary:(NSMutableDictionary *)dictionary {
+  if (self.hasId) {
+    [dictionary setObject: [NSNumber numberWithLongLong:self.id] forKey: @"id"];
+  }
+  if (self.hasContentType) {
+    [dictionary setObject: self.contentType forKey: @"contentType"];
+  }
+  if (self.hasKey) {
+    [dictionary setObject: self.key forKey: @"key"];
+  }
+  [self.unknownFields storeInDictionary:dictionary];
 }
-- (NSUInteger)hash {
-    __block NSUInteger hashCode = 7;
-    if (self.hasId) {
-        hashCode = hashCode * 31 + [[NSNumber numberWithLongLong:self.id] hash];
-    }
-    if (self.hasContentType) {
-        hashCode = hashCode * 31 + [self.contentType hash];
-    }
-    if (self.hasKey) {
-        hashCode = hashCode * 31 + [self.key hash];
-    }
-    hashCode = hashCode * 31 + [self.unknownFields hash];
-    return hashCode;
+- (BOOL) isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (![other isKindOfClass:[PushMessageContentAttachmentPointer class]]) {
+    return NO;
+  }
+  PushMessageContentAttachmentPointer *otherMessage = other;
+  return
+      self.hasId == otherMessage.hasId &&
+      (!self.hasId || self.id == otherMessage.id) &&
+      self.hasContentType == otherMessage.hasContentType &&
+      (!self.hasContentType || [self.contentType isEqual:otherMessage.contentType]) &&
+      self.hasKey == otherMessage.hasKey &&
+      (!self.hasKey || [self.key isEqual:otherMessage.key]) &&
+      (self.unknownFields == otherMessage.unknownFields || (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
+}
+- (NSUInteger) hash {
+  __block NSUInteger hashCode = 7;
+  if (self.hasId) {
+    hashCode = hashCode * 31 + [[NSNumber numberWithLongLong:self.id] hash];
+  }
+  if (self.hasContentType) {
+    hashCode = hashCode * 31 + [self.contentType hash];
+  }
+  if (self.hasKey) {
+    hashCode = hashCode * 31 + [self.key hash];
+  }
+  hashCode = hashCode * 31 + [self.unknownFields hash];
+  return hashCode;
 }
 @end
 
-@interface PushMessageContentAttachmentPointerBuilder ()
-@property (strong) PushMessageContentAttachmentPointer *result;
+@interface PushMessageContentAttachmentPointerBuilder()
+@property (strong) PushMessageContentAttachmentPointer* resultAttachmentPointer;
 @end
 
 @implementation PushMessageContentAttachmentPointerBuilder
-@synthesize result;
-- (id)init {
-    if ((self = [super init])) {
-        self.result = [[PushMessageContentAttachmentPointer alloc] init];
-    }
+@synthesize resultAttachmentPointer;
+- (instancetype) init {
+  if ((self = [super init])) {
+    self.resultAttachmentPointer = [[PushMessageContentAttachmentPointer alloc] init];
+  }
+  return self;
+}
+- (PBGeneratedMessage*) internalGetResult {
+  return resultAttachmentPointer;
+}
+- (PushMessageContentAttachmentPointerBuilder*) clear {
+  self.resultAttachmentPointer = [[PushMessageContentAttachmentPointer alloc] init];
+  return self;
+}
+- (PushMessageContentAttachmentPointerBuilder*) clone {
+  return [PushMessageContentAttachmentPointer builderWithPrototype:resultAttachmentPointer];
+}
+- (PushMessageContentAttachmentPointer*) defaultInstance {
+  return [PushMessageContentAttachmentPointer defaultInstance];
+}
+- (PushMessageContentAttachmentPointer*) build {
+  [self checkInitialized];
+  return [self buildPartial];
+}
+- (PushMessageContentAttachmentPointer*) buildPartial {
+  PushMessageContentAttachmentPointer* returnMe = resultAttachmentPointer;
+  self.resultAttachmentPointer = nil;
+  return returnMe;
+}
+- (PushMessageContentAttachmentPointerBuilder*) mergeFrom:(PushMessageContentAttachmentPointer*) other {
+  if (other == [PushMessageContentAttachmentPointer defaultInstance]) {
     return self;
+  }
+  if (other.hasId) {
+    [self setId:other.id];
+  }
+  if (other.hasContentType) {
+    [self setContentType:other.contentType];
+  }
+  if (other.hasKey) {
+    [self setKey:other.key];
+  }
+  [self mergeUnknownFields:other.unknownFields];
+  return self;
 }
-- (PBGeneratedMessage *)internalGetResult {
-    return result;
+- (PushMessageContentAttachmentPointerBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input {
+  return [self mergeFromCodedInputStream:input extensionRegistry:[PBExtensionRegistry emptyRegistry]];
 }
-- (PushMessageContentAttachmentPointerBuilder *)clear {
-    self.result = [[PushMessageContentAttachmentPointer alloc] init];
-    return self;
-}
-- (PushMessageContentAttachmentPointerBuilder *)clone {
-    return [PushMessageContentAttachmentPointer builderWithPrototype:result];
-}
-- (PushMessageContentAttachmentPointer *)defaultInstance {
-    return [PushMessageContentAttachmentPointer defaultInstance];
-}
-- (PushMessageContentAttachmentPointer *)build {
-    [self checkInitialized];
-    return [self buildPartial];
-}
-- (PushMessageContentAttachmentPointer *)buildPartial {
-    PushMessageContentAttachmentPointer *returnMe = result;
-    self.result                                   = nil;
-    return returnMe;
-}
-- (PushMessageContentAttachmentPointerBuilder *)mergeFrom:(PushMessageContentAttachmentPointer *)other {
-    if (other == [PushMessageContentAttachmentPointer defaultInstance]) {
+- (PushMessageContentAttachmentPointerBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  PBUnknownFieldSetBuilder* unknownFields = [PBUnknownFieldSet builderWithUnknownFields:self.unknownFields];
+  while (YES) {
+    SInt32 tag = [input readTag];
+    switch (tag) {
+      case 0:
+        [self setUnknownFields:[unknownFields build]];
         return self;
-    }
-    if (other.hasId) {
-        [self setId:other.id];
-    }
-    if (other.hasContentType) {
-        [self setContentType:other.contentType];
-    }
-    if (other.hasKey) {
-        [self setKey:other.key];
-    }
-    [self mergeUnknownFields:other.unknownFields];
-    return self;
-}
-- (PushMessageContentAttachmentPointerBuilder *)mergeFromCodedInputStream:(PBCodedInputStream *)input {
-    return [self mergeFromCodedInputStream:input extensionRegistry:[PBExtensionRegistry emptyRegistry]];
-}
-- (PushMessageContentAttachmentPointerBuilder *)mergeFromCodedInputStream:(PBCodedInputStream *)input
-                                                        extensionRegistry:(PBExtensionRegistry *)extensionRegistry {
-    PBUnknownFieldSetBuilder *unknownFields = [PBUnknownFieldSet builderWithUnknownFields:self.unknownFields];
-    while (YES) {
-        SInt32 tag = [input readTag];
-        switch (tag) {
-            case 0:
-                [self setUnknownFields:[unknownFields build]];
-                return self;
-            default: {
-                if (![self parseUnknownField:input
-                               unknownFields:unknownFields
-                           extensionRegistry:extensionRegistry
-                                         tag:tag]) {
-                    [self setUnknownFields:[unknownFields build]];
-                    return self;
-                }
-                break;
-            }
-            case 9: {
-                [self setId:[input readFixed64]];
-                break;
-            }
-            case 18: {
-                [self setContentType:[input readString]];
-                break;
-            }
-            case 26: {
-                [self setKey:[input readData]];
-                break;
-            }
+      default: {
+        if (![self parseUnknownField:input unknownFields:unknownFields extensionRegistry:extensionRegistry tag:tag]) {
+          [self setUnknownFields:[unknownFields build]];
+          return self;
         }
+        break;
+      }
+      case 9: {
+        [self setId:[input readFixed64]];
+        break;
+      }
+      case 18: {
+        [self setContentType:[input readString]];
+        break;
+      }
+      case 26: {
+        [self setKey:[input readData]];
+        break;
+      }
     }
+  }
 }
-- (BOOL)hasId {
-    return result.hasId;
+- (BOOL) hasId {
+  return resultAttachmentPointer.hasId;
 }
-- (UInt64)id {
-    return result.id;
+- (UInt64) id {
+  return resultAttachmentPointer.id;
 }
-- (PushMessageContentAttachmentPointerBuilder *)setId:(UInt64)value {
-    result.hasId = YES;
-    result.id    = value;
-    return self;
+- (PushMessageContentAttachmentPointerBuilder*) setId:(UInt64) value {
+  resultAttachmentPointer.hasId = YES;
+  resultAttachmentPointer.id = value;
+  return self;
 }
-- (PushMessageContentAttachmentPointerBuilder *)clearId {
-    result.hasId = NO;
-    result.id    = 0L;
-    return self;
+- (PushMessageContentAttachmentPointerBuilder*) clearId {
+  resultAttachmentPointer.hasId = NO;
+  resultAttachmentPointer.id = 0L;
+  return self;
 }
-- (BOOL)hasContentType {
-    return result.hasContentType;
+- (BOOL) hasContentType {
+  return resultAttachmentPointer.hasContentType;
 }
-- (NSString *)contentType {
-    return result.contentType;
+- (NSString*) contentType {
+  return resultAttachmentPointer.contentType;
 }
-- (PushMessageContentAttachmentPointerBuilder *)setContentType:(NSString *)value {
-    result.hasContentType = YES;
-    result.contentType    = value;
-    return self;
+- (PushMessageContentAttachmentPointerBuilder*) setContentType:(NSString*) value {
+  resultAttachmentPointer.hasContentType = YES;
+  resultAttachmentPointer.contentType = value;
+  return self;
 }
-- (PushMessageContentAttachmentPointerBuilder *)clearContentType {
-    result.hasContentType = NO;
-    result.contentType    = @"";
-    return self;
+- (PushMessageContentAttachmentPointerBuilder*) clearContentType {
+  resultAttachmentPointer.hasContentType = NO;
+  resultAttachmentPointer.contentType = @"";
+  return self;
 }
-- (BOOL)hasKey {
-    return result.hasKey;
+- (BOOL) hasKey {
+  return resultAttachmentPointer.hasKey;
 }
-- (NSData *)key {
-    return result.key;
+- (NSData*) key {
+  return resultAttachmentPointer.key;
 }
-- (PushMessageContentAttachmentPointerBuilder *)setKey:(NSData *)value {
-    result.hasKey = YES;
-    result.key    = value;
-    return self;
+- (PushMessageContentAttachmentPointerBuilder*) setKey:(NSData*) value {
+  resultAttachmentPointer.hasKey = YES;
+  resultAttachmentPointer.key = value;
+  return self;
 }
-- (PushMessageContentAttachmentPointerBuilder *)clearKey {
-    result.hasKey = NO;
-    result.key    = [NSData data];
-    return self;
+- (PushMessageContentAttachmentPointerBuilder*) clearKey {
+  resultAttachmentPointer.hasKey = NO;
+  resultAttachmentPointer.key = [NSData data];
+  return self;
 }
 @end
 
 @interface PushMessageContentGroupContext ()
-@property (strong) NSData *id;
+@property (strong) NSData* id;
 @property PushMessageContentGroupContextType type;
-@property (strong) NSString *name;
-@property (strong) NSMutableArray *membersArray;
-@property (strong) PushMessageContentAttachmentPointer *avatar;
+@property (strong) NSString* name;
+@property (strong) NSMutableArray * membersArray;
+@property (strong) PushMessageContentAttachmentPointer* avatar;
 @end
 
 @implementation PushMessageContentGroupContext
 
-- (BOOL)hasId {
-    return !!hasId_;
+- (BOOL) hasId {
+  return !!hasId_;
 }
-- (void)setHasId:(BOOL)value_ {
-    hasId_ = !!value_;
+- (void) setHasId:(BOOL) _value_ {
+  hasId_ = !!_value_;
 }
 @synthesize id;
-- (BOOL)hasType {
-    return !!hasType_;
+- (BOOL) hasType {
+  return !!hasType_;
 }
-- (void)setHasType:(BOOL)value_ {
-    hasType_ = !!value_;
+- (void) setHasType:(BOOL) _value_ {
+  hasType_ = !!_value_;
 }
 @synthesize type;
-- (BOOL)hasName {
-    return !!hasName_;
+- (BOOL) hasName {
+  return !!hasName_;
 }
-- (void)setHasName:(BOOL)value_ {
-    hasName_ = !!value_;
+- (void) setHasName:(BOOL) _value_ {
+  hasName_ = !!_value_;
 }
 @synthesize name;
 @synthesize membersArray;
-- (BOOL)hasAvatar {
-    return !!hasAvatar_;
+@dynamic members;
+- (BOOL) hasAvatar {
+  return !!hasAvatar_;
 }
-- (void)setHasAvatar:(BOOL)value_ {
-    hasAvatar_ = !!value_;
+- (void) setHasAvatar:(BOOL) _value_ {
+  hasAvatar_ = !!_value_;
 }
 @synthesize avatar;
-- (id)init {
-    if ((self = [super init])) {
-        self.id     = [NSData data];
-        self.type   = PushMessageContentGroupContextTypeUnknown;
-        self.name   = @"";
-        self.avatar = [PushMessageContentAttachmentPointer defaultInstance];
-    }
-    return self;
+- (instancetype) init {
+  if ((self = [super init])) {
+    self.id = [NSData data];
+    self.type = PushMessageContentGroupContextTypeUnknown;
+    self.name = @"";
+    self.avatar = [PushMessageContentAttachmentPointer defaultInstance];
+  }
+  return self;
 }
-static PushMessageContentGroupContext *defaultPushMessageContentGroupContextInstance = nil;
-+ (void)initialize {
-    if (self == [PushMessageContentGroupContext class]) {
-        defaultPushMessageContentGroupContextInstance = [[PushMessageContentGroupContext alloc] init];
-    }
+static PushMessageContentGroupContext* defaultPushMessageContentGroupContextInstance = nil;
++ (void) initialize {
+  if (self == [PushMessageContentGroupContext class]) {
+    defaultPushMessageContentGroupContextInstance = [[PushMessageContentGroupContext alloc] init];
+  }
 }
-+ (PushMessageContentGroupContext *)defaultInstance {
-    return defaultPushMessageContentGroupContextInstance;
++ (instancetype) defaultInstance {
+  return defaultPushMessageContentGroupContextInstance;
 }
-- (PushMessageContentGroupContext *)defaultInstance {
-    return defaultPushMessageContentGroupContextInstance;
+- (instancetype) defaultInstance {
+  return defaultPushMessageContentGroupContextInstance;
 }
 - (NSArray *)members {
-    return membersArray;
+  return membersArray;
 }
-- (NSString *)membersAtIndex:(NSUInteger)index {
-    return [membersArray objectAtIndex:index];
+- (NSString*)membersAtIndex:(NSUInteger)index {
+  return [membersArray objectAtIndex:index];
 }
-- (BOOL)isInitialized {
-    return YES;
+- (BOOL) isInitialized {
+  return YES;
 }
-- (void)writeToCodedOutputStream:(PBCodedOutputStream *)output {
-    if (self.hasId) {
-        [output writeData:1 value:self.id];
-    }
-    if (self.hasType) {
-        [output writeEnum:2 value:self.type];
-    }
-    if (self.hasName) {
-        [output writeString:3 value:self.name];
-    }
-    [self.membersArray enumerateObjectsUsingBlock:^(NSString *element, NSUInteger idx, BOOL *stop) {
-      [output writeString:4 value:element];
-    }];
-    if (self.hasAvatar) {
-        [output writeMessage:5 value:self.avatar];
-    }
-    [self.unknownFields writeToCodedOutputStream:output];
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output {
+  if (self.hasId) {
+    [output writeData:1 value:self.id];
+  }
+  if (self.hasType) {
+    [output writeEnum:2 value:self.type];
+  }
+  if (self.hasName) {
+    [output writeString:3 value:self.name];
+  }
+  [self.membersArray enumerateObjectsUsingBlock:^(NSString *element, NSUInteger idx, BOOL *stop) {
+    [output writeString:4 value:element];
+  }];
+  if (self.hasAvatar) {
+    [output writeMessage:5 value:self.avatar];
+  }
+  [self.unknownFields writeToCodedOutputStream:output];
 }
-- (SInt32)serializedSize {
-    __block SInt32 size_ = memoizedSerializedSize;
-    if (size_ != -1) {
-        return size_;
-    }
-
-    size_ = 0;
-    if (self.hasId) {
-        size_ += computeDataSize(1, self.id);
-    }
-    if (self.hasType) {
-        size_ += computeEnumSize(2, self.type);
-    }
-    if (self.hasName) {
-        size_ += computeStringSize(3, self.name);
-    }
-    {
-        __block SInt32 dataSize = 0;
-        const NSUInteger count  = self.membersArray.count;
-        [self.membersArray enumerateObjectsUsingBlock:^(NSString *element, NSUInteger idx, BOOL *stop) {
-          dataSize += computeStringSizeNoTag(element);
-        }];
-        size_ += dataSize;
-        size_ += (SInt32)(1 * count);
-    }
-    if (self.hasAvatar) {
-        size_ += computeMessageSize(5, self.avatar);
-    }
-    size_ += self.unknownFields.serializedSize;
-    memoizedSerializedSize = size_;
+- (SInt32) serializedSize {
+  __block SInt32 size_ = memoizedSerializedSize;
+  if (size_ != -1) {
     return size_;
-}
-+ (PushMessageContentGroupContext *)parseFromData:(NSData *)data {
-    return (PushMessageContentGroupContext *)[[[PushMessageContentGroupContext builder] mergeFromData:data] build];
-}
-+ (PushMessageContentGroupContext *)parseFromData:(NSData *)data
-                                extensionRegistry:(PBExtensionRegistry *)extensionRegistry {
-    return (PushMessageContentGroupContext *)[
-        [[PushMessageContentGroupContext builder] mergeFromData:data extensionRegistry:extensionRegistry] build];
-}
-+ (PushMessageContentGroupContext *)parseFromInputStream:(NSInputStream *)input {
-    return (PushMessageContentGroupContext *)[[[PushMessageContentGroupContext builder] mergeFromInputStream:input]
-        build];
-}
-+ (PushMessageContentGroupContext *)parseFromInputStream:(NSInputStream *)input
-                                       extensionRegistry:(PBExtensionRegistry *)extensionRegistry {
-    return (PushMessageContentGroupContext *)[
-        [[PushMessageContentGroupContext builder] mergeFromInputStream:input extensionRegistry:extensionRegistry]
-        build];
-}
-+ (PushMessageContentGroupContext *)parseFromCodedInputStream:(PBCodedInputStream *)input {
-    return (PushMessageContentGroupContext *)[[[PushMessageContentGroupContext builder] mergeFromCodedInputStream:input]
-        build];
-}
-+ (PushMessageContentGroupContext *)parseFromCodedInputStream:(PBCodedInputStream *)input
-                                            extensionRegistry:(PBExtensionRegistry *)extensionRegistry {
-    return (PushMessageContentGroupContext *)[
-        [[PushMessageContentGroupContext builder] mergeFromCodedInputStream:input extensionRegistry:extensionRegistry]
-        build];
-}
-+ (PushMessageContentGroupContextBuilder *)builder {
-    return [[PushMessageContentGroupContextBuilder alloc] init];
-}
-+ (PushMessageContentGroupContextBuilder *)builderWithPrototype:(PushMessageContentGroupContext *)prototype {
-    return [[PushMessageContentGroupContext builder] mergeFrom:prototype];
-}
-- (PushMessageContentGroupContextBuilder *)builder {
-    return [PushMessageContentGroupContext builder];
-}
-- (PushMessageContentGroupContextBuilder *)toBuilder {
-    return [PushMessageContentGroupContext builderWithPrototype:self];
-}
-- (void)writeDescriptionTo:(NSMutableString *)output withIndent:(NSString *)indent {
-    if (self.hasId) {
-        [output appendFormat:@"%@%@: %@\n", indent, @"id", self.id];
-    }
-    if (self.hasType) {
-        [output appendFormat:@"%@%@: %d\n", indent, @"type", self.type];
-    }
-    if (self.hasName) {
-        [output appendFormat:@"%@%@: %@\n", indent, @"name", self.name];
-    }
-    [self.membersArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-      [output appendFormat:@"%@%@: %@\n", indent, @"members", obj];
+  }
+
+  size_ = 0;
+  if (self.hasId) {
+    size_ += computeDataSize(1, self.id);
+  }
+  if (self.hasType) {
+    size_ += computeEnumSize(2, self.type);
+  }
+  if (self.hasName) {
+    size_ += computeStringSize(3, self.name);
+  }
+  {
+    __block SInt32 dataSize = 0;
+    const NSUInteger count = self.membersArray.count;
+    [self.membersArray enumerateObjectsUsingBlock:^(NSString *element, NSUInteger idx, BOOL *stop) {
+      dataSize += computeStringSizeNoTag(element);
     }];
-    if (self.hasAvatar) {
-        [output appendFormat:@"%@%@ {\n", indent, @"avatar"];
-        [self.avatar writeDescriptionTo:output withIndent:[NSString stringWithFormat:@"%@  ", indent]];
-        [output appendFormat:@"%@}\n", indent];
-    }
-    [self.unknownFields writeDescriptionTo:output withIndent:indent];
+    size_ += dataSize;
+    size_ += (SInt32)(1 * count);
+  }
+  if (self.hasAvatar) {
+    size_ += computeMessageSize(5, self.avatar);
+  }
+  size_ += self.unknownFields.serializedSize;
+  memoizedSerializedSize = size_;
+  return size_;
 }
-- (BOOL)isEqual:(id)other {
-    if (other == self) {
-        return YES;
-    }
-    if (![other isKindOfClass:[PushMessageContentGroupContext class]]) {
-        return NO;
-    }
-    PushMessageContentGroupContext *otherMessage = other;
-    return self.hasId == otherMessage.hasId && (!self.hasId || [self.id isEqual:otherMessage.id]) &&
-           self.hasType == otherMessage.hasType && (!self.hasType || self.type == otherMessage.type) &&
-           self.hasName == otherMessage.hasName && (!self.hasName || [self.name isEqual:otherMessage.name]) &&
-           [self.membersArray isEqualToArray:otherMessage.membersArray] && self.hasAvatar == otherMessage.hasAvatar &&
-           (!self.hasAvatar || [self.avatar isEqual:otherMessage.avatar]) &&
-           (self.unknownFields == otherMessage.unknownFields ||
-            (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
++ (PushMessageContentGroupContext*) parseFromData:(NSData*) data {
+  return (PushMessageContentGroupContext*)[[[PushMessageContentGroupContext builder] mergeFromData:data] build];
 }
-- (NSUInteger)hash {
-    __block NSUInteger hashCode = 7;
-    if (self.hasId) {
-        hashCode = hashCode * 31 + [self.id hash];
-    }
-    if (self.hasType) {
-        hashCode = hashCode * 31 + self.type;
-    }
-    if (self.hasName) {
-        hashCode = hashCode * 31 + [self.name hash];
-    }
-    [self.membersArray enumerateObjectsUsingBlock:^(id element, NSUInteger idx, BOOL *stop) {
-      hashCode = hashCode * 31 + [element hash];
-    }];
-    if (self.hasAvatar) {
-        hashCode = hashCode * 31 + [self.avatar hash];
-    }
-    hashCode = hashCode * 31 + [self.unknownFields hash];
-    return hashCode;
++ (PushMessageContentGroupContext*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (PushMessageContentGroupContext*)[[[PushMessageContentGroupContext builder] mergeFromData:data extensionRegistry:extensionRegistry] build];
+}
++ (PushMessageContentGroupContext*) parseFromInputStream:(NSInputStream*) input {
+  return (PushMessageContentGroupContext*)[[[PushMessageContentGroupContext builder] mergeFromInputStream:input] build];
+}
++ (PushMessageContentGroupContext*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (PushMessageContentGroupContext*)[[[PushMessageContentGroupContext builder] mergeFromInputStream:input extensionRegistry:extensionRegistry] build];
+}
++ (PushMessageContentGroupContext*) parseFromCodedInputStream:(PBCodedInputStream*) input {
+  return (PushMessageContentGroupContext*)[[[PushMessageContentGroupContext builder] mergeFromCodedInputStream:input] build];
+}
++ (PushMessageContentGroupContext*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (PushMessageContentGroupContext*)[[[PushMessageContentGroupContext builder] mergeFromCodedInputStream:input extensionRegistry:extensionRegistry] build];
+}
++ (PushMessageContentGroupContextBuilder*) builder {
+  return [[PushMessageContentGroupContextBuilder alloc] init];
+}
++ (PushMessageContentGroupContextBuilder*) builderWithPrototype:(PushMessageContentGroupContext*) prototype {
+  return [[PushMessageContentGroupContext builder] mergeFrom:prototype];
+}
+- (PushMessageContentGroupContextBuilder*) builder {
+  return [PushMessageContentGroupContext builder];
+}
+- (PushMessageContentGroupContextBuilder*) toBuilder {
+  return [PushMessageContentGroupContext builderWithPrototype:self];
+}
+- (void) writeDescriptionTo:(NSMutableString*) output withIndent:(NSString*) indent {
+  if (self.hasId) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"id", self.id];
+  }
+  if (self.hasType) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"type", NSStringFromPushMessageContentGroupContextType(self.type)];
+  }
+  if (self.hasName) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"name", self.name];
+  }
+  [self.membersArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"members", obj];
+  }];
+  if (self.hasAvatar) {
+    [output appendFormat:@"%@%@ {\n", indent, @"avatar"];
+    [self.avatar writeDescriptionTo:output
+                         withIndent:[NSString stringWithFormat:@"%@  ", indent]];
+    [output appendFormat:@"%@}\n", indent];
+  }
+  [self.unknownFields writeDescriptionTo:output withIndent:indent];
+}
+- (void) storeInDictionary:(NSMutableDictionary *)dictionary {
+  if (self.hasId) {
+    [dictionary setObject: self.id forKey: @"id"];
+  }
+  if (self.hasType) {
+    [dictionary setObject: @(self.type) forKey: @"type"];
+  }
+  if (self.hasName) {
+    [dictionary setObject: self.name forKey: @"name"];
+  }
+  [dictionary setObject:self.members forKey: @"members"];
+  if (self.hasAvatar) {
+   NSMutableDictionary *messageDictionary = [NSMutableDictionary dictionary]; 
+   [self.avatar storeInDictionary:messageDictionary];
+   [dictionary setObject:[NSDictionary dictionaryWithDictionary:messageDictionary] forKey:@"avatar"];
+  }
+  [self.unknownFields storeInDictionary:dictionary];
+}
+- (BOOL) isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (![other isKindOfClass:[PushMessageContentGroupContext class]]) {
+    return NO;
+  }
+  PushMessageContentGroupContext *otherMessage = other;
+  return
+      self.hasId == otherMessage.hasId &&
+      (!self.hasId || [self.id isEqual:otherMessage.id]) &&
+      self.hasType == otherMessage.hasType &&
+      (!self.hasType || self.type == otherMessage.type) &&
+      self.hasName == otherMessage.hasName &&
+      (!self.hasName || [self.name isEqual:otherMessage.name]) &&
+      [self.membersArray isEqualToArray:otherMessage.membersArray] &&
+      self.hasAvatar == otherMessage.hasAvatar &&
+      (!self.hasAvatar || [self.avatar isEqual:otherMessage.avatar]) &&
+      (self.unknownFields == otherMessage.unknownFields || (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
+}
+- (NSUInteger) hash {
+  __block NSUInteger hashCode = 7;
+  if (self.hasId) {
+    hashCode = hashCode * 31 + [self.id hash];
+  }
+  if (self.hasType) {
+    hashCode = hashCode * 31 + self.type;
+  }
+  if (self.hasName) {
+    hashCode = hashCode * 31 + [self.name hash];
+  }
+  [self.membersArray enumerateObjectsUsingBlock:^(NSString *element, NSUInteger idx, BOOL *stop) {
+    hashCode = hashCode * 31 + [element hash];
+  }];
+  if (self.hasAvatar) {
+    hashCode = hashCode * 31 + [self.avatar hash];
+  }
+  hashCode = hashCode * 31 + [self.unknownFields hash];
+  return hashCode;
 }
 @end
 
 BOOL PushMessageContentGroupContextTypeIsValidValue(PushMessageContentGroupContextType value) {
-    switch (value) {
-        case PushMessageContentGroupContextTypeUnknown:
-        case PushMessageContentGroupContextTypeUpdate:
-        case PushMessageContentGroupContextTypeDeliver:
-        case PushMessageContentGroupContextTypeQuit:
-            return YES;
-        default:
-            return NO;
-    }
+  switch (value) {
+    case PushMessageContentGroupContextTypeUnknown:
+    case PushMessageContentGroupContextTypeUpdate:
+    case PushMessageContentGroupContextTypeDeliver:
+    case PushMessageContentGroupContextTypeQuit:
+      return YES;
+    default:
+      return NO;
+  }
 }
-@interface PushMessageContentGroupContextBuilder ()
-@property (strong) PushMessageContentGroupContext *result;
+NSString *NSStringFromPushMessageContentGroupContextType(PushMessageContentGroupContextType value) {
+  switch (value) {
+    case PushMessageContentGroupContextTypeUnknown:
+      return @"PushMessageContentGroupContextTypeUnknown";
+    case PushMessageContentGroupContextTypeUpdate:
+      return @"PushMessageContentGroupContextTypeUpdate";
+    case PushMessageContentGroupContextTypeDeliver:
+      return @"PushMessageContentGroupContextTypeDeliver";
+    case PushMessageContentGroupContextTypeQuit:
+      return @"PushMessageContentGroupContextTypeQuit";
+    default:
+      return nil;
+  }
+}
+
+@interface PushMessageContentGroupContextBuilder()
+@property (strong) PushMessageContentGroupContext* resultGroupContext;
 @end
 
 @implementation PushMessageContentGroupContextBuilder
-@synthesize result;
-- (id)init {
-    if ((self = [super init])) {
-        self.result = [[PushMessageContentGroupContext alloc] init];
+@synthesize resultGroupContext;
+- (instancetype) init {
+  if ((self = [super init])) {
+    self.resultGroupContext = [[PushMessageContentGroupContext alloc] init];
+  }
+  return self;
+}
+- (PBGeneratedMessage*) internalGetResult {
+  return resultGroupContext;
+}
+- (PushMessageContentGroupContextBuilder*) clear {
+  self.resultGroupContext = [[PushMessageContentGroupContext alloc] init];
+  return self;
+}
+- (PushMessageContentGroupContextBuilder*) clone {
+  return [PushMessageContentGroupContext builderWithPrototype:resultGroupContext];
+}
+- (PushMessageContentGroupContext*) defaultInstance {
+  return [PushMessageContentGroupContext defaultInstance];
+}
+- (PushMessageContentGroupContext*) build {
+  [self checkInitialized];
+  return [self buildPartial];
+}
+- (PushMessageContentGroupContext*) buildPartial {
+  PushMessageContentGroupContext* returnMe = resultGroupContext;
+  self.resultGroupContext = nil;
+  return returnMe;
+}
+- (PushMessageContentGroupContextBuilder*) mergeFrom:(PushMessageContentGroupContext*) other {
+  if (other == [PushMessageContentGroupContext defaultInstance]) {
+    return self;
+  }
+  if (other.hasId) {
+    [self setId:other.id];
+  }
+  if (other.hasType) {
+    [self setType:other.type];
+  }
+  if (other.hasName) {
+    [self setName:other.name];
+  }
+  if (other.membersArray.count > 0) {
+    if (resultGroupContext.membersArray == nil) {
+      resultGroupContext.membersArray = [[NSMutableArray alloc] initWithArray:other.membersArray];
+    } else {
+      [resultGroupContext.membersArray addObjectsFromArray:other.membersArray];
     }
-    return self;
+  }
+  if (other.hasAvatar) {
+    [self mergeAvatar:other.avatar];
+  }
+  [self mergeUnknownFields:other.unknownFields];
+  return self;
 }
-- (PBGeneratedMessage *)internalGetResult {
-    return result;
+- (PushMessageContentGroupContextBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input {
+  return [self mergeFromCodedInputStream:input extensionRegistry:[PBExtensionRegistry emptyRegistry]];
 }
-- (PushMessageContentGroupContextBuilder *)clear {
-    self.result = [[PushMessageContentGroupContext alloc] init];
-    return self;
-}
-- (PushMessageContentGroupContextBuilder *)clone {
-    return [PushMessageContentGroupContext builderWithPrototype:result];
-}
-- (PushMessageContentGroupContext *)defaultInstance {
-    return [PushMessageContentGroupContext defaultInstance];
-}
-- (PushMessageContentGroupContext *)build {
-    [self checkInitialized];
-    return [self buildPartial];
-}
-- (PushMessageContentGroupContext *)buildPartial {
-    PushMessageContentGroupContext *returnMe = result;
-    self.result                              = nil;
-    return returnMe;
-}
-- (PushMessageContentGroupContextBuilder *)mergeFrom:(PushMessageContentGroupContext *)other {
-    if (other == [PushMessageContentGroupContext defaultInstance]) {
+- (PushMessageContentGroupContextBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  PBUnknownFieldSetBuilder* unknownFields = [PBUnknownFieldSet builderWithUnknownFields:self.unknownFields];
+  while (YES) {
+    SInt32 tag = [input readTag];
+    switch (tag) {
+      case 0:
+        [self setUnknownFields:[unknownFields build]];
         return self;
-    }
-    if (other.hasId) {
-        [self setId:other.id];
-    }
-    if (other.hasType) {
-        [self setType:other.type];
-    }
-    if (other.hasName) {
-        [self setName:other.name];
-    }
-    if (other.membersArray.count > 0) {
-        if (result.membersArray == nil) {
-            result.membersArray = [[NSMutableArray alloc] initWithArray:other.membersArray];
+      default: {
+        if (![self parseUnknownField:input unknownFields:unknownFields extensionRegistry:extensionRegistry tag:tag]) {
+          [self setUnknownFields:[unknownFields build]];
+          return self;
+        }
+        break;
+      }
+      case 10: {
+        [self setId:[input readData]];
+        break;
+      }
+      case 16: {
+        PushMessageContentGroupContextType value = (PushMessageContentGroupContextType)[input readEnum];
+        if (PushMessageContentGroupContextTypeIsValidValue(value)) {
+          [self setType:value];
         } else {
-            [result.membersArray addObjectsFromArray:other.membersArray];
+          [unknownFields mergeVarintField:2 value:value];
         }
-    }
-    if (other.hasAvatar) {
-        [self mergeAvatar:other.avatar];
-    }
-    [self mergeUnknownFields:other.unknownFields];
-    return self;
-}
-- (PushMessageContentGroupContextBuilder *)mergeFromCodedInputStream:(PBCodedInputStream *)input {
-    return [self mergeFromCodedInputStream:input extensionRegistry:[PBExtensionRegistry emptyRegistry]];
-}
-- (PushMessageContentGroupContextBuilder *)mergeFromCodedInputStream:(PBCodedInputStream *)input
-                                                   extensionRegistry:(PBExtensionRegistry *)extensionRegistry {
-    PBUnknownFieldSetBuilder *unknownFields = [PBUnknownFieldSet builderWithUnknownFields:self.unknownFields];
-    while (YES) {
-        SInt32 tag = [input readTag];
-        switch (tag) {
-            case 0:
-                [self setUnknownFields:[unknownFields build]];
-                return self;
-            default: {
-                if (![self parseUnknownField:input
-                               unknownFields:unknownFields
-                           extensionRegistry:extensionRegistry
-                                         tag:tag]) {
-                    [self setUnknownFields:[unknownFields build]];
-                    return self;
-                }
-                break;
-            }
-            case 10: {
-                [self setId:[input readData]];
-                break;
-            }
-            case 16: {
-                PushMessageContentGroupContextType value = (PushMessageContentGroupContextType)[input readEnum];
-                if (PushMessageContentGroupContextTypeIsValidValue(value)) {
-                    [self setType:value];
-                } else {
-                    [unknownFields mergeVarintField:2 value:value];
-                }
-                break;
-            }
-            case 26: {
-                [self setName:[input readString]];
-                break;
-            }
-            case 34: {
-                [self addMembers:[input readString]];
-                break;
-            }
-            case 42: {
-                PushMessageContentAttachmentPointerBuilder *subBuilder = [PushMessageContentAttachmentPointer builder];
-                if (self.hasAvatar) {
-                    [subBuilder mergeFrom:self.avatar];
-                }
-                [input readMessage:subBuilder extensionRegistry:extensionRegistry];
-                [self setAvatar:[subBuilder buildPartial]];
-                break;
-            }
+        break;
+      }
+      case 26: {
+        [self setName:[input readString]];
+        break;
+      }
+      case 34: {
+        [self addMembers:[input readString]];
+        break;
+      }
+      case 42: {
+        PushMessageContentAttachmentPointerBuilder* subBuilder = [PushMessageContentAttachmentPointer builder];
+        if (self.hasAvatar) {
+          [subBuilder mergeFrom:self.avatar];
         }
+        [input readMessage:subBuilder extensionRegistry:extensionRegistry];
+        [self setAvatar:[subBuilder buildPartial]];
+        break;
+      }
     }
+  }
 }
-- (BOOL)hasId {
-    return result.hasId;
+- (BOOL) hasId {
+  return resultGroupContext.hasId;
 }
-- (NSData *)id {
-    return result.id;
+- (NSData*) id {
+  return resultGroupContext.id;
 }
-- (PushMessageContentGroupContextBuilder *)setId:(NSData *)value {
-    result.hasId = YES;
-    result.id    = value;
-    return self;
+- (PushMessageContentGroupContextBuilder*) setId:(NSData*) value {
+  resultGroupContext.hasId = YES;
+  resultGroupContext.id = value;
+  return self;
 }
-- (PushMessageContentGroupContextBuilder *)clearId {
-    result.hasId = NO;
-    result.id    = [NSData data];
-    return self;
+- (PushMessageContentGroupContextBuilder*) clearId {
+  resultGroupContext.hasId = NO;
+  resultGroupContext.id = [NSData data];
+  return self;
 }
-- (BOOL)hasType {
-    return result.hasType;
+- (BOOL) hasType {
+  return resultGroupContext.hasType;
 }
-- (PushMessageContentGroupContextType)type {
-    return result.type;
+- (PushMessageContentGroupContextType) type {
+  return resultGroupContext.type;
 }
-- (PushMessageContentGroupContextBuilder *)setType:(PushMessageContentGroupContextType)value {
-    result.hasType = YES;
-    result.type    = value;
-    return self;
+- (PushMessageContentGroupContextBuilder*) setType:(PushMessageContentGroupContextType) value {
+  resultGroupContext.hasType = YES;
+  resultGroupContext.type = value;
+  return self;
 }
-- (PushMessageContentGroupContextBuilder *)clearType {
-    result.hasType = NO;
-    result.type    = PushMessageContentGroupContextTypeUnknown;
-    return self;
+- (PushMessageContentGroupContextBuilder*) clearType {
+  resultGroupContext.hasType = NO;
+  resultGroupContext.type = PushMessageContentGroupContextTypeUnknown;
+  return self;
 }
-- (BOOL)hasName {
-    return result.hasName;
+- (BOOL) hasName {
+  return resultGroupContext.hasName;
 }
-- (NSString *)name {
-    return result.name;
+- (NSString*) name {
+  return resultGroupContext.name;
 }
-- (PushMessageContentGroupContextBuilder *)setName:(NSString *)value {
-    result.hasName = YES;
-    result.name    = value;
-    return self;
+- (PushMessageContentGroupContextBuilder*) setName:(NSString*) value {
+  resultGroupContext.hasName = YES;
+  resultGroupContext.name = value;
+  return self;
 }
-- (PushMessageContentGroupContextBuilder *)clearName {
-    result.hasName = NO;
-    result.name    = @"";
-    return self;
+- (PushMessageContentGroupContextBuilder*) clearName {
+  resultGroupContext.hasName = NO;
+  resultGroupContext.name = @"";
+  return self;
 }
 - (NSMutableArray *)members {
-    return result.membersArray;
+  return resultGroupContext.membersArray;
 }
-- (NSString *)membersAtIndex:(NSUInteger)index {
-    return [result membersAtIndex:index];
+- (NSString*)membersAtIndex:(NSUInteger)index {
+  return [resultGroupContext membersAtIndex:index];
 }
-- (PushMessageContentGroupContextBuilder *)addMembers:(NSString *)value {
-    if (result.membersArray == nil) {
-        result.membersArray = [[NSMutableArray alloc] init];
-    }
-    [result.membersArray addObject:value];
-    return self;
+- (PushMessageContentGroupContextBuilder *)addMembers:(NSString*)value {
+  if (resultGroupContext.membersArray == nil) {
+    resultGroupContext.membersArray = [[NSMutableArray alloc]init];
+  }
+  [resultGroupContext.membersArray addObject:value];
+  return self;
 }
 - (PushMessageContentGroupContextBuilder *)setMembersArray:(NSArray *)array {
-    result.membersArray = [[NSMutableArray alloc] initWithArray:array];
-    return self;
+  resultGroupContext.membersArray = [[NSMutableArray alloc] initWithArray:array];
+  return self;
 }
 - (PushMessageContentGroupContextBuilder *)clearMembers {
-    result.membersArray = nil;
-    return self;
+  resultGroupContext.membersArray = nil;
+  return self;
 }
-- (BOOL)hasAvatar {
-    return result.hasAvatar;
+- (BOOL) hasAvatar {
+  return resultGroupContext.hasAvatar;
 }
-- (PushMessageContentAttachmentPointer *)avatar {
-    return result.avatar;
+- (PushMessageContentAttachmentPointer*) avatar {
+  return resultGroupContext.avatar;
 }
-- (PushMessageContentGroupContextBuilder *)setAvatar:(PushMessageContentAttachmentPointer *)value {
-    result.hasAvatar = YES;
-    result.avatar    = value;
-    return self;
+- (PushMessageContentGroupContextBuilder*) setAvatar:(PushMessageContentAttachmentPointer*) value {
+  resultGroupContext.hasAvatar = YES;
+  resultGroupContext.avatar = value;
+  return self;
 }
-- (PushMessageContentGroupContextBuilder *)setAvatarBuilder:
-    (PushMessageContentAttachmentPointerBuilder *)builderForValue {
-    return [self setAvatar:[builderForValue build]];
+- (PushMessageContentGroupContextBuilder*) setAvatarBuilder:(PushMessageContentAttachmentPointerBuilder*) builderForValue {
+  return [self setAvatar:[builderForValue build]];
 }
-- (PushMessageContentGroupContextBuilder *)mergeAvatar:(PushMessageContentAttachmentPointer *)value {
-    if (result.hasAvatar && result.avatar != [PushMessageContentAttachmentPointer defaultInstance]) {
-        result.avatar =
-            [[[PushMessageContentAttachmentPointer builderWithPrototype:result.avatar] mergeFrom:value] buildPartial];
-    } else {
-        result.avatar = value;
-    }
-    result.hasAvatar = YES;
-    return self;
+- (PushMessageContentGroupContextBuilder*) mergeAvatar:(PushMessageContentAttachmentPointer*) value {
+  if (resultGroupContext.hasAvatar &&
+      resultGroupContext.avatar != [PushMessageContentAttachmentPointer defaultInstance]) {
+    resultGroupContext.avatar =
+      [[[PushMessageContentAttachmentPointer builderWithPrototype:resultGroupContext.avatar] mergeFrom:value] buildPartial];
+  } else {
+    resultGroupContext.avatar = value;
+  }
+  resultGroupContext.hasAvatar = YES;
+  return self;
 }
-- (PushMessageContentGroupContextBuilder *)clearAvatar {
-    result.hasAvatar = NO;
-    result.avatar    = [PushMessageContentAttachmentPointer defaultInstance];
-    return self;
+- (PushMessageContentGroupContextBuilder*) clearAvatar {
+  resultGroupContext.hasAvatar = NO;
+  resultGroupContext.avatar = [PushMessageContentAttachmentPointer defaultInstance];
+  return self;
 }
 @end
 
-@interface PushMessageContentBuilder ()
-@property (strong) PushMessageContent *result;
+@interface PushMessageContentBuilder()
+@property (strong) PushMessageContent* resultPushMessageContent;
 @end
 
 @implementation PushMessageContentBuilder
-@synthesize result;
-- (id)init {
-    if ((self = [super init])) {
-        self.result = [[PushMessageContent alloc] init];
+@synthesize resultPushMessageContent;
+- (instancetype) init {
+  if ((self = [super init])) {
+    self.resultPushMessageContent = [[PushMessageContent alloc] init];
+  }
+  return self;
+}
+- (PBGeneratedMessage*) internalGetResult {
+  return resultPushMessageContent;
+}
+- (PushMessageContentBuilder*) clear {
+  self.resultPushMessageContent = [[PushMessageContent alloc] init];
+  return self;
+}
+- (PushMessageContentBuilder*) clone {
+  return [PushMessageContent builderWithPrototype:resultPushMessageContent];
+}
+- (PushMessageContent*) defaultInstance {
+  return [PushMessageContent defaultInstance];
+}
+- (PushMessageContent*) build {
+  [self checkInitialized];
+  return [self buildPartial];
+}
+- (PushMessageContent*) buildPartial {
+  PushMessageContent* returnMe = resultPushMessageContent;
+  self.resultPushMessageContent = nil;
+  return returnMe;
+}
+- (PushMessageContentBuilder*) mergeFrom:(PushMessageContent*) other {
+  if (other == [PushMessageContent defaultInstance]) {
+    return self;
+  }
+  if (other.hasBody) {
+    [self setBody:other.body];
+  }
+  if (other.attachmentsArray.count > 0) {
+    if (resultPushMessageContent.attachmentsArray == nil) {
+      resultPushMessageContent.attachmentsArray = [[NSMutableArray alloc] initWithArray:other.attachmentsArray];
+    } else {
+      [resultPushMessageContent.attachmentsArray addObjectsFromArray:other.attachmentsArray];
     }
-    return self;
+  }
+  if (other.hasGroup) {
+    [self mergeGroup:other.group];
+  }
+  if (other.hasFlags) {
+    [self setFlags:other.flags];
+  }
+  if (other.hasPa) {
+    [self mergePa:other.pa];
+  }
+  [self mergeUnknownFields:other.unknownFields];
+  return self;
 }
-- (PBGeneratedMessage *)internalGetResult {
-    return result;
+- (PushMessageContentBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input {
+  return [self mergeFromCodedInputStream:input extensionRegistry:[PBExtensionRegistry emptyRegistry]];
 }
-- (PushMessageContentBuilder *)clear {
-    self.result = [[PushMessageContent alloc] init];
-    return self;
-}
-- (PushMessageContentBuilder *)clone {
-    return [PushMessageContent builderWithPrototype:result];
-}
-- (PushMessageContent *)defaultInstance {
-    return [PushMessageContent defaultInstance];
-}
-- (PushMessageContent *)build {
-    [self checkInitialized];
-    return [self buildPartial];
-}
-- (PushMessageContent *)buildPartial {
-    PushMessageContent *returnMe = result;
-    self.result                  = nil;
-    return returnMe;
-}
-- (PushMessageContentBuilder *)mergeFrom:(PushMessageContent *)other {
-    if (other == [PushMessageContent defaultInstance]) {
+- (PushMessageContentBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  PBUnknownFieldSetBuilder* unknownFields = [PBUnknownFieldSet builderWithUnknownFields:self.unknownFields];
+  while (YES) {
+    SInt32 tag = [input readTag];
+    switch (tag) {
+      case 0:
+        [self setUnknownFields:[unknownFields build]];
         return self;
-    }
-    if (other.hasBody) {
-        [self setBody:other.body];
-    }
-    if (other.attachmentsArray.count > 0) {
-        if (result.attachmentsArray == nil) {
-            result.attachmentsArray = [[NSMutableArray alloc] initWithArray:other.attachmentsArray];
-        } else {
-            [result.attachmentsArray addObjectsFromArray:other.attachmentsArray];
+      default: {
+        if (![self parseUnknownField:input unknownFields:unknownFields extensionRegistry:extensionRegistry tag:tag]) {
+          [self setUnknownFields:[unknownFields build]];
+          return self;
         }
-    }
-    if (other.hasGroup) {
-        [self mergeGroup:other.group];
-    }
-    if (other.hasFlags) {
-        [self setFlags:other.flags];
-    }
-    [self mergeUnknownFields:other.unknownFields];
-    return self;
-}
-- (PushMessageContentBuilder *)mergeFromCodedInputStream:(PBCodedInputStream *)input {
-    return [self mergeFromCodedInputStream:input extensionRegistry:[PBExtensionRegistry emptyRegistry]];
-}
-- (PushMessageContentBuilder *)mergeFromCodedInputStream:(PBCodedInputStream *)input
-                                       extensionRegistry:(PBExtensionRegistry *)extensionRegistry {
-    PBUnknownFieldSetBuilder *unknownFields = [PBUnknownFieldSet builderWithUnknownFields:self.unknownFields];
-    while (YES) {
-        SInt32 tag = [input readTag];
-        switch (tag) {
-            case 0:
-                [self setUnknownFields:[unknownFields build]];
-                return self;
-            default: {
-                if (![self parseUnknownField:input
-                               unknownFields:unknownFields
-                           extensionRegistry:extensionRegistry
-                                         tag:tag]) {
-                    [self setUnknownFields:[unknownFields build]];
-                    return self;
-                }
-                break;
-            }
-            case 10: {
-                [self setBody:[input readString]];
-                break;
-            }
-            case 18: {
-                PushMessageContentAttachmentPointerBuilder *subBuilder = [PushMessageContentAttachmentPointer builder];
-                [input readMessage:subBuilder extensionRegistry:extensionRegistry];
-                [self addAttachments:[subBuilder buildPartial]];
-                break;
-            }
-            case 26: {
-                PushMessageContentGroupContextBuilder *subBuilder = [PushMessageContentGroupContext builder];
-                if (self.hasGroup) {
-                    [subBuilder mergeFrom:self.group];
-                }
-                [input readMessage:subBuilder extensionRegistry:extensionRegistry];
-                [self setGroup:[subBuilder buildPartial]];
-                break;
-            }
-            case 32: {
-                [self setFlags:[input readUInt32]];
-                break;
-            }
+        break;
+      }
+      case 10: {
+        [self setBody:[input readString]];
+        break;
+      }
+      case 18: {
+        PushMessageContentAttachmentPointerBuilder* subBuilder = [PushMessageContentAttachmentPointer builder];
+        [input readMessage:subBuilder extensionRegistry:extensionRegistry];
+        [self addAttachments:[subBuilder buildPartial]];
+        break;
+      }
+      case 26: {
+        PushMessageContentGroupContextBuilder* subBuilder = [PushMessageContentGroupContext builder];
+        if (self.hasGroup) {
+          [subBuilder mergeFrom:self.group];
         }
+        [input readMessage:subBuilder extensionRegistry:extensionRegistry];
+        [self setGroup:[subBuilder buildPartial]];
+        break;
+      }
+      case 32: {
+        [self setFlags:[input readUInt32]];
+        break;
+      }
+      case 162: {
+        PredefinedAnswersBuilder* subBuilder = [PredefinedAnswers builder];
+        if (self.hasPa) {
+          [subBuilder mergeFrom:self.pa];
+        }
+        [input readMessage:subBuilder extensionRegistry:extensionRegistry];
+        [self setPa:[subBuilder buildPartial]];
+        break;
+      }
     }
+  }
 }
-- (BOOL)hasBody {
-    return result.hasBody;
+- (BOOL) hasBody {
+  return resultPushMessageContent.hasBody;
 }
-- (NSString *)body {
-    return result.body;
+- (NSString*) body {
+  return resultPushMessageContent.body;
 }
-- (PushMessageContentBuilder *)setBody:(NSString *)value {
-    result.hasBody = YES;
-    result.body    = value;
-    return self;
+- (PushMessageContentBuilder*) setBody:(NSString*) value {
+  resultPushMessageContent.hasBody = YES;
+  resultPushMessageContent.body = value;
+  return self;
 }
-- (PushMessageContentBuilder *)clearBody {
-    result.hasBody = NO;
-    result.body    = @"";
-    return self;
+- (PushMessageContentBuilder*) clearBody {
+  resultPushMessageContent.hasBody = NO;
+  resultPushMessageContent.body = @"";
+  return self;
 }
-- (NSMutableArray *)attachments {
-    return result.attachmentsArray;
+- (NSMutableArray<PushMessageContentAttachmentPointer*> *)attachments {
+  return resultPushMessageContent.attachmentsArray;
 }
-- (PushMessageContentAttachmentPointer *)attachmentsAtIndex:(NSUInteger)index {
-    return [result attachmentsAtIndex:index];
+- (PushMessageContentAttachmentPointer*)attachmentsAtIndex:(NSUInteger)index {
+  return [resultPushMessageContent attachmentsAtIndex:index];
 }
-- (PushMessageContentBuilder *)addAttachments:(PushMessageContentAttachmentPointer *)value {
-    if (result.attachmentsArray == nil) {
-        result.attachmentsArray = [[NSMutableArray alloc] init];
-    }
-    [result.attachmentsArray addObject:value];
-    return self;
+- (PushMessageContentBuilder *)addAttachments:(PushMessageContentAttachmentPointer*)value {
+  if (resultPushMessageContent.attachmentsArray == nil) {
+    resultPushMessageContent.attachmentsArray = [[NSMutableArray alloc]init];
+  }
+  [resultPushMessageContent.attachmentsArray addObject:value];
+  return self;
 }
-- (PushMessageContentBuilder *)setAttachmentsArray:(NSArray *)array {
-    result.attachmentsArray = [[NSMutableArray alloc] initWithArray:array];
-    return self;
+- (PushMessageContentBuilder *)setAttachmentsArray:(NSArray<PushMessageContentAttachmentPointer*> *)array {
+  resultPushMessageContent.attachmentsArray = [[NSMutableArray alloc]initWithArray:array];
+  return self;
 }
 - (PushMessageContentBuilder *)clearAttachments {
-    result.attachmentsArray = nil;
+  resultPushMessageContent.attachmentsArray = nil;
+  return self;
+}
+- (BOOL) hasGroup {
+  return resultPushMessageContent.hasGroup;
+}
+- (PushMessageContentGroupContext*) group {
+  return resultPushMessageContent.group;
+}
+- (PushMessageContentBuilder*) setGroup:(PushMessageContentGroupContext*) value {
+  resultPushMessageContent.hasGroup = YES;
+  resultPushMessageContent.group = value;
+  return self;
+}
+- (PushMessageContentBuilder*) setGroupBuilder:(PushMessageContentGroupContextBuilder*) builderForValue {
+  return [self setGroup:[builderForValue build]];
+}
+- (PushMessageContentBuilder*) mergeGroup:(PushMessageContentGroupContext*) value {
+  if (resultPushMessageContent.hasGroup &&
+      resultPushMessageContent.group != [PushMessageContentGroupContext defaultInstance]) {
+    resultPushMessageContent.group =
+      [[[PushMessageContentGroupContext builderWithPrototype:resultPushMessageContent.group] mergeFrom:value] buildPartial];
+  } else {
+    resultPushMessageContent.group = value;
+  }
+  resultPushMessageContent.hasGroup = YES;
+  return self;
+}
+- (PushMessageContentBuilder*) clearGroup {
+  resultPushMessageContent.hasGroup = NO;
+  resultPushMessageContent.group = [PushMessageContentGroupContext defaultInstance];
+  return self;
+}
+- (BOOL) hasFlags {
+  return resultPushMessageContent.hasFlags;
+}
+- (UInt32) flags {
+  return resultPushMessageContent.flags;
+}
+- (PushMessageContentBuilder*) setFlags:(UInt32) value {
+  resultPushMessageContent.hasFlags = YES;
+  resultPushMessageContent.flags = value;
+  return self;
+}
+- (PushMessageContentBuilder*) clearFlags {
+  resultPushMessageContent.hasFlags = NO;
+  resultPushMessageContent.flags = 0;
+  return self;
+}
+- (BOOL) hasPa {
+  return resultPushMessageContent.hasPa;
+}
+- (PredefinedAnswers*) pa {
+  return resultPushMessageContent.pa;
+}
+- (PushMessageContentBuilder*) setPa:(PredefinedAnswers*) value {
+  resultPushMessageContent.hasPa = YES;
+  resultPushMessageContent.pa = value;
+  return self;
+}
+- (PushMessageContentBuilder*) setPaBuilder:(PredefinedAnswersBuilder*) builderForValue {
+  return [self setPa:[builderForValue build]];
+}
+- (PushMessageContentBuilder*) mergePa:(PredefinedAnswers*) value {
+  if (resultPushMessageContent.hasPa &&
+      resultPushMessageContent.pa != [PredefinedAnswers defaultInstance]) {
+    resultPushMessageContent.pa =
+      [[[PredefinedAnswers builderWithPrototype:resultPushMessageContent.pa] mergeFrom:value] buildPartial];
+  } else {
+    resultPushMessageContent.pa = value;
+  }
+  resultPushMessageContent.hasPa = YES;
+  return self;
+}
+- (PushMessageContentBuilder*) clearPa {
+  resultPushMessageContent.hasPa = NO;
+  resultPushMessageContent.pa = [PredefinedAnswers defaultInstance];
+  return self;
+}
+@end
+
+@interface PredefinedAnswers ()
+@property UInt32 type;
+@property (strong) NSString* data;
+@end
+
+@implementation PredefinedAnswers
+
+- (BOOL) hasType {
+  return !!hasType_;
+}
+- (void) setHasType:(BOOL) _value_ {
+  hasType_ = !!_value_;
+}
+@synthesize type;
+- (BOOL) hasData {
+  return !!hasData_;
+}
+- (void) setHasData:(BOOL) _value_ {
+  hasData_ = !!_value_;
+}
+@synthesize data;
+- (instancetype) init {
+  if ((self = [super init])) {
+    self.type = 0;
+    self.data = @"";
+  }
+  return self;
+}
+static PredefinedAnswers* defaultPredefinedAnswersInstance = nil;
++ (void) initialize {
+  if (self == [PredefinedAnswers class]) {
+    defaultPredefinedAnswersInstance = [[PredefinedAnswers alloc] init];
+  }
+}
++ (instancetype) defaultInstance {
+  return defaultPredefinedAnswersInstance;
+}
+- (instancetype) defaultInstance {
+  return defaultPredefinedAnswersInstance;
+}
+- (BOOL) isInitialized {
+  return YES;
+}
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output {
+  if (self.hasType) {
+    [output writeUInt32:1 value:self.type];
+  }
+  if (self.hasData) {
+    [output writeString:2 value:self.data];
+  }
+  [self.unknownFields writeToCodedOutputStream:output];
+}
+- (SInt32) serializedSize {
+  __block SInt32 size_ = memoizedSerializedSize;
+  if (size_ != -1) {
+    return size_;
+  }
+
+  size_ = 0;
+  if (self.hasType) {
+    size_ += computeUInt32Size(1, self.type);
+  }
+  if (self.hasData) {
+    size_ += computeStringSize(2, self.data);
+  }
+  size_ += self.unknownFields.serializedSize;
+  memoizedSerializedSize = size_;
+  return size_;
+}
++ (PredefinedAnswers*) parseFromData:(NSData*) data {
+  return (PredefinedAnswers*)[[[PredefinedAnswers builder] mergeFromData:data] build];
+}
++ (PredefinedAnswers*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (PredefinedAnswers*)[[[PredefinedAnswers builder] mergeFromData:data extensionRegistry:extensionRegistry] build];
+}
++ (PredefinedAnswers*) parseFromInputStream:(NSInputStream*) input {
+  return (PredefinedAnswers*)[[[PredefinedAnswers builder] mergeFromInputStream:input] build];
+}
++ (PredefinedAnswers*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (PredefinedAnswers*)[[[PredefinedAnswers builder] mergeFromInputStream:input extensionRegistry:extensionRegistry] build];
+}
++ (PredefinedAnswers*) parseFromCodedInputStream:(PBCodedInputStream*) input {
+  return (PredefinedAnswers*)[[[PredefinedAnswers builder] mergeFromCodedInputStream:input] build];
+}
++ (PredefinedAnswers*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  return (PredefinedAnswers*)[[[PredefinedAnswers builder] mergeFromCodedInputStream:input extensionRegistry:extensionRegistry] build];
+}
++ (PredefinedAnswersBuilder*) builder {
+  return [[PredefinedAnswersBuilder alloc] init];
+}
++ (PredefinedAnswersBuilder*) builderWithPrototype:(PredefinedAnswers*) prototype {
+  return [[PredefinedAnswers builder] mergeFrom:prototype];
+}
+- (PredefinedAnswersBuilder*) builder {
+  return [PredefinedAnswers builder];
+}
+- (PredefinedAnswersBuilder*) toBuilder {
+  return [PredefinedAnswers builderWithPrototype:self];
+}
+- (void) writeDescriptionTo:(NSMutableString*) output withIndent:(NSString*) indent {
+  if (self.hasType) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"type", [NSNumber numberWithInteger:self.type]];
+  }
+  if (self.hasData) {
+    [output appendFormat:@"%@%@: %@\n", indent, @"data", self.data];
+  }
+  [self.unknownFields writeDescriptionTo:output withIndent:indent];
+}
+- (void) storeInDictionary:(NSMutableDictionary *)dictionary {
+  if (self.hasType) {
+    [dictionary setObject: [NSNumber numberWithInteger:self.type] forKey: @"type"];
+  }
+  if (self.hasData) {
+    [dictionary setObject: self.data forKey: @"data"];
+  }
+  [self.unknownFields storeInDictionary:dictionary];
+}
+- (BOOL) isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (![other isKindOfClass:[PredefinedAnswers class]]) {
+    return NO;
+  }
+  PredefinedAnswers *otherMessage = other;
+  return
+      self.hasType == otherMessage.hasType &&
+      (!self.hasType || self.type == otherMessage.type) &&
+      self.hasData == otherMessage.hasData &&
+      (!self.hasData || [self.data isEqual:otherMessage.data]) &&
+      (self.unknownFields == otherMessage.unknownFields || (self.unknownFields != nil && [self.unknownFields isEqual:otherMessage.unknownFields]));
+}
+- (NSUInteger) hash {
+  __block NSUInteger hashCode = 7;
+  if (self.hasType) {
+    hashCode = hashCode * 31 + [[NSNumber numberWithInteger:self.type] hash];
+  }
+  if (self.hasData) {
+    hashCode = hashCode * 31 + [self.data hash];
+  }
+  hashCode = hashCode * 31 + [self.unknownFields hash];
+  return hashCode;
+}
+@end
+
+@interface PredefinedAnswersBuilder()
+@property (strong) PredefinedAnswers* resultPredefinedAnswers;
+@end
+
+@implementation PredefinedAnswersBuilder
+@synthesize resultPredefinedAnswers;
+- (instancetype) init {
+  if ((self = [super init])) {
+    self.resultPredefinedAnswers = [[PredefinedAnswers alloc] init];
+  }
+  return self;
+}
+- (PBGeneratedMessage*) internalGetResult {
+  return resultPredefinedAnswers;
+}
+- (PredefinedAnswersBuilder*) clear {
+  self.resultPredefinedAnswers = [[PredefinedAnswers alloc] init];
+  return self;
+}
+- (PredefinedAnswersBuilder*) clone {
+  return [PredefinedAnswers builderWithPrototype:resultPredefinedAnswers];
+}
+- (PredefinedAnswers*) defaultInstance {
+  return [PredefinedAnswers defaultInstance];
+}
+- (PredefinedAnswers*) build {
+  [self checkInitialized];
+  return [self buildPartial];
+}
+- (PredefinedAnswers*) buildPartial {
+  PredefinedAnswers* returnMe = resultPredefinedAnswers;
+  self.resultPredefinedAnswers = nil;
+  return returnMe;
+}
+- (PredefinedAnswersBuilder*) mergeFrom:(PredefinedAnswers*) other {
+  if (other == [PredefinedAnswers defaultInstance]) {
     return self;
+  }
+  if (other.hasType) {
+    [self setType:other.type];
+  }
+  if (other.hasData) {
+    [self setData:other.data];
+  }
+  [self mergeUnknownFields:other.unknownFields];
+  return self;
 }
-- (BOOL)hasGroup {
-    return result.hasGroup;
+- (PredefinedAnswersBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input {
+  return [self mergeFromCodedInputStream:input extensionRegistry:[PBExtensionRegistry emptyRegistry]];
 }
-- (PushMessageContentGroupContext *)group {
-    return result.group;
-}
-- (PushMessageContentBuilder *)setGroup:(PushMessageContentGroupContext *)value {
-    result.hasGroup = YES;
-    result.group    = value;
-    return self;
-}
-- (PushMessageContentBuilder *)setGroupBuilder:(PushMessageContentGroupContextBuilder *)builderForValue {
-    return [self setGroup:[builderForValue build]];
-}
-- (PushMessageContentBuilder *)mergeGroup:(PushMessageContentGroupContext *)value {
-    if (result.hasGroup && result.group != [PushMessageContentGroupContext defaultInstance]) {
-        result.group =
-            [[[PushMessageContentGroupContext builderWithPrototype:result.group] mergeFrom:value] buildPartial];
-    } else {
-        result.group = value;
+- (PredefinedAnswersBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  PBUnknownFieldSetBuilder* unknownFields = [PBUnknownFieldSet builderWithUnknownFields:self.unknownFields];
+  while (YES) {
+    SInt32 tag = [input readTag];
+    switch (tag) {
+      case 0:
+        [self setUnknownFields:[unknownFields build]];
+        return self;
+      default: {
+        if (![self parseUnknownField:input unknownFields:unknownFields extensionRegistry:extensionRegistry tag:tag]) {
+          [self setUnknownFields:[unknownFields build]];
+          return self;
+        }
+        break;
+      }
+      case 8: {
+        [self setType:[input readUInt32]];
+        break;
+      }
+      case 18: {
+        [self setData:[input readString]];
+        break;
+      }
     }
-    result.hasGroup = YES;
-    return self;
+  }
 }
-- (PushMessageContentBuilder *)clearGroup {
-    result.hasGroup = NO;
-    result.group    = [PushMessageContentGroupContext defaultInstance];
-    return self;
+- (BOOL) hasType {
+  return resultPredefinedAnswers.hasType;
 }
-- (BOOL)hasFlags {
-    return result.hasFlags;
+- (UInt32) type {
+  return resultPredefinedAnswers.type;
 }
-- (UInt32)flags {
-    return result.flags;
+- (PredefinedAnswersBuilder*) setType:(UInt32) value {
+  resultPredefinedAnswers.hasType = YES;
+  resultPredefinedAnswers.type = value;
+  return self;
 }
-- (PushMessageContentBuilder *)setFlags:(UInt32)value {
-    result.hasFlags = YES;
-    result.flags    = value;
-    return self;
+- (PredefinedAnswersBuilder*) clearType {
+  resultPredefinedAnswers.hasType = NO;
+  resultPredefinedAnswers.type = 0;
+  return self;
 }
-- (PushMessageContentBuilder *)clearFlags {
-    result.hasFlags = NO;
-    result.flags    = 0;
-    return self;
+- (BOOL) hasData {
+  return resultPredefinedAnswers.hasData;
+}
+- (NSString*) data {
+  return resultPredefinedAnswers.data;
+}
+- (PredefinedAnswersBuilder*) setData:(NSString*) value {
+  resultPredefinedAnswers.hasData = YES;
+  resultPredefinedAnswers.data = value;
+  return self;
+}
+- (PredefinedAnswersBuilder*) clearData {
+  resultPredefinedAnswers.hasData = NO;
+  resultPredefinedAnswers.data = @"";
+  return self;
 }
 @end
 
