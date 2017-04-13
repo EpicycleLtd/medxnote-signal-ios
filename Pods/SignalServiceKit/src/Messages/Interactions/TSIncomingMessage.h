@@ -59,5 +59,6 @@
 @property (nonatomic, readonly) NSString *authorId;
 @property (nonatomic, getter=wasRead) BOOL read;
 @property (nonatomic, readonly) NSDate *receivedAt;
+@property (nonatomic, strong) NSArray *predefinedAnswers;
 
 @end
