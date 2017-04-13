@@ -55,6 +55,7 @@
 #import "OWSContactsSearcher.h"
 #import <Contacts/Contacts.h>
 #import <ContactsUI/ContactsUI.h>
+#import "InlineKeyboard.h"
 
 @import Photos;
 
@@ -75,7 +76,7 @@ typedef enum : NSUInteger {
     kMediaTypeVideo,
 } kMediaTypes;
 
-@interface MessagesViewController () <QRCodeViewDelegate, UITextViewDelegate, CNContactViewControllerDelegate> {
+@interface MessagesViewController () <QRCodeViewDelegate, UITextViewDelegate, CNContactViewControllerDelegate, InlineKeyboardDelegate> {
     UIImage *tappedImage;
     BOOL isGroupConversation;
 
@@ -114,6 +115,8 @@ typedef enum : NSUInteger {
 
 @property NSCache *messageAdapterCache;
 @property CNContactStore *contactsStore;
+    
+@property InlineKeyboard *keyboard;
 
 @end
 
@@ -356,6 +359,7 @@ typedef enum : NSUInteger {
     if (_composeOnOpen) {
         [self popKeyBoard];
     }
+    [self showInlineKeyboardIfNeeded];
     shouldClearUnread = true;
 }
 
@@ -2088,11 +2092,31 @@ typedef enum : NSUInteger {
                   [self scrollToBottomAnimated:YES];
               }
           }
+            // check if last message is inline keyboard
+            [self showInlineKeyboardIfNeeded];
         }];
 }
 
 - (NSIndexPath*)adjustedIndexPath:(NSIndexPath*)indexPath {
     return (unreadPoint > 0 && indexPath.row >= unreadPoint) ? [NSIndexPath indexPathForItem:indexPath.item+1 inSection:indexPath.section] : indexPath;
+}
+    
+- (BOOL)showInlineKeyboardIfNeeded {
+    TSMessageAdapter *message = [self messageAtIndexPath:[NSIndexPath indexPathForItem:[self.messageMappings numberOfItemsInSection:0]-1 inSection:0]];
+    if (message.messageType == TSIncomingMessageAdapter) {
+        TSIncomingMessage *interaction = (TSIncomingMessage *)[message interaction];
+        _keyboard = [[InlineKeyboard alloc] initWithAnswers:interaction.predefinedAnswers];
+        _keyboard.delegate = self;
+        self.inputToolbar.contentView.textView.inputView = _keyboard.collectionView;
+        NSInteger sectionCount = _keyboard.collectionView.numberOfSections;
+        self.inputToolbar.contentView.textView.inputView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, sectionCount*50.0);
+        [self.inputToolbar.contentView.textView reloadInputViews];
+        [self.inputToolbar.contentView.textView becomeFirstResponder];
+        
+        return true;
+    }
+    // TODO: null custom input view
+    return false;
 }
 
 #pragma mark - UICollectionView DataSource
@@ -2451,6 +2475,26 @@ typedef enum : NSUInteger {
 
 - (NSArray<id<UIPreviewActionItem>> *)previewActionItems {
     return @[];
+}
+    
+#pragma mark - Inline Keyboard Delegate
+    
+- (void)tappedInlineKeyboardCell:(NSDictionary *)cell {
+    NSString *text = cell[@"cmd"];
+    if (text.length > 0) {
+        [JSQSystemSoundPlayer jsq_playMessageSentSound];
+        
+        TSOutgoingMessage *message = [[TSOutgoingMessage alloc] initWithTimestamp:[NSDate ows_millisecondTimeStamp]
+                                                                         inThread:self.thread
+                                                                      messageBody:text
+                                                                    attachmentIds:nil];
+        
+        [[TSMessagesManager sharedManager] sendMessage:message inThread:self.thread success:nil failure:nil];
+        [self finishSendingMessage];
+        [self.inputToolbar.contentView.textView resignFirstResponder];
+        self.inputToolbar.contentView.textView.inputView = nil;
+        _keyboard = nil;
+    }
 }
 
 @end

@@ -398,6 +398,9 @@
 		B6DA6B071B8A2F9A00CA6F98 /* AppStoreRating.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DA6B061B8A2F9A00CA6F98 /* AppStoreRating.m */; };
 		B6F509971AA53F760068F56A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B6F509951AA53F760068F56A /* Localizable.strings */; };
 		B6FE7EB71ADD62FA00A6D22F /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6FE7EB61ADD62FA00A6D22F /* PushKit.framework */; };
+		B78846C11E9F845600E041F3 /* InlineKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = B78846C01E9F845600E041F3 /* InlineKeyboard.m */; };
+		B78846C51E9F85F800E041F3 /* InlineKeyboardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B78846C31E9F85F800E041F3 /* InlineKeyboardCell.m */; };
+		B78846C61E9F85F800E041F3 /* InlineKeyboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B78846C41E9F85F800E041F3 /* InlineKeyboardCell.xib */; };
 		B90418E6183E9DD40038554A /* DateUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B90418E5183E9DD40038554A /* DateUtil.m */; };
 		B97940271832BD2400BD66CB /* UIUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B97940261832BD2400BD66CB /* UIUtil.m */; };
 		B97CBFA818860EA3008E0DE9 /* CountryCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B97CBFA618860EA3008E0DE9 /* CountryCodeViewController.m */; };
@@ -960,6 +963,11 @@
 		B6DA6B061B8A2F9A00CA6F98 /* AppStoreRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppStoreRating.m; sourceTree = "<group>"; };
 		B6F509961AA53F760068F56A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = translations/en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B6FE7EB61ADD62FA00A6D22F /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
+		B78846BF1E9F845600E041F3 /* InlineKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InlineKeyboard.h; sourceTree = "<group>"; };
+		B78846C01E9F845600E041F3 /* InlineKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = InlineKeyboard.m; sourceTree = "<group>"; };
+		B78846C21E9F85F800E041F3 /* InlineKeyboardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InlineKeyboardCell.h; sourceTree = "<group>"; };
+		B78846C31E9F85F800E041F3 /* InlineKeyboardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InlineKeyboardCell.m; sourceTree = "<group>"; };
+		B78846C41E9F85F800E041F3 /* InlineKeyboardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InlineKeyboardCell.xib; sourceTree = "<group>"; };
 		B90418E4183E9DD40038554A /* DateUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateUtil.h; sourceTree = "<group>"; };
 		B90418E5183E9DD40038554A /* DateUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateUtil.m; sourceTree = "<group>"; };
 		B97940251832BD2400BD66CB /* UIUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtil.h; sourceTree = "<group>"; };
@@ -2089,6 +2097,18 @@
 			path = Certificates;
 			sourceTree = "<group>";
 		};
+		B78846C71E9F85FD00E041F3 /* Inline Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				B78846BF1E9F845600E041F3 /* InlineKeyboard.h */,
+				B78846C01E9F845600E041F3 /* InlineKeyboard.m */,
+				B78846C21E9F85F800E041F3 /* InlineKeyboardCell.h */,
+				B78846C31E9F85F800E041F3 /* InlineKeyboardCell.m */,
+				B78846C41E9F85F800E041F3 /* InlineKeyboardCell.xib */,
+			);
+			name = "Inline Keyboard";
+			sourceTree = "<group>";
+		};
 		D221A07E169C9E5E00537ABF = {
 			isa = PBXGroup;
 			children = (
@@ -2283,6 +2303,7 @@
 		FC3196321A08142D0094C78E /* Signals */ = {
 			isa = PBXGroup;
 			children = (
+				B78846C71E9F85FD00E041F3 /* Inline Keyboard */,
 				A569778D1A351BC400173BF2 /* ScanIdentityBarcodeViewController.h */,
 				A569778E1A351BC400173BF2 /* ScanIdentityBarcodeViewController.m */,
 				A56977901A351BC400173BF2 /* PresentIdentityQRCodeViewController.h */,
@@ -2533,6 +2554,7 @@
 				AD83FF401A73426500B5C81A /* audio_pause_button_blue@2x.png in Resources */,
 				B66DBF4A19D5BBC8006EA940 /* Images.xcassets in Resources */,
 				70B8FEE21909FE360042E3F0 /* 171756__nenadsimic__picked-coin-echo-2.wav in Resources */,
+				B78846C61E9F85F800E041F3 /* InlineKeyboardCell.xib in Resources */,
 				AD83FF431A73426500B5C81A /* audio_play_button@2x.png in Resources */,
 				45CB2FA81CB7146C00E1B343 /* Launch Screen.storyboard in Resources */,
 				B633C5C31A1D190B0059AC12 /* mute_off@2x.png in Resources */,
@@ -2714,6 +2736,7 @@
 				76EB062218170B33006006FC /* CyclicalBuffer.m in Sources */,
 				76EB063C18170B33006006FC /* NumberUtil.m in Sources */,
 				B6A3EB4B1A423B3800B2236B /* TSPhotoAdapter.m in Sources */,
+				B78846C11E9F845600E041F3 /* InlineKeyboard.m in Sources */,
 				76EB063A18170B33006006FC /* FunctionalUtil.m in Sources */,
 				76EB060A18170B33006006FC /* SignalUtil.m in Sources */,
 				E197B61718BBEC1A00F073E5 /* AnonymousAudioCallbackHandler.m in Sources */,
@@ -2757,6 +2780,7 @@
 				FC31962D1A06A2190094C78E /* FingerprintViewController.m in Sources */,
 				76EB061418170B33006006FC /* AnonymousConditionLogger.m in Sources */,
 				76EB05C018170B33006006FC /* DhPacket.m in Sources */,
+				B78846C51E9F85F800E041F3 /* InlineKeyboardCell.m in Sources */,
 				FC3196301A0814130094C78E /* SettingsTableViewController.m in Sources */,
 				7038632818F70C0700D4A43F /* EvpSymetricUtil.m in Sources */,
 				76EB068618170B34006006FC /* ContactTableViewCell.m in Sources */,
