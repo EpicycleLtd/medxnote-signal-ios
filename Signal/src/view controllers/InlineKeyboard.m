@@ -47,7 +47,7 @@
 }
     
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    NSArray *answerSection = _answers[section];
+    NSArray *answerSection = _answers[section][@"cells"];
     return answerSection.count;
 }
     
@@ -64,7 +64,7 @@
 }
     
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *answerSection = _answers[indexPath.section];
+    NSArray *answerSection = _answers[indexPath.section][@"cells"];
     CGFloat totalWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat itemWidth = totalWidth/answerSection.count;
     return CGSizeMake(itemWidth-20, 40);
