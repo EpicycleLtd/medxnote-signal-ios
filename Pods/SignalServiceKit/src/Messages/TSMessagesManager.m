@@ -62,9 +62,9 @@
             case IncomingPushMessageSignalTypeKeyExchange:
                 DDLogWarn(@"Received Key Exchange Message, not supported");
                 break;
-            case IncomingPushMessageSignalTypePlaintext:
-                DDLogWarn(@"Received a plaintext message");
-                break;
+//            case IncomingPushMessageSignalTypePlaintext:
+//                DDLogWarn(@"Received a plaintext message");
+//                break;
             case IncomingPushMessageSignalTypeReceipt:
                 DDLogInfo(@"Received a delivery receipt");
                 [self handleDeliveryReceipt:messageSignal];
@@ -434,6 +434,14 @@
           formatedTime = [NSString stringWithFormat: @"Delivered: %@", deliveredTimeString];
           
           incomingMessage.receipts[[NSString stringWithFormat:@"%@_%@_2", senderName, message.source]] = formatedTime;
+          
+          // predefined answers
+          if (content.hasPa == true) {
+              NSString *paString = content.pa.data;
+              NSArray <NSDictionary*>*jsonObject = [NSJSONSerialization JSONObjectWithData:[paString dataUsingEncoding:NSUTF8StringEncoding]
+                                                                    options:0 error:NULL];
+              incomingMessage.predefinedAnswers = jsonObject.firstObject[@"rows"];
+          }
           
           //
           thread = cThread;

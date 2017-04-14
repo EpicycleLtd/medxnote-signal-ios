@@ -6,407 +6,476 @@
 
 @class IncomingPushMessageSignal;
 @class IncomingPushMessageSignalBuilder;
+@class PredefinedAnswers;
+@class PredefinedAnswersBuilder;
 @class PushMessageContent;
 @class PushMessageContentAttachmentPointer;
 @class PushMessageContentAttachmentPointerBuilder;
 @class PushMessageContentBuilder;
 @class PushMessageContentGroupContext;
 @class PushMessageContentGroupContextBuilder;
-#ifndef __has_feature
-#define __has_feature(x) 0 // Compatibility with non-clang compilers.
-#endif                     // __has_feature
 
-#ifndef NS_RETURNS_NOT_RETAINED
-#if __has_feature(attribute_ns_returns_not_retained)
-#define NS_RETURNS_NOT_RETAINED __attribute__((ns_returns_not_retained))
-#else
-#define NS_RETURNS_NOT_RETAINED
-#endif
-#endif
 
-typedef enum {
-    IncomingPushMessageSignalTypeUnknown      = 0,
-    IncomingPushMessageSignalTypeCiphertext   = 1,
-    IncomingPushMessageSignalTypeKeyExchange  = 2,
-    IncomingPushMessageSignalTypePrekeyBundle = 3,
-    IncomingPushMessageSignalTypePlaintext    = 4,
-    IncomingPushMessageSignalTypeReceipt      = 5,
-    IncomingPushMessageSignalTypeRead         = 6,
-} IncomingPushMessageSignalType;
+typedef NS_ENUM(SInt32, IncomingPushMessageSignalType) {
+  IncomingPushMessageSignalTypeUnknown = 0,
+  IncomingPushMessageSignalTypeCiphertext = 1,
+  IncomingPushMessageSignalTypeKeyExchange = 2,
+  IncomingPushMessageSignalTypePrekeyBundle = 3,
+  IncomingPushMessageSignalTypeReceipt = 5,
+  IncomingPushMessageSignalTypeRead = 6,
+};
 
 BOOL IncomingPushMessageSignalTypeIsValidValue(IncomingPushMessageSignalType value);
+NSString *NSStringFromIncomingPushMessageSignalType(IncomingPushMessageSignalType value);
 
-typedef enum {
-    PushMessageContentFlagsEndSession = 1,
-} PushMessageContentFlags;
+typedef NS_ENUM(SInt32, PushMessageContentFlags) {
+  PushMessageContentFlagsEndSession = 1,
+};
 
 BOOL PushMessageContentFlagsIsValidValue(PushMessageContentFlags value);
+NSString *NSStringFromPushMessageContentFlags(PushMessageContentFlags value);
 
-typedef enum {
-    PushMessageContentGroupContextTypeUnknown = 0,
-    PushMessageContentGroupContextTypeUpdate  = 1,
-    PushMessageContentGroupContextTypeDeliver = 2,
-    PushMessageContentGroupContextTypeQuit    = 3,
-} PushMessageContentGroupContextType;
+typedef NS_ENUM(SInt32, PushMessageContentGroupContextType) {
+  PushMessageContentGroupContextTypeUnknown = 0,
+  PushMessageContentGroupContextTypeUpdate = 1,
+  PushMessageContentGroupContextTypeDeliver = 2,
+  PushMessageContentGroupContextTypeQuit = 3,
+};
 
 BOOL PushMessageContentGroupContextTypeIsValidValue(PushMessageContentGroupContextType value);
+NSString *NSStringFromPushMessageContentGroupContextType(PushMessageContentGroupContextType value);
 
 
 @interface IncomingPushMessageSignalRoot : NSObject {
 }
-+ (PBExtensionRegistry *)extensionRegistry;
-+ (void)registerAllExtensions:(PBMutableExtensionRegistry *)registry;
++ (PBExtensionRegistry*) extensionRegistry;
++ (void) registerAllExtensions:(PBMutableExtensionRegistry*) registry;
 @end
 
-@interface IncomingPushMessageSignal : PBGeneratedMessage {
-   @private
-    BOOL hasTimestamp_ : 1;
-    BOOL hasSource_ : 1;
-    BOOL hasRelay_ : 1;
-    BOOL hasMessage_ : 1;
-    BOOL hasSourceDevice_ : 1;
-    BOOL hasType_ : 1;
-    BOOL hasDeliveryTimestamp_ : 1;
-    UInt64 timestamp;
-    NSString *source;
-    NSString *relay;
-    NSData *message;
-    UInt32 sourceDevice;
-    IncomingPushMessageSignalType type;
-    UInt64 deliveryTimestamp;
+#define IncomingPushMessageSignal_type @"type"
+#define IncomingPushMessageSignal_source @"source"
+#define IncomingPushMessageSignal_sourceDevice @"sourceDevice"
+#define IncomingPushMessageSignal_relay @"relay"
+#define IncomingPushMessageSignal_timestamp @"timestamp"
+#define IncomingPushMessageSignal_message @"message"
+#define IncomingPushMessageSignal_deliveryTimestamp @"deliveryTimestamp"
+@interface IncomingPushMessageSignal : PBGeneratedMessage<GeneratedMessageProtocol> {
+@private
+  BOOL hasTimestamp_:1;
+  BOOL hasDeliveryTimestamp_:1;
+  BOOL hasSource_:1;
+  BOOL hasRelay_:1;
+  BOOL hasMessage_:1;
+  BOOL hasSourceDevice_:1;
+  BOOL hasType_:1;
+  UInt64 timestamp;
+  UInt64 deliveryTimestamp;
+  NSString* source;
+  NSString* relay;
+  NSData* message;
+  UInt32 sourceDevice;
+  IncomingPushMessageSignalType type;
 }
-- (BOOL)hasType;
-- (BOOL)hasSource;
-- (BOOL)hasSourceDevice;
-- (BOOL)hasRelay;
-- (BOOL)hasTimestamp;
-- (BOOL)hasMessage;
-- (BOOL)hasDeliveryTimestamp;
+- (BOOL) hasType;
+- (BOOL) hasSource;
+- (BOOL) hasSourceDevice;
+- (BOOL) hasRelay;
+- (BOOL) hasTimestamp;
+- (BOOL) hasMessage;
+- (BOOL) hasDeliveryTimestamp;
 @property (readonly) IncomingPushMessageSignalType type;
-@property (readonly, strong) NSString *source;
+@property (readonly, strong) NSString* source;
 @property (readonly) UInt32 sourceDevice;
-@property (readonly, strong) NSString *relay;
+@property (readonly, strong) NSString* relay;
 @property (readonly) UInt64 timestamp;
-@property (readonly, strong) NSData *message;
+@property (readonly, strong) NSData* message;
 @property (readonly) UInt64 deliveryTimestamp;
 
-+ (IncomingPushMessageSignal *)defaultInstance;
-- (IncomingPushMessageSignal *)defaultInstance;
++ (instancetype) defaultInstance;
+- (instancetype) defaultInstance;
 
-- (BOOL)isInitialized;
-- (void)writeToCodedOutputStream:(PBCodedOutputStream *)output;
-- (IncomingPushMessageSignalBuilder *)builder;
-+ (IncomingPushMessageSignalBuilder *)builder;
-+ (IncomingPushMessageSignalBuilder *)builderWithPrototype:(IncomingPushMessageSignal *)prototype;
-- (IncomingPushMessageSignalBuilder *)toBuilder;
+- (BOOL) isInitialized;
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
+- (IncomingPushMessageSignalBuilder*) builder;
++ (IncomingPushMessageSignalBuilder*) builder;
++ (IncomingPushMessageSignalBuilder*) builderWithPrototype:(IncomingPushMessageSignal*) prototype;
+- (IncomingPushMessageSignalBuilder*) toBuilder;
 
-+ (IncomingPushMessageSignal *)parseFromData:(NSData *)data;
-+ (IncomingPushMessageSignal *)parseFromData:(NSData *)data extensionRegistry:(PBExtensionRegistry *)extensionRegistry;
-+ (IncomingPushMessageSignal *)parseFromInputStream:(NSInputStream *)input;
-+ (IncomingPushMessageSignal *)parseFromInputStream:(NSInputStream *)input
-                                  extensionRegistry:(PBExtensionRegistry *)extensionRegistry;
-+ (IncomingPushMessageSignal *)parseFromCodedInputStream:(PBCodedInputStream *)input;
-+ (IncomingPushMessageSignal *)parseFromCodedInputStream:(PBCodedInputStream *)input
-                                       extensionRegistry:(PBExtensionRegistry *)extensionRegistry;
++ (IncomingPushMessageSignal*) parseFromData:(NSData*) data;
++ (IncomingPushMessageSignal*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (IncomingPushMessageSignal*) parseFromInputStream:(NSInputStream*) input;
++ (IncomingPushMessageSignal*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (IncomingPushMessageSignal*) parseFromCodedInputStream:(PBCodedInputStream*) input;
++ (IncomingPushMessageSignal*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 @end
 
 @interface IncomingPushMessageSignalBuilder : PBGeneratedMessageBuilder {
-   @private
-    IncomingPushMessageSignal *result;
+@private
+  IncomingPushMessageSignal* resultIncomingPushMessageSignal;
 }
 
-- (IncomingPushMessageSignal *)defaultInstance;
+- (IncomingPushMessageSignal*) defaultInstance;
 
-- (IncomingPushMessageSignalBuilder *)clear;
-- (IncomingPushMessageSignalBuilder *)clone;
+- (IncomingPushMessageSignalBuilder*) clear;
+- (IncomingPushMessageSignalBuilder*) clone;
 
-- (IncomingPushMessageSignal *)build;
-- (IncomingPushMessageSignal *)buildPartial;
+- (IncomingPushMessageSignal*) build;
+- (IncomingPushMessageSignal*) buildPartial;
 
-- (IncomingPushMessageSignalBuilder *)mergeFrom:(IncomingPushMessageSignal *)other;
-- (IncomingPushMessageSignalBuilder *)mergeFromCodedInputStream:(PBCodedInputStream *)input;
-- (IncomingPushMessageSignalBuilder *)mergeFromCodedInputStream:(PBCodedInputStream *)input
-                                              extensionRegistry:(PBExtensionRegistry *)extensionRegistry;
+- (IncomingPushMessageSignalBuilder*) mergeFrom:(IncomingPushMessageSignal*) other;
+- (IncomingPushMessageSignalBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
+- (IncomingPushMessageSignalBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 
-- (BOOL)hasType;
-- (IncomingPushMessageSignalType)type;
-- (IncomingPushMessageSignalBuilder *)setType:(IncomingPushMessageSignalType)value;
-- (IncomingPushMessageSignalBuilder *)clearType;
+- (BOOL) hasType;
+- (IncomingPushMessageSignalType) type;
+- (IncomingPushMessageSignalBuilder*) setType:(IncomingPushMessageSignalType) value;
+- (IncomingPushMessageSignalBuilder*) clearType;
 
-- (BOOL)hasSource;
-- (NSString *)source;
-- (IncomingPushMessageSignalBuilder *)setSource:(NSString *)value;
-- (IncomingPushMessageSignalBuilder *)clearSource;
+- (BOOL) hasSource;
+- (NSString*) source;
+- (IncomingPushMessageSignalBuilder*) setSource:(NSString*) value;
+- (IncomingPushMessageSignalBuilder*) clearSource;
 
-- (BOOL)hasSourceDevice;
-- (UInt32)sourceDevice;
-- (IncomingPushMessageSignalBuilder *)setSourceDevice:(UInt32)value;
-- (IncomingPushMessageSignalBuilder *)clearSourceDevice;
+- (BOOL) hasSourceDevice;
+- (UInt32) sourceDevice;
+- (IncomingPushMessageSignalBuilder*) setSourceDevice:(UInt32) value;
+- (IncomingPushMessageSignalBuilder*) clearSourceDevice;
 
-- (BOOL)hasRelay;
-- (NSString *)relay;
-- (IncomingPushMessageSignalBuilder *)setRelay:(NSString *)value;
-- (IncomingPushMessageSignalBuilder *)clearRelay;
+- (BOOL) hasRelay;
+- (NSString*) relay;
+- (IncomingPushMessageSignalBuilder*) setRelay:(NSString*) value;
+- (IncomingPushMessageSignalBuilder*) clearRelay;
 
-- (BOOL)hasTimestamp;
-- (UInt64)timestamp;
-- (IncomingPushMessageSignalBuilder *)setTimestamp:(UInt64)value;
-- (IncomingPushMessageSignalBuilder *)clearTimestamp;
+- (BOOL) hasTimestamp;
+- (UInt64) timestamp;
+- (IncomingPushMessageSignalBuilder*) setTimestamp:(UInt64) value;
+- (IncomingPushMessageSignalBuilder*) clearTimestamp;
 
-- (BOOL)hasMessage;
-- (NSData *)message;
-- (IncomingPushMessageSignalBuilder *)setMessage:(NSData *)value;
-- (IncomingPushMessageSignalBuilder *)clearMessage;
+- (BOOL) hasMessage;
+- (NSData*) message;
+- (IncomingPushMessageSignalBuilder*) setMessage:(NSData*) value;
+- (IncomingPushMessageSignalBuilder*) clearMessage;
 
-- (BOOL)hasDeliveryTimestamp;
-- (UInt64)deliveryTimestamp;
-- (IncomingPushMessageSignalBuilder *)setDeliveryTimestamp:(UInt64)value;
-- (IncomingPushMessageSignalBuilder *)clearDeliveryTimestamp;
-
+- (BOOL) hasDeliveryTimestamp;
+- (UInt64) deliveryTimestamp;
+- (IncomingPushMessageSignalBuilder*) setDeliveryTimestamp:(UInt64) value;
+- (IncomingPushMessageSignalBuilder*) clearDeliveryTimestamp;
 @end
 
-@interface PushMessageContent : PBGeneratedMessage {
-   @private
-    BOOL hasBody_ : 1;
-    BOOL hasGroup_ : 1;
-    BOOL hasFlags_ : 1;
-    NSString *body;
-    PushMessageContentGroupContext *group;
-    UInt32 flags;
-    NSMutableArray *attachmentsArray;
+#define PushMessageContent_body @"body"
+#define PushMessageContent_attachments @"attachments"
+#define PushMessageContent_group @"group"
+#define PushMessageContent_flags @"flags"
+#define PushMessageContent_pa @"pa"
+@interface PushMessageContent : PBGeneratedMessage<GeneratedMessageProtocol> {
+@private
+  BOOL hasBody_:1;
+  BOOL hasGroup_:1;
+  BOOL hasPa_:1;
+  BOOL hasFlags_:1;
+  NSString* body;
+  PushMessageContentGroupContext* group;
+  PredefinedAnswers* pa;
+  UInt32 flags;
+  NSMutableArray * attachmentsArray;
 }
-- (BOOL)hasBody;
-- (BOOL)hasGroup;
-- (BOOL)hasFlags;
-@property (readonly, strong) NSString *body;
-@property (readonly, strong) NSArray *attachments;
-@property (readonly, strong) PushMessageContentGroupContext *group;
+- (BOOL) hasBody;
+- (BOOL) hasGroup;
+- (BOOL) hasFlags;
+- (BOOL) hasPa;
+@property (readonly, strong) NSString* body;
+@property (readonly, strong) NSArray<PushMessageContentAttachmentPointer*> * attachments;
+@property (readonly, strong) PushMessageContentGroupContext* group;
 @property (readonly) UInt32 flags;
-- (PushMessageContentAttachmentPointer *)attachmentsAtIndex:(NSUInteger)index;
+@property (readonly, strong) PredefinedAnswers* pa;
+- (PushMessageContentAttachmentPointer*)attachmentsAtIndex:(NSUInteger)index;
 
-+ (PushMessageContent *)defaultInstance;
-- (PushMessageContent *)defaultInstance;
++ (instancetype) defaultInstance;
+- (instancetype) defaultInstance;
 
-- (BOOL)isInitialized;
-- (void)writeToCodedOutputStream:(PBCodedOutputStream *)output;
-- (PushMessageContentBuilder *)builder;
-+ (PushMessageContentBuilder *)builder;
-+ (PushMessageContentBuilder *)builderWithPrototype:(PushMessageContent *)prototype;
-- (PushMessageContentBuilder *)toBuilder;
+- (BOOL) isInitialized;
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
+- (PushMessageContentBuilder*) builder;
++ (PushMessageContentBuilder*) builder;
++ (PushMessageContentBuilder*) builderWithPrototype:(PushMessageContent*) prototype;
+- (PushMessageContentBuilder*) toBuilder;
 
-+ (PushMessageContent *)parseFromData:(NSData *)data;
-+ (PushMessageContent *)parseFromData:(NSData *)data extensionRegistry:(PBExtensionRegistry *)extensionRegistry;
-+ (PushMessageContent *)parseFromInputStream:(NSInputStream *)input;
-+ (PushMessageContent *)parseFromInputStream:(NSInputStream *)input
-                           extensionRegistry:(PBExtensionRegistry *)extensionRegistry;
-+ (PushMessageContent *)parseFromCodedInputStream:(PBCodedInputStream *)input;
-+ (PushMessageContent *)parseFromCodedInputStream:(PBCodedInputStream *)input
-                                extensionRegistry:(PBExtensionRegistry *)extensionRegistry;
++ (PushMessageContent*) parseFromData:(NSData*) data;
++ (PushMessageContent*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (PushMessageContent*) parseFromInputStream:(NSInputStream*) input;
++ (PushMessageContent*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (PushMessageContent*) parseFromCodedInputStream:(PBCodedInputStream*) input;
++ (PushMessageContent*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 @end
 
-@interface PushMessageContentAttachmentPointer : PBGeneratedMessage {
-   @private
-    BOOL hasId_ : 1;
-    BOOL hasContentType_ : 1;
-    BOOL hasKey_ : 1;
-    UInt64 id;
-    NSString *contentType;
-    NSData *key;
+#define AttachmentPointer_id @"id"
+#define AttachmentPointer_contentType @"contentType"
+#define AttachmentPointer_key @"key"
+@interface PushMessageContentAttachmentPointer : PBGeneratedMessage<GeneratedMessageProtocol> {
+@private
+  BOOL hasId_:1;
+  BOOL hasContentType_:1;
+  BOOL hasKey_:1;
+  UInt64 id;
+  NSString* contentType;
+  NSData* key;
 }
-- (BOOL)hasId;
-- (BOOL)hasContentType;
-- (BOOL)hasKey;
+- (BOOL) hasId;
+- (BOOL) hasContentType;
+- (BOOL) hasKey;
 @property (readonly) UInt64 id;
-@property (readonly, strong) NSString *contentType;
-@property (readonly, strong) NSData *key;
+@property (readonly, strong) NSString* contentType;
+@property (readonly, strong) NSData* key;
 
-+ (PushMessageContentAttachmentPointer *)defaultInstance;
-- (PushMessageContentAttachmentPointer *)defaultInstance;
++ (instancetype) defaultInstance;
+- (instancetype) defaultInstance;
 
-- (BOOL)isInitialized;
-- (void)writeToCodedOutputStream:(PBCodedOutputStream *)output;
-- (PushMessageContentAttachmentPointerBuilder *)builder;
-+ (PushMessageContentAttachmentPointerBuilder *)builder;
-+ (PushMessageContentAttachmentPointerBuilder *)builderWithPrototype:(PushMessageContentAttachmentPointer *)prototype;
-- (PushMessageContentAttachmentPointerBuilder *)toBuilder;
+- (BOOL) isInitialized;
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
+- (PushMessageContentAttachmentPointerBuilder*) builder;
++ (PushMessageContentAttachmentPointerBuilder*) builder;
++ (PushMessageContentAttachmentPointerBuilder*) builderWithPrototype:(PushMessageContentAttachmentPointer*) prototype;
+- (PushMessageContentAttachmentPointerBuilder*) toBuilder;
 
-+ (PushMessageContentAttachmentPointer *)parseFromData:(NSData *)data;
-+ (PushMessageContentAttachmentPointer *)parseFromData:(NSData *)data
-                                     extensionRegistry:(PBExtensionRegistry *)extensionRegistry;
-+ (PushMessageContentAttachmentPointer *)parseFromInputStream:(NSInputStream *)input;
-+ (PushMessageContentAttachmentPointer *)parseFromInputStream:(NSInputStream *)input
-                                            extensionRegistry:(PBExtensionRegistry *)extensionRegistry;
-+ (PushMessageContentAttachmentPointer *)parseFromCodedInputStream:(PBCodedInputStream *)input;
-+ (PushMessageContentAttachmentPointer *)parseFromCodedInputStream:(PBCodedInputStream *)input
-                                                 extensionRegistry:(PBExtensionRegistry *)extensionRegistry;
++ (PushMessageContentAttachmentPointer*) parseFromData:(NSData*) data;
++ (PushMessageContentAttachmentPointer*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (PushMessageContentAttachmentPointer*) parseFromInputStream:(NSInputStream*) input;
++ (PushMessageContentAttachmentPointer*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (PushMessageContentAttachmentPointer*) parseFromCodedInputStream:(PBCodedInputStream*) input;
++ (PushMessageContentAttachmentPointer*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 @end
 
 @interface PushMessageContentAttachmentPointerBuilder : PBGeneratedMessageBuilder {
-   @private
-    PushMessageContentAttachmentPointer *result;
+@private
+  PushMessageContentAttachmentPointer* resultAttachmentPointer;
 }
 
-- (PushMessageContentAttachmentPointer *)defaultInstance;
+- (PushMessageContentAttachmentPointer*) defaultInstance;
 
-- (PushMessageContentAttachmentPointerBuilder *)clear;
-- (PushMessageContentAttachmentPointerBuilder *)clone;
+- (PushMessageContentAttachmentPointerBuilder*) clear;
+- (PushMessageContentAttachmentPointerBuilder*) clone;
 
-- (PushMessageContentAttachmentPointer *)build;
-- (PushMessageContentAttachmentPointer *)buildPartial;
+- (PushMessageContentAttachmentPointer*) build;
+- (PushMessageContentAttachmentPointer*) buildPartial;
 
-- (PushMessageContentAttachmentPointerBuilder *)mergeFrom:(PushMessageContentAttachmentPointer *)other;
-- (PushMessageContentAttachmentPointerBuilder *)mergeFromCodedInputStream:(PBCodedInputStream *)input;
-- (PushMessageContentAttachmentPointerBuilder *)mergeFromCodedInputStream:(PBCodedInputStream *)input
-                                                        extensionRegistry:(PBExtensionRegistry *)extensionRegistry;
+- (PushMessageContentAttachmentPointerBuilder*) mergeFrom:(PushMessageContentAttachmentPointer*) other;
+- (PushMessageContentAttachmentPointerBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
+- (PushMessageContentAttachmentPointerBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 
-- (BOOL)hasId;
-- (UInt64)id;
-- (PushMessageContentAttachmentPointerBuilder *)setId:(UInt64)value;
-- (PushMessageContentAttachmentPointerBuilder *)clearId;
+- (BOOL) hasId;
+- (UInt64) id;
+- (PushMessageContentAttachmentPointerBuilder*) setId:(UInt64) value;
+- (PushMessageContentAttachmentPointerBuilder*) clearId;
 
-- (BOOL)hasContentType;
-- (NSString *)contentType;
-- (PushMessageContentAttachmentPointerBuilder *)setContentType:(NSString *)value;
-- (PushMessageContentAttachmentPointerBuilder *)clearContentType;
+- (BOOL) hasContentType;
+- (NSString*) contentType;
+- (PushMessageContentAttachmentPointerBuilder*) setContentType:(NSString*) value;
+- (PushMessageContentAttachmentPointerBuilder*) clearContentType;
 
-- (BOOL)hasKey;
-- (NSData *)key;
-- (PushMessageContentAttachmentPointerBuilder *)setKey:(NSData *)value;
-- (PushMessageContentAttachmentPointerBuilder *)clearKey;
+- (BOOL) hasKey;
+- (NSData*) key;
+- (PushMessageContentAttachmentPointerBuilder*) setKey:(NSData*) value;
+- (PushMessageContentAttachmentPointerBuilder*) clearKey;
 @end
 
-@interface PushMessageContentGroupContext : PBGeneratedMessage {
-   @private
-    BOOL hasName_ : 1;
-    BOOL hasAvatar_ : 1;
-    BOOL hasId_ : 1;
-    BOOL hasType_ : 1;
-    NSString *name;
-    PushMessageContentAttachmentPointer *avatar;
-    NSData *id;
-    PushMessageContentGroupContextType type;
-    NSMutableArray *membersArray;
+#define GroupContext_id @"id"
+#define GroupContext_type @"type"
+#define GroupContext_name @"name"
+#define GroupContext_members @"members"
+#define GroupContext_avatar @"avatar"
+@interface PushMessageContentGroupContext : PBGeneratedMessage<GeneratedMessageProtocol> {
+@private
+  BOOL hasName_:1;
+  BOOL hasAvatar_:1;
+  BOOL hasId_:1;
+  BOOL hasType_:1;
+  NSString* name;
+  PushMessageContentAttachmentPointer* avatar;
+  NSData* id;
+  PushMessageContentGroupContextType type;
+  NSMutableArray * membersArray;
 }
-- (BOOL)hasId;
-- (BOOL)hasType;
-- (BOOL)hasName;
-- (BOOL)hasAvatar;
-@property (readonly, strong) NSData *id;
+- (BOOL) hasId;
+- (BOOL) hasType;
+- (BOOL) hasName;
+- (BOOL) hasAvatar;
+@property (readonly, strong) NSData* id;
 @property (readonly) PushMessageContentGroupContextType type;
-@property (readonly, strong) NSString *name;
-@property (readonly, strong) PushMessageContentAttachmentPointer *avatar;
-- (NSArray *)members;
-- (NSString *)membersAtIndex:(NSUInteger)index;
+@property (readonly, strong) NSString* name;
+@property (readonly, strong) NSArray * members;
+@property (readonly, strong) PushMessageContentAttachmentPointer* avatar;
+- (NSString*)membersAtIndex:(NSUInteger)index;
 
-+ (PushMessageContentGroupContext *)defaultInstance;
-- (PushMessageContentGroupContext *)defaultInstance;
++ (instancetype) defaultInstance;
+- (instancetype) defaultInstance;
 
-- (BOOL)isInitialized;
-- (void)writeToCodedOutputStream:(PBCodedOutputStream *)output;
-- (PushMessageContentGroupContextBuilder *)builder;
-+ (PushMessageContentGroupContextBuilder *)builder;
-+ (PushMessageContentGroupContextBuilder *)builderWithPrototype:(PushMessageContentGroupContext *)prototype;
-- (PushMessageContentGroupContextBuilder *)toBuilder;
+- (BOOL) isInitialized;
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
+- (PushMessageContentGroupContextBuilder*) builder;
++ (PushMessageContentGroupContextBuilder*) builder;
++ (PushMessageContentGroupContextBuilder*) builderWithPrototype:(PushMessageContentGroupContext*) prototype;
+- (PushMessageContentGroupContextBuilder*) toBuilder;
 
-+ (PushMessageContentGroupContext *)parseFromData:(NSData *)data;
-+ (PushMessageContentGroupContext *)parseFromData:(NSData *)data
-                                extensionRegistry:(PBExtensionRegistry *)extensionRegistry;
-+ (PushMessageContentGroupContext *)parseFromInputStream:(NSInputStream *)input;
-+ (PushMessageContentGroupContext *)parseFromInputStream:(NSInputStream *)input
-                                       extensionRegistry:(PBExtensionRegistry *)extensionRegistry;
-+ (PushMessageContentGroupContext *)parseFromCodedInputStream:(PBCodedInputStream *)input;
-+ (PushMessageContentGroupContext *)parseFromCodedInputStream:(PBCodedInputStream *)input
-                                            extensionRegistry:(PBExtensionRegistry *)extensionRegistry;
++ (PushMessageContentGroupContext*) parseFromData:(NSData*) data;
++ (PushMessageContentGroupContext*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (PushMessageContentGroupContext*) parseFromInputStream:(NSInputStream*) input;
++ (PushMessageContentGroupContext*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (PushMessageContentGroupContext*) parseFromCodedInputStream:(PBCodedInputStream*) input;
++ (PushMessageContentGroupContext*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 @end
 
 @interface PushMessageContentGroupContextBuilder : PBGeneratedMessageBuilder {
-   @private
-    PushMessageContentGroupContext *result;
+@private
+  PushMessageContentGroupContext* resultGroupContext;
 }
 
-- (PushMessageContentGroupContext *)defaultInstance;
+- (PushMessageContentGroupContext*) defaultInstance;
 
-- (PushMessageContentGroupContextBuilder *)clear;
-- (PushMessageContentGroupContextBuilder *)clone;
+- (PushMessageContentGroupContextBuilder*) clear;
+- (PushMessageContentGroupContextBuilder*) clone;
 
-- (PushMessageContentGroupContext *)build;
-- (PushMessageContentGroupContext *)buildPartial;
+- (PushMessageContentGroupContext*) build;
+- (PushMessageContentGroupContext*) buildPartial;
 
-- (PushMessageContentGroupContextBuilder *)mergeFrom:(PushMessageContentGroupContext *)other;
-- (PushMessageContentGroupContextBuilder *)mergeFromCodedInputStream:(PBCodedInputStream *)input;
-- (PushMessageContentGroupContextBuilder *)mergeFromCodedInputStream:(PBCodedInputStream *)input
-                                                   extensionRegistry:(PBExtensionRegistry *)extensionRegistry;
+- (PushMessageContentGroupContextBuilder*) mergeFrom:(PushMessageContentGroupContext*) other;
+- (PushMessageContentGroupContextBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
+- (PushMessageContentGroupContextBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 
-- (BOOL)hasId;
-- (NSData *)id;
-- (PushMessageContentGroupContextBuilder *)setId:(NSData *)value;
-- (PushMessageContentGroupContextBuilder *)clearId;
+- (BOOL) hasId;
+- (NSData*) id;
+- (PushMessageContentGroupContextBuilder*) setId:(NSData*) value;
+- (PushMessageContentGroupContextBuilder*) clearId;
 
-- (BOOL)hasType;
-- (PushMessageContentGroupContextType)type;
-- (PushMessageContentGroupContextBuilder *)setType:(PushMessageContentGroupContextType)value;
-- (PushMessageContentGroupContextBuilder *)clearType;
+- (BOOL) hasType;
+- (PushMessageContentGroupContextType) type;
+- (PushMessageContentGroupContextBuilder*) setType:(PushMessageContentGroupContextType) value;
+- (PushMessageContentGroupContextBuilder*) clearType;
 
-- (BOOL)hasName;
-- (NSString *)name;
-- (PushMessageContentGroupContextBuilder *)setName:(NSString *)value;
-- (PushMessageContentGroupContextBuilder *)clearName;
+- (BOOL) hasName;
+- (NSString*) name;
+- (PushMessageContentGroupContextBuilder*) setName:(NSString*) value;
+- (PushMessageContentGroupContextBuilder*) clearName;
 
 - (NSMutableArray *)members;
-- (NSString *)membersAtIndex:(NSUInteger)index;
-- (PushMessageContentGroupContextBuilder *)addMembers:(NSString *)value;
+- (NSString*)membersAtIndex:(NSUInteger)index;
+- (PushMessageContentGroupContextBuilder *)addMembers:(NSString*)value;
 - (PushMessageContentGroupContextBuilder *)setMembersArray:(NSArray *)array;
 - (PushMessageContentGroupContextBuilder *)clearMembers;
 
-- (BOOL)hasAvatar;
-- (PushMessageContentAttachmentPointer *)avatar;
-- (PushMessageContentGroupContextBuilder *)setAvatar:(PushMessageContentAttachmentPointer *)value;
-- (PushMessageContentGroupContextBuilder *)setAvatarBuilder:
-    (PushMessageContentAttachmentPointerBuilder *)builderForValue;
-- (PushMessageContentGroupContextBuilder *)mergeAvatar:(PushMessageContentAttachmentPointer *)value;
-- (PushMessageContentGroupContextBuilder *)clearAvatar;
+- (BOOL) hasAvatar;
+- (PushMessageContentAttachmentPointer*) avatar;
+- (PushMessageContentGroupContextBuilder*) setAvatar:(PushMessageContentAttachmentPointer*) value;
+- (PushMessageContentGroupContextBuilder*) setAvatarBuilder:(PushMessageContentAttachmentPointerBuilder*) builderForValue;
+- (PushMessageContentGroupContextBuilder*) mergeAvatar:(PushMessageContentAttachmentPointer*) value;
+- (PushMessageContentGroupContextBuilder*) clearAvatar;
 @end
 
 @interface PushMessageContentBuilder : PBGeneratedMessageBuilder {
-   @private
-    PushMessageContent *result;
+@private
+  PushMessageContent* resultPushMessageContent;
 }
 
-- (PushMessageContent *)defaultInstance;
+- (PushMessageContent*) defaultInstance;
 
-- (PushMessageContentBuilder *)clear;
-- (PushMessageContentBuilder *)clone;
+- (PushMessageContentBuilder*) clear;
+- (PushMessageContentBuilder*) clone;
 
-- (PushMessageContent *)build;
-- (PushMessageContent *)buildPartial;
+- (PushMessageContent*) build;
+- (PushMessageContent*) buildPartial;
 
-- (PushMessageContentBuilder *)mergeFrom:(PushMessageContent *)other;
-- (PushMessageContentBuilder *)mergeFromCodedInputStream:(PBCodedInputStream *)input;
-- (PushMessageContentBuilder *)mergeFromCodedInputStream:(PBCodedInputStream *)input
-                                       extensionRegistry:(PBExtensionRegistry *)extensionRegistry;
+- (PushMessageContentBuilder*) mergeFrom:(PushMessageContent*) other;
+- (PushMessageContentBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
+- (PushMessageContentBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 
-- (BOOL)hasBody;
-- (NSString *)body;
-- (PushMessageContentBuilder *)setBody:(NSString *)value;
-- (PushMessageContentBuilder *)clearBody;
+- (BOOL) hasBody;
+- (NSString*) body;
+- (PushMessageContentBuilder*) setBody:(NSString*) value;
+- (PushMessageContentBuilder*) clearBody;
 
-- (NSMutableArray *)attachments;
-- (PushMessageContentAttachmentPointer *)attachmentsAtIndex:(NSUInteger)index;
-- (PushMessageContentBuilder *)addAttachments:(PushMessageContentAttachmentPointer *)value;
-- (PushMessageContentBuilder *)setAttachmentsArray:(NSArray *)array;
+- (NSMutableArray<PushMessageContentAttachmentPointer*> *)attachments;
+- (PushMessageContentAttachmentPointer*)attachmentsAtIndex:(NSUInteger)index;
+- (PushMessageContentBuilder *)addAttachments:(PushMessageContentAttachmentPointer*)value;
+- (PushMessageContentBuilder *)setAttachmentsArray:(NSArray<PushMessageContentAttachmentPointer*> *)array;
 - (PushMessageContentBuilder *)clearAttachments;
 
-- (BOOL)hasGroup;
-- (PushMessageContentGroupContext *)group;
-- (PushMessageContentBuilder *)setGroup:(PushMessageContentGroupContext *)value;
-- (PushMessageContentBuilder *)setGroupBuilder:(PushMessageContentGroupContextBuilder *)builderForValue;
-- (PushMessageContentBuilder *)mergeGroup:(PushMessageContentGroupContext *)value;
-- (PushMessageContentBuilder *)clearGroup;
+- (BOOL) hasGroup;
+- (PushMessageContentGroupContext*) group;
+- (PushMessageContentBuilder*) setGroup:(PushMessageContentGroupContext*) value;
+- (PushMessageContentBuilder*) setGroupBuilder:(PushMessageContentGroupContextBuilder*) builderForValue;
+- (PushMessageContentBuilder*) mergeGroup:(PushMessageContentGroupContext*) value;
+- (PushMessageContentBuilder*) clearGroup;
 
-- (BOOL)hasFlags;
-- (UInt32)flags;
-- (PushMessageContentBuilder *)setFlags:(UInt32)value;
-- (PushMessageContentBuilder *)clearFlags;
+- (BOOL) hasFlags;
+- (UInt32) flags;
+- (PushMessageContentBuilder*) setFlags:(UInt32) value;
+- (PushMessageContentBuilder*) clearFlags;
+
+- (BOOL) hasPa;
+- (PredefinedAnswers*) pa;
+- (PushMessageContentBuilder*) setPa:(PredefinedAnswers*) value;
+- (PushMessageContentBuilder*) setPaBuilder:(PredefinedAnswersBuilder*) builderForValue;
+- (PushMessageContentBuilder*) mergePa:(PredefinedAnswers*) value;
+- (PushMessageContentBuilder*) clearPa;
+@end
+
+#define PredefinedAnswers_type @"type"
+#define PredefinedAnswers_data @"data"
+@interface PredefinedAnswers : PBGeneratedMessage<GeneratedMessageProtocol> {
+@private
+  BOOL hasData_:1;
+  BOOL hasType_:1;
+  NSString* data;
+  UInt32 type;
+}
+- (BOOL) hasType;
+- (BOOL) hasData;
+@property (readonly) UInt32 type;
+@property (readonly, strong) NSString* data;
+
++ (instancetype) defaultInstance;
+- (instancetype) defaultInstance;
+
+- (BOOL) isInitialized;
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
+- (PredefinedAnswersBuilder*) builder;
++ (PredefinedAnswersBuilder*) builder;
++ (PredefinedAnswersBuilder*) builderWithPrototype:(PredefinedAnswers*) prototype;
+- (PredefinedAnswersBuilder*) toBuilder;
+
++ (PredefinedAnswers*) parseFromData:(NSData*) data;
++ (PredefinedAnswers*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (PredefinedAnswers*) parseFromInputStream:(NSInputStream*) input;
++ (PredefinedAnswers*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (PredefinedAnswers*) parseFromCodedInputStream:(PBCodedInputStream*) input;
++ (PredefinedAnswers*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+@end
+
+@interface PredefinedAnswersBuilder : PBGeneratedMessageBuilder {
+@private
+  PredefinedAnswers* resultPredefinedAnswers;
+}
+
+- (PredefinedAnswers*) defaultInstance;
+
+- (PredefinedAnswersBuilder*) clear;
+- (PredefinedAnswersBuilder*) clone;
+
+- (PredefinedAnswers*) build;
+- (PredefinedAnswers*) buildPartial;
+
+- (PredefinedAnswersBuilder*) mergeFrom:(PredefinedAnswers*) other;
+- (PredefinedAnswersBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
+- (PredefinedAnswersBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+
+- (BOOL) hasType;
+- (UInt32) type;
+- (PredefinedAnswersBuilder*) setType:(UInt32) value;
+- (PredefinedAnswersBuilder*) clearType;
+
+- (BOOL) hasData;
+- (NSString*) data;
+- (PredefinedAnswersBuilder*) setData:(NSString*) value;
+- (PredefinedAnswersBuilder*) clearData;
 @end
 
 
