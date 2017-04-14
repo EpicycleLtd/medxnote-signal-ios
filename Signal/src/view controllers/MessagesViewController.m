@@ -2109,6 +2109,7 @@ typedef enum : NSUInteger {
         _keyboard.delegate = self;
         self.inputToolbar.contentView.textView.inputView = _keyboard.collectionView;
         NSInteger sectionCount = _keyboard.collectionView.numberOfSections;
+        self.inputToolbar.contentView.hidden = true;
         self.inputToolbar.contentView.textView.inputView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, sectionCount*50.0);
         [self.inputToolbar.contentView.textView reloadInputViews];
         [self.inputToolbar.contentView.textView becomeFirstResponder];
@@ -2116,6 +2117,7 @@ typedef enum : NSUInteger {
         return true;
     }
     // TODO: null custom input view
+    self.inputToolbar.contentView.hidden = false;
     return false;
 }
 

@@ -24,7 +24,7 @@
 //        layout.estimatedItemSize = CGSizeMake(150, 60);
         layout.sectionInset = UIEdgeInsetsMake(5,10,5,10);
         _collectionView = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
-        _collectionView.backgroundColor = [UIColor whiteColor];
+        _collectionView.backgroundColor = [UIColor colorWithWhite:249/255.0f alpha:1.0f];
 //        _collectionView.scrollEnabled = false;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
