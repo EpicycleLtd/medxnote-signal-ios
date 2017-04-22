@@ -33,6 +33,7 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
 @interface AppDelegate () <ABPadLockScreenViewControllerDelegate>
 
 @property (nonatomic, retain) UIWindow *blankWindow;
+@property (nonatomic, copy) void (^onUnlock)();
 
 @end
 
@@ -259,6 +260,15 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
 - (void)application:(UIApplication *)application
     performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
                completionHandler:(void (^)(BOOL succeeded))completionHandler {
+    BOOL passcodeNeeded = [self removeScreenProtection];
+    if (passcodeNeeded) {
+        // pin needs to be input before proceeding so this action is stored for later
+        self.onUnlock = ^void() {
+            [[Environment getCurrent].signalsViewController composeNew];
+        };
+        completionHandler(NO);
+        return;
+    }
     if ([TSAccountManager isRegistered]) {
         [[Environment getCurrent].signalsViewController composeNew];
         completionHandler(YES);
@@ -325,7 +335,7 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
     }
 }
 
-- (void)removeScreenProtection {
+- (BOOL)removeScreenProtection {
     // get time when user exited the app and present passcode prompt if needed
     NSNumber *timeout = [MedxPasscodeManager inactivityTimeout];
     BOOL shouldShowPasscode = [MedxPasscodeManager lastActivityTime].timeIntervalSinceNow < -timeout.intValue;
@@ -333,11 +343,12 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
         [self presentPasscodeEntry];
     }
     if ([MedxPasscodeManager isLockoutEnabled]) {
-        return;
+        return shouldShowPasscode;
     }
     if (Environment.preferences.screenSecurityIsEnabled) {
         self.blankWindow.hidden = YES;
     }
+    return shouldShowPasscode;
 }
 
 - (void)presentPasscodeEntry {
@@ -464,7 +475,12 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
 }
 
 - (void)unlockWasSuccessfulForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController {
-    [padLockScreenViewController dismissViewControllerAnimated:true completion:nil];
+    [padLockScreenViewController dismissViewControllerAnimated:true completion:^{
+        if (self.onUnlock != nil) {
+            self.onUnlock();
+            self.onUnlock = nil; // not needed anymore
+        }
+    }];
 }
 
 - (void)unlockWasUnsuccessful:(NSString *)falsePin afterAttemptNumber:(NSInteger)attemptNumber padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController {
