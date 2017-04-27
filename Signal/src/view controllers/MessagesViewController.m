@@ -2125,7 +2125,7 @@ typedef enum : NSUInteger {
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     NSInteger numberOfMessages = (NSInteger)[self.messageMappings numberOfItemsInSection:(NSUInteger)section];
-    BOOL hasUnreadMessages = _unreadMessages > 0;
+    BOOL hasUnreadMessages = _unreadMessages > 0 && numberOfMessages > _unreadMessages;
     return numberOfMessages+(hasUnreadMessages ? 1 : 0);
 }
 
@@ -2141,7 +2141,7 @@ typedef enum : NSUInteger {
       NSUInteger numberOfItemsInSection = [self.messageMappings numberOfItemsInSection:section];
         
         // find unread point
-        if (unreadPoint == 0 && _unreadMessages > 0 && row == numberOfItemsInSection-_unreadMessages) {
+        if (unreadPoint == 0 && _unreadMessages > 0 && numberOfItemsInSection > _unreadMessages && row == numberOfItemsInSection-_unreadMessages) {
             unreadPoint = row;
         }
         
