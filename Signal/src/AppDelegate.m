@@ -362,7 +362,9 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
     
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    
+    if ([UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController != nil) {
+        [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:false completion:nil];
+    }
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:lockScreen animated:YES completion:nil];
 }
 
