@@ -403,6 +403,14 @@
               
               incomingMessage.receipts[[NSString stringWithFormat:@"%@_%@_2", senderName, message.source]] = formatedTime;
               
+              // predefined answers
+              if (content.hasPa == true) {
+                  NSString *paString = content.pa.data;
+                  NSArray <NSDictionary*>*jsonObject = [NSJSONSerialization JSONObjectWithData:[paString dataUsingEncoding:NSUTF8StringEncoding]
+                                                                                       options:0 error:NULL];
+                  incomingMessage.predefinedAnswers = jsonObject.firstObject[@"rows"];
+              }
+              
               //
               [incomingMessage saveWithTransaction:transaction];
           }
