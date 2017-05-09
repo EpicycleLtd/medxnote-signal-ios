@@ -2117,7 +2117,9 @@ typedef enum : NSUInteger {
         return true;
     }
     // TODO: null custom input view
+    self.inputToolbar.contentView.textView.inputView = nil;
     self.inputToolbar.contentView.hidden = false;
+    [self.inputToolbar.contentView.textView reloadInputViews];
     return false;
 }
 
