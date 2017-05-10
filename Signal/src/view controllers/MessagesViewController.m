@@ -2102,7 +2102,8 @@ typedef enum : NSUInteger {
 }
     
 - (BOOL)showInlineKeyboardIfNeeded {
-    TSMessageAdapter *message = [self messageAtIndexPath:[NSIndexPath indexPathForItem:[self.messageMappings numberOfItemsInSection:0]-1 inSection:0]];
+    NSInteger offset = unreadPoint > 0 ? 0 : 1;
+    TSMessageAdapter *message = [self messageAtIndexPath:[NSIndexPath indexPathForItem:[self.messageMappings numberOfItemsInSection:0]-offset inSection:0]];
     if (message.messageType == TSIncomingMessageAdapter && [(TSIncomingMessage*)message.interaction predefinedAnswers].count > 0) {
         TSIncomingMessage *interaction = (TSIncomingMessage *)[message interaction];
         _keyboard = [[InlineKeyboard alloc] initWithAnswers:interaction.predefinedAnswers];
