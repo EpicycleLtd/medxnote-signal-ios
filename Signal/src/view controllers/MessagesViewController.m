@@ -2160,6 +2160,11 @@ typedef enum : NSUInteger {
         message = [viewTransaction objectAtRow:row inSection:section withMappings:self.messageMappings];
         NSParameterAssert(message != nil);
     }];
+    
+    if (unreadPoint == indexPath.row) {
+        TSInteraction *infoMessage = [[TSInfoMessage alloc] init];
+        return infoMessage;
+    }
 
     return message;
 }
