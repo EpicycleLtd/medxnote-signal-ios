@@ -17,11 +17,9 @@
 }
     
 - (void)customizeWithDictionary:(NSDictionary *)style {
-    NSLog(@"style is %@", style);
     UIColor *backgroundColor = [UIColor colorWithHexString:[style[@"bg_color"] stringByReplacingOccurrencesOfString:@"#" withString:@""]];
     UIColor *borderColor = [UIColor colorWithHexString:[style[@"border"] stringByReplacingOccurrencesOfString:@"#" withString:@""]];
     UIColor *textColor = [UIColor colorWithHexString:[style[@"color"] stringByReplacingOccurrencesOfString:@"#" withString:@""]];
-    //NSNumber *borderWidth = style[@"width"];
     self.contentView.backgroundColor = backgroundColor;
     self.contentView.layer.cornerRadius = 3;
     self.contentView.clipsToBounds = true;

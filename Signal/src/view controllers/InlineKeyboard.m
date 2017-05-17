@@ -68,7 +68,11 @@
     NSArray *answerSection = _answers[indexPath.section][@"cells"];
     CGFloat totalWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat itemWidth = totalWidth/answerSection.count;
-    return CGSizeMake(itemWidth-20, 40);
+    NSNumber *width = answerSection[indexPath.row][@"style"][@"width"];
+    if (width.integerValue != 1) {
+        itemWidth = totalWidth * width.floatValue/100.0f;
+    }
+    return CGSizeMake(itemWidth-20, 40); // 20 is inter-item padding
 }
 
 @end
