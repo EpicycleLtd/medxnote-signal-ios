@@ -11,5 +11,7 @@
 @interface InlineKeyboardCell : UICollectionViewCell
     
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+    
+- (void)customizeWithDictionary:(NSDictionary *)style;
 
 @end

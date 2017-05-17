@@ -55,6 +55,7 @@
     InlineKeyboardCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"KeyboardCell" forIndexPath:indexPath];
     NSDictionary *dict = [self cellAtIndexPath:indexPath];
     cell.titleLabel.text = dict[@"title"];
+    [cell customizeWithDictionary:dict[@"style"]];
     return cell;
 }
 
