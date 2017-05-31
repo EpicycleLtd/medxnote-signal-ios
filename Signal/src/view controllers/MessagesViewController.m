@@ -56,6 +56,7 @@
 #import <Contacts/Contacts.h>
 #import <ContactsUI/ContactsUI.h>
 #import "InlineKeyboard.h"
+#import "BaseWindow.h"
 
 @import Photos;
 
@@ -888,6 +889,10 @@ typedef enum : NSUInteger {
 }
 
 #pragma mark - Data Detector/UITextView delegate
+
+- (void)textViewDidChange:(UITextView *)textView {
+    [(BaseWindow *)UIApplication.sharedApplication.keyWindow restartTimer];
+}
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
     if ([URL.scheme isEqualToString:@"tel"]) {
@@ -2109,6 +2114,7 @@ typedef enum : NSUInteger {
         _keyboard = [[InlineKeyboard alloc] initWithAnswers:interaction.predefinedAnswers];
         _keyboard.delegate = self;
         self.inputToolbar.contentView.textView.inputView = _keyboard.collectionView;
+        self.inputToolbar.contentView.textView.delegate = self;
         NSInteger sectionCount = _keyboard.collectionView.numberOfSections;
         self.inputToolbar.contentView.hidden = true;
         self.inputToolbar.contentView.textView.inputView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, sectionCount*50.0);

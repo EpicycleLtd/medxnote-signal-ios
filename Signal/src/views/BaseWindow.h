@@ -10,4 +10,6 @@
 
 @interface BaseWindow : UIWindow
 
+- (void)restartTimer;
+
 @end

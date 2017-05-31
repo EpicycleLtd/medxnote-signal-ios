@@ -42,4 +42,9 @@
     [self.activityTimer invalidate];
 }
 
+- (void)restartTimer {
+    [self resetTimer];
+    [self startTimer];
+}
+
 @end
