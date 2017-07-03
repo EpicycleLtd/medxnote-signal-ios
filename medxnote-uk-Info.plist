@@ -109,5 +109,17 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+    <key>MedxnoteHost</key>
+    <string>global2.textsecure.medx.im</string>
+    <key>MedxnoteRelay</key>
+    <string>relay</string>
+    <key>MedxnoteHostSuffix</key>
+    <string>textsecure.medx.im</string>
+    <key>MedxnoteCertName</key>
+    <string>redphone</string>
+    <key>MedxnoteCertExtension</key>
+    <string>cer</string>
+    <key>MedxnoteServerPort</key>
+    <integer>31337</integer>
 </dict>
 </plist>

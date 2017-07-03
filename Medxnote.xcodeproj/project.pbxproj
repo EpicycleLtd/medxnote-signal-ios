@@ -2429,7 +2429,6 @@
 				70B8009E190C529C0042E3F0 /* spandsp.xcodeproj */,
 				70B800A7190C54790042E3F0 /* speex.xcodeproj */,
 				9404664EC513585B05DF1350 /* Pods */,
-				B76DF2FF1F0A246100D3B989 /* medxnote-uk-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2501,6 +2500,7 @@
 				E18AB40618A05754001A532A /* AudioFiles */,
 				D221A099169C9E5E00537ABF /* main.m */,
 				D221A095169C9E5E00537ABF /* Medxnote-Info.plist */,
+				B76DF2FF1F0A246100D3B989 /* medxnote-uk-Info.plist */,
 				D221A09B169C9E5E00537ABF /* Signal-Prefix.pch */,
 				B661C211198EE2EA00548CA1 /* iOSVersions.h */,
 			);
