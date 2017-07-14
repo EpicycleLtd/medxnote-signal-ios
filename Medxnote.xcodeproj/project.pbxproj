@@ -398,6 +398,8 @@
 		B6DA6B071B8A2F9A00CA6F98 /* AppStoreRating.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DA6B061B8A2F9A00CA6F98 /* AppStoreRating.m */; };
 		B6F509971AA53F760068F56A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B6F509951AA53F760068F56A /* Localizable.strings */; };
 		B6FE7EB71ADD62FA00A6D22F /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6FE7EB61ADD62FA00A6D22F /* PushKit.framework */; };
+		B753F31B1F18CFCB00F3FE39 /* UIViewController+Medxnote.m in Sources */ = {isa = PBXBuildFile; fileRef = B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */; };
+		B753F31C1F18CFCB00F3FE39 /* UIViewController+Medxnote.m in Sources */ = {isa = PBXBuildFile; fileRef = B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */; };
 		B76DF1F31F0A246000D3B989 /* Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EB04EF18170B33006006FC /* Operation.m */; };
 		B76DF1F41F0A246000D3B989 /* MedxPasscodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AD1CE91D57C8350005C9AA /* MedxPasscodeManager.m */; };
 		B76DF1F51F0A246000D3B989 /* UIColor+HexValue.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AD1CE71D57C5840005C9AA /* UIColor+HexValue.m */; };
@@ -1237,6 +1239,8 @@
 		B6DA6B061B8A2F9A00CA6F98 /* AppStoreRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppStoreRating.m; sourceTree = "<group>"; };
 		B6F509961AA53F760068F56A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = translations/en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B6FE7EB61ADD62FA00A6D22F /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
+		B753F3191F18CFCB00F3FE39 /* UIViewController+Medxnote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Medxnote.h"; sourceTree = "<group>"; };
+		B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Medxnote.m"; sourceTree = "<group>"; };
 		B76DF2FE1F0A246100D3B989 /* medxnote-uk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "medxnote-uk.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B76DF2FF1F0A246100D3B989 /* medxnote-uk-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "medxnote-uk-Info.plist"; path = "/Users/jannemecek/Projects/medxnote-signal-ios/medxnote-uk-Info.plist"; sourceTree = "<absolute>"; };
 		B78846BF1E9F845600E041F3 /* InlineKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InlineKeyboard.h; sourceTree = "<group>"; };
@@ -2604,6 +2608,8 @@
 				B66B9F7C1AEAF40500E2E609 /* NotificationSettingsOptionsViewController.m */,
 				FCD274E91A5AFDDB00202277 /* AboutTableViewController.h */,
 				FCD274EA1A5AFDDB00202277 /* AboutTableViewController.m */,
+				B753F3191F18CFCB00F3FE39 /* UIViewController+Medxnote.h */,
+				B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -3255,6 +3261,7 @@
 				B76DF2721F0A246000D3B989 /* NotificationSettingsViewController.m in Sources */,
 				B76DF2731F0A246000D3B989 /* IgnoredPacketFailure.m in Sources */,
 				B76DF2741F0A246000D3B989 /* ZrtpManager.m in Sources */,
+				B753F31C1F18CFCB00F3FE39 /* UIViewController+Medxnote.m in Sources */,
 				B76DF2751F0A246000D3B989 /* HostNameEndPoint.m in Sources */,
 				B76DF2761F0A246000D3B989 /* DH3KKeyAgreementParticipant.m in Sources */,
 				B76DF2771F0A246000D3B989 /* EvpKeyAgreement.m in Sources */,
@@ -3453,6 +3460,7 @@
 				B66B9F721AEA6D1100E2E609 /* NotificationSettingsViewController.m in Sources */,
 				76EB059018170B33006006FC /* IgnoredPacketFailure.m in Sources */,
 				76EB05D418170B33006006FC /* ZrtpManager.m in Sources */,
+				B753F31B1F18CFCB00F3FE39 /* UIViewController+Medxnote.m in Sources */,
 				76EB058E18170B33006006FC /* HostNameEndPoint.m in Sources */,
 				E19167A418A9687800B7A468 /* DH3KKeyAgreementParticipant.m in Sources */,
 				E16E5BF018AAC40200B7C403 /* EvpKeyAgreement.m in Sources */,

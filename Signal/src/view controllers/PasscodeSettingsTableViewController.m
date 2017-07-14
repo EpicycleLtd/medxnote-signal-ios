@@ -11,6 +11,7 @@
 #import "ABPadLockScreenViewController.h"
 #import "MedxPasscodeManager.h"
 #import "ActionSheetPicker.h"
+#import "UIViewController+Medxnote.h"
 
 typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
     PasscodeSettingsActionNone,
@@ -149,7 +150,7 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
         
         [self presentViewController:lockScreen animated:YES completion:^{
             if (showAlert) {
-                [self showPasscodeAlertOnVC:lockScreen];
+                [lockScreen showPasscodeAlert];
             }
         }];
     }
@@ -180,32 +181,6 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
     [datePicker showActionSheetPicker];
 }
 
-- (void)showPasscodeAlertOnVC:(UIViewController*)vc {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"If you forget your PIN or enter it incorrectly 20 times, you will have to delete and reinstall the Medxnote app to restore access to the service" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-    [alertController addAction:okAction];
-    [vc presentViewController:alertController animated:true completion:nil];
-}
-
-#pragma mark - ABPadLockScreenSetupViewControllerDelegate Methods
-
-- (void)pinSet:(NSString *)pin padLockScreenSetupViewController:(ABPadLockScreenSetupViewController *)padLockScreenViewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [MedxPasscodeManager storePasscode:pin];
-    [self.enablePasscodeSwitch setOn:true animated:true];
-    [self refreshPasscodeCell];
-    [self refreshTimeoutCell];
-    self.action = PasscodeSettingsActionNone;
-}
-
-- (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)unlockWasCancelledForSetupViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 #pragma mark - ABLockScreenDelegate Methods
 
 - (BOOL)padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController validatePin:(NSString*)pin {
@@ -234,19 +209,6 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
 - (void)unlockWasUnsuccessful:(NSString *)falsePin afterAttemptNumber:(NSInteger)attemptNumber padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController
 {
     NSLog(@"Failed attempt number %ld with pin: %@", (long)attemptNumber, falsePin);
-}
-
-- (void)showPasscodeCreationScreen {
-    ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self complexPin:YES subtitleLabelText:@"Please enter new passcode"];
-    lockScreen.tapSoundEnabled = YES;
-    lockScreen.errorVibrateEnabled = YES;
-    
-    lockScreen.modalPresentationStyle = UIModalPresentationPopover;
-    lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    
-    [self presentViewController:lockScreen animated:NO completion:^{
-        [self showPasscodeAlertOnVC:lockScreen];
-    }];
 }
 
 @end
