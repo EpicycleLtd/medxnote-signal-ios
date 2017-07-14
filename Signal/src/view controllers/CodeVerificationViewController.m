@@ -317,6 +317,7 @@
 - (void)pinSet:(NSString *)pin padLockScreenSetupViewController:(ABPadLockScreenSetupViewController *)padLockScreenViewController {
     [self dismissViewControllerAnimated:YES completion:nil];
     [MedxPasscodeManager storePasscode:pin];
+    [MedxPasscodeManager storeInactivityTimeout:@(30*60)]; // default timeout
     [self finishRegistration];
 }
 
