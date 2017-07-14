@@ -16,6 +16,9 @@
 #import "RPAccountManager.h"
 #import "RPServerRequestsManager.h"
 #import "TSAccountManager.h"
+#import "ABPadLockScreenSetupViewController.h"
+#import "UIViewController+Medxnote.h"
+#import "MedxPasscodeManager.h"
 
 @interface CodeVerificationViewController ()
 
@@ -52,49 +55,55 @@
 - (IBAction)verifyChallengeAction:(id)sender {
     [self enableServerActions:NO];
     [_challengeTextField resignFirstResponder];
-
+    
     [self registerWithSuccess:^{
-      [_submitCodeSpinner stopAnimating];
+        [_submitCodeSpinner stopAnimating];
+        if ([[NSBundle mainBundle].infoDictionary[@"MedxnoteForcePasscode"] boolValue]) {
+            [self showPasscodeCreationScreen];
+        } else {
+            [self finishRegistration];
+        }
+    } failure:^(NSError *error) {
+        [self enableServerActions:YES];
+        [_submitCodeSpinner stopAnimating];
+        DDLogError(@"Error: %@", error.localizedDescription);
+    }];
+}
 
-      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+- (void)finishRegistration {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         [TSAccountManager didRegister];
         dispatch_async(dispatch_get_main_queue(), ^{
-          [self.navigationController
-              dismissViewControllerAnimated:YES
-                                 completion:^{
-                                   if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined ||
-                                       ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusRestricted) {
-                                       UIAlertController *controller = [UIAlertController
-                                           alertControllerWithTitle:NSLocalizedString(@"REGISTER_CONTACTS_WELCOME", nil)
-                                                            message:NSLocalizedString(@"REGISTER_CONTACTS_BODY", nil)
-                                                     preferredStyle:UIAlertControllerStyleAlert];
-
-                                       [controller addAction:[UIAlertAction
-                                                                 actionWithTitle:NSLocalizedString(
-                                                                                     @"REGISTER_CONTACTS_CONTINUE", nil)
-                                                                           style:UIAlertActionStyleDefault
-                                                                         handler:^(UIAlertAction *action) {
-                                                                           [self setupContacts];
-                                                                         }]];
-
-                                       [[UIApplication sharedApplication]
-                                               .keyWindow.rootViewController presentViewController:controller
-                                                                                          animated:YES
-                                                                                        completion:nil];
-
-                                   } else {
-                                       [self setupContacts];
-                                   }
-
-                                 }];
+            [self.navigationController
+             dismissViewControllerAnimated:YES
+             completion:^{
+                 if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined ||
+                     ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusRestricted) {
+                     UIAlertController *controller = [UIAlertController
+                                                      alertControllerWithTitle:NSLocalizedString(@"REGISTER_CONTACTS_WELCOME", nil)
+                                                      message:NSLocalizedString(@"REGISTER_CONTACTS_BODY", nil)
+                                                      preferredStyle:UIAlertControllerStyleAlert];
+                     
+                     [controller addAction:[UIAlertAction
+                                            actionWithTitle:NSLocalizedString(
+                                                                              @"REGISTER_CONTACTS_CONTINUE", nil)
+                                            style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction *action) {
+                                                [self setupContacts];
+                                            }]];
+                     
+                     [[UIApplication sharedApplication]
+                      .keyWindow.rootViewController presentViewController:controller
+                      animated:YES
+                      completion:nil];
+                     
+                 } else {
+                     [self setupContacts];
+                 }
+                 
+             }];
         });
-      });
-    }
-        failure:^(NSError *error) {
-          [self enableServerActions:YES];
-          [_submitCodeSpinner stopAnimating];
-          DDLogError(@"Error: %@", error.localizedDescription);
-        }];
+    });
 }
 
 - (void)setupContacts {
@@ -301,6 +310,18 @@
     }
 
     _headerConstraint.constant = blueHeaderHeight;
+}
+
+#pragma mark - ABPadLockScreenSetupViewControllerDelegate Methods
+
+- (void)pinSet:(NSString *)pin padLockScreenSetupViewController:(ABPadLockScreenSetupViewController *)padLockScreenViewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [MedxPasscodeManager storePasscode:pin];
+    [self finishRegistration];
+}
+
+- (void)unlockWasCancelledForSetupViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController {
+    // passcode is required if presented here
 }
 
 @end

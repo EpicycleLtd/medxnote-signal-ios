@@ -59,7 +59,7 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
     [self.enablePasscodeSwitch addTarget:self
                                         action:@selector(didToggleSwitch:)
                               forControlEvents:UIControlEventTouchUpInside];
-    
+    self.enablePasscodeSwitch.enabled = ![[NSBundle mainBundle].infoDictionary[@"MedxnoteForcePasscode"] boolValue];
     self.enablePasscodeCell.accessoryView          = self.enablePasscodeSwitch;
     self.enablePasscodeCell.userInteractionEnabled = YES;
     
