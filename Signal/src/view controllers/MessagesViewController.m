@@ -892,6 +892,7 @@ typedef enum : NSUInteger {
 
 - (void)textViewDidChange:(UITextView *)textView {
     [(BaseWindow *)UIApplication.sharedApplication.keyWindow restartTimer];
+    self.inputToolbar.contentView.rightBarButtonItem.enabled = textView.text.length > 0;
 }
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
@@ -2107,6 +2108,7 @@ typedef enum : NSUInteger {
 }
     
 - (BOOL)showInlineKeyboardIfNeeded {
+    if ([self.messageMappings numberOfItemsInSection:0] == 0) { return false; }
     NSInteger offset = unreadPoint > 0 ? 0 : 1;
     TSMessageAdapter *message = [self messageAtIndexPath:[NSIndexPath indexPathForItem:[self.messageMappings numberOfItemsInSection:0]-offset inSection:0]];
     if (message.messageType == TSIncomingMessageAdapter && [(TSIncomingMessage*)message.interaction predefinedAnswers].count > 0) {
