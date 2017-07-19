@@ -23,8 +23,8 @@
 
     if (self) {
         self.pinnedCertificates = [NSSet setWithArray:@[
-            [self certificateDataForService:@"textsecure"],
-            [self certificateDataForService:@"redphone"]
+//            [self certificateDataForService:@"textsecure"],
+            [self certificateDataForService:NSBundle.mainBundle.infoDictionary[@"MedxnoteCertName"]]
         ]];
     }
 
@@ -32,7 +32,7 @@
 }
 
 - (NSArray *)certs {
-    return @[ (__bridge id)[self certificateForService:@"textsecure"] ];
+    return @[ (__bridge id)[self certificateForService:NSBundle.mainBundle.infoDictionary[@"MedxnoteCertName"]] ];
 }
 
 - (NSData *)certificateDataForService:(NSString *)service {
