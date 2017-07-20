@@ -21,8 +21,8 @@ typedef enum { kSMSVerification, kPhoneNumberVerification } VerificationTranspor
 
 #define textSecureHTTPTimeOut 10
 
-#define textSecureWebSocketAPI    @"wss://global2.textsecure.medx.im/v1/websocket/"
-#define textSecureServerURL       @"https://global2.textsecure.medx.im/"
+#define textSecureWebSocketAPI    [NSString stringWithFormat:@"wss://%@/v1/websocket/", [NSBundle mainBundle].infoDictionary[@"MedxnoteHost"]]
+#define textSecureServerURL       [NSString stringWithFormat:@"https://%@/", [NSBundle mainBundle].infoDictionary[@"MedxnoteHost"]]
 
 #define textSecureGeneralAPI @"v1"
 #define textSecureAccountsAPI @"v1/accounts"
