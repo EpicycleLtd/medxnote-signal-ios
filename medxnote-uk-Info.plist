@@ -63,6 +63,8 @@
 	<string>relay</string>
 	<key>MedxnoteServerPort</key>
 	<integer>31337</integer>
+	<key>MedxnoteStagingRelay</key>
+	<string>redphone-staging-relay</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>

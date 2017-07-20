@@ -49,6 +49,22 @@
 	<string>public.app-category.social-networking</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MedxnoteCertExtension</key>
+	<string>cer</string>
+	<key>MedxnoteCertName</key>
+	<string>redphone</string>
+	<key>MedxnoteForcePasscode</key>
+	<false/>
+	<key>MedxnoteHost</key>
+	<string>global2.textsecure.medx.im</string>
+	<key>MedxnoteHostSuffix</key>
+	<string>textsecure.medx.im</string>
+	<key>MedxnoteRelay</key>
+	<string>relay</string>
+	<key>MedxnoteServerPort</key>
+	<integer>31337</integer>
+	<key>MedxnoteStagingRelay</key>
+	<string>redphone-staging-relay</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -108,20 +124,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-	<key>MedxnoteHost</key>
-	<string>global2.textsecure.medx.im</string>
-	<key>MedxnoteRelay</key>
-	<string>relay</string>
-	<key>MedxnoteHostSuffix</key>
-	<string>textsecure.medx.im</string>
-	<key>MedxnoteCertName</key>
-	<string>redphone</string>
-	<key>MedxnoteCertExtension</key>
-	<string>cer</string>
-	<key>MedxnoteServerPort</key>
-	<integer>31337</integer>
-	<key>MedxnoteForcePasscode</key>
 	<false/>
 </dict>
 </plist>
