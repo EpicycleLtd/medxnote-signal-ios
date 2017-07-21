@@ -42,14 +42,15 @@ static unsigned char DH3K_PRIME[] = {
       DDLogError(@"%@: %@, %d", error, relatedInfo, causedTermination);
     };
 
+    NSDictionary *info = [NSBundle mainBundle].infoDictionary;
     return [Environment
                    environmentWithLogging:logging
                             andErrorNoter:errorNoter
-                            andServerPort:31337
-                  andMasterServerHostName:@"global2.textsecure.medx.im"
-                      andDefaultRelayName:@"relay"
-             andRelayServerHostNameSuffix:@"textsecure.medx.im"
-                           andCertificate:[Certificate certificateFromResourcePath:@"redphone" ofType:@"cer"]
+                            andServerPort:info[@"MedxnoteServerPort"]
+                  andMasterServerHostName:info[@"MedxnoteHost"]
+                      andDefaultRelayName:info[@"MedxnoteRelay"]
+             andRelayServerHostNameSuffix:info[@"MedxnoteHostSuffix"]
+                           andCertificate:[Certificate certificateFromResourcePath:info[@"MedxnoteCertName"] ofType:info[@"MedxnoteCertExtension"]]
         andSupportedKeyAgreementProtocols:[self supportedKeyAgreementProtocols]
                           andPhoneManager:[PhoneManager phoneManagerWithErrorHandler:errorNoter]
                      andRecentCallManager:[RecentCallManager new]
@@ -65,15 +66,15 @@ static unsigned char DH3K_PRIME[] = {
     ErrorHandlerBlock errorNoter = ^(id error, id relatedInfo, bool causedTermination) {
       DDLogError(@"%@: %@, %d", error, relatedInfo, causedTermination);
     };
-
+    NSDictionary *info = [NSBundle mainBundle].infoDictionary;
     return [Environment
                    environmentWithLogging:logging
                             andErrorNoter:errorNoter
-                            andServerPort:31337
-                  andMasterServerHostName:@"global2.textsecure.medx.im"
-                      andDefaultRelayName:@"redphone-staging-relay"
-             andRelayServerHostNameSuffix:@"textsecure.medx.im"
-                           andCertificate:[Certificate certificateFromResourcePath:@"redphone" ofType:@"cer"]
+                            andServerPort:info[@"MedxnoteServerPort"]
+                  andMasterServerHostName:info[@"MedxnoteHost"]
+                      andDefaultRelayName:info[@"MedxnoteStagingRelay"]
+             andRelayServerHostNameSuffix:info[@"MedxnoteHostSuffix"]
+                           andCertificate:[Certificate certificateFromResourcePath:info[@"MedxnoteCertName"] ofType:info[@"MedxnoteCertExtension"]]
         andSupportedKeyAgreementProtocols:[self supportedKeyAgreementProtocols]
                           andPhoneManager:[PhoneManager phoneManagerWithErrorHandler:errorNoter]
                      andRecentCallManager:[RecentCallManager new]

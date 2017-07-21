@@ -52,11 +52,11 @@
 	<key>MedxnoteCertExtension</key>
 	<string>cer</string>
 	<key>MedxnoteCertName</key>
-	<string>redphone</string>
+	<string>redphone-uk</string>
 	<key>MedxnoteForcePasscode</key>
-	<false/>
+	<true/>
 	<key>MedxnoteHost</key>
-	<string>global2.textsecure.medx.im</string>
+	<string>uk.textsecure.medx.im</string>
 	<key>MedxnoteHostSuffix</key>
 	<string>textsecure.medx.im</string>
 	<key>MedxnoteRelay</key>
