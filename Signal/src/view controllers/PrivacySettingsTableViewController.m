@@ -57,7 +57,7 @@
     self.enableScreenSecurityCell.textLabel.text = NSLocalizedString(@"SETTINGS_SCREEN_SECURITY", @"");
 
     self.enableScreenSecuritySwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-
+    self.enableScreenSecuritySwitch.enabled = ![[NSBundle mainBundle].infoDictionary[@"MedxnoteForcePasscode"] boolValue];
     self.enableScreenSecurityCell.accessoryView          = self.enableScreenSecuritySwitch;
     self.enableScreenSecurityCell.userInteractionEnabled = YES;
     
