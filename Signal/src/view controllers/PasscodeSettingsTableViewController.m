@@ -181,6 +181,25 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
     [datePicker showActionSheetPicker];
 }
 
+#pragma mark - ABPadLockScreenSetupViewControllerDelegate Methods
+
+- (void)pinSet:(NSString *)pin padLockScreenSetupViewController:(ABPadLockScreenSetupViewController *)padLockScreenViewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [MedxPasscodeManager storePasscode:pin];
+    [self.enablePasscodeSwitch setOn:true animated:true];
+    [self refreshPasscodeCell];
+    [self refreshTimeoutCell];
+    self.action = PasscodeSettingsActionNone;
+}
+
+- (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)unlockWasCancelledForSetupViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - ABLockScreenDelegate Methods
 
 - (BOOL)padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController validatePin:(NSString*)pin {
