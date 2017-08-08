@@ -24,6 +24,7 @@
 #import "BaseWindow.h"
 #import <Reachability/Reachability.h>
 #import "SignalsNavigationController.h"
+#import <DTTJailbreakDetection/DTTJailbreakDetection.h>
 
 static NSString *const kStoryboardName                  = @"Storyboard";
 static NSString *const kInitialViewControllerIdentifier = @"UserInitialViewController";
@@ -105,10 +106,26 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
 
     [self prepareScreenshotProtection];
     
-    if ([MedxPasscodeManager isPasscodeEnabled]) {
-        [self removeScreenProtection];
+    // jailbreak
+    if ([DTTJailbreakDetection isJailbroken]) {
+        self.window.hidden = YES;
+        self.blankWindow.hidden = NO;
+        [self.blankWindow makeKeyAndVisible];
+        NSLog(@"device is jailbroken");
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                                 message:@"This app is only supported on unmodified versions of iOS."
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction *action) {
+                                                                 exit(0);
+                                                             }];
+        [alertController addAction:cancelAction];
+        [self.blankWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+        return YES;
     }
     
+    // lockout
     if ([MedxPasscodeManager isLockoutEnabled]) {
         // stop loading app as user is locked out
         self.blankWindow.hidden = NO;
@@ -116,8 +133,12 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
         
         // show alert about lockout
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"The app has been disabled due to too many invalid passcode attempts. Please delete and reinstall the app to regain access" preferredStyle:UIAlertControllerStyleAlert];
-        [self.blankWindow.rootViewController presentViewController:alertController animated:true completion:nil];
+        [self.blankWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
         return YES;
+    }
+    
+    if ([MedxPasscodeManager isPasscodeEnabled]) {
+        [self removeScreenProtection];
     }
 
     if ([TSAccountManager isRegistered]) {
@@ -224,7 +245,9 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
     if (getenv("runningTests_dontStartApp")) {
         return;
     }
-
+    // prevent becoming active if locked out or jailbroken
+    if ([DTTJailbreakDetection isJailbroken] || [MedxPasscodeManager isLockoutEnabled]) { return; }
+    
     if ([TSAccountManager isRegistered]) {
         // We're double checking that the app is active, to be sure since we can't verify in production env due to code
         // signing.
@@ -297,7 +320,7 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
         UIWindow *window              = [[UIWindow alloc] initWithFrame:self.window.bounds];
         window.hidden                 = YES;
         window.opaque                 = YES;
-        window.userInteractionEnabled = NO;
+        window.userInteractionEnabled = YES;
         window.windowLevel            = CGFLOAT_MAX;
         window.backgroundColor        = UIColor.ows_materialBlueColor;
 

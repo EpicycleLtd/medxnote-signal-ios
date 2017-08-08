@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1207CEC4533A2CAFAB006EEF /* libPods-medxnote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4231D1094BF88D03A772816 /* libPods-medxnote.a */; };
 		30209C98DABCE82064B4EAF5 /* libPods-SignalTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A33D3C7EB4B17BDBD47F0FCC /* libPods-SignalTests.a */; };
 		393E57A3F5203368232E76C4 /* libPods-MedxnoteTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8C2CBA54B477F1CBAA9C25 /* libPods-MedxnoteTests.a */; };
 		4520D8D51D417D8E00123472 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4520D8D41D417D8E00123472 /* Photos.framework */; };
@@ -614,7 +615,6 @@
 		B76DF2C61F0A246000D3B989 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D221A08F169C9E5E00537ABF /* Foundation.framework */; };
 		B76DF2C71F0A246000D3B989 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D221A0E7169DFFC500537ABF /* AVFoundation.framework */; };
 		B76DF2C81F0A246000D3B989 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D24B5BD4169F568C00681372 /* AudioToolbox.framework */; };
-		B76DF2C91F0A246000D3B989 /* libPods-medxnote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4231D1094BF88D03A772816 /* libPods-medxnote.a */; };
 		B76DF2CB1F0A246000D3B989 /* play_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD41D7B41A6F6F0600241130 /* play_button@2x.png */; };
 		B76DF2CC1F0A246000D3B989 /* audio_pause_button_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = AD83FF381A73426500B5C81A /* audio_pause_button_blue.png */; };
 		B76DF2CD1F0A246000D3B989 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5509EC91A69AB8B00ABA4BC /* Storyboard.storyboard */; };
@@ -795,7 +795,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1B9BD7120938EEB0E6EDC65D /* Pods-medxnote.app store release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-medxnote.app store release.xcconfig"; path = "Pods/Target Support Files/Pods-medxnote/Pods-medxnote.app store release.xcconfig"; sourceTree = "<group>"; };
+		3FE19F30EF543CB593F3C352 /* Pods-medxnote.app store release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-medxnote.app store release.xcconfig"; path = "Pods/Target Support Files/Pods-medxnote/Pods-medxnote.app store release.xcconfig"; sourceTree = "<group>"; };
 		4520D8D41D417D8E00123472 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		4526BD481CA61C8D00166BC8 /* OWSMessageEditing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSMessageEditing.h; sourceTree = "<group>"; };
 		453CC0361D08E1A60040EBA3 /* sn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sn; path = translations/sn.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -838,6 +838,7 @@
 		70BAFD5B190584BE00FA5E0B /* NotificationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationTracker.h; sourceTree = "<group>"; };
 		70BAFD5C190584BE00FA5E0B /* NotificationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationTracker.m; sourceTree = "<group>"; };
 		70E803ED18F6DD1400BF77BC /* EvpUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvpUtil.h; sourceTree = "<group>"; };
+		7449A61498F351EC504C29C1 /* Pods-medxnote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-medxnote.debug.xcconfig"; path = "Pods/Target Support Files/Pods-medxnote/Pods-medxnote.debug.xcconfig"; sourceTree = "<group>"; };
 		768A1A2A17FC9CD300E00ED8 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		76C87F18181EFCE600C4ACAB /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		76EB03C218170B33006006FC /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1085,7 +1086,6 @@
 		B1AD1CE91D57C8350005C9AA /* MedxPasscodeManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MedxPasscodeManager.m; path = Signal/src/phone/MedxPasscodeManager.m; sourceTree = "<group>"; };
 		B1AD1CEB1D57CC8D0005C9AA /* MedxPasscodeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MedxPasscodeManager.h; path = Signal/src/phone/MedxPasscodeManager.h; sourceTree = "<group>"; };
 		B4231D1094BF88D03A772816 /* libPods-medxnote.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-medxnote.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5AF97FF4DC1003BA90DC7E1 /* Pods-medxnote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-medxnote.debug.xcconfig"; path = "Pods/Target Support Files/Pods-medxnote/Pods-medxnote.debug.xcconfig"; sourceTree = "<group>"; };
 		B60341CD1AA5469800A01E42 /* ja_JP */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja_JP; path = translations/ja_JP.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B609597A1C2C0FC6004E8797 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iRate.h; path = Libraries/iRate/iRate.h; sourceTree = SOURCE_ROOT; };
 		B609597B1C2C0FC6004E8797 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iRate.m; path = Libraries/iRate/iRate.m; sourceTree = SOURCE_ROOT; };
@@ -1408,7 +1408,6 @@
 				B76DF2C61F0A246000D3B989 /* Foundation.framework in Frameworks */,
 				B76DF2C71F0A246000D3B989 /* AVFoundation.framework in Frameworks */,
 				B76DF2C81F0A246000D3B989 /* AudioToolbox.framework in Frameworks */,
-				B76DF2C91F0A246000D3B989 /* libPods-medxnote.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1439,6 +1438,7 @@
 				D221A0E8169DFFC500537ABF /* AVFoundation.framework in Frameworks */,
 				D24B5BD5169F568C00681372 /* AudioToolbox.framework in Frameworks */,
 				FCE2A493F73B50521E29B871 /* libPods-medxnote.a in Frameworks */,
+				1207CEC4533A2CAFAB006EEF /* libPods-medxnote.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2080,10 +2080,10 @@
 				DF728B4B438716EAF95CEC18 /* Pods-Signal.app store release.xcconfig */,
 				AD2AB1207E8888E4262D781B /* Pods-SignalTests.debug.xcconfig */,
 				E85DB184824BA9DC302EC8B3 /* Pods-SignalTests.app store release.xcconfig */,
-				B5AF97FF4DC1003BA90DC7E1 /* Pods-medxnote.debug.xcconfig */,
-				1B9BD7120938EEB0E6EDC65D /* Pods-medxnote.app store release.xcconfig */,
 				A38E38D3D2C204A137971BA8 /* Pods-MedxnoteTests.debug.xcconfig */,
 				F89897AE108574C2FA5CBDA9 /* Pods-MedxnoteTests.app store release.xcconfig */,
+				7449A61498F351EC504C29C1 /* Pods-medxnote.debug.xcconfig */,
+				3FE19F30EF543CB593F3C352 /* Pods-medxnote.app store release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2685,12 +2685,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B76DF2FB1F0A246000D3B989 /* Build configuration list for PBXNativeTarget "medxnote-uk" */;
 			buildPhases = (
-				B76DF1F11F0A246000D3B989 /* [CP] Check Pods Manifest.lock */,
 				B76DF1F21F0A246000D3B989 /* Sources */,
 				B76DF2B21F0A246000D3B989 /* Frameworks */,
 				B76DF2CA1F0A246000D3B989 /* Resources */,
-				B76DF2F91F0A246000D3B989 /* [CP] Embed Pods Frameworks */,
-				B76DF2FA1F0A246000D3B989 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -3005,7 +3002,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		3465F381B1856CC06933B3A8 /* [CP] Copy Pods Resources */ = {
@@ -3050,7 +3047,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		B4E9B04E862FB64FC9A8F79B /* [CP] Embed Pods Frameworks */ = {
@@ -3066,51 +3063,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MedxnoteTests/Pods-MedxnoteTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B76DF1F11F0A246000D3B989 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B76DF2F91F0A246000D3B989 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-medxnote/Pods-medxnote-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B76DF2FA1F0A246000D3B989 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-medxnote/Pods-medxnote-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F76686434770E2BBEBD9665A /* [CP] Copy Pods Resources */ = {
@@ -3803,7 +3755,6 @@
 /* Begin XCBuildConfiguration section */
 		B76DF2FC1F0A246000D3B989 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B5AF97FF4DC1003BA90DC7E1 /* Pods-medxnote.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -3863,7 +3814,6 @@
 		};
 		B76DF2FD1F0A246000D3B989 /* App Store Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B9BD7120938EEB0E6EDC65D /* Pods-medxnote.app store release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -4038,7 +3988,7 @@
 		};
 		D221A0BD169C9E5F00537ABF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B5AF97FF4DC1003BA90DC7E1 /* Pods-medxnote.debug.xcconfig */;
+			baseConfigurationReference = 7449A61498F351EC504C29C1 /* Pods-medxnote.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -4098,7 +4048,7 @@
 		};
 		D221A0BE169C9E5F00537ABF /* App Store Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B9BD7120938EEB0E6EDC65D /* Pods-medxnote.app store release.xcconfig */;
+			baseConfigurationReference = 3FE19F30EF543CB593F3C352 /* Pods-medxnote.app store release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

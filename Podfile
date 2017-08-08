@@ -14,6 +14,7 @@ target 'medxnote' do
     pod 'ABPadLockScreen', '~> 3.3.0'
     pod 'ActionSheetPicker-3.0'
     pod 'Reachability'
+    pod 'DTTJailbreakDetection'
     target 'MedxnoteTests' do
         inherit! :search_paths
     end
