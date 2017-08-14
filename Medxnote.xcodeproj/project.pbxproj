@@ -32,6 +32,7 @@
 		45C681C91D305C9E0050903A /* OWSDisplayedMessageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C681C31D305C9E0050903A /* OWSDisplayedMessageCollectionViewCell.xib */; };
 		45CB2FA81CB7146C00E1B343 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45CB2FA71CB7146C00E1B343 /* Launch Screen.storyboard */; };
 		4CE0E3771B954546007210CF /* TSAnimatedAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0E3761B954546007210CF /* TSAnimatedAdapter.m */; };
+		6C2090246BCAD7EE66674534 /* libPods-medxnote-uk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A97F144074F97ADE17D15E11 /* libPods-medxnote-uk.a */; };
 		701231B518ECAA4500D456C4 /* EvpMessageDigest.m in Sources */ = {isa = PBXBuildFile; fileRef = 701231B418ECAA4500D456C4 /* EvpMessageDigest.m */; };
 		70377AAB1918450100CAF501 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70377AAA1918450100CAF501 /* MobileCoreServices.framework */; };
 		7038632718F70C0700D4A43F /* CryptoTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 7038632418F70C0700D4A43F /* CryptoTools.m */; };
@@ -1054,6 +1055,7 @@
 		A5D0699A1A50E9CB004CB540 /* ShowGroupMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowGroupMembersViewController.h; sourceTree = "<group>"; };
 		A5E9D4B91A65FAD800E4481C /* TSVideoAttachmentAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSVideoAttachmentAdapter.m; sourceTree = "<group>"; };
 		A5E9D4BA1A65FAD800E4481C /* TSVideoAttachmentAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSVideoAttachmentAdapter.h; sourceTree = "<group>"; };
+		A97F144074F97ADE17D15E11 /* libPods-medxnote-uk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-medxnote-uk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB58893A1E35FDA900471666 /* BaseWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseWindow.h; sourceTree = "<group>"; };
 		AB58893B1E35FDA900471666 /* BaseWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseWindow.m; sourceTree = "<group>"; };
 		AB7FA5D21E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasscodeSettingsTableViewController.h; sourceTree = "<group>"; };
@@ -1261,6 +1263,7 @@
 		BFB074C419A5611000F2947C /* FutureUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FutureUtil.m; sourceTree = "<group>"; };
 		BFB074C519A5611000F2947C /* ObservableValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObservableValue.h; sourceTree = "<group>"; };
 		BFB074C619A5611000F2947C /* ObservableValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObservableValue.m; sourceTree = "<group>"; };
+		C344407A3DE5670274099328 /* Pods-medxnote-uk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-medxnote-uk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-medxnote-uk/Pods-medxnote-uk.debug.xcconfig"; sourceTree = "<group>"; };
 		CC8C2CBA54B477F1CBAA9C25 /* libPods-MedxnoteTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MedxnoteTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2179CFB16BB0B3A0006F3AB /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		D2179CFD16BB0B480006F3AB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1336,6 +1339,7 @@
 		E1A0AD8B16E13FDD0071E604 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		E1CD329418BCFF9900B1A496 /* SoundInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundInstance.h; sourceTree = "<group>"; };
 		E1CD329518BCFF9900B1A496 /* SoundInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundInstance.m; sourceTree = "<group>"; };
+		E4E7D01AAD71F82C480AE667 /* Pods-medxnote-uk.app store release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-medxnote-uk.app store release.xcconfig"; path = "Pods/Target Support Files/Pods-medxnote-uk/Pods-medxnote-uk.app store release.xcconfig"; sourceTree = "<group>"; };
 		E85DB184824BA9DC302EC8B3 /* Pods-SignalTests.app store release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalTests.app store release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalTests/Pods-SignalTests.app store release.xcconfig"; sourceTree = "<group>"; };
 		F89897AE108574C2FA5CBDA9 /* Pods-MedxnoteTests.app store release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MedxnoteTests.app store release.xcconfig"; path = "Pods/Target Support Files/Pods-MedxnoteTests/Pods-MedxnoteTests.app store release.xcconfig"; sourceTree = "<group>"; };
 		FC3196281A067D8F0094C78E /* MessageComposeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageComposeTableViewController.h; sourceTree = "<group>"; };
@@ -1408,6 +1412,7 @@
 				B76DF2C61F0A246000D3B989 /* Foundation.framework in Frameworks */,
 				B76DF2C71F0A246000D3B989 /* AVFoundation.framework in Frameworks */,
 				B76DF2C81F0A246000D3B989 /* AudioToolbox.framework in Frameworks */,
+				6C2090246BCAD7EE66674534 /* libPods-medxnote-uk.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2084,6 +2089,8 @@
 				F89897AE108574C2FA5CBDA9 /* Pods-MedxnoteTests.app store release.xcconfig */,
 				7449A61498F351EC504C29C1 /* Pods-medxnote.debug.xcconfig */,
 				3FE19F30EF543CB593F3C352 /* Pods-medxnote.app store release.xcconfig */,
+				C344407A3DE5670274099328 /* Pods-medxnote-uk.debug.xcconfig */,
+				E4E7D01AAD71F82C480AE667 /* Pods-medxnote-uk.app store release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2481,6 +2488,7 @@
 				A33D3C7EB4B17BDBD47F0FCC /* libPods-SignalTests.a */,
 				B4231D1094BF88D03A772816 /* libPods-medxnote.a */,
 				CC8C2CBA54B477F1CBAA9C25 /* libPods-MedxnoteTests.a */,
+				A97F144074F97ADE17D15E11 /* libPods-medxnote-uk.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2685,9 +2693,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B76DF2FB1F0A246000D3B989 /* Build configuration list for PBXNativeTarget "medxnote-uk" */;
 			buildPhases = (
+				712650F45D6F9F0E0E526B92 /* [CP] Check Pods Manifest.lock */,
 				B76DF1F21F0A246000D3B989 /* Sources */,
 				B76DF2B21F0A246000D3B989 /* Frameworks */,
 				B76DF2CA1F0A246000D3B989 /* Resources */,
+				004AD8084E8A1F879F7EF5F8 /* [CP] Embed Pods Frameworks */,
+				196AF3C944368427117290C1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2990,6 +3001,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		004AD8084E8A1F879F7EF5F8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-medxnote-uk/Pods-medxnote-uk-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		1460156AE01E0DB0949D61FE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3003,6 +3029,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		196AF3C944368427117290C1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-medxnote-uk/Pods-medxnote-uk-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3465F381B1856CC06933B3A8 /* [CP] Copy Pods Resources */ = {
@@ -3036,6 +3077,21 @@
 			showEnvVarsInLog = 0;
 		};
 		6565655F4068F9E5CDC5687F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		712650F45D6F9F0E0E526B92 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3755,6 +3811,7 @@
 /* Begin XCBuildConfiguration section */
 		B76DF2FC1F0A246000D3B989 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C344407A3DE5670274099328 /* Pods-medxnote-uk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -3814,6 +3871,7 @@
 		};
 		B76DF2FD1F0A246000D3B989 /* App Store Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4E7D01AAD71F82C480AE667 /* Pods-medxnote-uk.app store release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

@@ -1,7 +1,6 @@
 platform :ios, '8.0'
 source 'https://github.com/CocoaPods/Specs.git'
 
-target 'medxnote' do
     pod 'SocketRocket',               :git => 'https://github.com/facebook/SocketRocket.git'
     pod 'SignalServiceKit',           :git => 'https://github.com/WhisperSystems/SignalServiceKit.git'
     pod 'PastelogKit',                '~> 1.3'
@@ -15,7 +14,15 @@ target 'medxnote' do
     pod 'ActionSheetPicker-3.0'
     pod 'Reachability'
     pod 'DTTJailbreakDetection'
-    target 'MedxnoteTests' do
-        inherit! :search_paths
+
+    target 'medxnote' do
+
     end
-end
+
+    target 'MedxnoteTests' do
+        
+    end
+    
+    target 'medxnote-uk' do
+        
+    end
