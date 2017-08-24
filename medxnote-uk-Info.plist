@@ -52,17 +52,17 @@
 	<key>MedxnoteCertExtension</key>
 	<string>cer</string>
 	<key>MedxnoteCertName</key>
-	<string>redphone-uk</string>
-	<key>MedxnoteRedphoneCertName</key>
 	<string>textsecure-uk</string>
+	<key>MedxnoteRedphoneCertName</key>
+	<string>redphone-uk</string>
 	<key>MedxnoteForcePasscode</key>
 	<true/>
 	<key>MedxnoteHost</key>
 	<string>uk.textsecure.medx.im</string>
 	<key>MedxnoteHostSuffix</key>
-	<string>textsecure.medx.im</string>
+	<string>medx.im</string>
 	<key>MedxnoteRelay</key>
-	<string>relay</string>
+	<string>redphone</string>
 	<key>MedxnoteServerPort</key>
 	<integer>31337</integer>
 	<key>MedxnoteStagingRelay</key>

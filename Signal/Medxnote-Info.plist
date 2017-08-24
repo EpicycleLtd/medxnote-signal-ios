@@ -52,17 +52,17 @@
 	<key>MedxnoteCertExtension</key>
 	<string>cer</string>
 	<key>MedxnoteCertName</key>
-	<string>redphone</string>
+	<string>textsecure</string>
 	<key>MedxnoteForcePasscode</key>
 	<false/>
 	<key>MedxnoteHost</key>
 	<string>global2.textsecure.medx.im</string>
 	<key>MedxnoteHostSuffix</key>
-	<string>textsecure.medx.im</string>
+	<string>medx.im</string>
 	<key>MedxnoteRelay</key>
-	<string>relay</string>
+	<string>redphone</string>
 	<key>MedxnoteRedphoneCertName</key>
-	<string>textsecure</string>
+	<string>redphone</string>
 	<key>MedxnoteServerPort</key>
 	<integer>31337</integer>
 	<key>MedxnoteStagingRelay</key>
