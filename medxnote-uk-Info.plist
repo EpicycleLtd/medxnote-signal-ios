@@ -53,6 +53,8 @@
 	<string>cer</string>
 	<key>MedxnoteCertName</key>
 	<string>redphone-uk</string>
+	<key>MedxnoteRedphoneCertName</key>
+	<string>textsecure-uk</string>
 	<key>MedxnoteForcePasscode</key>
 	<true/>
 	<key>MedxnoteHost</key>
