@@ -287,15 +287,13 @@
 }
 
 - (BOOL)supportsVOIPPush {
-/*
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(_iOS_8_2_0)) {
         return YES;
     } else {
         return NO;
     }
-*/
 //Imre 2016-10-02 disabled voip background mode
-    return NO;
+//    return NO;
 }
 
 #pragma mark Register device for Push Notification locally
