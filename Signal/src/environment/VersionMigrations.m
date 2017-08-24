@@ -33,6 +33,14 @@
 
 + (void)performUpdateCheck
 {
+    BOOL VOIPRegistration =
+    [[PushManager sharedManager] supportsVOIPPush] && ![Environment.preferences hasRegisteredVOIPPush];
+    
+    // VOIP Push might need to be enabled because 1) user ran old version 2) Update to compatible iOS version
+    if (VOIPRegistration && [TSAccountManager isRegistered]) {
+        [self nonBlockingPushRegistration];
+    }
+    
     NSString *previousVersion = Environment.preferences.lastRanVersion;
     if (!previousVersion) {
         DDLogInfo(@"No previous version found. Probably first launch since install - nothing to migrate.");
@@ -44,14 +52,6 @@
         DDLogError(@"Migrating from RedPhone no longer supported. Resetting app data and quitting.");
         [Environment resetAppData];
         exit(0);
-    }
-
-    BOOL VOIPRegistration =
-        [[PushManager sharedManager] supportsVOIPPush] && ![Environment.preferences hasRegisteredVOIPPush];
-
-    // VOIP Push might need to be enabled because 1) user ran old version 2) Update to compatible iOS version
-    if (VOIPRegistration && [TSAccountManager isRegistered]) {
-        [self nonBlockingPushRegistration];
     }
 
     if ([self isVersion:previousVersion atLeast:@"2.0.0" andLessThan:@"2.1.70"] && [TSAccountManager isRegistered]) {
