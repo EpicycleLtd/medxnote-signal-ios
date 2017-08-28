@@ -22,6 +22,7 @@
 #import "TSStorageManager.h"
 #import "VersionMigrations.h"
 #import "MessageComposeTableViewController.h"
+#import "TSMessageAdapter.h"
 
 #import <YapDatabase/YapDatabaseViewChange.h>
 #import "YapDatabaseViewConnection.h"
@@ -42,6 +43,7 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
 @property (nonatomic) long inboxCount;
 @property (nonatomic, retain) UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) id previewingContext;
+@property BOOL isSendingUnsent;
 
 @end
 
@@ -90,6 +92,11 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
         (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
         [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sendUnsentMessages)
+                                                 name:@"InternetNowReachable"
+                                               object:nil];
 }
 
 - (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
@@ -161,6 +168,50 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
 
 - (void)tableViewSetUp {
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+}
+
+- (void)sendUnsentMessages {
+    if (self.isSendingUnsent) { return; }
+    self.isSendingUnsent = true;
+    NSLog(@"will send unsent messages");
+    
+    dispatch_group_t group = dispatch_group_create();
+    
+    for (NSUInteger i = 0; i < [self.threadMappings numberOfItemsInSection:0]; i++) {
+        TSThread *thread = [self threadForIndexPath:[NSIndexPath indexPathForRow:(NSInteger)i inSection:0]];
+        [self.uiDatabaseConnection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
+            YapDatabaseViewMappings *messageMappings =
+            [[YapDatabaseViewMappings alloc] initWithGroups:@[thread.uniqueId] view:TSMessageDatabaseViewExtensionName];
+            [messageMappings updateWithTransaction:transaction];
+            YapDatabaseViewTransaction *viewTransaction = [transaction ext:TSMessageDatabaseViewExtensionName];
+            NSParameterAssert(viewTransaction != nil);
+            NSParameterAssert(messageMappings != nil);
+            
+            // check all messages in this thread
+            NSUInteger numberOfItemsInSection = [messageMappings numberOfItemsInSection:0];
+            for (NSUInteger j = 0; j<numberOfItemsInSection; j++) {
+                TSInteraction *interaction = [viewTransaction objectAtRow:j inSection:0 withMappings:messageMappings];
+                TSMessageAdapter *adapter = (TSMessageAdapter *)[TSMessageAdapter messageViewDataWithInteraction:interaction inThread:thread];
+                if (adapter.messageType != TSOutgoingMessageAdapter) { continue; }
+                TSOutgoingMessage *message = (TSOutgoingMessage *)adapter;
+                if (message.messageState == TSOutgoingMessageStateUnsent) {
+                    dispatch_group_enter(group);
+                    [[TSMessagesManager sharedManager] sendMessage:(TSOutgoingMessage *)interaction inThread:thread success:^{
+                        NSLog(@"sent unsent message %@", message);
+                        dispatch_group_leave(group);
+                    } failure:^{
+                        NSLog(@"failed to send unsent message %@", message);
+                        dispatch_group_leave(group);
+                    }];
+                }
+            }
+        }];
+    }
+    
+    dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSLog(@"all offline sending tasks done!");
+        self.isSendingUnsent = false;
+    });
 }
 
 #pragma mark - Table View Data Source

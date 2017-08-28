@@ -249,10 +249,6 @@ typedef enum : NSUInteger {
 {
     if (shouldObserve) {
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(sendUnsentMessages)
-                                                     name:@"InternetNowReachable"
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(yapDatabaseModified:)
                                                      name:YapDatabaseModifiedNotification
                                                    object:nil];
@@ -323,32 +319,10 @@ typedef enum : NSUInteger {
     [self.readTimer invalidate];
 }
 
-- (void)sendUnsentMessages {
-    for (NSIndexPath *indexPath in self.collectionView.indexPathsForVisibleItems) {
-        TSMessageAdapter *messageItem =
-        (TSMessageAdapter*)[self collectionView:self.collectionView messageDataForItemAtIndexPath:indexPath];
-        TSInteraction *interaction = [self interactionAtIndexPath:indexPath];
-        
-        if (messageItem.messageType == TSOutgoingMessageAdapter) {
-            TSOutgoingMessage *outgoingMessage = (TSOutgoingMessage *)messageItem;
-            if (outgoingMessage.messageState == TSOutgoingMessageStateUnsent) {
-                [[TSMessagesManager sharedManager] sendMessage:(TSOutgoingMessage *)interaction
-                                                      inThread:self.thread
-                                                       success:nil
-                                                       failure:nil];
-                // TODO: sync in case of multiple sends
-                [self finishSendingMessage];
-            }
-        }
-    }
-    
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self dismissKeyBoard];
     [self startReadTimer];
-    [self sendUnsentMessages];
 
     [self initializeTitleLabelGestureRecognizer];
 
