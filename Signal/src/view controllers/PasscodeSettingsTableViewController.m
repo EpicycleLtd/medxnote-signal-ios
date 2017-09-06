@@ -7,27 +7,19 @@
 //
 
 #import "PasscodeSettingsTableViewController.h"
-#import "ABPadLockScreenSetupViewController.h"
-#import "ABPadLockScreenViewController.h"
 #import "MedxPasscodeManager.h"
 #import "ActionSheetPicker.h"
 #import "UIViewController+Medxnote.h"
+#import "PasscodeHelper.h"
 
-typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
-    PasscodeSettingsActionNone,
-    PasscodeSettingsActionEnablePasscode,
-    PasscodeSettingsActionDisablePasscode,
-    PasscodeSettingsActionChangePasscode
-};
-
-@interface PasscodeSettingsTableViewController () <ABPadLockScreenSetupViewControllerDelegate, ABPadLockScreenViewControllerDelegate>
+@interface PasscodeSettingsTableViewController ()
 
 @property (nonatomic, strong) UITableViewCell *enablePasscodeCell;
 @property (nonatomic, strong) UISwitch *enablePasscodeSwitch;
 @property (nonatomic, strong) UITableViewCell *timeoutCell;
 @property (nonatomic, strong) UITableViewCell *clearHistoryLogCell;
 
-@property PasscodeSettingsAction action;
+@property PasscodeHelper *passcodeHelper;
 
 @end
 
@@ -35,8 +27,7 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.action = PasscodeSettingsActionNone;
+    self.passcodeHelper = [[PasscodeHelper alloc] init];
     [self.navigationController.navigationBar setTranslucent:NO];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
@@ -97,8 +88,9 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     switch (indexPath.row) {
         case 1:
-            self.action = PasscodeSettingsActionChangePasscode;
-            [self showPasscodeViewWithAlert:true];
+            [self.passcodeHelper initiateAction:PasscodeHelperActionChangePasscode from:self completion:^{
+                // no need to do anything
+            }];
             break;
         case 2:
             if ([MedxPasscodeManager isPasscodeEnabled]) {
@@ -129,29 +121,16 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
 - (void)didToggleSwitch:(UISwitch *)sender {
     [sender setOn:!sender.isOn];
     if ([MedxPasscodeManager isPasscodeEnabled]) {
-        self.action = PasscodeSettingsActionDisablePasscode;
-        [self showPasscodeViewWithAlert:false];
+        [self.passcodeHelper initiateAction:PasscodeHelperActionDisablePasscode from:self completion:^{
+            [self.enablePasscodeSwitch setOn:false animated:true];
+            [self refreshPasscodeCell];
+            [self refreshTimeoutCell];
+        }];
     } else {
-        self.action = PasscodeSettingsActionEnablePasscode;
-        [self showPasscodeCreationScreen];
-    }
-}
-
-- (void)showPasscodeViewWithAlert:(BOOL)showAlert {
-    if (![MedxPasscodeManager isPasscodeEnabled]) {
-        self.action = PasscodeSettingsActionEnablePasscode;
-        [self showPasscodeCreationScreen];
-    } else {
-        ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self complexPin:YES];
-        [lockScreen setAllowedAttempts:20];
-        
-        lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
-        lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        
-        [self presentViewController:lockScreen animated:YES completion:^{
-            if (showAlert) {
-                [lockScreen showPasscodeAlert];
-            }
+        [self.passcodeHelper initiateAction:PasscodeHelperActionEnablePasscode from:self completion:^{
+            [self.enablePasscodeSwitch setOn:true animated:true];
+            [self refreshPasscodeCell];
+            [self refreshTimeoutCell];
         }];
     }
 }
@@ -179,55 +158,6 @@ typedef NS_ENUM(NSUInteger, PasscodeSettingsAction) {
     [datePicker setCancelButton:cancelButton];
     
     [datePicker showActionSheetPicker];
-}
-
-#pragma mark - ABPadLockScreenSetupViewControllerDelegate Methods
-
-- (void)pinSet:(NSString *)pin padLockScreenSetupViewController:(ABPadLockScreenSetupViewController *)padLockScreenViewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [MedxPasscodeManager storePasscode:pin];
-    [self.enablePasscodeSwitch setOn:true animated:true];
-    [self refreshPasscodeCell];
-    [self refreshTimeoutCell];
-    self.action = PasscodeSettingsActionNone;
-}
-
-- (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)unlockWasCancelledForSetupViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - ABLockScreenDelegate Methods
-
-- (BOOL)padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController validatePin:(NSString*)pin {
-    return [[MedxPasscodeManager passcode] isEqualToString:pin];
-}
-
-- (void)unlockWasSuccessfulForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController {
-    [self dismissViewControllerAnimated:NO completion:^{
-        switch (self.action) {
-            case PasscodeSettingsActionDisablePasscode:
-                [self.enablePasscodeSwitch setOn:false animated:true];
-                [MedxPasscodeManager storePasscode:nil];
-                [self refreshPasscodeCell];
-                [self refreshTimeoutCell];
-                break;
-            case PasscodeSettingsActionChangePasscode:
-                [self showPasscodeCreationScreen];
-                break;
-            default:
-                break;
-        }
-        self.action = PasscodeSettingsActionNone;
-    }];
-}
-
-- (void)unlockWasUnsuccessful:(NSString *)falsePin afterAttemptNumber:(NSInteger)attemptNumber padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController
-{
-    NSLog(@"Failed attempt number %ld with pin: %@", (long)attemptNumber, falsePin);
 }
 
 @end

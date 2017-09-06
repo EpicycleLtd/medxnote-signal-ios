@@ -16,11 +16,12 @@
 #import "RPAccountManager.h"
 #import "RPServerRequestsManager.h"
 #import "TSAccountManager.h"
-#import "ABPadLockScreenSetupViewController.h"
-#import "UIViewController+Medxnote.h"
+#import "PasscodeHelper.h"
 #import "MedxPasscodeManager.h"
 
 @interface CodeVerificationViewController ()
+
+@property PasscodeHelper *passcodeHelper;;
 
 @end
 
@@ -28,6 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.passcodeHelper = [[PasscodeHelper alloc] init];
     [self initializeKeyboardHandlers];
     _headerLabel.text               = NSLocalizedString(@"VERIFICATION_HEADER", @"");
     _challengeTextField.placeholder = NSLocalizedString(@"VERIFICATION_CHALLENGE_DEFAULT_TEXT", @"");
@@ -59,7 +61,10 @@
     [self registerWithSuccess:^{
         [_submitCodeSpinner stopAnimating];
         if ([[NSBundle mainBundle].infoDictionary[@"MedxnoteForcePasscode"] boolValue]) {
-            [self showPasscodeCreationScreen];
+            [self.passcodeHelper initiateAction:PasscodeHelperActionEnablePasscode from:self completion:^{
+                [MedxPasscodeManager storeInactivityTimeout:@(30*60)]; // default timeout
+                [self finishRegistration];
+            }];
         } else {
             [self finishRegistration];
         }
@@ -310,19 +315,6 @@
     }
 
     _headerConstraint.constant = blueHeaderHeight;
-}
-
-#pragma mark - ABPadLockScreenSetupViewControllerDelegate Methods
-
-- (void)pinSet:(NSString *)pin padLockScreenSetupViewController:(ABPadLockScreenSetupViewController *)padLockScreenViewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [MedxPasscodeManager storePasscode:pin];
-    [MedxPasscodeManager storeInactivityTimeout:@(30*60)]; // default timeout
-    [self finishRegistration];
-}
-
-- (void)unlockWasCancelledForSetupViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController {
-    // passcode is required if presented here
 }
 
 @end

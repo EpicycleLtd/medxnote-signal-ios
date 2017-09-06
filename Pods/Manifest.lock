@@ -1,6 +1,5 @@
 PODS:
   - 25519 (2.0.2)
-  - ABPadLockScreen (3.3.0)
   - ActionSheetPicker-3.0 (2.2.0)
   - AFNetworking (3.1.0):
     - AFNetworking/NSURLSession (= 3.1.0)
@@ -47,7 +46,7 @@ PODS:
   - Reachability (3.2)
   - SCWaveformView (1.0.0)
   - SignalServiceKit (0.0.7):
-    - '25519'
+    - 25519
     - AFNetworking
     - AxolotlKit
     - CocoaLumberjack
@@ -62,6 +61,7 @@ PODS:
   - SQLCipher/fts (3.4.0):
     - SQLCipher/common
   - SSKeychain (1.4.0)
+  - TOPasscodeViewController (0.0.1)
   - TwistedOakCollapsingFutures (1.0.0):
     - UnionFind (~> 1.0)
   - UnionFind (1.0.1)
@@ -117,7 +117,6 @@ PODS:
   - ZHPopupView (0.1.1)
 
 DEPENDENCIES:
-  - ABPadLockScreen (~> 3.3.0)
   - ActionSheetPicker-3.0
   - DJWActionSheet
   - DTTJailbreakDetection
@@ -129,6 +128,7 @@ DEPENDENCIES:
   - SCWaveformView (~> 1.0)
   - SignalServiceKit (from `https://github.com/WhisperSystems/SignalServiceKit.git`)
   - SocketRocket (from `https://github.com/facebook/SocketRocket.git`)
+  - TOPasscodeViewController
   - ZHPopupView
 
 EXTERNAL SOURCES:
@@ -146,8 +146,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/facebook/SocketRocket.git
 
 SPEC CHECKSUMS:
-  '25519': dc4bad7e2dbcbf1efa121068a705a44cd98c80fc
-  ABPadLockScreen: 7172ae3562258008eb920f5085c23446958c1b39
+  25519: dc4bad7e2dbcbf1efa121068a705a44cd98c80fc
   ActionSheetPicker-3.0: d11a4c12c6aaf704b8a3f56d179198c99f3e41e6
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AxolotlKit: a33962f26943990e5d69d05b30470cea18caeed0
@@ -169,11 +168,12 @@ SPEC CHECKSUMS:
   SocketRocket: 3f77ec2104cc113add553f817ad90a77114f5d43
   SQLCipher: 4c768761421736a247ed6cf412d9045615d53dff
   SSKeychain: c71293fa57216a40ab06c23f4085387583293de4
+  TOPasscodeViewController: 56df8490d9b5711ca1c1f9de7d8d119022f6bbe3
   TwistedOakCollapsingFutures: f359b90f203e9ab13dfb92c9ff41842a7fe1cd0c
   UnionFind: c33be5adb12983981d6e827ea94fc7f9e370f52d
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
   ZHPopupView: cb3bedde775803c2c51e3db05cdd07ac6efaaaeb
 
-PODFILE CHECKSUM: 8d16969a9c50e9ecdc6246718ec31710319af1c5
+PODFILE CHECKSUM: 2e677ca1fe68d21a08beed7f73af4fa418ddd659
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.3.1

@@ -403,6 +403,8 @@
 		B7227A3D1F21034B008C1F7F /* redphone-uk.cer in Resources */ = {isa = PBXBuildFile; fileRef = B7227A3C1F21034B008C1F7F /* redphone-uk.cer */; };
 		B753F31B1F18CFCB00F3FE39 /* UIViewController+Medxnote.m in Sources */ = {isa = PBXBuildFile; fileRef = B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */; };
 		B753F31C1F18CFCB00F3FE39 /* UIViewController+Medxnote.m in Sources */ = {isa = PBXBuildFile; fileRef = B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */; };
+		B7602B261F5FEEB8001C2956 /* PasscodeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B7602B251F5FEEB8001C2956 /* PasscodeHelper.m */; };
+		B7602B271F5FEEB8001C2956 /* PasscodeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B7602B251F5FEEB8001C2956 /* PasscodeHelper.m */; };
 		B76DF1F31F0A246000D3B989 /* Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EB04EF18170B33006006FC /* Operation.m */; };
 		B76DF1F41F0A246000D3B989 /* MedxPasscodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AD1CE91D57C8350005C9AA /* MedxPasscodeManager.m */; };
 		B76DF1F51F0A246000D3B989 /* UIColor+HexValue.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AD1CE71D57C5840005C9AA /* UIColor+HexValue.m */; };
@@ -1245,6 +1247,8 @@
 		B7227A3C1F21034B008C1F7F /* redphone-uk.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "redphone-uk.cer"; sourceTree = "<group>"; };
 		B753F3191F18CFCB00F3FE39 /* UIViewController+Medxnote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Medxnote.h"; sourceTree = "<group>"; };
 		B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Medxnote.m"; sourceTree = "<group>"; };
+		B7602B241F5FEEB8001C2956 /* PasscodeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasscodeHelper.h; sourceTree = "<group>"; };
+		B7602B251F5FEEB8001C2956 /* PasscodeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasscodeHelper.m; sourceTree = "<group>"; };
 		B76DF2FE1F0A246100D3B989 /* medxnote-uk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "medxnote-uk.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B76DF2FF1F0A246100D3B989 /* medxnote-uk-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "medxnote-uk-Info.plist"; path = "/Users/jannemecek/Projects/medxnote-signal-ios/medxnote-uk-Info.plist"; sourceTree = "<absolute>"; };
 		B78846BF1E9F845600E041F3 /* InlineKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InlineKeyboard.h; sourceTree = "<group>"; };
@@ -2611,6 +2615,8 @@
 				FCD274E11A5AFD8000202277 /* PrivacySettingsTableViewController.m */,
 				AB7FA5D21E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.h */,
 				AB7FA5D31E2FAA1E00A64BAE /* PasscodeSettingsTableViewController.m */,
+				B7602B241F5FEEB8001C2956 /* PasscodeHelper.h */,
+				B7602B251F5FEEB8001C2956 /* PasscodeHelper.m */,
 				FCD274E61A5AFDC900202277 /* AdvancedSettingsTableViewController.h */,
 				FCD274E71A5AFDC900202277 /* AdvancedSettingsTableViewController.m */,
 				B66B9F701AEA6D1100E2E609 /* NotificationSettingsViewController.h */,
@@ -3022,13 +3028,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-medxnote-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		196AF3C944368427117290C1 /* [CP] Copy Pods Resources */ = {
@@ -3037,9 +3046,20 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-medxnote-uk/Pods-medxnote-uk-resources.sh",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Assets/JSQMessagesAssets.bundle",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Controllers/JSQMessagesViewController.xib",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesCollectionViewCellIncoming.xib",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesCollectionViewCellOutgoing.xib",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesLoadEarlierHeaderView.xib",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesToolbarContentView.xib",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesTypingIndicatorFooterView.xib",
+				"${PODS_ROOT}/SSKeychain/Support/en.lproj",
+				"${PODS_ROOT}/SignalServiceKit/src/Security/PinningCertificate/textsecure.cer",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3052,9 +3072,20 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-medxnote/Pods-medxnote-resources.sh",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Assets/JSQMessagesAssets.bundle",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Controllers/JSQMessagesViewController.xib",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesCollectionViewCellIncoming.xib",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesCollectionViewCellOutgoing.xib",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesLoadEarlierHeaderView.xib",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesToolbarContentView.xib",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesTypingIndicatorFooterView.xib",
+				"${PODS_ROOT}/SSKeychain/Support/en.lproj",
+				"${PODS_ROOT}/SignalServiceKit/src/Security/PinningCertificate/textsecure.cer",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3082,13 +3113,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MedxnoteTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		712650F45D6F9F0E0E526B92 /* [CP] Check Pods Manifest.lock */ = {
@@ -3097,13 +3131,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-medxnote-uk-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B4E9B04E862FB64FC9A8F79B /* [CP] Embed Pods Frameworks */ = {
@@ -3127,9 +3164,20 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MedxnoteTests/Pods-MedxnoteTests-resources.sh",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Assets/JSQMessagesAssets.bundle",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Controllers/JSQMessagesViewController.xib",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesCollectionViewCellIncoming.xib",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesCollectionViewCellOutgoing.xib",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesLoadEarlierHeaderView.xib",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesToolbarContentView.xib",
+				"${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesTypingIndicatorFooterView.xib",
+				"${PODS_ROOT}/SSKeychain/Support/en.lproj",
+				"${PODS_ROOT}/SignalServiceKit/src/Security/PinningCertificate/textsecure.cer",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3173,6 +3221,7 @@
 				B76DF20E1F0A246000D3B989 /* CallState.m in Sources */,
 				B76DF20F1F0A246000D3B989 /* MessageInfoViewController.m in Sources */,
 				B76DF2101F0A246000D3B989 /* ZrtpInitiator.m in Sources */,
+				B7602B271F5FEEB8001C2956 /* PasscodeHelper.m in Sources */,
 				B76DF2111F0A246000D3B989 /* NetworkStream.m in Sources */,
 				B76DF2121F0A246000D3B989 /* UIFont+OWS.m in Sources */,
 				B76DF2131F0A246000D3B989 /* PushManager.m in Sources */,
@@ -3372,6 +3421,7 @@
 				76EB05EC18170B33006006FC /* CallState.m in Sources */,
 				ABEC8DAE1E1FCDDA00394904 /* MessageInfoViewController.m in Sources */,
 				76EB05D218170B33006006FC /* ZrtpInitiator.m in Sources */,
+				B7602B261F5FEEB8001C2956 /* PasscodeHelper.m in Sources */,
 				76EB05E018170B33006006FC /* NetworkStream.m in Sources */,
 				FCFA64B71A24F6730007FB87 /* UIFont+OWS.m in Sources */,
 				B6B9ECFC198B31BA00C620D3 /* PushManager.m in Sources */,

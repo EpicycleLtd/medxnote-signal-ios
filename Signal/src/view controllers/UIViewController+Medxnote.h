@@ -10,7 +10,6 @@
 
 @interface UIViewController (Medxnote)
 
-- (void)showPasscodeCreationScreen;
 - (void)showPasscodeAlert;
 
 @end
