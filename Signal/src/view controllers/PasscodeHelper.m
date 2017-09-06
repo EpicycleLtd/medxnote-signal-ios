@@ -10,6 +10,8 @@
 #import "TOPasscodeViewController.h"
 #import "MedxPasscodeManager.h"
 #import "UIViewController+Medxnote.h"
+#import "TOPasscodeView.h"
+#import "TOPasscodeInputField.h"
 
 @interface PasscodeHelper () <TOPasscodeViewControllerDelegate>
 
@@ -33,8 +35,18 @@
 }
 
 - (void)showPasscodeView {
-    TOPasscodeViewController *vc = [[TOPasscodeViewController alloc] initWithStyle:TOPasscodeViewStyleTranslucentLight passcodeType:TOPasscodeTypeCustomAlphanumeric];
+    TOPasscodeViewController *vc = [[TOPasscodeViewController alloc] initWithStyle:TOPasscodeViewStyleOpaqueDark passcodeType:TOPasscodeTypeCustomAlphanumeric];
     [vc view];
+    
+    // appearance
+    UIColor *medxGreen = [UIColor colorWithRed:65.f/255.f green:178.f/255.f blue:76.f/255.f alpha:1.f];
+    vc.backgroundView.backgroundColor = medxGreen;
+    vc.passcodeView.titleLabel.textColor = [UIColor whiteColor];
+    vc.passcodeView.keypadButtonTextColor = [UIColor whiteColor];
+    vc.passcodeView.keypadButtonHighlightedTextColor = [UIColor lightGrayColor];
+    vc.passcodeView.inputProgressViewTintColor = [UIColor whiteColor];
+    vc.passcodeView.inputField.keyboardAppearance = UIKeyboardAppearanceLight;
+    
     vc.delegate = self;
     vc.cancelButton.hidden = _action == PasscodeHelperActionCheckPasscode || _action == PasscodeHelperActionChangePasscode;
     switch (self.action) {

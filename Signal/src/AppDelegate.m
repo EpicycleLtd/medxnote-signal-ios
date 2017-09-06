@@ -412,19 +412,6 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
     [[UISwitch appearance] setOnTintColor:[UIColor ows_materialBlueColor]];
 
     [[UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[SignalsNavigationController class]]] setTitleTextAttributes:navbarTitleTextAttributes];
-    
-    /** Pin code appearance */
-//    UIColor *medxGreen = [UIColor colorWithRed:65.f/255.f green:178.f/255.f blue:76.f/255.f alpha:1.f];
-//    [[ABPadLockScreenView appearance] setBackgroundColor:medxGreen];
-//    
-//    UIColor* color = [UIColor colorWithRed:229.0f/255.0f green:180.0f/255.0f blue:46.0f/255.0f alpha:1.0f];
-//    
-//    [[ABPadLockScreenView appearance] setLabelColor:[UIColor whiteColor]];
-//    [[ABPadButton appearance] setBackgroundColor:[UIColor clearColor]];
-//    [[ABPadButton appearance] setBorderColor:[UIColor whiteColor]];
-//    [[ABPadButton appearance] setSelectedColor:[UIColor whiteColor]];
-//    
-//    [[ABPinSelectionView appearance] setSelectedColor:color];
 }
 
 #pragma mark Push Notifications Delegate Methods
