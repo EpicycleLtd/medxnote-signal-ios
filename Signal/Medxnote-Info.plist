@@ -56,9 +56,9 @@
 	<key>MedxnoteForcePasscode</key>
 	<false/>
 	<key>MedxnoteHost</key>
-	<string>global2.textsecure.medx.im</string>
+	<string>hatest.metricfarm.com</string>
 	<key>MedxnoteHostSuffix</key>
-	<string>medx.im</string>
+	<string>metricfarm.com</string>
 	<key>MedxnoteRelay</key>
 	<string>redphone</string>
 	<key>MedxnoteRedphoneCertName</key>
@@ -79,6 +79,13 @@
 				<false/>
 			</dict>
 			<key>medx.im</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>metricfarm.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>

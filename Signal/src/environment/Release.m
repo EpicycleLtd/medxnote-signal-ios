@@ -96,9 +96,9 @@ static unsigned char DH3K_PRIME[] = {
                                  andErrorNoter:^(id error, id relatedInfo, bool causedTermination) {
                                  }
                                  andServerPort:31337
-                       andMasterServerHostName:@"global2.textsecure.medx.im"
+                       andMasterServerHostName:@"redphone.medx.im"
                            andDefaultRelayName:@"relay"
-                  andRelayServerHostNameSuffix:@"textsecure.medx.im"
+                  andRelayServerHostNameSuffix:@"medx.im"
                                 andCertificate:[Certificate certificateFromResourcePath:@"redphone" ofType:@"cer"]
              andSupportedKeyAgreementProtocols:keyAgreementProtocols
                                andPhoneManager:nil
