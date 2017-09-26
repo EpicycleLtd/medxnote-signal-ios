@@ -39,7 +39,8 @@
         NSURL *endPointURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@:%d", rpHostname, 443]];
         self.operationManager =
             [[AFHTTPSessionManager alloc] initWithBaseURL:endPointURL sessionConfiguration:sessionConfig];
-        self.operationManager.securityPolicy = [OWSHTTPSecurityPolicy sharedPolicy];
+        // TODO: we need a different policy here since we're using a different server
+//        self.operationManager.securityPolicy = [OWSHTTPSecurityPolicy sharedPolicy];
     }
     return self;
 }
