@@ -59,9 +59,9 @@
 	<string>hatest.metricfarm.com</string>
 	<key>MedxnoteHostSuffix</key>
 	<string>metricfarm.com</string>
-	<key>MedxnoteRelay</key>
-	<string>redphone</string>
 	<key>MedxnoteRedphoneCertName</key>
+	<string>redphone</string>
+	<key>MedxnoteRelay</key>
 	<string>redphone</string>
 	<key>MedxnoteServerPort</key>
 	<integer>31337</integer>
@@ -117,6 +117,7 @@
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>audio</string>
 		<string>fetch</string>
 		<string>remote-notification</string>
 		<string>voip</string>

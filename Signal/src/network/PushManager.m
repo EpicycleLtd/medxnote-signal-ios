@@ -143,9 +143,9 @@
 - (void)application:(UIApplication *)application
     didReceiveRemoteNotification:(NSDictionary *)userInfo
           fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-  //  if ([self isRedPhonePush:userInfo]) {
-    //    [self application:application didReceiveRemoteNotification:userInfo];
-   // }
+    if ([self isRedPhonePush:userInfo]) {
+        [self application:application didReceiveRemoteNotification:userInfo];
+    }
     
     // cause fetch to happen in background
     if (![self applicationIsActive]) {
