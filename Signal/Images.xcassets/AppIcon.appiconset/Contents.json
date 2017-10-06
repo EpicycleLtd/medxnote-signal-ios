@@ -43,6 +43,12 @@
       "idiom" : "iphone",
       "filename" : "appicon-60@3x.png",
       "scale" : "3x"
+    },
+    {
+      "size" : "1024x1024",
+      "idiom" : "ios-marketing",
+      "filename" : "appicon_1024_noalpha.png",
+      "scale" : "1x"
     }
   ],
   "info" : {

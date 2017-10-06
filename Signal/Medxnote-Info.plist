@@ -21,7 +21,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.5.10</string>
+	<string>2.5.11</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -38,7 +38,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2.5.10.1</string>
+	<string>2.5.11.1</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LOGS_EMAIL</key>
@@ -52,15 +52,17 @@
 	<key>MedxnoteCertExtension</key>
 	<string>cer</string>
 	<key>MedxnoteCertName</key>
-	<string>redphone</string>
+	<string>textsecure</string>
 	<key>MedxnoteForcePasscode</key>
 	<false/>
 	<key>MedxnoteHost</key>
 	<string>global2.textsecure.medx.im</string>
 	<key>MedxnoteHostSuffix</key>
-	<string>textsecure.medx.im</string>
+	<string>medx.im</string>
+	<key>MedxnoteRedphoneCertName</key>
+	<string>redphone</string>
 	<key>MedxnoteRelay</key>
-	<string>relay</string>
+	<string>redphone</string>
 	<key>MedxnoteServerPort</key>
 	<integer>31337</integer>
 	<key>MedxnoteStagingRelay</key>
@@ -108,8 +110,10 @@
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>audio</string>
 		<string>fetch</string>
 		<string>remote-notification</string>
+		<string>voip</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

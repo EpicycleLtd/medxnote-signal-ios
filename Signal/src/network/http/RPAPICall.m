@@ -41,6 +41,7 @@
     apiCall.method     = HTTP_PUT;
     apiCall.endPoint   = [NSString stringWithFormat:@"/api/v1/accounts/token/%@", tsToken];
     apiCall.parameters = attributes;
+    apiCall.requestSerializer = [self basicAuthenticationSerializer];
 
     return apiCall;
 }

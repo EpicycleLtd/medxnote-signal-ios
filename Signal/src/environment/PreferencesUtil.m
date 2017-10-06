@@ -110,7 +110,7 @@
     if (preference) {
         return [preference boolValue];
     } else {
-        return YES;
+        return NO;
     }
 }
 
