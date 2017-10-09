@@ -401,6 +401,8 @@
 		B6F509971AA53F760068F56A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B6F509951AA53F760068F56A /* Localizable.strings */; };
 		B6FE7EB71ADD62FA00A6D22F /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6FE7EB61ADD62FA00A6D22F /* PushKit.framework */; };
 		B7227A3D1F21034B008C1F7F /* redphone-uk.cer in Resources */ = {isa = PBXBuildFile; fileRef = B7227A3C1F21034B008C1F7F /* redphone-uk.cer */; };
+		B74A6E1A1F8B81F30065F2C1 /* textsecure-uk.cer in Resources */ = {isa = PBXBuildFile; fileRef = B74A6E191F8B81F20065F2C1 /* textsecure-uk.cer */; };
+		B74A6E1B1F8B81F60065F2C1 /* textsecure.cer in Resources */ = {isa = PBXBuildFile; fileRef = B74A6E181F8B81F10065F2C1 /* textsecure.cer */; };
 		B753F31B1F18CFCB00F3FE39 /* UIViewController+Medxnote.m in Sources */ = {isa = PBXBuildFile; fileRef = B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */; };
 		B753F31C1F18CFCB00F3FE39 /* UIViewController+Medxnote.m in Sources */ = {isa = PBXBuildFile; fileRef = B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */; };
 		B76DF1F31F0A246000D3B989 /* Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EB04EF18170B33006006FC /* Operation.m */; };
@@ -1243,6 +1245,8 @@
 		B6F509961AA53F760068F56A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = translations/en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B6FE7EB61ADD62FA00A6D22F /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		B7227A3C1F21034B008C1F7F /* redphone-uk.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "redphone-uk.cer"; sourceTree = "<group>"; };
+		B74A6E181F8B81F10065F2C1 /* textsecure.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = textsecure.cer; sourceTree = "<group>"; };
+		B74A6E191F8B81F20065F2C1 /* textsecure-uk.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "textsecure-uk.cer"; sourceTree = "<group>"; };
 		B753F3191F18CFCB00F3FE39 /* UIViewController+Medxnote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Medxnote.h"; sourceTree = "<group>"; };
 		B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Medxnote.m"; sourceTree = "<group>"; };
 		B76DF2FE1F0A246100D3B989 /* medxnote-uk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "medxnote-uk.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2411,6 +2415,8 @@
 		B6C6AE521A305ED1006BAF8F /* Certificates */ = {
 			isa = PBXGroup;
 			children = (
+				B74A6E191F8B81F20065F2C1 /* textsecure-uk.cer */,
+				B74A6E181F8B81F10065F2C1 /* textsecure.cer */,
 				B6C6AE531A305ED1006BAF8F /* redphone.cer */,
 				B7227A3C1F21034B008C1F7F /* redphone-uk.cer */,
 			);
@@ -2902,6 +2908,7 @@
 				B76DF2DA1F0A246000D3B989 /* ic_done_read_white_18dp.png in Resources */,
 				B76DF2DB1F0A246000D3B989 /* OWSDisplayedMessageCollectionViewCell.xib in Resources */,
 				B7227A3D1F21034B008C1F7F /* redphone-uk.cer in Resources */,
+				B74A6E1A1F8B81F30065F2C1 /* textsecure-uk.cer in Resources */,
 				B76DF2DC1F0A246000D3B989 /* play_icon.png in Resources */,
 				B76DF2DD1F0A246000D3B989 /* audio_pause_button_blue@2x.png in Resources */,
 				B76DF2DE1F0A246000D3B989 /* Images.xcassets in Resources */,
@@ -2954,6 +2961,7 @@
 				FC5CDF391A3393DD00B47253 /* error_white@2x.png in Resources */,
 				B633C5D21A1D190B0059AC12 /* savephoto@2x.png in Resources */,
 				B15A75F81D6E23FE000475A2 /* ic_done_read_white_18dp.png in Resources */,
+				B74A6E1B1F8B81F60065F2C1 /* textsecure.cer in Resources */,
 				45C681C81D305C9E0050903A /* OWSDisplayedMessageCollectionViewCell.xib in Resources */,
 				B10C9B611A7049EC00ECA2BF /* play_icon.png in Resources */,
 				AD83FF401A73426500B5C81A /* audio_pause_button_blue@2x.png in Resources */,
