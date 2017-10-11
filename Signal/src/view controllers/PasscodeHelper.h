@@ -17,6 +17,8 @@ typedef NS_ENUM(NSUInteger, PasscodeHelperAction) {
 
 @interface PasscodeHelper : NSObject
 
+@property BOOL cancelDisabled;
+
 - (void)initiateAction:(PasscodeHelperAction)action from:(UIViewController *)vc completion:(void (^)())completion;
 
 @end

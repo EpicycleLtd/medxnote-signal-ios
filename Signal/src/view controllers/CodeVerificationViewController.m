@@ -30,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.passcodeHelper = [[PasscodeHelper alloc] init];
+    self.passcodeHelper.cancelDisabled = [[NSBundle mainBundle].infoDictionary[@"MedxnoteForcePasscode"] boolValue];
     [self initializeKeyboardHandlers];
     _headerLabel.text               = NSLocalizedString(@"VERIFICATION_HEADER", @"");
     _challengeTextField.placeholder = NSLocalizedString(@"VERIFICATION_CHALLENGE_DEFAULT_TEXT", @"");

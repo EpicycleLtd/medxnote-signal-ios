@@ -46,6 +46,9 @@
     vc.passcodeView.keypadButtonHighlightedTextColor = [UIColor lightGrayColor];
     vc.passcodeView.inputProgressViewTintColor = [UIColor whiteColor];
     vc.passcodeView.inputField.keyboardAppearance = UIKeyboardAppearanceLight;
+    if (self.cancelDisabled) {
+        [vc.cancelButton setTitle:@"Restart" forState:UIControlStateNormal];
+    }
     
     vc.delegate = self;
     vc.cancelButton.hidden = _action == PasscodeHelperActionCheckPasscode || _action == PasscodeHelperActionChangePasscode;
@@ -152,6 +155,10 @@
 - (void)didTapCancelInPasscodeViewController:(TOPasscodeViewController *)passcodeViewController {
     [passcodeViewController dismissViewControllerAnimated:true completion:nil];
     self.attempt = 0;
+    if (self.cancelDisabled) {
+        [self showPasscodeView];
+        return;
+    }
     self.vc = nil;
     self.completion = nil;
 }
