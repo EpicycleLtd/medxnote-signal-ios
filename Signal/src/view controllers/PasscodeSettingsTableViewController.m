@@ -87,11 +87,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     switch (indexPath.row) {
-        case 1:
-            [self.passcodeHelper initiateAction:PasscodeHelperActionChangePasscode from:self completion:^{
-                // no need to do anything
+        case 1: {
+            PasscodeHelperAction action = [MedxPasscodeManager isPasscodeEnabled] ? PasscodeHelperActionChangePasscode : PasscodeHelperActionEnablePasscode;
+            [self.passcodeHelper initiateAction:action from:self completion:^{
+                if (action == PasscodeHelperActionEnablePasscode) {
+                    [self setStateToEnabled:true];
+                }
             }];
             break;
+        }
         case 2:
             if ([MedxPasscodeManager isPasscodeEnabled]) {
                 [self showTimeoutOptions];
@@ -122,17 +126,19 @@
     [sender setOn:!sender.isOn];
     if ([MedxPasscodeManager isPasscodeEnabled]) {
         [self.passcodeHelper initiateAction:PasscodeHelperActionDisablePasscode from:self completion:^{
-            [self.enablePasscodeSwitch setOn:false animated:true];
-            [self refreshPasscodeCell];
-            [self refreshTimeoutCell];
+            [self setStateToEnabled:false];
         }];
     } else {
         [self.passcodeHelper initiateAction:PasscodeHelperActionEnablePasscode from:self completion:^{
-            [self.enablePasscodeSwitch setOn:true animated:true];
-            [self refreshPasscodeCell];
-            [self refreshTimeoutCell];
+            [self setStateToEnabled:true];
         }];
     }
+}
+
+- (void)setStateToEnabled:(BOOL)enabled {
+    [self.enablePasscodeSwitch setOn:enabled animated:true];
+    [self refreshPasscodeCell];
+    [self refreshTimeoutCell];
 }
 
 - (void)showTimeoutOptions {
