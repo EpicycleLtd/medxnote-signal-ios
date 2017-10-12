@@ -403,6 +403,8 @@
 		B7227A3D1F21034B008C1F7F /* redphone-uk.cer in Resources */ = {isa = PBXBuildFile; fileRef = B7227A3C1F21034B008C1F7F /* redphone-uk.cer */; };
 		B74A6E1A1F8B81F30065F2C1 /* textsecure-uk.cer in Resources */ = {isa = PBXBuildFile; fileRef = B74A6E191F8B81F20065F2C1 /* textsecure-uk.cer */; };
 		B74A6E1B1F8B81F60065F2C1 /* textsecure.cer in Resources */ = {isa = PBXBuildFile; fileRef = B74A6E181F8B81F10065F2C1 /* textsecure.cer */; };
+		B73E73431F8FB2AA0031F68F /* common_passwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = B73E73421F8FB15F0031F68F /* common_passwords.txt */; };
+		B73E73441F8FB2AB0031F68F /* common_passwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = B73E73421F8FB15F0031F68F /* common_passwords.txt */; };
 		B753F31B1F18CFCB00F3FE39 /* UIViewController+Medxnote.m in Sources */ = {isa = PBXBuildFile; fileRef = B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */; };
 		B753F31C1F18CFCB00F3FE39 /* UIViewController+Medxnote.m in Sources */ = {isa = PBXBuildFile; fileRef = B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */; };
 		B7602B261F5FEEB8001C2956 /* PasscodeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B7602B251F5FEEB8001C2956 /* PasscodeHelper.m */; };
@@ -1249,6 +1251,7 @@
 		B7227A3C1F21034B008C1F7F /* redphone-uk.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "redphone-uk.cer"; sourceTree = "<group>"; };
 		B74A6E181F8B81F10065F2C1 /* textsecure.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = textsecure.cer; sourceTree = "<group>"; };
 		B74A6E191F8B81F20065F2C1 /* textsecure-uk.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "textsecure-uk.cer"; sourceTree = "<group>"; };
+		B73E73421F8FB15F0031F68F /* common_passwords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = common_passwords.txt; sourceTree = "<group>"; };
 		B753F3191F18CFCB00F3FE39 /* UIViewController+Medxnote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Medxnote.h"; sourceTree = "<group>"; };
 		B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Medxnote.m"; sourceTree = "<group>"; };
 		B7602B241F5FEEB8001C2956 /* PasscodeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasscodeHelper.h; sourceTree = "<group>"; };
@@ -2528,6 +2531,7 @@
 				B76DF2FF1F0A246100D3B989 /* medxnote-uk-Info.plist */,
 				D221A09B169C9E5E00537ABF /* Signal-Prefix.pch */,
 				B661C211198EE2EA00548CA1 /* iOSVersions.h */,
+				B73E73421F8FB15F0031F68F /* common_passwords.txt */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2896,6 +2900,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B73E73441F8FB2AB0031F68F /* common_passwords.txt in Resources */,
 				B76DF2CB1F0A246000D3B989 /* play_button@2x.png in Resources */,
 				B76DF2CC1F0A246000D3B989 /* audio_pause_button_blue.png in Resources */,
 				B76DF2CD1F0A246000D3B989 /* Storyboard.storyboard in Resources */,
@@ -2955,6 +2960,7 @@
 				AD83FF3F1A73426500B5C81A /* audio_pause_button_blue.png in Resources */,
 				A5509ECA1A69AB8B00ABA4BC /* Storyboard.storyboard in Resources */,
 				A507A3B11A6C60E300BEED0D /* InboxTableViewCell.xib in Resources */,
+				B73E73431F8FB2AA0031F68F /* common_passwords.txt in Resources */,
 				AD83FF421A73426500B5C81A /* audio_play_button.png in Resources */,
 				45C681C41D305C9E0050903A /* OWSCallCollectionViewCell.xib in Resources */,
 				B633C5C41A1D190B0059AC12 /* mute_on@2x.png in Resources */,

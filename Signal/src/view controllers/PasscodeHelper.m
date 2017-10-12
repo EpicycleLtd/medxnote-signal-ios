@@ -21,10 +21,25 @@
 @property NSInteger attempt;
 @property NSString *tempCode;
 @property PasscodeHelperAction action;
+@property NSSet <NSString *> *commonPasswords;
 
 @end
 
 @implementation PasscodeHelper
+
+- (instancetype)init {
+    if (self = [super init]) {
+        [self loadCommonPasswords];
+    }
+    return self;
+}
+
+- (void)loadCommonPasswords {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"common_passwords" ofType:@"txt"];
+    NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
+    NSArray *passwords = [content componentsSeparatedByString:@"\r\n"];
+    self.commonPasswords = [NSSet setWithArray:passwords];
+}
 
 - (void)initiateAction:(PasscodeHelperAction)action from:(UIViewController *)vc completion:(void (^)())completion {
     self.attempt = 0;
@@ -92,8 +107,18 @@
 #pragma mark - TOPasscodeViewController
 
 - (BOOL)passcodeViewController:(TOPasscodeViewController *)passcodeViewController isCorrectCode:(NSString *)code {
+    // check length
     if (code.length < 6) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"Your PIN must contain a minimum of 6 alphanumeric characters" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:okAction];
+        [passcodeViewController presentViewController:alertController animated:true completion:nil];
+        return false;
+    }
+    // check in dictionary
+    // TODO: maybe only check this on initial enter/enable
+    if ([self.commonPasswords containsObject:code]) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"Please enter a stronger password" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [alertController addAction:okAction];
         [passcodeViewController presentViewController:alertController animated:true completion:nil];
