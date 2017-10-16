@@ -106,22 +106,34 @@
 
 #pragma mark - TOPasscodeViewController
 
-- (BOOL)passcodeViewController:(TOPasscodeViewController *)passcodeViewController isCorrectCode:(NSString *)code {
+- (NSString *)isCodeStrong:(NSString *)code {
     // check length
     if (code.length < 6) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"Your PIN must contain a minimum of 6 alphanumeric characters" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        [alertController addAction:okAction];
-        [passcodeViewController presentViewController:alertController animated:true completion:nil];
-        return false;
+        return @"Your PIN must contain a minimum of 6 alphanumeric characters";
     }
     // check in dictionary
-    // TODO: maybe only check this on initial enter/enable
     if ([self.commonPasswords containsObject:code]) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"Please enter a stronger password" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        [alertController addAction:okAction];
-        [passcodeViewController presentViewController:alertController animated:true completion:nil];
+        return @"Please enter a stronger password";
+    }
+    return nil;
+}
+
+- (BOOL)shouldCheckPasscodeStrength {
+    return _action == PasscodeHelperActionEnablePasscode ||
+    (_action == PasscodeHelperActionChangePasscode && _attempt != 0);
+}
+
+- (void)showAlertWithMessage:(NSString *)message from:(UIViewController *)vc {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:okAction];
+    [vc presentViewController:alertController animated:true completion:nil];
+}
+
+- (BOOL)passcodeViewController:(TOPasscodeViewController *)passcodeViewController isCorrectCode:(NSString *)code {
+    NSString *errorMessage = [self isCodeStrong:code];
+    if ([self shouldCheckPasscodeStrength] && errorMessage) {
+        [self showAlertWithMessage:errorMessage from:passcodeViewController];
         return false;
     }
     
