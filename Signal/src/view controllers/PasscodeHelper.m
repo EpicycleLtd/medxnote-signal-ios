@@ -112,9 +112,10 @@
         return @"Your PIN must contain a minimum of 6 alphanumeric characters";
     }
     // check in dictionary
-    if ([self.commonPasswords containsObject:code]) {
-        return @"Please enter a stronger password";
-    }
+//2017-10-17 disabled based on a request from Garfield and Niall
+//    if ([self.commonPasswords containsObject:code]) {
+//        return @"Please enter a stronger password";
+//    }
     return nil;
 }
 

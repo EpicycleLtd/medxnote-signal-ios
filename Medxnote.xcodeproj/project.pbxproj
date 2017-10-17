@@ -401,10 +401,10 @@
 		B6F509971AA53F760068F56A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B6F509951AA53F760068F56A /* Localizable.strings */; };
 		B6FE7EB71ADD62FA00A6D22F /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6FE7EB61ADD62FA00A6D22F /* PushKit.framework */; };
 		B7227A3D1F21034B008C1F7F /* redphone-uk.cer in Resources */ = {isa = PBXBuildFile; fileRef = B7227A3C1F21034B008C1F7F /* redphone-uk.cer */; };
-		B74A6E1A1F8B81F30065F2C1 /* textsecure-uk.cer in Resources */ = {isa = PBXBuildFile; fileRef = B74A6E191F8B81F20065F2C1 /* textsecure-uk.cer */; };
-		B74A6E1B1F8B81F60065F2C1 /* textsecure.cer in Resources */ = {isa = PBXBuildFile; fileRef = B74A6E181F8B81F10065F2C1 /* textsecure.cer */; };
 		B73E73431F8FB2AA0031F68F /* common_passwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = B73E73421F8FB15F0031F68F /* common_passwords.txt */; };
 		B73E73441F8FB2AB0031F68F /* common_passwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = B73E73421F8FB15F0031F68F /* common_passwords.txt */; };
+		B74A6E1A1F8B81F30065F2C1 /* textsecure-uk.cer in Resources */ = {isa = PBXBuildFile; fileRef = B74A6E191F8B81F20065F2C1 /* textsecure-uk.cer */; };
+		B74A6E1B1F8B81F60065F2C1 /* textsecure.cer in Resources */ = {isa = PBXBuildFile; fileRef = B74A6E181F8B81F10065F2C1 /* textsecure.cer */; };
 		B753F31B1F18CFCB00F3FE39 /* UIViewController+Medxnote.m in Sources */ = {isa = PBXBuildFile; fileRef = B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */; };
 		B753F31C1F18CFCB00F3FE39 /* UIViewController+Medxnote.m in Sources */ = {isa = PBXBuildFile; fileRef = B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */; };
 		B7602B261F5FEEB8001C2956 /* PasscodeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B7602B251F5FEEB8001C2956 /* PasscodeHelper.m */; };
@@ -1249,9 +1249,9 @@
 		B6F509961AA53F760068F56A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = translations/en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B6FE7EB61ADD62FA00A6D22F /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		B7227A3C1F21034B008C1F7F /* redphone-uk.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "redphone-uk.cer"; sourceTree = "<group>"; };
+		B73E73421F8FB15F0031F68F /* common_passwords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = common_passwords.txt; sourceTree = "<group>"; };
 		B74A6E181F8B81F10065F2C1 /* textsecure.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = textsecure.cer; sourceTree = "<group>"; };
 		B74A6E191F8B81F20065F2C1 /* textsecure-uk.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "textsecure-uk.cer"; sourceTree = "<group>"; };
-		B73E73421F8FB15F0031F68F /* common_passwords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = common_passwords.txt; sourceTree = "<group>"; };
 		B753F3191F18CFCB00F3FE39 /* UIViewController+Medxnote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Medxnote.h"; sourceTree = "<group>"; };
 		B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Medxnote.m"; sourceTree = "<group>"; };
 		B7602B241F5FEEB8001C2956 /* PasscodeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasscodeHelper.h; sourceTree = "<group>"; };
