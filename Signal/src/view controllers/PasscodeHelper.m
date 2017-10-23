@@ -7,7 +7,6 @@
 //
 
 #import "PasscodeHelper.h"
-#import "TOPasscodeViewController.h"
 #import "MedxPasscodeManager.h"
 #import "UIViewController+Medxnote.h"
 #import "TOPasscodeView.h"
@@ -41,15 +40,15 @@
     self.commonPasswords = [NSSet setWithArray:passwords];
 }
 
-- (void)initiateAction:(PasscodeHelperAction)action from:(UIViewController *)vc completion:(void (^)())completion {
+- (TOPasscodeViewController *)initiateAction:(PasscodeHelperAction)action from:(UIViewController *)vc completion:(void (^)())completion {
     self.attempt = 0;
     self.action = action;
     self.vc = vc;
     self.completion = completion;
-    [self showPasscodeView];
+    return [self showPasscodeView];
 }
 
-- (void)showPasscodeView {
+- (TOPasscodeViewController *)showPasscodeView {
     TOPasscodeViewController *vc = [[TOPasscodeViewController alloc] initWithStyle:TOPasscodeViewStyleOpaqueDark passcodeType:TOPasscodeTypeCustomAlphanumeric];
     [vc view];
     
@@ -102,13 +101,14 @@
             [vc showPasscodeAlert];
         }
     }];
+    return vc;
 }
 
 #pragma mark - TOPasscodeViewController
 
 - (NSString *)isCodeStrong:(NSString *)code {
     // check length
-    if (code.length < 6) {
+    if (code.length < MedxMinimumPasscodeLength) {
         return @"Your PIN must contain a minimum of 6 alphanumeric characters";
     }
     // check in dictionary

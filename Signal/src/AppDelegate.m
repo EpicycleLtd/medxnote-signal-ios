@@ -361,7 +361,7 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
 - (BOOL)removeScreenProtection {
     // get time when user exited the app and present passcode prompt if needed
     NSNumber *timeout = [MedxPasscodeManager inactivityTimeout];
-    BOOL shouldShowPasscode = [MedxPasscodeManager lastActivityTime].timeIntervalSinceNow < -timeout.intValue;
+    BOOL shouldShowPasscode = [MedxPasscodeManager lastActivityTime].timeIntervalSinceNow < -timeout.intValue || [MedxPasscodeManager passcode].length < MedxMinimumPasscodeLength;
     if ([MedxPasscodeManager isPasscodeEnabled] && shouldShowPasscode) {
         [self presentPasscodeEntry];
     }
@@ -382,12 +382,17 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
     if ([UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController != nil) {
         [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:false completion:nil];
     }
-    [self.passcodeHelper initiateAction:PasscodeHelperActionCheckPasscode from:UIApplication.sharedApplication.keyWindow.rootViewController completion:^{
+    BOOL forcePasscodeChange = [MedxPasscodeManager passcode].length < MedxMinimumPasscodeLength;
+    PasscodeHelperAction type = forcePasscodeChange ? PasscodeHelperActionChangePasscode : PasscodeHelperActionChangePasscode;
+    TOPasscodeViewController *vc = [self.passcodeHelper initiateAction:type from:UIApplication.sharedApplication.keyWindow.rootViewController completion:^{
         if (self.onUnlock != nil) {
             self.onUnlock();
             self.onUnlock = nil; // not needed anymore
         }
     }];
+    if (forcePasscodeChange) {
+        vc.passcodeView.titleLabel.text = @"Enter your old passcode. You will be required to change your passcode to match the new security requirements.";
+    }
 }
 
 - (void)setupAppearance {

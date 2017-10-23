@@ -6,6 +6,11 @@
 //  Copyright © 2017 Open Whisper Systems. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+#import "TOPasscodeViewController.h"
+
+#define MedxMinimumPasscodeLength 6
+
 typedef NS_ENUM(NSUInteger, PasscodeHelperAction) {
     PasscodeHelperActionCheckPasscode,
     PasscodeHelperActionEnablePasscode,
@@ -13,12 +18,10 @@ typedef NS_ENUM(NSUInteger, PasscodeHelperAction) {
     PasscodeHelperActionChangePasscode
 };
 
-#import <UIKit/UIKit.h>
-
 @interface PasscodeHelper : NSObject
 
 @property BOOL cancelDisabled;
 
-- (void)initiateAction:(PasscodeHelperAction)action from:(UIViewController *)vc completion:(void (^)())completion;
+- (TOPasscodeViewController *)initiateAction:(PasscodeHelperAction)action from:(UIViewController *)vc completion:(void (^)())completion;
 
 @end
