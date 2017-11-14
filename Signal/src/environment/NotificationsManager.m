@@ -98,7 +98,7 @@
 
 - (void)notifyUserForIncomingMessage:(TSIncomingMessage *)message from:(NSString *)name inThread:(TSThread *)thread {
     NSString *messageDescription = message.description;
-    return;
+
     if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive && messageDescription) {
         UILocalNotification *notification = [[UILocalNotification alloc] init];
         notification.soundName            = @"NewMessage.aifc";

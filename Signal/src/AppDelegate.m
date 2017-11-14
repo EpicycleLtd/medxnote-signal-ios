@@ -383,7 +383,7 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
         [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:false completion:nil];
     }
     BOOL forcePasscodeChange = [MedxPasscodeManager passcode].length < MedxMinimumPasscodeLength;
-    PasscodeHelperAction type = forcePasscodeChange ? PasscodeHelperActionChangePasscode : PasscodeHelperActionChangePasscode;
+    PasscodeHelperAction type = forcePasscodeChange ? PasscodeHelperActionChangePasscode : PasscodeHelperActionCheckPasscode;
     TOPasscodeViewController *vc = [self.passcodeHelper initiateAction:type from:UIApplication.sharedApplication.keyWindow.rootViewController completion:^{
         if (self.onUnlock != nil) {
             self.onUnlock();
