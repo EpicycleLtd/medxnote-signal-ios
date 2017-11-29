@@ -407,6 +407,7 @@
 		B74A6E1B1F8B81F60065F2C1 /* textsecure.cer in Resources */ = {isa = PBXBuildFile; fileRef = B74A6E181F8B81F10065F2C1 /* textsecure.cer */; };
 		B753F31B1F18CFCB00F3FE39 /* UIViewController+Medxnote.m in Sources */ = {isa = PBXBuildFile; fileRef = B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */; };
 		B753F31C1F18CFCB00F3FE39 /* UIViewController+Medxnote.m in Sources */ = {isa = PBXBuildFile; fileRef = B753F31A1F18CFCB00F3FE39 /* UIViewController+Medxnote.m */; };
+		B75728F91FCEF37500414F93 /* SearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A518BD1FCE01AB009C4D8C /* SearchResult.m */; };
 		B7602B261F5FEEB8001C2956 /* PasscodeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B7602B251F5FEEB8001C2956 /* PasscodeHelper.m */; };
 		B7602B271F5FEEB8001C2956 /* PasscodeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B7602B251F5FEEB8001C2956 /* PasscodeHelper.m */; };
 		B76DF1F31F0A246000D3B989 /* Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EB04EF18170B33006006FC /* Operation.m */; };
@@ -3264,6 +3265,7 @@
 				B76DF2251F0A246000D3B989 /* EventWindow.m in Sources */,
 				B76DF2261F0A246000D3B989 /* SoundBoard.m in Sources */,
 				B76DF2271F0A246000D3B989 /* LocalizableText.m in Sources */,
+				B75728F91FCEF37500414F93 /* SearchResult.m in Sources */,
 				B76DF2281F0A246000D3B989 /* OWSContactsManager.m in Sources */,
 				B76DF2291F0A246000D3B989 /* RemoteIOBufferListWrapper.m in Sources */,
 				B76DF22A1F0A246000D3B989 /* RtpPacket.m in Sources */,
