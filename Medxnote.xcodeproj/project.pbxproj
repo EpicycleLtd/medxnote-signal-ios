@@ -671,6 +671,7 @@
 		B78846C11E9F845600E041F3 /* InlineKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = B78846C01E9F845600E041F3 /* InlineKeyboard.m */; };
 		B78846C51E9F85F800E041F3 /* InlineKeyboardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B78846C31E9F85F800E041F3 /* InlineKeyboardCell.m */; };
 		B78846C61E9F85F800E041F3 /* InlineKeyboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B78846C41E9F85F800E041F3 /* InlineKeyboardCell.xib */; };
+		B7A518BE1FCE01AB009C4D8C /* SearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A518BD1FCE01AB009C4D8C /* SearchResult.m */; };
 		B90418E6183E9DD40038554A /* DateUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B90418E5183E9DD40038554A /* DateUtil.m */; };
 		B97940271832BD2400BD66CB /* UIUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B97940261832BD2400BD66CB /* UIUtil.m */; };
 		B97CBFA818860EA3008E0DE9 /* CountryCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B97CBFA618860EA3008E0DE9 /* CountryCodeViewController.m */; };
@@ -1263,6 +1264,8 @@
 		B78846C21E9F85F800E041F3 /* InlineKeyboardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InlineKeyboardCell.h; sourceTree = "<group>"; };
 		B78846C31E9F85F800E041F3 /* InlineKeyboardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InlineKeyboardCell.m; sourceTree = "<group>"; };
 		B78846C41E9F85F800E041F3 /* InlineKeyboardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InlineKeyboardCell.xib; sourceTree = "<group>"; };
+		B7A518BC1FCE01AB009C4D8C /* SearchResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchResult.h; sourceTree = "<group>"; };
+		B7A518BD1FCE01AB009C4D8C /* SearchResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchResult.m; sourceTree = "<group>"; };
 		B90418E4183E9DD40038554A /* DateUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateUtil.h; sourceTree = "<group>"; };
 		B90418E5183E9DD40038554A /* DateUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateUtil.m; sourceTree = "<group>"; };
 		B97940251832BD2400BD66CB /* UIUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtil.h; sourceTree = "<group>"; };
@@ -2653,6 +2656,8 @@
 				FC3196291A067D8F0094C78E /* MessageComposeTableViewController.m */,
 				FCAC963A19FEF9280046DFC5 /* SignalsViewController.h */,
 				FCAC963B19FEF9280046DFC5 /* SignalsViewController.m */,
+				B7A518BC1FCE01AB009C4D8C /* SearchResult.h */,
+				B7A518BD1FCE01AB009C4D8C /* SearchResult.m */,
 				FCAC964F19FF0A6E0046DFC5 /* MessagesViewController.h */,
 				FCAC965019FF0A6E0046DFC5 /* MessagesViewController.m */,
 				ABEC8DAC1E1FCDDA00394904 /* MessageInfoViewController.h */,
@@ -3459,6 +3464,7 @@
 				76EB061018170B33006006FC /* EventWindow.m in Sources */,
 				E197B62718BBF63B00F073E5 /* SoundBoard.m in Sources */,
 				76EB058418170B33006006FC /* LocalizableText.m in Sources */,
+				B7A518BE1FCE01AB009C4D8C /* SearchResult.m in Sources */,
 				76EB057A18170B33006006FC /* OWSContactsManager.m in Sources */,
 				E197B61918BBEC1A00F073E5 /* RemoteIOBufferListWrapper.m in Sources */,
 				76EB05A618170B33006006FC /* RtpPacket.m in Sources */,

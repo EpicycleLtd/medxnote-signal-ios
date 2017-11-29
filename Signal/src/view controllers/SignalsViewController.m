@@ -23,6 +23,7 @@
 #import "VersionMigrations.h"
 #import "MessageComposeTableViewController.h"
 #import "TSMessageAdapter.h"
+#import "SearchResult.h"
 
 #import <YapDatabase/YapDatabaseViewChange.h>
 #import "YapDatabaseViewConnection.h"
@@ -34,7 +35,7 @@
 
 static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
 
-@interface SignalsViewController ()
+@interface SignalsViewController () <UISearchBarDelegate>
 
 @property (nonatomic, strong) YapDatabaseConnection *editingDbConnection;
 @property (nonatomic, strong) YapDatabaseConnection *uiDatabaseConnection;
@@ -44,6 +45,12 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
 @property (nonatomic, retain) UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) id previewingContext;
 @property BOOL isSendingUnsent;
+
+// search
+@property (nonatomic, strong) YapDatabaseViewMappings *messageMappings;
+@property UISearchController *searchController;
+@property NSArray <TSThread *> *threads;
+@property NSMutableArray *results;
 
 @end
 
@@ -56,7 +63,7 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationController.navigationBar setTranslucent:NO];
-
+    self.results = [NSMutableArray new];
     [self tableViewSetUp];
 
     self.editingDbConnection = TSStorageManager.sharedManager.newDatabaseConnection;
@@ -97,6 +104,7 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
                                              selector:@selector(sendUnsentMessages)
                                                  name:@"InternetNowReachable"
                                                object:nil];
+    [self setupSearch];
 }
 
 - (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
@@ -157,6 +165,7 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
 
     [self updateInboxCountLabel];
     [[self tableView] reloadData];
+    [self updateSearchMapping];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -214,17 +223,126 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
     });
 }
 
+#pragma mark - Search
+
+- (void)setupSearch {
+    // search controller
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchBar.delegate = self;
+    self.searchController.searchBar.tintColor = [UIColor whiteColor];
+    self.searchController.dimsBackgroundDuringPresentation = false;
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.searchController = self.searchController;
+    } else {
+        self.tableView.tableHeaderView = self.searchController.searchBar;
+    }
+}
+
+- (void)updateSearchMapping {
+    NSMutableArray *threads = [NSMutableArray new];
+    NSMutableArray *threadIds = [NSMutableArray new];
+    for (NSUInteger i = 0; i < [self.threadMappings numberOfItemsInSection:0]; i++) {
+        TSThread *thread = [self threadForIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        [threads addObject:thread];
+        [threadIds addObject:thread.uniqueId];
+    }
+    self.threads = threads.copy;
+    
+    // mappings
+    self.messageMappings =
+    [[YapDatabaseViewMappings alloc] initWithGroups:threadIds.copy view:TSMessageDatabaseViewExtensionName];
+    [self.uiDatabaseConnection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
+        [self.messageMappings updateWithTransaction:transaction];
+    }];
+    NSLog(@"total messages %ld", [self.messageMappings numberOfItemsInAllGroups]);
+}
+
+- (void)searchForText:(NSString *)searchText {
+    NSMutableArray *results = [NSMutableArray new];
+    for (TSThread *thread in self.threads) {
+        NSInteger count = [self.messageMappings numberOfItemsInGroup:thread.uniqueId];
+        for (NSInteger i = 0; i < count; i++) {
+            // TODO: we can also store this index in search result so we can scroll to the appropriate message
+            TSInteraction *interaction = [self interactionForGroup:thread.uniqueId index:i];
+            if ([interaction isKindOfClass:[TSIncomingMessage class]]) {
+                TSIncomingMessage *message = (TSIncomingMessage *)interaction;
+                if ([message.body.lowercaseString containsString:searchText.lowercaseString]) {
+                    SearchResult *result = [SearchResult new];
+                    result.interaction = message;
+                    result.thread = thread;
+                    [results addObject:result];
+                }
+            } else if ([interaction isKindOfClass:[TSOutgoingMessage class]]) {
+                TSOutgoingMessage *message = (TSOutgoingMessage *)interaction;
+                if ([message.body.lowercaseString containsString:searchText.lowercaseString]) {
+                    SearchResult *result = [SearchResult new];
+                    result.interaction = message;
+                    result.thread = thread;
+                    [results addObject:result];
+                }
+            }
+        }
+    }
+    NSLog(@"found %ld results", results.count);
+    [self.results removeAllObjects];
+    [self.results addObjectsFromArray:results];
+    [self.tableView reloadData];
+}
+
+- (TSInteraction *)interactionForGroup:(NSString *)group index:(NSInteger) index {
+    __block TSInteraction *message = nil;
+    [self.uiDatabaseConnection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
+        YapDatabaseViewTransaction *viewTransaction = [transaction ext:TSMessageDatabaseViewExtensionName];
+        message = [viewTransaction objectAtIndex:index inGroup:group];
+//        message = [viewTransaction objectAtRow:indexPath.row inSection:indexPath.section withMappings:self.messageMappings];
+    }];
+    
+    return message;
+}
+
+- (BOOL)isSearching {
+    return self.searchController.searchBar.text.length > 0;
+}
+
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (self.isSearching) {
+        return 1;
+    }
     return (NSInteger)[self.threadMappings numberOfSections];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (self.isSearching) {
+        return self.results.count;
+    }
     return (NSInteger)[self.threadMappings numberOfItemsInSection:(NSUInteger)section];
 }
 
 - (InboxTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.isSearching) {
+        InboxTableViewCell *cell =
+        [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InboxTableViewCell class])];
+        if (!cell) {
+            cell = [InboxTableViewCell inboxTableViewCell];
+        }
+        SearchResult *result = self.results[indexPath.row];
+        [cell configureWithThread:result.thread];
+        
+        if ([result.interaction isKindOfClass:[TSIncomingMessage class]]) {
+            TSIncomingMessage *message = (TSIncomingMessage *)result.interaction;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                cell.snippetLabel.text = message.body;
+            });
+        } else if ([result.interaction isKindOfClass:[TSOutgoingMessage class]]) {
+            TSOutgoingMessage *message = (TSOutgoingMessage *)result.interaction;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                cell.snippetLabel.text = message.body;
+            });
+        }
+        return cell;
+    }
     InboxTableViewCell *cell =
         [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InboxTableViewCell class])];
     TSThread *thread = [self threadForIndexPath:indexPath];
@@ -404,6 +522,24 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
         [mvc handleForwardedData:data];
         [self.navigationController pushViewController:mvc animated:YES];
     });
+}
+
+#pragma mark - Search bar delegate
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [self searchForText:searchText];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    [searchBar resignFirstResponder];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    [searchBar setText:nil];
+    [searchBar setShowsCancelButton:NO animated:YES];
+    [searchBar resignFirstResponder];
+    [self.results removeAllObjects];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Navigation
