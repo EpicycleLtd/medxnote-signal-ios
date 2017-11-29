@@ -258,15 +258,24 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
 }
 
 - (void)searchForText:(NSString *)searchText {
+    NSString *text = searchText.lowercaseString;
     NSMutableArray *results = [NSMutableArray new];
     for (TSThread *thread in self.threads) {
+        // check group name
+        if (thread.isGroupThread && [thread.name.lowercaseString containsString:text]) {
+            SearchResult *result = [SearchResult new];
+            result.thread = thread;
+            [results addObject:result];
+        }
+        
+        // search messages
         NSInteger count = [self.messageMappings numberOfItemsInGroup:thread.uniqueId];
         for (NSInteger i = 0; i < count; i++) {
             // TODO: we can also store this index in search result so we can scroll to the appropriate message
             TSInteraction *interaction = [self interactionForGroup:thread.uniqueId index:i];
             if ([interaction isKindOfClass:[TSIncomingMessage class]]) {
                 TSIncomingMessage *message = (TSIncomingMessage *)interaction;
-                if ([message.body.lowercaseString containsString:searchText.lowercaseString]) {
+                if ([message.body.lowercaseString containsString:text]) {
                     SearchResult *result = [SearchResult new];
                     result.interaction = message;
                     result.thread = thread;
@@ -274,7 +283,7 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
                 }
             } else if ([interaction isKindOfClass:[TSOutgoingMessage class]]) {
                 TSOutgoingMessage *message = (TSOutgoingMessage *)interaction;
-                if ([message.body.lowercaseString containsString:searchText.lowercaseString]) {
+                if ([message.body.lowercaseString containsString:text]) {
                     SearchResult *result = [SearchResult new];
                     result.interaction = message;
                     result.thread = thread;
