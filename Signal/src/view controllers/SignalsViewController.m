@@ -234,6 +234,7 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
     if (@available(iOS 11.0, *)) {
         self.navigationItem.searchController = self.searchController;
     } else {
+        self.searchController.hidesNavigationBarDuringPresentation = false;
         self.tableView.tableHeaderView = self.searchController.searchBar;
     }
 }
