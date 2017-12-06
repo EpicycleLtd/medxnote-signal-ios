@@ -51,6 +51,7 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
 @property UISearchController *searchController;
 @property NSArray <TSThread *> *threads;
 @property NSMutableArray *results;
+@property NSMutableDictionary *memberNameCache;
 
 @end
 
@@ -64,6 +65,7 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
     [super viewDidLoad];
     [self.navigationController.navigationBar setTranslucent:NO];
     self.results = [NSMutableArray new];
+    self.memberNameCache = [NSMutableDictionary new];
     [self tableViewSetUp];
 
     self.editingDbConnection = TSStorageManager.sharedManager.newDatabaseConnection;
@@ -262,11 +264,28 @@ static NSString *const kShowSignupFlowSegue = @"showSignupFlow";
     NSString *text = searchText.lowercaseString;
     NSMutableArray *results = [NSMutableArray new];
     for (TSThread *thread in self.threads) {
-        // check group name
-        if (thread.isGroupThread && [thread.name.lowercaseString containsString:text]) {
+        // check thread name
+        if ([thread.name.lowercaseString containsString:text]) {
             SearchResult *result = [SearchResult new];
             result.thread = thread;
             [results addObject:result];
+        }
+        if (thread.isGroupThread) {
+            TSGroupThread *group = (TSGroupThread *)thread;
+            for (NSString *memberId in group.groupModel.groupMemberIds) {
+                NSString *memberName = self.memberNameCache[memberId];
+                // if member name is not cached, get from contacts manager
+                if (!memberName) {
+                    memberName = [[Environment getCurrent].contactsManager nameStringForPhoneIdentifier:memberId];
+                    self.memberNameCache[memberId] = memberName;
+                }
+                if ([memberName.lowercaseString containsString:text]) {
+                    SearchResult *result = [SearchResult new];
+                    result.thread = thread;
+                    [results addObject:result];
+                    break;
+                }
+            }
         }
         
         // search messages
