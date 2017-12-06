@@ -311,6 +311,8 @@
     if (screenHeight < 667) {
         self.signalLogo.hidden = YES;
         blueHeaderHeight       = screenHeight - 400;
+    } else if (screenHeight == 2436) {
+        blueHeaderHeight = screenHeight - (410 + 80);
     } else {
         blueHeaderHeight = screenHeight - 410;
     }
