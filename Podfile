@@ -26,3 +26,13 @@ source 'https://github.com/CocoaPods/Specs.git'
     target 'medxnote-uk' do
         
     end
+
+    target 'medxnote-testflight' do
+        pod 'Crashlytics'
+        pod 'Fabric'
+    end
+
+    target 'medxnote-uk-testflight' do
+        pod 'Crashlytics'
+        pod 'Fabric'
+    end

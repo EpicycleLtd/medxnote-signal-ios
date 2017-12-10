@@ -23,6 +23,10 @@
 #import "PasscodeHelper.h"
 #import "MedxPasscodeManager.h"
 #import "TOPasscodeViewController.h"
+#ifdef TESTFLIGHT
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+#endif
 
 static NSString *const kStoryboardName                  = @"Storyboard";
 static NSString *const kInitialViewControllerIdentifier = @"UserInitialViewController";
@@ -57,6 +61,10 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
     CategorizingLogger *logger = [CategorizingLogger categorizingLogger];
     [logger addLoggingCallback:^(NSString *category, id details, NSUInteger index){
     }];
+    
+#ifdef TESTFLIGHT
+    [Fabric with:@[[Crashlytics class]]];
+#endif
 
     // Setting up environment
     [Environment setCurrent:[Release releaseEnvironmentWithLogging:logger]];
