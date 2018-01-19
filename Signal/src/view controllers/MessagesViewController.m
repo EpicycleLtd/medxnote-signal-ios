@@ -538,24 +538,28 @@ typedef enum : NSUInteger {
     if (isGroupConversation) {
         return;
     }
+    
+    [self.navigationController.navigationBar addGestureRecognizer:_showFingerprintDisplay];
+    [self.navigationController.navigationBar addGestureRecognizer:_toggleContactPhoneDisplay];
 
-    for (UIView *view in self.navigationController.navigationBar.subviews) {
-        if ([view isKindOfClass:NSClassFromString(@"UINavigationItemView")]) {
-            self.navView = view;
-            for (UIView *aView in self.navView.subviews) {
-                if ([aView isKindOfClass:[UILabel class]]) {
-                    UILabel *label = (UILabel *)aView;
-                    if ([label.text isEqualToString:self.title]) {
-                        [self.navView setUserInteractionEnabled:YES];
-                        [aView setUserInteractionEnabled:YES];
-                        [aView addGestureRecognizer:_showFingerprintDisplay];
-                        [aView addGestureRecognizer:_toggleContactPhoneDisplay];
-                        return;
-                    }
-                }
-            }
-        }
-    }
+    // this is not working with the latest SDK (iOS 11.2) and possibly before
+//    for (UIView *view in self.navigationController.navigationBar.subviews) {
+//        if ([view isKindOfClass:NSClassFromString(@"UINavigationItemView")]) {
+//            self.navView = view;
+//            for (UIView *aView in self.navView.subviews) {
+//                if ([aView isKindOfClass:[UILabel class]]) {
+//                    UILabel *label = (UILabel *)aView;
+//                    if ([label.text isEqualToString:self.title]) {
+//                        [self.navView setUserInteractionEnabled:YES];
+//                        [aView setUserInteractionEnabled:YES];
+//                        [aView addGestureRecognizer:_showFingerprintDisplay];
+//                        [aView addGestureRecognizer:_toggleContactPhoneDisplay];
+//                        return;
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 
 - (void)removeTitleLabelGestureRecognizer {
