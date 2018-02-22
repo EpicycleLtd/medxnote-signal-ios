@@ -33,9 +33,11 @@
 - (void)startTimer {
     if (![MedxPasscodeManager isPasscodeEnabled]) { return; }
     NSNumber *timeout = [MedxPasscodeManager inactivityTimeout];
-    self.activityTimer = [NSTimer scheduledTimerWithTimeInterval:timeout.integerValue repeats:false block:^(NSTimer * _Nonnull timer) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ActivityTimeoutExceeded" object:nil];
-    }];
+    self.activityTimer = [NSTimer timerWithTimeInterval:timeout.integerValue target:self selector:@selector(timeout) userInfo:nil repeats:false];
+}
+
+- (void)timeout {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ActivityTimeoutExceeded" object:nil];
 }
 
 - (void)resetTimer {
