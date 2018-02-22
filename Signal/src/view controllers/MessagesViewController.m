@@ -539,8 +539,10 @@ typedef enum : NSUInteger {
         return;
     }
     
-    [self.navigationController.navigationBar addGestureRecognizer:_showFingerprintDisplay];
-    [self.navigationController.navigationBar addGestureRecognizer:_toggleContactPhoneDisplay];
+    if (@available(iOS 10, *)) {
+        [self.navigationController.navigationBar addGestureRecognizer:_showFingerprintDisplay];
+        [self.navigationController.navigationBar addGestureRecognizer:_toggleContactPhoneDisplay];
+    }
 
     // this is not working with the latest SDK (iOS 11.2) and possibly before
 //    for (UIView *view in self.navigationController.navigationBar.subviews) {
