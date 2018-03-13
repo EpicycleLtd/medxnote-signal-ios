@@ -50,10 +50,12 @@
     @try {
         switch (messageSignal.type) {
             case IncomingPushMessageSignalTypeCiphertext:
+                NSLog(@"=================== handleSecureMessage");
                 [self handleSecureMessage:messageSignal];
                 break;
 
             case IncomingPushMessageSignalTypePrekeyBundle:
+                NSLog(@"=================== handlePreKeyBundle");
                 [self handlePreKeyBundle:messageSignal];
                 break;
 
@@ -148,20 +150,33 @@
         self.currentMessage = secureMessage;
 
         PushMessageContent *content;
+        WhisperMessage *message;
+        NSData *ciphertext;
+        NSData *plaintext;
 
         @try {
-            WhisperMessage *message = [[WhisperMessage alloc] initWithData:secureMessage.message];
-
             SessionCipher *cipher = [[SessionCipher alloc] initWithSessionStore:storageManager
                                                                     preKeyStore:storageManager
                                                               signedPreKeyStore:storageManager
                                                                identityKeyStore:storageManager
                                                                     recipientId:recipientId
                                                                        deviceId:deviceId];
-
-            NSData *plaintext = [[cipher decrypt:message] removePadding];
-
-            content = [PushMessageContent parseFromData:plaintext];
+            ciphertext = secureMessage.hasMessage ? secureMessage.message : secureMessage.content;
+            message = [[WhisperMessage alloc] initWithData:ciphertext];
+            plaintext = [[cipher decrypt:message] removePadding];
+            if ([secureMessage hasMessage]) {
+                content = [PushMessageContent parseFromData:plaintext];
+            } else if ([secureMessage hasContent]) {
+                Content *messageContent = [Content parseFromData:plaintext];
+                if ([messageContent hasDataMessage]) {
+                    content = [PushMessageContent parseFromData:messageContent.dataMessage.data];
+                } else {
+                    NSLog(@"A Sync message or a new receipt...");
+                    return;
+                }
+            } else {
+                @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"Unknown packet" userInfo:nil];
+            }
         } @catch (NSException *exception) {
             [self processException:exception pushSignal:secureMessage];
             return;
@@ -177,22 +192,35 @@
         NSString *recipientId            = preKeyMessage.source;
         int deviceId                     = (int)preKeyMessage.sourceDevice;
         self.currentMessage = preKeyMessage;
-        
+
         PushMessageContent *content;
+        PreKeyWhisperMessage *message;
+        NSData *ciphertext;
+        NSData *plaintext;
 
         @try {
-            PreKeyWhisperMessage *message = [[PreKeyWhisperMessage alloc] initWithData:preKeyMessage.message];
-
             SessionCipher *cipher = [[SessionCipher alloc] initWithSessionStore:storageManager
                                                                     preKeyStore:storageManager
                                                               signedPreKeyStore:storageManager
                                                                identityKeyStore:storageManager
                                                                     recipientId:recipientId
                                                                        deviceId:deviceId];
-
-            NSData *plaintext = [[cipher decrypt:message] removePadding];
-
-            content = [PushMessageContent parseFromData:plaintext];
+            ciphertext = preKeyMessage.hasMessage ? preKeyMessage.message : preKeyMessage.content;
+            message = [[PreKeyWhisperMessage alloc] initWithData:ciphertext];
+            plaintext = [[cipher decrypt:message] removePadding];
+            if ([preKeyMessage hasMessage]) {
+                content = [PushMessageContent parseFromData:plaintext];
+            } else if ([preKeyMessage hasContent]) {
+                Content *messageContent = [Content parseFromData:plaintext];
+                if ([messageContent hasDataMessage]) {
+                    content = [PushMessageContent parseFromData:messageContent.dataMessage.data];
+                } else {
+                    NSLog(@"A Sync message or a new receipt...");
+                    return;
+                }
+            } else {
+                @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"Unknown packet" userInfo:nil];
+            }
         } @catch (NSException *exception) {
             [self processException:exception pushSignal:preKeyMessage];
             return;
