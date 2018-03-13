@@ -4,6 +4,8 @@
 
 // @@protoc_insertion_point(imports)
 
+@class Content;
+@class ContentBuilder;
 @class IncomingPushMessageSignal;
 @class IncomingPushMessageSignalBuilder;
 @class PredefinedAnswers;
@@ -14,6 +16,18 @@
 @class PushMessageContentBuilder;
 @class PushMessageContentGroupContext;
 @class PushMessageContentGroupContextBuilder;
+@class SyncMessage;
+@class SyncMessageBuilder;
+@class SyncMessageContacts;
+@class SyncMessageContactsBuilder;
+@class SyncMessageGroups;
+@class SyncMessageGroupsBuilder;
+@class SyncMessageRead;
+@class SyncMessageReadBuilder;
+@class SyncMessageRequest;
+@class SyncMessageRequestBuilder;
+@class SyncMessageSent;
+@class SyncMessageSentBuilder;
 
 
 typedef NS_ENUM(SInt32, IncomingPushMessageSignalType) {
@@ -45,6 +59,15 @@ typedef NS_ENUM(SInt32, PushMessageContentGroupContextType) {
 BOOL PushMessageContentGroupContextTypeIsValidValue(PushMessageContentGroupContextType value);
 NSString *NSStringFromPushMessageContentGroupContextType(PushMessageContentGroupContextType value);
 
+typedef NS_ENUM(SInt32, SyncMessageRequestType) {
+  SyncMessageRequestTypeUnknown = 0,
+  SyncMessageRequestTypeContacts = 1,
+  SyncMessageRequestTypeGroups = 2,
+};
+
+BOOL SyncMessageRequestTypeIsValidValue(SyncMessageRequestType value);
+NSString *NSStringFromSyncMessageRequestType(SyncMessageRequestType value);
+
 
 @interface IncomingPushMessageSignalRoot : NSObject {
 }
@@ -58,6 +81,7 @@ NSString *NSStringFromPushMessageContentGroupContextType(PushMessageContentGroup
 #define IncomingPushMessageSignal_relay @"relay"
 #define IncomingPushMessageSignal_timestamp @"timestamp"
 #define IncomingPushMessageSignal_message @"message"
+#define IncomingPushMessageSignal_content @"content"
 #define IncomingPushMessageSignal_deliveryTimestamp @"deliveryTimestamp"
 @interface IncomingPushMessageSignal : PBGeneratedMessage<GeneratedMessageProtocol> {
 @private
@@ -66,6 +90,7 @@ NSString *NSStringFromPushMessageContentGroupContextType(PushMessageContentGroup
   BOOL hasSource_:1;
   BOOL hasRelay_:1;
   BOOL hasMessage_:1;
+  BOOL hasContent_:1;
   BOOL hasSourceDevice_:1;
   BOOL hasType_:1;
   UInt64 timestamp;
@@ -73,6 +98,7 @@ NSString *NSStringFromPushMessageContentGroupContextType(PushMessageContentGroup
   NSString* source;
   NSString* relay;
   NSData* message;
+  NSData* content;
   UInt32 sourceDevice;
   IncomingPushMessageSignalType type;
 }
@@ -82,6 +108,7 @@ NSString *NSStringFromPushMessageContentGroupContextType(PushMessageContentGroup
 - (BOOL) hasRelay;
 - (BOOL) hasTimestamp;
 - (BOOL) hasMessage;
+- (BOOL) hasContent;
 - (BOOL) hasDeliveryTimestamp;
 @property (readonly) IncomingPushMessageSignalType type;
 @property (readonly, strong) NSString* source;
@@ -89,6 +116,7 @@ NSString *NSStringFromPushMessageContentGroupContextType(PushMessageContentGroup
 @property (readonly, strong) NSString* relay;
 @property (readonly) UInt64 timestamp;
 @property (readonly, strong) NSData* message;
+@property (readonly, strong) NSData* content;
 @property (readonly) UInt64 deliveryTimestamp;
 
 + (instancetype) defaultInstance;
@@ -156,10 +184,79 @@ NSString *NSStringFromPushMessageContentGroupContextType(PushMessageContentGroup
 - (IncomingPushMessageSignalBuilder*) setMessage:(NSData*) value;
 - (IncomingPushMessageSignalBuilder*) clearMessage;
 
+- (BOOL) hasContent;
+- (NSData*) content;
+- (IncomingPushMessageSignalBuilder*) setContent:(NSData*) value;
+- (IncomingPushMessageSignalBuilder*) clearContent;
+
 - (BOOL) hasDeliveryTimestamp;
 - (UInt64) deliveryTimestamp;
 - (IncomingPushMessageSignalBuilder*) setDeliveryTimestamp:(UInt64) value;
 - (IncomingPushMessageSignalBuilder*) clearDeliveryTimestamp;
+@end
+
+#define Content_dataMessage @"dataMessage"
+#define Content_syncMessage @"syncMessage"
+@interface Content : PBGeneratedMessage<GeneratedMessageProtocol> {
+@private
+  BOOL hasDataMessage_:1;
+  BOOL hasSyncMessage_:1;
+  PushMessageContent* dataMessage;
+  SyncMessage* syncMessage;
+}
+- (BOOL) hasDataMessage;
+- (BOOL) hasSyncMessage;
+@property (readonly, strong) PushMessageContent* dataMessage;
+@property (readonly, strong) SyncMessage* syncMessage;
+
++ (instancetype) defaultInstance;
+- (instancetype) defaultInstance;
+
+- (BOOL) isInitialized;
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
+- (ContentBuilder*) builder;
++ (ContentBuilder*) builder;
++ (ContentBuilder*) builderWithPrototype:(Content*) prototype;
+- (ContentBuilder*) toBuilder;
+
++ (Content*) parseFromData:(NSData*) data;
++ (Content*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (Content*) parseFromInputStream:(NSInputStream*) input;
++ (Content*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (Content*) parseFromCodedInputStream:(PBCodedInputStream*) input;
++ (Content*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+@end
+
+@interface ContentBuilder : PBGeneratedMessageBuilder {
+@private
+  Content* resultContent;
+}
+
+- (Content*) defaultInstance;
+
+- (ContentBuilder*) clear;
+- (ContentBuilder*) clone;
+
+- (Content*) build;
+- (Content*) buildPartial;
+
+- (ContentBuilder*) mergeFrom:(Content*) other;
+- (ContentBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
+- (ContentBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+
+- (BOOL) hasDataMessage;
+- (PushMessageContent*) dataMessage;
+- (ContentBuilder*) setDataMessage:(PushMessageContent*) value;
+- (ContentBuilder*) setDataMessageBuilder:(PushMessageContentBuilder*) builderForValue;
+- (ContentBuilder*) mergeDataMessage:(PushMessageContent*) value;
+- (ContentBuilder*) clearDataMessage;
+
+- (BOOL) hasSyncMessage;
+- (SyncMessage*) syncMessage;
+- (ContentBuilder*) setSyncMessage:(SyncMessage*) value;
+- (ContentBuilder*) setSyncMessageBuilder:(SyncMessageBuilder*) builderForValue;
+- (ContentBuilder*) mergeSyncMessage:(SyncMessage*) value;
+- (ContentBuilder*) clearSyncMessage;
 @end
 
 #define PushMessageContent_body @"body"
@@ -476,6 +573,390 @@ NSString *NSStringFromPushMessageContentGroupContextType(PushMessageContentGroup
 - (NSString*) data;
 - (PredefinedAnswersBuilder*) setData:(NSString*) value;
 - (PredefinedAnswersBuilder*) clearData;
+@end
+
+#define SyncMessage_sent @"sent"
+#define SyncMessage_contacts @"contacts"
+#define SyncMessage_groups @"groups"
+#define SyncMessage_request @"request"
+#define SyncMessage_read @"read"
+@interface SyncMessage : PBGeneratedMessage<GeneratedMessageProtocol> {
+@private
+  BOOL hasSent_:1;
+  BOOL hasContacts_:1;
+  BOOL hasGroups_:1;
+  BOOL hasRequest_:1;
+  SyncMessageSent* sent;
+  SyncMessageContacts* contacts;
+  SyncMessageGroups* groups;
+  SyncMessageRequest* request;
+  NSMutableArray * readArray;
+}
+- (BOOL) hasSent;
+- (BOOL) hasContacts;
+- (BOOL) hasGroups;
+- (BOOL) hasRequest;
+@property (readonly, strong) SyncMessageSent* sent;
+@property (readonly, strong) SyncMessageContacts* contacts;
+@property (readonly, strong) SyncMessageGroups* groups;
+@property (readonly, strong) SyncMessageRequest* request;
+@property (readonly, strong) NSArray<SyncMessageRead*> * read;
+- (SyncMessageRead*)readAtIndex:(NSUInteger)index;
+
++ (instancetype) defaultInstance;
+- (instancetype) defaultInstance;
+
+- (BOOL) isInitialized;
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
+- (SyncMessageBuilder*) builder;
++ (SyncMessageBuilder*) builder;
++ (SyncMessageBuilder*) builderWithPrototype:(SyncMessage*) prototype;
+- (SyncMessageBuilder*) toBuilder;
+
++ (SyncMessage*) parseFromData:(NSData*) data;
++ (SyncMessage*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (SyncMessage*) parseFromInputStream:(NSInputStream*) input;
++ (SyncMessage*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (SyncMessage*) parseFromCodedInputStream:(PBCodedInputStream*) input;
++ (SyncMessage*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+@end
+
+#define Sent_destination @"destination"
+#define Sent_timestamp @"timestamp"
+#define Sent_message @"message"
+@interface SyncMessageSent : PBGeneratedMessage<GeneratedMessageProtocol> {
+@private
+  BOOL hasTimestamp_:1;
+  BOOL hasDestination_:1;
+  BOOL hasMessage_:1;
+  UInt64 timestamp;
+  NSString* destination;
+  PushMessageContent* message;
+}
+- (BOOL) hasDestination;
+- (BOOL) hasTimestamp;
+- (BOOL) hasMessage;
+@property (readonly, strong) NSString* destination;
+@property (readonly) UInt64 timestamp;
+@property (readonly, strong) PushMessageContent* message;
+
++ (instancetype) defaultInstance;
+- (instancetype) defaultInstance;
+
+- (BOOL) isInitialized;
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
+- (SyncMessageSentBuilder*) builder;
++ (SyncMessageSentBuilder*) builder;
++ (SyncMessageSentBuilder*) builderWithPrototype:(SyncMessageSent*) prototype;
+- (SyncMessageSentBuilder*) toBuilder;
+
++ (SyncMessageSent*) parseFromData:(NSData*) data;
++ (SyncMessageSent*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (SyncMessageSent*) parseFromInputStream:(NSInputStream*) input;
++ (SyncMessageSent*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (SyncMessageSent*) parseFromCodedInputStream:(PBCodedInputStream*) input;
++ (SyncMessageSent*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+@end
+
+@interface SyncMessageSentBuilder : PBGeneratedMessageBuilder {
+@private
+  SyncMessageSent* resultSent;
+}
+
+- (SyncMessageSent*) defaultInstance;
+
+- (SyncMessageSentBuilder*) clear;
+- (SyncMessageSentBuilder*) clone;
+
+- (SyncMessageSent*) build;
+- (SyncMessageSent*) buildPartial;
+
+- (SyncMessageSentBuilder*) mergeFrom:(SyncMessageSent*) other;
+- (SyncMessageSentBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
+- (SyncMessageSentBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+
+- (BOOL) hasDestination;
+- (NSString*) destination;
+- (SyncMessageSentBuilder*) setDestination:(NSString*) value;
+- (SyncMessageSentBuilder*) clearDestination;
+
+- (BOOL) hasTimestamp;
+- (UInt64) timestamp;
+- (SyncMessageSentBuilder*) setTimestamp:(UInt64) value;
+- (SyncMessageSentBuilder*) clearTimestamp;
+
+- (BOOL) hasMessage;
+- (PushMessageContent*) message;
+- (SyncMessageSentBuilder*) setMessage:(PushMessageContent*) value;
+- (SyncMessageSentBuilder*) setMessageBuilder:(PushMessageContentBuilder*) builderForValue;
+- (SyncMessageSentBuilder*) mergeMessage:(PushMessageContent*) value;
+- (SyncMessageSentBuilder*) clearMessage;
+@end
+
+#define Contacts_blob @"blob"
+@interface SyncMessageContacts : PBGeneratedMessage<GeneratedMessageProtocol> {
+@private
+  BOOL hasBlob_:1;
+  PushMessageContentAttachmentPointer* blob;
+}
+- (BOOL) hasBlob;
+@property (readonly, strong) PushMessageContentAttachmentPointer* blob;
+
++ (instancetype) defaultInstance;
+- (instancetype) defaultInstance;
+
+- (BOOL) isInitialized;
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
+- (SyncMessageContactsBuilder*) builder;
++ (SyncMessageContactsBuilder*) builder;
++ (SyncMessageContactsBuilder*) builderWithPrototype:(SyncMessageContacts*) prototype;
+- (SyncMessageContactsBuilder*) toBuilder;
+
++ (SyncMessageContacts*) parseFromData:(NSData*) data;
++ (SyncMessageContacts*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (SyncMessageContacts*) parseFromInputStream:(NSInputStream*) input;
++ (SyncMessageContacts*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (SyncMessageContacts*) parseFromCodedInputStream:(PBCodedInputStream*) input;
++ (SyncMessageContacts*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+@end
+
+@interface SyncMessageContactsBuilder : PBGeneratedMessageBuilder {
+@private
+  SyncMessageContacts* resultContacts;
+}
+
+- (SyncMessageContacts*) defaultInstance;
+
+- (SyncMessageContactsBuilder*) clear;
+- (SyncMessageContactsBuilder*) clone;
+
+- (SyncMessageContacts*) build;
+- (SyncMessageContacts*) buildPartial;
+
+- (SyncMessageContactsBuilder*) mergeFrom:(SyncMessageContacts*) other;
+- (SyncMessageContactsBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
+- (SyncMessageContactsBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+
+- (BOOL) hasBlob;
+- (PushMessageContentAttachmentPointer*) blob;
+- (SyncMessageContactsBuilder*) setBlob:(PushMessageContentAttachmentPointer*) value;
+- (SyncMessageContactsBuilder*) setBlobBuilder:(PushMessageContentAttachmentPointerBuilder*) builderForValue;
+- (SyncMessageContactsBuilder*) mergeBlob:(PushMessageContentAttachmentPointer*) value;
+- (SyncMessageContactsBuilder*) clearBlob;
+@end
+
+#define Groups_blob @"blob"
+@interface SyncMessageGroups : PBGeneratedMessage<GeneratedMessageProtocol> {
+@private
+  BOOL hasBlob_:1;
+  PushMessageContentAttachmentPointer* blob;
+}
+- (BOOL) hasBlob;
+@property (readonly, strong) PushMessageContentAttachmentPointer* blob;
+
++ (instancetype) defaultInstance;
+- (instancetype) defaultInstance;
+
+- (BOOL) isInitialized;
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
+- (SyncMessageGroupsBuilder*) builder;
++ (SyncMessageGroupsBuilder*) builder;
++ (SyncMessageGroupsBuilder*) builderWithPrototype:(SyncMessageGroups*) prototype;
+- (SyncMessageGroupsBuilder*) toBuilder;
+
++ (SyncMessageGroups*) parseFromData:(NSData*) data;
++ (SyncMessageGroups*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (SyncMessageGroups*) parseFromInputStream:(NSInputStream*) input;
++ (SyncMessageGroups*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (SyncMessageGroups*) parseFromCodedInputStream:(PBCodedInputStream*) input;
++ (SyncMessageGroups*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+@end
+
+@interface SyncMessageGroupsBuilder : PBGeneratedMessageBuilder {
+@private
+  SyncMessageGroups* resultGroups;
+}
+
+- (SyncMessageGroups*) defaultInstance;
+
+- (SyncMessageGroupsBuilder*) clear;
+- (SyncMessageGroupsBuilder*) clone;
+
+- (SyncMessageGroups*) build;
+- (SyncMessageGroups*) buildPartial;
+
+- (SyncMessageGroupsBuilder*) mergeFrom:(SyncMessageGroups*) other;
+- (SyncMessageGroupsBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
+- (SyncMessageGroupsBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+
+- (BOOL) hasBlob;
+- (PushMessageContentAttachmentPointer*) blob;
+- (SyncMessageGroupsBuilder*) setBlob:(PushMessageContentAttachmentPointer*) value;
+- (SyncMessageGroupsBuilder*) setBlobBuilder:(PushMessageContentAttachmentPointerBuilder*) builderForValue;
+- (SyncMessageGroupsBuilder*) mergeBlob:(PushMessageContentAttachmentPointer*) value;
+- (SyncMessageGroupsBuilder*) clearBlob;
+@end
+
+#define Request_type @"type"
+@interface SyncMessageRequest : PBGeneratedMessage<GeneratedMessageProtocol> {
+@private
+  BOOL hasType_:1;
+  SyncMessageRequestType type;
+}
+- (BOOL) hasType;
+@property (readonly) SyncMessageRequestType type;
+
++ (instancetype) defaultInstance;
+- (instancetype) defaultInstance;
+
+- (BOOL) isInitialized;
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
+- (SyncMessageRequestBuilder*) builder;
++ (SyncMessageRequestBuilder*) builder;
++ (SyncMessageRequestBuilder*) builderWithPrototype:(SyncMessageRequest*) prototype;
+- (SyncMessageRequestBuilder*) toBuilder;
+
++ (SyncMessageRequest*) parseFromData:(NSData*) data;
++ (SyncMessageRequest*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (SyncMessageRequest*) parseFromInputStream:(NSInputStream*) input;
++ (SyncMessageRequest*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (SyncMessageRequest*) parseFromCodedInputStream:(PBCodedInputStream*) input;
++ (SyncMessageRequest*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+@end
+
+@interface SyncMessageRequestBuilder : PBGeneratedMessageBuilder {
+@private
+  SyncMessageRequest* resultRequest;
+}
+
+- (SyncMessageRequest*) defaultInstance;
+
+- (SyncMessageRequestBuilder*) clear;
+- (SyncMessageRequestBuilder*) clone;
+
+- (SyncMessageRequest*) build;
+- (SyncMessageRequest*) buildPartial;
+
+- (SyncMessageRequestBuilder*) mergeFrom:(SyncMessageRequest*) other;
+- (SyncMessageRequestBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
+- (SyncMessageRequestBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+
+- (BOOL) hasType;
+- (SyncMessageRequestType) type;
+- (SyncMessageRequestBuilder*) setType:(SyncMessageRequestType) value;
+- (SyncMessageRequestBuilder*) clearType;
+@end
+
+#define Read_sender @"sender"
+#define Read_timestamp @"timestamp"
+@interface SyncMessageRead : PBGeneratedMessage<GeneratedMessageProtocol> {
+@private
+  BOOL hasTimestamp_:1;
+  BOOL hasSender_:1;
+  UInt64 timestamp;
+  NSString* sender;
+}
+- (BOOL) hasSender;
+- (BOOL) hasTimestamp;
+@property (readonly, strong) NSString* sender;
+@property (readonly) UInt64 timestamp;
+
++ (instancetype) defaultInstance;
+- (instancetype) defaultInstance;
+
+- (BOOL) isInitialized;
+- (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
+- (SyncMessageReadBuilder*) builder;
++ (SyncMessageReadBuilder*) builder;
++ (SyncMessageReadBuilder*) builderWithPrototype:(SyncMessageRead*) prototype;
+- (SyncMessageReadBuilder*) toBuilder;
+
++ (SyncMessageRead*) parseFromData:(NSData*) data;
++ (SyncMessageRead*) parseFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (SyncMessageRead*) parseFromInputStream:(NSInputStream*) input;
++ (SyncMessageRead*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
++ (SyncMessageRead*) parseFromCodedInputStream:(PBCodedInputStream*) input;
++ (SyncMessageRead*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+@end
+
+@interface SyncMessageReadBuilder : PBGeneratedMessageBuilder {
+@private
+  SyncMessageRead* resultRead;
+}
+
+- (SyncMessageRead*) defaultInstance;
+
+- (SyncMessageReadBuilder*) clear;
+- (SyncMessageReadBuilder*) clone;
+
+- (SyncMessageRead*) build;
+- (SyncMessageRead*) buildPartial;
+
+- (SyncMessageReadBuilder*) mergeFrom:(SyncMessageRead*) other;
+- (SyncMessageReadBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
+- (SyncMessageReadBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+
+- (BOOL) hasSender;
+- (NSString*) sender;
+- (SyncMessageReadBuilder*) setSender:(NSString*) value;
+- (SyncMessageReadBuilder*) clearSender;
+
+- (BOOL) hasTimestamp;
+- (UInt64) timestamp;
+- (SyncMessageReadBuilder*) setTimestamp:(UInt64) value;
+- (SyncMessageReadBuilder*) clearTimestamp;
+@end
+
+@interface SyncMessageBuilder : PBGeneratedMessageBuilder {
+@private
+  SyncMessage* resultSyncMessage;
+}
+
+- (SyncMessage*) defaultInstance;
+
+- (SyncMessageBuilder*) clear;
+- (SyncMessageBuilder*) clone;
+
+- (SyncMessage*) build;
+- (SyncMessage*) buildPartial;
+
+- (SyncMessageBuilder*) mergeFrom:(SyncMessage*) other;
+- (SyncMessageBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input;
+- (SyncMessageBuilder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+
+- (BOOL) hasSent;
+- (SyncMessageSent*) sent;
+- (SyncMessageBuilder*) setSent:(SyncMessageSent*) value;
+- (SyncMessageBuilder*) setSentBuilder:(SyncMessageSentBuilder*) builderForValue;
+- (SyncMessageBuilder*) mergeSent:(SyncMessageSent*) value;
+- (SyncMessageBuilder*) clearSent;
+
+- (BOOL) hasContacts;
+- (SyncMessageContacts*) contacts;
+- (SyncMessageBuilder*) setContacts:(SyncMessageContacts*) value;
+- (SyncMessageBuilder*) setContactsBuilder:(SyncMessageContactsBuilder*) builderForValue;
+- (SyncMessageBuilder*) mergeContacts:(SyncMessageContacts*) value;
+- (SyncMessageBuilder*) clearContacts;
+
+- (BOOL) hasGroups;
+- (SyncMessageGroups*) groups;
+- (SyncMessageBuilder*) setGroups:(SyncMessageGroups*) value;
+- (SyncMessageBuilder*) setGroupsBuilder:(SyncMessageGroupsBuilder*) builderForValue;
+- (SyncMessageBuilder*) mergeGroups:(SyncMessageGroups*) value;
+- (SyncMessageBuilder*) clearGroups;
+
+- (BOOL) hasRequest;
+- (SyncMessageRequest*) request;
+- (SyncMessageBuilder*) setRequest:(SyncMessageRequest*) value;
+- (SyncMessageBuilder*) setRequestBuilder:(SyncMessageRequestBuilder*) builderForValue;
+- (SyncMessageBuilder*) mergeRequest:(SyncMessageRequest*) value;
+- (SyncMessageBuilder*) clearRequest;
+
+- (NSMutableArray<SyncMessageRead*> *)read;
+- (SyncMessageRead*)readAtIndex:(NSUInteger)index;
+- (SyncMessageBuilder *)addRead:(SyncMessageRead*)value;
+- (SyncMessageBuilder *)setReadArray:(NSArray<SyncMessageRead*> *)array;
+- (SyncMessageBuilder *)clearRead;
 @end
 
 
