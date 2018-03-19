@@ -224,7 +224,7 @@ static NSString *const kCodeSentSegue = @"codeSent";
     if (screenHeight < 667) {
         self.signalLogo.hidden = YES;
         blueHeaderHeight       = screenHeight - 408;
-    } else if (screenHeight == 2436) {
+    } else if (screenHeight == 812) {
         blueHeaderHeight = screenHeight - (420 + 80);
     } else {
         blueHeaderHeight = screenHeight - 420;
