@@ -74,12 +74,25 @@
         [[NSData dataWithBytes:digest length:CC_SHA256_DIGEST_LENGTH] subdataWithRange:NSMakeRange(0, truncatedBytes)];
 }
 
-
 #pragma mark HMAC/SHA256
 + (NSData *)computeSHA256HMAC:(NSData *)dataToHMAC withHMACKey:(NSData *)HMACKey {
     uint8_t ourHmac[CC_SHA256_DIGEST_LENGTH] = {0};
     CCHmac(kCCHmacAlgSHA256, [HMACKey bytes], [HMACKey length], [dataToHMAC bytes], [dataToHMAC length], ourHmac);
     return [NSData dataWithBytes:ourHmac length:CC_SHA256_DIGEST_LENGTH];
+}
+
+#pragma mark SHA256 Digest
++ (NSData *)computeSHA256Digest:(NSData *)data
+{
+    return [self computeSHA256Digest:(NSData *)data truncatedToBytes:CC_SHA256_DIGEST_LENGTH];
+}
+
++ (NSData *)computeSHA256Digest:(NSData *)data truncatedToBytes:(NSUInteger)truncatedBytes
+{
+    uint8_t digest[CC_SHA256_DIGEST_LENGTH];
+    CC_SHA256(data.bytes, (unsigned int)data.length, digest);
+    return
+    [[NSData dataWithBytes:digest length:CC_SHA256_DIGEST_LENGTH] subdataWithRange:NSMakeRange(0, truncatedBytes)];
 }
 
 + (NSData *)computeSHA1HMAC:(NSData *)dataToHMAC withHMACKey:(NSData *)HMACKey {
@@ -296,6 +309,7 @@
 
     TSAttachmentStream *pointer =
         [[TSAttachmentStream alloc] initWithIdentifier:identifier data:attachment key:outKey contentType:contentType];
+    pointer.digest = [self computeSHA256Digest:result.body];
 
     return [[TSAttachmentEncryptionResult alloc] initWithPointer:pointer body:encryptedAttachment];
 }

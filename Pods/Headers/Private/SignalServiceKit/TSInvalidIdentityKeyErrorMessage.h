@@ -1,1 +1,1 @@
-../../../SignalServiceKit/src/Messages/InvalidKeyMessages/TSInvalidIdentityKeyErrorMessage.h
+../../../../lPods/SignalServiceKit/src/Messages/InvalidKeyMessages/TSInvalidIdentityKeyErrorMessage.h

@@ -92,7 +92,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesToolbarContentView.xib"
   install_resource "${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesTypingIndicatorFooterView.xib"
   install_resource "${PODS_ROOT}/SSKeychain/Support/en.lproj"
-  install_resource "${PODS_ROOT}/SignalServiceKit/src/Security/PinningCertificate/textsecure.cer"
+  install_resource "${PODS_ROOT}/../lPods/SignalServiceKit/src/Security/PinningCertificate/textsecure.cer"
 fi
 if [[ "$CONFIGURATION" == "App Store Release" ]]; then
   install_resource "${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Assets/JSQMessagesAssets.bundle"
@@ -103,7 +103,7 @@ if [[ "$CONFIGURATION" == "App Store Release" ]]; then
   install_resource "${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesToolbarContentView.xib"
   install_resource "${PODS_ROOT}/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesTypingIndicatorFooterView.xib"
   install_resource "${PODS_ROOT}/SSKeychain/Support/en.lproj"
-  install_resource "${PODS_ROOT}/SignalServiceKit/src/Security/PinningCertificate/textsecure.cer"
+  install_resource "${PODS_ROOT}/../lPods/SignalServiceKit/src/Security/PinningCertificate/textsecure.cer"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

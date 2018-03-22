@@ -1,1 +1,1 @@
-../../../SignalServiceKit/src/Messages/TSMessagesManager+attachments.h
+../../../../lPods/SignalServiceKit/src/Messages/TSMessagesManager+attachments.h

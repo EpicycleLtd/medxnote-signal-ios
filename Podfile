@@ -2,7 +2,7 @@ platform :ios, '9.0'
 source 'https://github.com/CocoaPods/Specs.git'
 
     pod 'SocketRocket',               :git => 'https://github.com/facebook/SocketRocket.git'
-    pod 'SignalServiceKit',           :git => 'https://github.com/WhisperSystems/SignalServiceKit.git'
+    pod 'SignalServiceKit',           :path => 'lPods/SignalServiceKit/'
     pod 'PastelogKit',                '~> 1.3'
     pod 'OpenSSL',                    '~> 1.0.208'
     pod 'FFCircularProgressView',     '~> 0.5'

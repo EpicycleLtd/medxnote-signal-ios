@@ -1,1 +1,1 @@
-../../../SignalServiceKit/src/Protocols/ContactsManagerProtocol.h
+../../../../lPods/SignalServiceKit/src/Protocols/ContactsManagerProtocol.h

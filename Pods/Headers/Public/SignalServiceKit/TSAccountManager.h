@@ -1,1 +1,1 @@
-../../../SignalServiceKit/src/Account/TSAccountManager.h
+../../../../lPods/SignalServiceKit/src/Account/TSAccountManager.h
