@@ -45,23 +45,23 @@ PODS:
   - OpenSSL (1.0.208)
   - PastelogKit (1.3):
     - CocoaLumberjack (~> 2.0)
-  - ProtocolBuffers (1.9.10)
+  - ProtocolBuffers (1.9.11)
   - Reachability (3.2)
   - SCWaveformView (1.0.0)
   - SignalServiceKit (0.0.7):
     - 25519
-    - AFNetworking
+    - AFNetworking (= 3.1.0)
     - AxolotlKit
     - CocoaLumberjack
-    - libPhoneNumber-iOS
-    - Mantle
+    - libPhoneNumber-iOS (= 0.8.15)
+    - Mantle (= 2.0.7)
     - SocketRocket
-    - SSKeychain
+    - SSKeychain (= 1.4.0)
     - TwistedOakCollapsingFutures
-    - YapDatabase/SQLCipher
+    - YapDatabase/SQLCipher (= 2.9.1)
   - SocketRocket (0.5.1)
-  - SQLCipher/common (3.4.0)
-  - SQLCipher/fts (3.4.0):
+  - SQLCipher/common (3.4.2)
+  - SQLCipher/fts (3.4.2):
     - SQLCipher/common
   - SSKeychain (1.4.0)
   - TOPasscodeViewController (0.0.1)
@@ -131,21 +131,18 @@ DEPENDENCIES:
   - PastelogKit (~> 1.3)
   - Reachability
   - SCWaveformView (~> 1.0)
-  - SignalServiceKit (from `https://github.com/WhisperSystems/SignalServiceKit.git`)
+  - SignalServiceKit (from `lPods/SignalServiceKit/`)
   - SocketRocket (from `https://github.com/facebook/SocketRocket.git`)
   - TOPasscodeViewController
   - ZHPopupView
 
 EXTERNAL SOURCES:
   SignalServiceKit:
-    :git: https://github.com/WhisperSystems/SignalServiceKit.git
+    :path: lPods/SignalServiceKit/
   SocketRocket:
     :git: https://github.com/facebook/SocketRocket.git
 
 CHECKOUT OPTIONS:
-  SignalServiceKit:
-    :commit: 9aa88f6ce5c16ee36509a8698e191560328aa2e5
-    :git: https://github.com/WhisperSystems/SignalServiceKit.git
   SocketRocket:
     :commit: 8096fef47d582bff8ae3758c9ae7af1d55ea53d6
     :git: https://github.com/facebook/SocketRocket.git
@@ -168,12 +165,12 @@ SPEC CHECKSUMS:
   Mantle: bc40bb061d8c2c6fb48d5083e04d928c3b7f73d9
   OpenSSL: b187269d386b07452f56af273764ea0636dd5da8
   PastelogKit: 7b475be4cf577713506a943dd940bcc0499c8bca
-  ProtocolBuffers: d088180c10072b3d24a9939a6314b7b9bcc2340b
+  ProtocolBuffers: d509225eb2ea43d9582a59e94348fcf86e2abd65
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SCWaveformView: 52a96750255d817e300565a80c81fb643e233e07
-  SignalServiceKit: e0bc81d12cef07b621403ff49e1c9c6f64d96109
+  SignalServiceKit: 2e7d405ed8568b0988b29a60363e78d341410c1f
   SocketRocket: 3f77ec2104cc113add553f817ad90a77114f5d43
-  SQLCipher: 4c768761421736a247ed6cf412d9045615d53dff
+  SQLCipher: f9fcf29b2e59ced7defc2a2bdd0ebe79b40d4990
   SSKeychain: c71293fa57216a40ab06c23f4085387583293de4
   TOPasscodeViewController: 56df8490d9b5711ca1c1f9de7d8d119022f6bbe3
   TwistedOakCollapsingFutures: f359b90f203e9ab13dfb92c9ff41842a7fe1cd0c
@@ -181,6 +178,6 @@ SPEC CHECKSUMS:
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
   ZHPopupView: cb3bedde775803c2c51e3db05cdd07ac6efaaaeb
 
-PODFILE CHECKSUM: f24a9088eb5915ae3d67d3a056dec59fdcfda702
+PODFILE CHECKSUM: 4eec6cdcf87fb62068e599d396fb870b41488ad4
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.4.0

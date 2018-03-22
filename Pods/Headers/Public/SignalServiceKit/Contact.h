@@ -1,1 +1,1 @@
-../../../SignalServiceKit/src/Contacts/Contact.h
+../../../../lPods/SignalServiceKit/src/Contacts/Contact.h

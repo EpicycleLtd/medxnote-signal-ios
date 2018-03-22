@@ -1,1 +1,1 @@
-../../../SignalServiceKit/src/Messages/Interactions/TSMessage.h
+../../../../lPods/SignalServiceKit/src/Messages/Interactions/TSMessage.h

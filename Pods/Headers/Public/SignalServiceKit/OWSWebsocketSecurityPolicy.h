@@ -1,1 +1,1 @@
-../../../SignalServiceKit/src/Security/OWSWebsocketSecurityPolicy.h
+../../../../lPods/SignalServiceKit/src/Security/OWSWebsocketSecurityPolicy.h

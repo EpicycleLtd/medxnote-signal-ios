@@ -1,1 +1,1 @@
-../../../SignalServiceKit/src/Security/TSFingerprintGenerator.h
+../../../../lPods/SignalServiceKit/src/Security/TSFingerprintGenerator.h

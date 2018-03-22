@@ -1,1 +1,1 @@
-../../../SignalServiceKit/src/Network/API/Requests/TSAllocAttachmentRequest.h
+../../../../lPods/SignalServiceKit/src/Network/API/Requests/TSAllocAttachmentRequest.h

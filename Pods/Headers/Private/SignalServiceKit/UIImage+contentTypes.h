@@ -1,1 +1,1 @@
-../../../SignalServiceKit/src/Util/UIImage+contentTypes.h
+../../../../lPods/SignalServiceKit/src/Util/UIImage+contentTypes.h

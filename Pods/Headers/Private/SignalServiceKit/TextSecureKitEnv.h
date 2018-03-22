@@ -1,1 +1,1 @@
-../../../SignalServiceKit/src/TextSecureKitEnv.h
+../../../../lPods/SignalServiceKit/src/TextSecureKitEnv.h
