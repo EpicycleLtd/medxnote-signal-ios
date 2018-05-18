@@ -35,12 +35,11 @@
     if (self) {
         NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
 //        HostNameEndPoint *endpoint               = Environment.getCurrent.masterServerSecureEndPoint.hostNameEndPoint;
-        NSString *rpHostname = @"redphone.medx.im";
+        NSString *rpHostname = [NSString stringWithFormat:@"redphonev2.medx.im"];
         NSURL *endPointURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@:%d", rpHostname, 443]];
         self.operationManager =
             [[AFHTTPSessionManager alloc] initWithBaseURL:endPointURL sessionConfiguration:sessionConfig];
-        // TODO: we need a different policy here since we're using a different server
-//        self.operationManager.securityPolicy = [OWSHTTPSecurityPolicy sharedPolicy];
+        self.operationManager.securityPolicy = [OWSHTTPSecurityPolicy sharedPolicy];
 
     }
     return self;

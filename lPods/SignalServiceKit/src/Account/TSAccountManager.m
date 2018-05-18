@@ -171,8 +171,9 @@
                   voipToken:voipToken
                   success:^{
                     [self registerPreKeys:^{
-                      [TSSocketManager becomeActiveFromForeground];
-                      successBlock();
+                        [self didRegister];
+                        [TSSocketManager becomeActiveFromForeground];
+                        successBlock();
                     }
                                   failure:failureBlock];
                   }
